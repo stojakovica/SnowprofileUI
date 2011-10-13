@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>at.ac.uibk.dbis-informatik</groupId>
+	<artifactId>pp_rdf</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<description>RDF Browser</description>
+	<name>rdf_browser</name>
+
+	<scm>
+		<connection>scm:svn:https://dbis-informatik.uibk.ac.at/svn/snowprofile/trunk/code</connection>
+		<developerConnection>scm:svn:https://dbis-informatik.uibk.ac.at/svn/snowprofile/trunk/code</developerConnection>
+		<url>https://dbis-informatik.uibk.ac.at/svn/snowprofile/trunk/code</url>
+	</scm>
+
+	<organization>
+		<name>Datenbanken und Informationssysteme</name>
+		<url>http://dbis-informatik.uibk.ac.at</url>
+	</organization>
+	<developers>
+		<developer>
+			<name>Aleksandar Stojakovic</name>
+			<email>aleksandar.stojakovic@student.uibk.ac.at</email>
+		</developer>
+	</developers>
+
+	<repositories>
+		<repository>
+			<id>snowprofile</id>
+			<name>snowprofile</name>
+			<url>http://dbis-qa.uibk.ac.at/nexus/content/groups/snowprofile/</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>snowprofile</id>
+			<url>http://dbis-qa.uibk.ac.at/nexus/content/groups/snowprofile/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snowprofile-snapshot</id>
+   			<url>http://dbis-qa.uibk.ac.at/nexus/content/repositories/snowprofile-snapshot</url><!-- ev. dav:/ -->
+		</snapshotRepository>
+		<repository>
+    			<id>snowprofile-release</id>
+    			<url>http://dbis-qa.uibk.ac.at/nexus/content/repositories/snowprofile-release</url>
+  		</repository>
+		<site>
+			<id>website</id>
+			<url>file:///var/www/doku/</url>
+		</site>
+	</distributionManagement>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java/</directory>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<meminitial>128m</meminitial>
+					<maxmem>512m</maxmem>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<locales>en,de</locales>
+					<inputencoding>utf-8</inputencoding>
+    					<outputencoding>utf-8</outputencoding>
+				</configuration>
+			</plugin>
+			<!-- Run the application using "mvn jetty:run" -->
+		</plugins>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-1</version>
+			</extension>
+		</extensions>
+	</build> 
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<!-- <aggregate>true</agaggregate> -->
+					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+					<docletArtifact>
+						<groupId>gr.spinellis</groupId>
+						<artifactId>UmlGraph</artifactId>
+						<version>4.4</version>
+					</docletArtifact>
+					<additionalparam>
+						-inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify
+						-postfixpackage -nodefontsize 9
+						-nodefontpackagesize 7
+					</additionalparam>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<configuration>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+					<dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>dependencies</report>
+							<report>project-team</report>
+							<report>cim</report>
+							<report>license</report>
+							<report>scm</report>
+							<report>JavaDocs</report>
+							<report>summary</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+      			<plugin>
+        			<groupId>org.apache.maven.plugins</groupId>
+        			<artifactId>maven-surefire-report-plugin</artifactId>
+      			</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jxr-plugin</artifactId>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.sonar-plugins</groupId>
+				 	<artifactId>maven-report</artifactId>
+    			</plugin>
+		</plugins>
+	</reporting>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.restlet.jse</groupId>
+			<artifactId>org.restlet</artifactId>
+		</dependency>
+		<dependency>
+		  <groupId>com.orientechnologies</groupId>
+		  <artifactId>orient-commons</artifactId>
+		  <version>1.0rc1</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>com.orientechnologies</groupId>
+		  <artifactId>orientdb-core</artifactId>
+		  <version>1.0rc1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
+			<version>${testng-version}</version>
+		</dependency>
+
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.easymock</groupId>
+				<artifactId>easymock</artifactId>
+				<version>${easymock-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>${commons-lang-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>${commons-collection-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io-version}</version>
+			</dependency>
+			<dependency>
+    				<groupId>cglib</groupId>
+    				<artifactId>cglib</artifactId>
+    				<version>${cglib-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet</artifactId>
+				<version>${restlet-version}</version>
+			</dependency>
+			<dependency>
+			  <groupId>com.orientechnologies</groupId>
+			  <artifactId>orient-commons</artifactId>
+			  <version>${orientdb-version}</version>
+			</dependency>
+
+			<dependency>
+			  <groupId>com.orientechnologies</groupId>
+			  <artifactId>orientdb-core</artifactId>
+			  <version>${orientdb-version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<properties>
+		<commons-lang-version>2.6</commons-lang-version>
+		<commons-collection-version>3.2.1</commons-collection-version>
+		<commons-io-version>2.0.1</commons-io-version>
+		<easymock-version>3.0</easymock-version>
+		<orientdb-version>1.0rc1</orientdb-version>
+		<slf4j-version>1.6.1</slf4j-version>
+		<restlet-version>2.0.7</restlet-version>
+		<testng-version>6.0.1</testng-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+</project>

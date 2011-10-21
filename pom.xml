@@ -2,10 +2,10 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>at.ac.uibk.dbis-informatik</groupId>
-	<artifactId>pp_rdf</artifactId>
+	<artifactId>snowprofile</artifactId>
 	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<description>RDF Browser</description>
+	<description>Snow Profile Web Portal</description>
 	<name>rdf_browser</name>
 
 	<scm>
@@ -158,8 +158,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
@@ -176,13 +176,11 @@
 		<dependency>
 		  <groupId>com.orientechnologies</groupId>
 		  <artifactId>orient-commons</artifactId>
-		  <version>1.0rc1</version>
 		</dependency>
 
 		<dependency>
 		  <groupId>com.orientechnologies</groupId>
 		  <artifactId>orientdb-core</artifactId>
-		  <version>1.0rc1</version>
 		</dependency>
 		
 		<dependency>
@@ -206,8 +204,8 @@
 				<version>${easymock-version}</version>
 			</dependency>
 			<dependency>
-				<groupId>commons-lang</groupId>
-				<artifactId>commons-lang</artifactId>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
 				<version>${commons-lang-version}</version>
 			</dependency>
 			<dependency>
@@ -219,11 +217,6 @@
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>${commons-io-version}</version>
-			</dependency>
-			<dependency>
-    				<groupId>cglib</groupId>
-    				<artifactId>cglib</artifactId>
-    				<version>${cglib-version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -250,14 +243,14 @@
 	</dependencyManagement>
 
 	<properties>
-		<commons-lang-version>2.6</commons-lang-version>
+		<commons-lang-version>3.0.1</commons-lang-version>
 		<commons-collection-version>3.2.1</commons-collection-version>
-		<commons-io-version>2.0.1</commons-io-version>
+		<commons-io-version>2.1</commons-io-version>
 		<easymock-version>3.0</easymock-version>
-		<orientdb-version>1.0rc1</orientdb-version>
-		<slf4j-version>1.6.1</slf4j-version>
-		<restlet-version>2.0.7</restlet-version>
-		<testng-version>6.0.1</testng-version>
+		<orientdb-version>1.0rc6</orientdb-version>
+		<slf4j-version>1.6.3</slf4j-version>
+		<restlet-version>2.0.10</restlet-version>
+		<testng-version>6.3</testng-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>

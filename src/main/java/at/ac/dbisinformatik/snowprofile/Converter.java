@@ -87,7 +87,7 @@ public class Converter {
 					handler);
 
 			FileOutputStream fos = new FileOutputStream(
-					"files/dataconverter/convertedfile.xml");
+					"files/dataconverter/converted_"+file+"_.xml");
 
 			java.util.Properties xmlProps = OutputPropertiesFactory
 					.getDefaultMethodProperties("xml");
@@ -102,10 +102,10 @@ public class Converter {
 			handler.setResult(result);
 
 			// Parse the XML input document.
-			reader.parse("files/dataconverter/test.dat");
+			reader.parse("files/dataconverter/"+file);
 
 			System.out
-					.println("************* The result is in convertedfile.xml *************");
+					.println("************* The result is in converted_"+file+"_.xml *************");
 		} else
 			System.out
 					.println("The TransformerFactory does not support SAX input and SAX output");

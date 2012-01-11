@@ -9,9 +9,12 @@
 	<name>rdf_browser</name>
 
 	<scm>
-		<connection>scm:svn:https://dbis-informatik.uibk.ac.at/svn/snowprofile/trunk/code</connection>
-		<developerConnection>scm:svn:https://dbis-informatik.uibk.ac.at/svn/snowprofile/trunk/code</developerConnection>
-		<url>https://dbis-informatik.uibk.ac.at/svn/snowprofile/trunk/code</url>
+		<connection>scm:svn:https://dbis-informatik.uibk.ac.at/svn/snowprofile/trunk/code
+		</connection>
+		<developerConnection>scm:svn:https://dbis-informatik.uibk.ac.at/svn/snowprofile/trunk/code
+		</developerConnection>
+		<url>https://dbis-informatik.uibk.ac.at/svn/snowprofile/trunk/code
+		</url>
 	</scm>
 
 	<organization>
@@ -29,26 +32,30 @@
 		<repository>
 			<id>snowprofile</id>
 			<name>snowprofile</name>
-			<url>http://dbis-qa.uibk.ac.at/nexus/content/groups/snowprofile/</url>
+			<url>http://dbis-qa.uibk.ac.at/nexus/content/groups/snowprofile/
+			</url>
 		</repository>
 	</repositories>
 
 	<pluginRepositories>
 		<pluginRepository>
 			<id>snowprofile</id>
-			<url>http://dbis-qa.uibk.ac.at/nexus/content/groups/snowprofile/</url>
+			<url>http://dbis-qa.uibk.ac.at/nexus/content/groups/snowprofile/
+			</url>
 		</pluginRepository>
 	</pluginRepositories>
 
 	<distributionManagement>
 		<snapshotRepository>
 			<id>snowprofile-snapshot</id>
-   			<url>http://dbis-qa.uibk.ac.at/nexus/content/repositories/snowprofile-snapshot</url><!-- ev. dav:/ -->
+			<url>http://dbis-qa.uibk.ac.at/nexus/content/repositories/snowprofile-snapshot
+			</url><!-- ev. dav:/ -->
 		</snapshotRepository>
 		<repository>
-    			<id>snowprofile-release</id>
-    			<url>http://dbis-qa.uibk.ac.at/nexus/content/repositories/snowprofile-release</url>
-  		</repository>
+			<id>snowprofile-release</id>
+			<url>http://dbis-qa.uibk.ac.at/nexus/content/repositories/snowprofile-release
+			</url>
+		</repository>
 		<site>
 			<id>website</id>
 			<url>file:///var/www/doku/</url>
@@ -83,7 +90,7 @@
 				<configuration>
 					<locales>en,de</locales>
 					<inputencoding>utf-8</inputencoding>
-    					<outputencoding>utf-8</outputencoding>
+					<outputencoding>utf-8</outputencoding>
 				</configuration>
 			</plugin>
 			<!-- Run the application using "mvn jetty:run" -->
@@ -95,7 +102,7 @@
 				<version>1.0-beta-1</version>
 			</extension>
 		</extensions>
-	</build> 
+	</build>
 
 	<reporting>
 		<plugins>
@@ -110,7 +117,8 @@
 						<version>4.4</version>
 					</docletArtifact>
 					<additionalparam>
-						-inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify
+						-inferrel -inferdep -quiet -hide java.*
+						-collpackages java.util.* -qualify
 						-postfixpackage -nodefontsize 9
 						-nodefontpackagesize 7
 					</additionalparam>
@@ -141,18 +149,18 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
-      			<plugin>
-        			<groupId>org.apache.maven.plugins</groupId>
-        			<artifactId>maven-surefire-report-plugin</artifactId>
-      			</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jxr-plugin</artifactId>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.sonar-plugins</groupId>
-				 	<artifactId>maven-report</artifactId>
-    			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.sonar-plugins</groupId>
+				<artifactId>maven-report</artifactId>
+			</plugin>
 		</plugins>
 	</reporting>
 
@@ -174,15 +182,15 @@
 			<artifactId>org.restlet</artifactId>
 		</dependency>
 		<dependency>
-		  <groupId>com.orientechnologies</groupId>
-		  <artifactId>orient-commons</artifactId>
+			<groupId>com.orientechnologies</groupId>
+			<artifactId>orient-commons</artifactId>
 		</dependency>
 
 		<dependency>
-		  <groupId>com.orientechnologies</groupId>
-		  <artifactId>orientdb-core</artifactId>
+			<groupId>com.orientechnologies</groupId>
+			<artifactId>orientdb-core</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
@@ -193,6 +201,11 @@
 			<artifactId>testng</artifactId>
 			<scope>test</scope>
 			<version>${testng-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
 		</dependency>
 
 	</dependencies>
@@ -229,15 +242,21 @@
 				<version>${restlet-version}</version>
 			</dependency>
 			<dependency>
-			  <groupId>com.orientechnologies</groupId>
-			  <artifactId>orient-commons</artifactId>
-			  <version>${orientdb-version}</version>
+				<groupId>com.orientechnologies</groupId>
+				<artifactId>orient-commons</artifactId>
+				<version>${orientdb-version}</version>
 			</dependency>
 
 			<dependency>
-			  <groupId>com.orientechnologies</groupId>
-			  <artifactId>orientdb-core</artifactId>
-			  <version>${orientdb-version}</version>
+				<groupId>com.orientechnologies</groupId>
+				<artifactId>orientdb-core</artifactId>
+				<version>${orientdb-version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>xalan</artifactId>
+				<version>${xalan-version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -251,7 +270,9 @@
 		<slf4j-version>1.6.3</slf4j-version>
 		<restlet-version>2.0.10</restlet-version>
 		<testng-version>6.3</testng-version>
+		<xalan-version>2.7.1</xalan-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8
+		</project.reporting.outputEncoding>
 	</properties>
 </project>

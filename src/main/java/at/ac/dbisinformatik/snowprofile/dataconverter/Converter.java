@@ -87,7 +87,7 @@ public class Converter {
 					handler);
 
 			FileOutputStream fos = new FileOutputStream(
-					"files/dataconverter/converted_"+file+"_.xml");
+					"files/dataconverter/caaml-files/converted_"+file+"_.xml");
 
 			java.util.Properties xmlProps = OutputPropertiesFactory
 					.getDefaultMethodProperties("xml");

@@ -1,4 +1,4 @@
-package at.ac.dbisinformatik.snowprofile;
+package at.ac.dbisinformatik.snowprofile.dataconverter;
 
 import java.io.IOException;
 
@@ -7,6 +7,8 @@ import javax.xml.transform.TransformerException;
 
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
+
+import at.ac.dbisinformatik.snowprofile.dataconverter.Converter;
 
 public class ConverterTest {
 

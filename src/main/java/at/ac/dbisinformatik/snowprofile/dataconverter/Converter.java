@@ -1,4 +1,4 @@
-package at.ac.dbisinformatik.snowprofile;
+package at.ac.dbisinformatik.snowprofile.dataconverter;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

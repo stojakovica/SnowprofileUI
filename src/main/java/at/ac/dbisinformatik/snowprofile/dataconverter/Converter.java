@@ -26,9 +26,14 @@ package at.ac.dbisinformatik.snowprofile.dataconverter;
  *  stylesheet, the XML input, and the transformation.
  */
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.io.OutputStream;
 import javax.xml.transform.Result;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
@@ -43,71 +48,105 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.apache.xml.serializer.Serializer;
 import org.apache.xml.serializer.SerializerFactory;
 import org.apache.xml.serializer.OutputPropertiesFactory;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 public class Converter {
 
-	public static void convert(String file) throws TransformerException,
-			TransformerConfigurationException, SAXException, IOException {
+	private static TransformerFactory tFactory;
 
-		// Instantiate a TransformerFactory.
-		TransformerFactory tFactory = TransformerFactory.newInstance();
-		// Determine whether the TransformerFactory supports The use of
-		// SAXSource
-		// and SAXResult
-		if (tFactory.getFeature(SAXSource.FEATURE)
-				&& tFactory.getFeature(SAXResult.FEATURE)) {
+	@SuppressWarnings("static-access")
+	public Converter() {
+		this.tFactory = TransformerFactory.newInstance();
+	}
+	
+	public void convert(InputStream input, OutputStream out) throws TransformerException, TransformerConfigurationException,	SAXException, IOException {
+		// Determine whether the TransformerFactory supports The use of SAXSource and SAXResult
+		if (tFactory.getFeature(SAXSource.FEATURE) && tFactory.getFeature(SAXResult.FEATURE)) {
 			// Cast the TransformerFactory.
-			SAXTransformerFactory saxTFactory = ((SAXTransformerFactory) tFactory);
 			// Create a ContentHandler to handle parsing of the stylesheet.
-			TemplatesHandler templatesHandler = saxTFactory
-					.newTemplatesHandler();
-
-			// Create an XMLReader and set its ContentHandler.
+			SAXTransformerFactory saxTFactory = ((SAXTransformerFactory) tFactory);
+			TemplatesHandler templatesHandler = saxTFactory.newTemplatesHandler();
+			
+			// Create an XMLReader and set its ContentHandler and parse the stylesheet.
 			XMLReader reader = XMLReaderFactory.createXMLReader();
 			reader.setContentHandler(templatesHandler);
-
-			// Parse the stylesheet.
-			reader.parse("files/dataconverter/converter.xsl");
-
+			reader.parse("src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/converter.xsl");
+			
 			// Get the Templates object from the ContentHandler.
-			Templates templates = templatesHandler.getTemplates();
 			// Create a ContentHandler to handle parsing of the XML source.
-			TransformerHandler handler = saxTFactory
-					.newTransformerHandler(templates);
 			// Reset the XMLReader's ContentHandler.
-			reader.setContentHandler(handler);
-
 			// Set the ContentHandler to also function as a LexicalHandler,
-			// which
-			// includes "lexical" events (e.g., comments and CDATA).
-			reader.setProperty("http://xml.org/sax/properties/lexical-handler",
-					handler);
-
-			FileOutputStream fos = new FileOutputStream(
-					"files/dataconverter/caaml-files/converted_"+file+"_.xml");
-
-			java.util.Properties xmlProps = OutputPropertiesFactory
-					.getDefaultMethodProperties("xml");
+			// which includes "lexical" events (e.g., comments and CDATA).
+			Templates templates = templatesHandler.getTemplates();
+			TransformerHandler handler = saxTFactory.newTransformerHandler(templates);
+			reader.setContentHandler(handler);
+			reader.setProperty("http://xml.org/sax/properties/lexical-handler", handler);
+			
+			java.util.Properties xmlProps = org.apache.xml.serializer.OutputPropertiesFactory.getDefaultMethodProperties("xml");
 			xmlProps.setProperty("indent", "yes");
 			xmlProps.setProperty("standalone", "no");
 			Serializer serializer = SerializerFactory.getSerializer(xmlProps);
-			serializer.setOutputStream(fos);
-
-			// Set the result handling to be a serialization to the file output
-			// stream.
+			serializer.setOutputStream(out);
+			
+			// Set the result handling to be a serialization to the file outputstream.
+			// Parse the XML input document.
 			Result result = new SAXResult(serializer.asContentHandler());
 			handler.setResult(result);
-
-			// Parse the XML input document.
-			reader.parse("files/dataconverter/"+file);
-
-			System.out
-					.println("************* The result is in converted_"+file+"_.xml *************");
+			reader.parse(new InputSource(input));
+			
+			System.out.println("Convertion finished!");
 		} else
-			System.out
-					.println("The TransformerFactory does not support SAX input and SAX output");
+			System.out.println("The TransformerFactory does not support SAX input and SAX output");
+	}
+	
+	/*
+	public String convert(String in) throws SAXException, IOException, TransformerException {
+		FileInputStream inStream = new FileInputStream(in);
+		OutputStream outStream = new OutputStream() {
+			private StringBuilder string = new StringBuilder();
+			
+			@Override
+			public void write(int b) throws IOException {
+				this.string.append((char) b);
+			}
+			
+			public String toString() {
+				return this.string.toString();
+			}
+		};
+		
+		convert(inStream, outStream);
+		inStream.close();
+		
+		return outStream.toString();
+	}
+	 */
+
+	public String convert(String in) throws SAXException, IOException, TransformerException {
+		InputStream inStream = new ByteArrayInputStream(in.getBytes("UTF-8"));
+		OutputStream outStream = new OutputStream() {
+			private StringBuilder string = new StringBuilder();
+
+			@Override
+			public void write(int b) throws IOException {
+				this.string.append((char) b);
+			}
+
+			public String toString() {
+				return this.string.toString();
+			}
+		};
+
+		convert(inStream, outStream);
+		inStream.close();
+
+		return outStream.toString();
+	}
+	
+	public void convert(File input, File output) throws TransformerException, FileNotFoundException, SAXException, IOException {
+		convert(new FileInputStream(input), new FileOutputStream(output));
 	}
 }

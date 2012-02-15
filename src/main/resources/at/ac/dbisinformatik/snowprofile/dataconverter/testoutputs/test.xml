@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS  http://caaml.avisualanche.ca/Schemas/V5.0/Profiles/SnowprofileIACS/CAAMLv5_SnowProfileIACS.xsd">
 	<metaDataProperty>
 		<MetaData>
-			<dateTimeReport>2012-01-06T10:30:44</dateTimeReport>
+			<dateTimeReport>2011-06-14T15:36:48</dateTimeReport>
 			<srcRef>
 				<Operation gml:id="SLF">
 					<name />
@@ -47,8 +47,8 @@
 			<stratProfile>
 				<Layer>
 					<depthTop uom="cm">600</depthTop>
-					<grainFormPrimary>RG</grainFormPrimary>
-					<grainFormSecondary>FC</grainFormSecondary>
+					<grainFormPrimary>DF</grainFormPrimary>
+					<grainFormSecondary>DF</grainFormSecondary>
 					<grainSize uom="mm">
 						<Components>
 							<avg>1</avg>
@@ -248,24 +248,23 @@
 				<ComprTest>
 					<failedOn>
 						<Layer>
-							<depthTop uom="cm">12</depthTop>
+							<depthTop uom="cm">15</depthTop>
 						</Layer>
 						<Results>
-							<fractureCharacter>Clean</fractureCharacter>
-							<testScore>23</testScore>
+							<fractureCharacter>Rough</fractureCharacter>
+							<testScore>22</testScore>
+						</Results>
+						<Layer>
+							<depthTop uom="cm">8</depthTop>
+						</Layer>
+						<Results>
+							<fractureCharacter>Rough</fractureCharacter>
+							<testScore>5</testScore>
 						</Results>
 					</failedOn>
 				</ComprTest>
 				<RBlockTest>
-					<failedOn>
-						<Layer>
-							<depthTop uom="cm">121</depthTop>
-						</Layer>
-						<Results>
-							<fractureCharacter>Clean</fractureCharacter>
-							<testScore>2</testScore>
-						</Results>
-					</failedOn>
+					<noFailure />
 				</RBlockTest>
 			</stbTests>
 		</SnowProfileMeasurements>

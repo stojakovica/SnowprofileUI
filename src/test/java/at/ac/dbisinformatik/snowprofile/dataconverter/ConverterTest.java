@@ -3,6 +3,7 @@ package at.ac.dbisinformatik.snowprofile.dataconverter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -46,23 +47,46 @@ public class ConverterTest {
 		assertExpectedValue(document, "//metaDataProperty/MetaData/dateTimeReport/text()", "2011-06-14T15:36:48");
 	}
 	
-	private static void assertExpectedValue(Document document, String xpathExpression, String expectedVal) throws XPathExpressionException {
+	@Test
+	public void layerHeightTest() throws SAXException, IOException, TransformerException, ParserConfigurationException, XPathExpressionException {
+		ArrayList<String> expectedVals = new ArrayList<String>();
+		expectedVals.add("600");
+		expectedVals.add("550");
+		expectedVals.add("500");
+		expectedVals.add("430");
+		expectedVals.add("410");
+		expectedVals.add("350");
+		expectedVals.add("300");
+		expectedVals.add("260");
+		Document document = convert("src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testinputs/test.dat");
+		assertNodeExists(document, "//metaDataProperty/MetaData/dateTimeReport/text()");
+		assertExpectedValueArray(document, "//snowProfileResultsOf/SnowProfileMeasurements/stratProfile/Layer/depthTop/text()", expectedVals);
+	}
+	
+	private void assertExpectedValue(Document document, String xpathExpression, String expectedVal) throws XPathExpressionException {
 		Object result = buildXpathResult(document, xpathExpression);
 		
 		NodeList nodes = (NodeList) result;
 		Assert.assertEquals(nodes.item(0).getNodeValue(), expectedVal, "The converted Value is false!");
 	}
 	
-	private static void assertNodeExists(Document document, String xpathExpression) throws XPathExpressionException {
+	private void assertExpectedValueArray(Document document, String xpathExpression, ArrayList<String> expectedVal) throws XPathExpressionException {
+		Object result = buildXpathResult(document, xpathExpression);
+		
+		NodeList nodes = (NodeList) result;
+		for (int i = 0; i < nodes.getLength(); i++) {
+	        Assert.assertEquals(nodes.item(i).getNodeValue(), expectedVal.get(i), "The converted Value is false!");
+	    }
+	}
+	
+	private void assertNodeExists(Document document, String xpathExpression) throws XPathExpressionException {
 	    Object result = buildXpathResult(document, xpathExpression);
 	    
 	    Assert.assertNotNull(result, "No value for this Node!");
 	    Assert.assertTrue(result instanceof NodeList, "Result is not a Node!");
-	    NodeList nodes = (NodeList) result;
-	    Assert.assertEquals(nodes.getLength(), 1, "There is more than one Node: " + nodes.getLength() + " Nodes");
 	}
 	
-	private static Object buildXpathResult(Document document, String xpathExpression) throws XPathExpressionException {
+	private Object buildXpathResult(Document document, String xpathExpression) throws XPathExpressionException {
 		XPathFactory factory = XPathFactory.newInstance();
 	    XPath xpath = factory.newXPath();
 	    XPathExpression expr = xpath.compile(xpathExpression);
@@ -70,7 +94,7 @@ public class ConverterTest {
 	    return expr.evaluate(document, XPathConstants.NODESET);
 	}
 	
-	private static Document convert(String path) throws SAXException, IOException, TransformerException, ParserConfigurationException {
+	private Document convert(String path) throws SAXException, IOException, TransformerException, ParserConfigurationException {
 		Converter converter = new Converter();
 		String convertedDocumentString;
 		convertedDocumentString = converter.convert(readFile(path));

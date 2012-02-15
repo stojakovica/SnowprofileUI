@@ -25,6 +25,14 @@ import org.xml.sax.SAXException;
 
 public class ConverterTest {
 	
+	/**
+	 * 
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * 
+	 * 
+	 */
 	public static String readFile(String file) throws IOException {
 		StringBuilder text = new StringBuilder();
 		String NL = System.getProperty("line.separator");
@@ -38,29 +46,6 @@ public class ConverterTest {
 		}
 		
 		return text.toString().substring(3);
-	}
-	
-	@Test
-	public void dateTest() throws SAXException, IOException, TransformerException, ParserConfigurationException, XPathExpressionException {
-		Document document = convert("src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testinputs/test.dat");
-		assertNodeExists(document, "//metaDataProperty/MetaData/dateTimeReport/text()");
-		assertExpectedValue(document, "//metaDataProperty/MetaData/dateTimeReport/text()", "2011-06-14T15:36:48");
-	}
-	
-	@Test
-	public void layerHeightTest() throws SAXException, IOException, TransformerException, ParserConfigurationException, XPathExpressionException {
-		ArrayList<String> expectedVals = new ArrayList<String>();
-		expectedVals.add("600");
-		expectedVals.add("550");
-		expectedVals.add("500");
-		expectedVals.add("430");
-		expectedVals.add("410");
-		expectedVals.add("350");
-		expectedVals.add("300");
-		expectedVals.add("260");
-		Document document = convert("src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testinputs/test.dat");
-		assertNodeExists(document, "//metaDataProperty/MetaData/dateTimeReport/text()");
-		assertExpectedValueArray(document, "//snowProfileResultsOf/SnowProfileMeasurements/stratProfile/Layer/depthTop/text()", expectedVals);
 	}
 	
 	private void assertExpectedValue(Document document, String xpathExpression, String expectedVal) throws XPathExpressionException {
@@ -106,6 +91,29 @@ public class ConverterTest {
 	    Document doc = builder.parse(documentInputSource);
 		
 		return doc;
+	}
+	
+	@Test
+	public void dateTest() throws SAXException, IOException, TransformerException, ParserConfigurationException, XPathExpressionException {
+		Document document = convert("src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testinputs/test.dat");
+		assertNodeExists(document, "//metaDataProperty/MetaData/dateTimeReport/text()");
+		assertExpectedValue(document, "//metaDataProperty/MetaData/dateTimeReport/text()", "2011-06-14T15:36:48");
+	}
+	
+	@Test
+	public void layerHeightTest() throws SAXException, IOException, TransformerException, ParserConfigurationException, XPathExpressionException {
+		ArrayList<String> expectedVals = new ArrayList<String>();
+		expectedVals.add("600");
+		expectedVals.add("550");
+		expectedVals.add("500");
+		expectedVals.add("430");
+		expectedVals.add("410");
+		expectedVals.add("350");
+		expectedVals.add("300");
+		expectedVals.add("260");
+		Document document = convert("src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testinputs/test.dat");
+		assertNodeExists(document, "//metaDataProperty/MetaData/dateTimeReport/text()");
+		assertExpectedValueArray(document, "//snowProfileResultsOf/SnowProfileMeasurements/stratProfile/Layer/depthTop/text()", expectedVals);
 	}
 	
 }

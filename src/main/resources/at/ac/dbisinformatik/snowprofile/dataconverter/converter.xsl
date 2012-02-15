@@ -5,7 +5,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
 <SnowProfile 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns="http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS"
 	xmlns:caaml="http://www.caaml.org/v5.0/Snowprofile/IACS"
 	xmlns:gml="http://www.opengis.net/gml"
 	xmlns:app="http://www.snowprofileapplication.com"
@@ -325,7 +324,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:value-of select="':'" />
 	<xsl:value-of select="$mm" />
 	<xsl:value-of select="':'" />
-	<xsl:value-of select="$ss" />
+	<xsl:choose>
+		<xsl:when test="$ss=''">00</xsl:when>
+		<xsl:otherwise><xsl:value-of select="$ss"/></xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template name="FormatBewoelkung">

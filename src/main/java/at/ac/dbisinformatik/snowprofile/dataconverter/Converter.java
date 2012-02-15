@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import javax.xml.transform.Result;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
@@ -47,7 +48,6 @@ import javax.xml.transform.sax.TransformerHandler;
 
 import org.apache.xml.serializer.Serializer;
 import org.apache.xml.serializer.SerializerFactory;
-import org.apache.xml.serializer.OutputPropertiesFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -73,8 +73,8 @@ public class Converter {
 			// Create an XMLReader and set its ContentHandler and parse the stylesheet.
 			XMLReader reader = XMLReaderFactory.createXMLReader();
 			reader.setContentHandler(templatesHandler);
-			reader.parse("src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/converter.xsl");
-			
+			reader.parse(new InputSource(getClass().getResourceAsStream("/at/ac/dbisinformatik/snowprofile/dataconverter/converter.xsl")));
+		
 			// Get the Templates object from the ContentHandler.
 			// Create a ContentHandler to handle parsing of the XML source.
 			// Reset the XMLReader's ContentHandler.
@@ -139,7 +139,7 @@ public class Converter {
 				return this.string.toString();
 			}
 		};
-
+		
 		convert(inStream, outStream);
 		inStream.close();
 

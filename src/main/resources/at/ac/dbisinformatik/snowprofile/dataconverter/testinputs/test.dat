@@ -5,7 +5,7 @@
     <Name>SPP.net</Name>
     <Version>1.0.0.45</Version>
     <ProfilVersion>2.03</ProfilVersion>
-    <Datum>06.01.2012 10:30:44</Datum>
+    <Datum>14.06.2011 15:36:48</Datum>
     <RegionType>TIR</RegionType>
   </Generator>
   <Flags>
@@ -20,9 +20,9 @@
     <Legende>Yes</Legende>
     <Kopf>Yes</Kopf>
     <Textfeld>Yes</Textfeld>
-    <colProfil>-67174400</colProfil>
-    <colHatch>-67174400</colHatch>
-    <colTemp>-83885825</colTemp>
+    <colProfil>-16842752</colProfil>
+    <colHatch>-16842752</colHatch>
+    <colTemp>-33554177</colTemp>
     <wProfil>9</wProfil>
     <wTemp>9</wTemp>
     <Hintergrund>No</Hintergrund>
@@ -72,9 +72,9 @@ nach größerer Zusatzbelastung (KT 22+KT25) bricht der Block in der lockeren un
       <D2>100</D2>
       <W1>1</W1>
       <W2>1</W2>
-      <F1>3</F1>
-      <F2>4</F2>
-      <F3>5</F3>
+      <F1>2</F1>
+      <F2>2</F2>
+      <F3>2</F3>
       <K1>2</K1>
       <K2>2</K2>
     </Schicht>
@@ -282,32 +282,21 @@ nach größerer Zusatzbelastung (KT 22+KT25) bricht der Block in der lockeren un
     </Schicht>
     <Unten>0</Unten>
   </Dichte>
-  <Faden>
-    <Schicht>
-      <H>120</H>
-      <Code>0</Code>
-    </Schicht>
-  </Faden>
-  <Rutschblocktest>
-    <Schicht>
-      <H>1210</H>
-      <RBT>2</RBT>
-      <BA>ganzer Block</BA>
-      <GS>glatt</GS>
-    </Schicht>
-  </Rutschblocktest>
+  <Faden />
+  <Rutschblocktest />
   <Kompressionstest>
     <Schicht>
-      <H>120</H>
-      <RBT>23</RBT>
+      <H>150</H>
+      <RBT>22</RBT>
       <BA>ganzer Block</BA>
-      <GS>glatt</GS>
+      <GS>1</GS>
+    </Schicht>
+    <Schicht>
+      <H>80</H>
+      <RBT>5</RBT>
+      <BA>ganzer Block</BA>
+      <GS>1</GS>
     </Schicht>
   </Kompressionstest>
-  <Schwachschichten>
-    <Schicht>
-      <H>212</H>
-      <Code>0</Code>
-    </Schicht>
-  </Schwachschichten>
+  <Schwachschichten />
 </SPP-Profil>

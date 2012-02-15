@@ -83,8 +83,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:for-each select="SPP-Profil/Schichtprofil/Schicht">
 				<Layer>
 					<depthTop uom="cm"><xsl:value-of select="H"/></depthTop>
+					<xsl:variable name="f1"><xsl:value-of select="F1"/></xsl:variable>
+					<xsl:variable name="f2"><xsl:value-of select="F2"/></xsl:variable>
+					<xsl:variable name="f3"><xsl:value-of select="F3"/></xsl:variable>
 					<grainFormPrimary>
-						<xsl:variable name="grainFormPrimary"><xsl:value-of select="F1"/></xsl:variable>
+						<xsl:variable name="grainFormPrimary"><xsl:value-of select="$f1"/></xsl:variable>
 						<xsl:choose>
 							<xsl:when test="$grainFormPrimary='0'">PPgp</xsl:when>
 							<xsl:when test="$grainFormPrimary='1'">PP</xsl:when>
@@ -98,17 +101,35 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						</xsl:choose>
 					</grainFormPrimary>
 					<grainFormSecondary>
-						<xsl:variable name="grainFormSecondary"><xsl:value-of select="F2"/></xsl:variable>
 						<xsl:choose>
-							<xsl:when test="$grainFormSecondary='0'">PPgp</xsl:when>
-							<xsl:when test="$grainFormSecondary='1'">PP</xsl:when>
-							<xsl:when test="$grainFormSecondary='2'">DF</xsl:when>
-							<xsl:when test="$grainFormSecondary='3'">RG</xsl:when>
-							<xsl:when test="$grainFormSecondary='4'">FC</xsl:when>
-							<xsl:when test="$grainFormSecondary='5'">DH</xsl:when>
-							<xsl:when test="$grainFormSecondary='6'">MF</xsl:when>
-							<xsl:when test="$grainFormSecondary='7'">SH</xsl:when>
-							<xsl:when test="$grainFormSecondary='8'">IF</xsl:when>
+							<xsl:when test="$f1 = $f2">
+								<xsl:variable name="grainFormSecondary"><xsl:value-of select="$f3"/></xsl:variable>
+								<xsl:choose>
+									<xsl:when test="$grainFormSecondary='0'">PPgp</xsl:when>
+									<xsl:when test="$grainFormSecondary='1'">PP</xsl:when>
+									<xsl:when test="$grainFormSecondary='2'">DF</xsl:when>
+									<xsl:when test="$grainFormSecondary='3'">RG</xsl:when>
+									<xsl:when test="$grainFormSecondary='4'">FC</xsl:when>
+									<xsl:when test="$grainFormSecondary='5'">DH</xsl:when>
+									<xsl:when test="$grainFormSecondary='6'">MF</xsl:when>
+									<xsl:when test="$grainFormSecondary='7'">SH</xsl:when>
+									<xsl:when test="$grainFormSecondary='8'">IF</xsl:when>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:variable name="grainFormSecondary"><xsl:value-of select="$f2"/></xsl:variable>
+								<xsl:choose>
+									<xsl:when test="$grainFormSecondary='0'">PPgp</xsl:when>
+									<xsl:when test="$grainFormSecondary='1'">PP</xsl:when>
+									<xsl:when test="$grainFormSecondary='2'">DF</xsl:when>
+									<xsl:when test="$grainFormSecondary='3'">RG</xsl:when>
+									<xsl:when test="$grainFormSecondary='4'">FC</xsl:when>
+									<xsl:when test="$grainFormSecondary='5'">DH</xsl:when>
+									<xsl:when test="$grainFormSecondary='6'">MF</xsl:when>
+									<xsl:when test="$grainFormSecondary='7'">SH</xsl:when>
+									<xsl:when test="$grainFormSecondary='8'">IF</xsl:when>
+								</xsl:choose>
+							</xsl:otherwise>
 						</xsl:choose>
 					</grainFormSecondary>
 					<grainSize uom="mm">

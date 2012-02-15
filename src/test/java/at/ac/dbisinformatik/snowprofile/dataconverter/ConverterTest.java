@@ -31,6 +31,8 @@ public class ConverterTest {
 	 * @return
 	 * @throws IOException
 	 * 
+	 * Hilfsfunktion um eine XML-Datei zu lesen und als String zu verwenden.
+	 * Ausgabe: Ein Sub-String der gelesenen Datei, da beim Lesen am Anfang störende Zeichen erzeugt werden.
 	 * 
 	 */
 	public static String readFile(String file) throws IOException {
@@ -55,7 +57,7 @@ public class ConverterTest {
 		Assert.assertEquals(nodes.item(0).getNodeValue(), expectedVal, "The converted Value is false!");
 	}
 	
-	private void assertExpectedValueArray(Document document, String xpathExpression, ArrayList<String> expectedVal) throws XPathExpressionException {
+	private void assertExpectedValue(Document document, String xpathExpression, ArrayList<String> expectedVal) throws XPathExpressionException {
 		Object result = buildXpathResult(document, xpathExpression);
 		
 		NodeList nodes = (NodeList) result;
@@ -95,7 +97,7 @@ public class ConverterTest {
 	
 	@Test
 	public void dateTest() throws SAXException, IOException, TransformerException, ParserConfigurationException, XPathExpressionException {
-		Document document = convert("src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testinputs/test.dat");
+		Document document = convert("src/test/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testinputs/test.dat");
 		assertNodeExists(document, "//metaDataProperty/MetaData/dateTimeReport/text()");
 		assertExpectedValue(document, "//metaDataProperty/MetaData/dateTimeReport/text()", "2011-06-14T15:36:48");
 	}
@@ -111,9 +113,9 @@ public class ConverterTest {
 		expectedVals.add("350");
 		expectedVals.add("300");
 		expectedVals.add("260");
-		Document document = convert("src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testinputs/test.dat");
-		assertNodeExists(document, "//metaDataProperty/MetaData/dateTimeReport/text()");
-		assertExpectedValueArray(document, "//snowProfileResultsOf/SnowProfileMeasurements/stratProfile/Layer/depthTop/text()", expectedVals);
+		Document document = convert("src/test/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testinputs/test.dat");
+		assertNodeExists(document, "//snowProfileResultsOf/SnowProfileMeasurements/stratProfile/Layer/depthTop/text()");
+		assertExpectedValue(document, "//snowProfileResultsOf/SnowProfileMeasurements/stratProfile/Layer/depthTop/text()", expectedVals);
 	}
 	
 }

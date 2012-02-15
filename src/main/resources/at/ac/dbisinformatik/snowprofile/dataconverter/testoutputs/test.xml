@@ -61,7 +61,7 @@
 				<Layer>
 					<depthTop uom="cm">550</depthTop>
 					<grainFormPrimary>DF</grainFormPrimary>
-					<grainFormSecondary>RG</grainFormSecondary>
+					<grainFormSecondary>2, 3, 3RG</grainFormSecondary>
 					<grainSize uom="mm">
 						<Components>
 							<avg>1</avg>
@@ -74,7 +74,7 @@
 				<Layer>
 					<depthTop uom="cm">500</depthTop>
 					<grainFormPrimary>RG</grainFormPrimary>
-					<grainFormSecondary>RG</grainFormSecondary>
+					<grainFormSecondary>MF</grainFormSecondary>
 					<grainSize uom="mm">
 						<Components>
 							<avg>1</avg>
@@ -87,7 +87,7 @@
 				<Layer>
 					<depthTop uom="cm">430</depthTop>
 					<grainFormPrimary>RG</grainFormPrimary>
-					<grainFormSecondary>MF</grainFormSecondary>
+					<grainFormSecondary>3, 6, 6MF</grainFormSecondary>
 					<grainSize uom="mm">
 						<Components>
 							<avg>1</avg>
@@ -113,7 +113,7 @@
 				<Layer>
 					<depthTop uom="cm">350</depthTop>
 					<grainFormPrimary>RG</grainFormPrimary>
-					<grainFormSecondary>FC</grainFormSecondary>
+					<grainFormSecondary>3, 4, 4FC</grainFormSecondary>
 					<grainSize uom="mm">
 						<Components>
 							<avg>1</avg>
@@ -126,7 +126,7 @@
 				<Layer>
 					<depthTop uom="cm">300</depthTop>
 					<grainFormPrimary>RG</grainFormPrimary>
-					<grainFormSecondary>FC</grainFormSecondary>
+					<grainFormSecondary>3, 4, 4FC</grainFormSecondary>
 					<grainSize uom="mm">
 						<Components>
 							<avg>1</avg>
@@ -139,7 +139,7 @@
 				<Layer>
 					<depthTop uom="cm">260</depthTop>
 					<grainFormPrimary>FC</grainFormPrimary>
-					<grainFormSecondary>FC</grainFormSecondary>
+					<grainFormSecondary>DH</grainFormSecondary>
 					<grainSize uom="mm">
 						<Components>
 							<avg>2</avg>

@@ -97,7 +97,7 @@ public class Converter {
 			handler.setResult(result);
 			reader.parse(new InputSource(input));
 			
-			System.out.println("Convertion finished!");
+//			System.out.println("Convertion finished!");
 		} else
 			System.out.println("The TransformerFactory does not support SAX input and SAX output");
 	}

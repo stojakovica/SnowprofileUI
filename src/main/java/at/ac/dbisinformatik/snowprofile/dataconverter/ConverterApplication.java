@@ -11,7 +11,7 @@ import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
-public class ConvertionTest {
+public class ConverterApplication {
 
 	/**
 	 * @param args

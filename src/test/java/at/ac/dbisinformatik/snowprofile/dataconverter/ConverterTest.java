@@ -1,8 +1,12 @@
 package at.ac.dbisinformatik.snowprofile.dataconverter;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,8 +31,8 @@ public class ConverterTest {
 	
 	/**
 	 * 
-	 * @param file
-	 * @return
+	 * @param Pfad der zu lesenden Datei
+	 * @return Den Inhalt der Datei als String
 	 * @throws IOException
 	 * 
 	 * Hilfsfunktion um eine XML-Datei zu lesen und als String zu verwenden.
@@ -50,6 +54,16 @@ public class ConverterTest {
 		return text.toString().substring(3);
 	}
 	
+	/**
+	 * 
+	 * @param document: die konvertierte XML-Datei im CAAML-Standart
+	 * @param xpathExpression: XML-Pfad
+	 * @param expectedVal: der erwartete Wert des Pfades
+	 * @throws XPathExpressionException
+	 * 
+	 * Vergleicht den Wert des XML-Pfades mit dem erwarteten Wert. Ist er gleich wird true, ansonsten false ausgegeben.
+	 * 
+	 */
 	private void assertExpectedValue(Document document, String xpathExpression, String expectedVal) throws XPathExpressionException {
 		Object result = buildXpathResult(document, xpathExpression);
 		
@@ -57,6 +71,16 @@ public class ConverterTest {
 		Assert.assertEquals(nodes.item(0).getNodeValue(), expectedVal, "The converted Value is false!");
 	}
 	
+	/**
+	 * 
+	 * @param document: die konvertierte XML-Datei im CAAML-Standart
+	 * @param xpathExpression: XML-Pfad (meherere Pfade, weil häufiger vorhanden)
+	 * @param expectedVal: die erwarteten Werte des Pfades (der Pfade) als ArrayList
+	 * @throws XPathExpressionException
+	 * 
+	 * Vergleicht den Wert des XML-Pfades mit dem erwarteten Wert. Ist er gleich wird true, ansonsten false ausgegeben.
+	 * 
+	 */
 	private void assertExpectedValue(Document document, String xpathExpression, ArrayList<String> expectedVal) throws XPathExpressionException {
 		Object result = buildXpathResult(document, xpathExpression);
 		
@@ -66,6 +90,14 @@ public class ConverterTest {
 	    }
 	}
 	
+	/**
+	 * 
+	 * @param document: die konvertierte XML-Datei im CAAML-Standart
+	 * @param xpathExpression: XML-Pfad
+	 * @throws XPathExpressionException
+	 * 
+	 * Prüft ob XML-Pfad überhaupt existiert.
+	 */
 	private void assertNodeExists(Document document, String xpathExpression) throws XPathExpressionException {
 	    Object result = buildXpathResult(document, xpathExpression);
 	    
@@ -73,6 +105,15 @@ public class ConverterTest {
 	    Assert.assertTrue(result instanceof NodeList, "Result is not a Node!");
 	}
 	
+	/**
+	 * 
+	 * @param document: die konvertierte XML-Datei im CAAML-Standart 
+	 * @param xpathExpression: XML-Pfad
+	 * @return Objekt
+	 * @throws XPathExpressionException
+	 * 
+	 * Hilfsfunktion zum Instanzieren eines XPath-Objekts.
+	 */
 	private Object buildXpathResult(Document document, String xpathExpression) throws XPathExpressionException {
 		XPathFactory factory = XPathFactory.newInstance();
 	    XPath xpath = factory.newXPath();
@@ -81,6 +122,17 @@ public class ConverterTest {
 	    return expr.evaluate(document, XPathConstants.NODESET);
 	}
 	
+	/**
+	 * 
+	 * @param path: Pfad der zu lesenden XML-Datei
+	 * @return das konvertierte XML-Dokument
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws TransformerException
+	 * @throws ParserConfigurationException
+	 * 
+	 * Konvertiert die XML-Datei im alten Standart in ein CAAML-Dokument und gibt es als XML-Dokument zurück.
+	 */
 	private Document convert(String path) throws SAXException, IOException, TransformerException, ParserConfigurationException {
 		Converter converter = new Converter();
 		String convertedDocumentString;

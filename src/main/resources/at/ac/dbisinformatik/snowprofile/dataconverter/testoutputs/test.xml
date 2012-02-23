@@ -1,286 +1,293 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<SnowProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:app="http://www.snowprofileapplication.com" xmlns:gml="http://www.opengis.net/gml" xmlns:caaml="http://www.caaml.org/v5.0/Snowprofile/IACS" gml:id="SLF7245" xsi:schemaLocation="http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS  http://caaml.avisualanche.ca/Schemas/V5.0/Profiles/SnowprofileIACS/CAAMLv5_SnowProfileIACS.xsd">
-<metaDataProperty>
-<MetaData>
-<dateTimeReport>2011-06-14T15:36:48</dateTimeReport>
-<srcRef>
-<Operation gml:id="SLF">
-<name/>
-<contactPerson>
-<Person gml:id="PersonID01">
-<name>Egger Reinhard</name>
-</Person>
-</contactPerson>
-</Operation>
-</srcRef>
-</MetaData>
-</metaDataProperty>
-<validTime>
-<TimeInstant>
-<timePosition>2010-02-23T00:00:00</timePosition>
-</TimeInstant>
-</validTime>
-<snowProfileResultsOf>
-<SnowProfileMeasurements dir="top down">
-<comment>KT test ergibt: 
-nach größerer Zusatzbelastung (KT 22+KT25) bricht der Block in der lockeren untersten Schicht in sich zusammen. die darüber liegenden Schichten sind gut miteinander verbunden;</comment>
-<profileDepth uom="cm">600</profileDepth>
-<skyCond>BKN</skyCond>
-<precipTI>Nil</precipTI>
-<airTempPres uom="degC">-3,2</airTempPres>
-<windSpd uom="ms-1">6.944444444444445</windSpd>
-<windDir>
-<AspectPosition>
-<position>S</position>
-</AspectPosition>
-</windDir>
-<hS>
-<Components>
-<snowHeight uom="cm">60</snowHeight>
-</Components>
-</hS>
-<stratProfile>
-<Layer>
-<depthTop uom="cm">600</depthTop>
-<grainFormPrimary>DF</grainFormPrimary>
-<grainFormSecondary>DF</grainFormSecondary>
-<grainSize uom="mm">
-<Components>
-<avg>1</avg>
-<avgMax>1</avgMax>
-</Components>
-</grainSize>
-<hardness>4F</hardness>
-<lwc uom="">D</lwc>
-</Layer>
-<Layer>
-<depthTop uom="cm">550</depthTop>
-<grainFormPrimary>DF</grainFormPrimary>
-<grainFormSecondary>RG</grainFormSecondary>
-<grainSize uom="mm">
-<Components>
-<avg>1</avg>
-<avgMax>1</avgMax>
-</Components>
-</grainSize>
-<hardness>F</hardness>
-<lwc uom="">D</lwc>
-</Layer>
-<Layer>
-<depthTop uom="cm">500</depthTop>
-<grainFormPrimary>RG</grainFormPrimary>
-<grainFormSecondary>MF</grainFormSecondary>
-<grainSize uom="mm">
-<Components>
-<avg>1</avg>
-<avgMax>2</avgMax>
-</Components>
-</grainSize>
-<hardness>1F</hardness>
-<lwc uom="">D</lwc>
-</Layer>
-<Layer>
-<depthTop uom="cm">430</depthTop>
-<grainFormPrimary>RG</grainFormPrimary>
-<grainFormSecondary>MF</grainFormSecondary>
-<grainSize uom="mm">
-<Components>
-<avg>1</avg>
-<avgMax>2</avgMax>
-</Components>
-</grainSize>
-<hardness>P</hardness>
-<lwc uom="">D</lwc>
-</Layer>
-<Layer>
-<depthTop uom="cm">410</depthTop>
-<grainFormPrimary>RG</grainFormPrimary>
-<grainFormSecondary>RG</grainFormSecondary>
-<grainSize uom="mm">
-<Components>
-<avg>1</avg>
-<avgMax>1</avgMax>
-</Components>
-</grainSize>
-<hardness>1F</hardness>
-<lwc uom="">M</lwc>
-</Layer>
-<Layer>
-<depthTop uom="cm">350</depthTop>
-<grainFormPrimary>RG</grainFormPrimary>
-<grainFormSecondary>FC</grainFormSecondary>
-<grainSize uom="mm">
-<Components>
-<avg>1</avg>
-<avgMax>1</avgMax>
-</Components>
-</grainSize>
-<hardness>4F</hardness>
-<lwc uom="">M</lwc>
-</Layer>
-<Layer>
-<depthTop uom="cm">300</depthTop>
-<grainFormPrimary>RG</grainFormPrimary>
-<grainFormSecondary>FC</grainFormSecondary>
-<grainSize uom="mm">
-<Components>
-<avg>1</avg>
-<avgMax>2</avgMax>
-</Components>
-</grainSize>
-<hardness>4F</hardness>
-<lwc uom="">D</lwc>
-</Layer>
-<Layer>
-<depthTop uom="cm">260</depthTop>
-<grainFormPrimary>FC</grainFormPrimary>
-<grainFormSecondary>DH</grainFormSecondary>
-<grainSize uom="mm">
-<Components>
-<avg>2</avg>
-<avgMax>3</avgMax>
-</Components>
-</grainSize>
-<hardness>F-4F</hardness>
-<lwc uom="">D</lwc>
-</Layer>
-</stratProfile>
-<tempProfile uomTemp="degC" uomDepth="cm">
-<Obs>
-<depth>58</depth>
-<snowTemp>25</snowTemp>
-</Obs>
-<Obs>
-<depth>50</depth>
-<snowTemp>13</snowTemp>
-</Obs>
-<Obs>
-<depth>40</depth>
-<snowTemp>0</snowTemp>
-</Obs>
-<Obs>
-<depth>30</depth>
-<snowTemp>0</snowTemp>
-</Obs>
-<Obs>
-<depth>20</depth>
-<snowTemp>0</snowTemp>
-</Obs>
-<Obs>
-<depth>10</depth>
-<snowTemp>0</snowTemp>
-</Obs>
-<Obs>
-<depth>0</depth>
-<snowTemp>0</snowTemp>
-</Obs>
-</tempProfile>
-<densityProfile uomDensity="kgm-3" uomThickness="cm" uomDepthTop="cm">
-<Layer>
-<depthTop>60</depthTop>
-<thickness>17</thickness>
-<density>1588</density>
-</Layer>
-<Layer>
-<depthTop>43</depthTop>
-<thickness>13</thickness>
-<density>2385</density>
-</Layer>
-<Layer>
-<depthTop>30</depthTop>
-<thickness>30</thickness>
-<density>867</density>
-</Layer>
-</densityProfile>
-<hardnessProfile uomDropHeight="cm" uomWeightTube="kg" uomWeightHammer="kg" uomDepthTop="cm" uomThickness="cm" uomHardness="N">
-<MetaData>
-<methodOfMeas>Ram Sonde</methodOfMeas>
-</MetaData>
-<Layer>
-<depthTop>9</depthTop>
-<thickness>9</thickness>
-<hardness>9.80665</hardness>
-</Layer>
-<Layer>
-<depthTop>9</depthTop>
-<thickness>0</thickness>
-<hardness>19.6133</hardness>
-</Layer>
-<Layer>
-<depthTop>13</depthTop>
-<thickness>4</thickness>
-<hardness>78.4532</hardness>
-</Layer>
-<Layer>
-<depthTop>17</depthTop>
-<thickness>4</thickness>
-<hardness>78.4532</hardness>
-</Layer>
-<Layer>
-<depthTop>18</depthTop>
-<thickness>1</thickness>
-<hardness>264.77955</hardness>
-</Layer>
-<Layer>
-<depthTop>22</depthTop>
-<thickness>4</thickness>
-<hardness>137.29309999999998</hardness>
-</Layer>
-<Layer>
-<depthTop>28</depthTop>
-<thickness>6</thickness>
-<hardness>98.06649999999999</hardness>
-</Layer>
-<Layer>
-<depthTop>60</depthTop>
-<thickness>32</thickness>
-<hardness>39.2266</hardness>
-</Layer>
-</hardnessProfile>
-<stbTests>
-<ComprTest>
-<failedOn>
-<Layer>
-<depthTop uom="cm">15</depthTop>
-</Layer>
-<Results>
-<fractureCharacter>Rough</fractureCharacter>
-<testScore>22</testScore>
-</Results>
-<Layer>
-<depthTop uom="cm">8</depthTop>
-</Layer>
-<Results>
-<fractureCharacter>Rough</fractureCharacter>
-<testScore>5</testScore>
-</Results>
-</failedOn>
-</ComprTest>
-<RBlockTest>
-<noFailure/>
-</RBlockTest>
-</stbTests>
-</SnowProfileMeasurements>
-</snowProfileResultsOf>
-<locRef>
-<ObsPoint gml:id="SLF7242_1">
-<name>Felbertauern Nord Ödalm - (R10) Osttiroler Tauern - Tirol</name>
-<obsPointSubType>Snowprofile Site</obsPointSubType>
-<validElevation>
-<ElevationPosition uom="m">
-<position>1550</position>
-</ElevationPosition>
-</validElevation>
-<validAspect>
-<AspectPosition>
-<position>W</position>
-</AspectPosition>
-</validAspect>
-<validSlopeAngle>
-<SlopeAnglePosition uom="deg">
-<position>5</position>
-</SlopeAnglePosition>
-</validSlopeAngle>
-</ObsPoint>
-</locRef>
+<SnowProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:app="http://www.snowprofileapplication.com" xmlns:gml="http://www.opengis.net/gml"
+	xmlns:caaml="http://www.caaml.org/v5.0/Snowprofile/IACS" gml:id="SLF7245"
+	xsi:schemaLocation="http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS  http://caaml.avisualanche.ca/Schemas/V5.0/Profiles/SnowprofileIACS/CAAMLv5_SnowProfileIACS.xsd">
+	<metaDataProperty>
+		<MetaData>
+			<dateTimeReport>2011-06-14T15:36:48</dateTimeReport>
+			<srcRef>
+				<Operation gml:id="SLF">
+					<name />
+					<contactPerson>
+						<Person gml:id="PersonID01">
+							<name>Egger Reinhard</name>
+						</Person>
+					</contactPerson>
+				</Operation>
+			</srcRef>
+		</MetaData>
+	</metaDataProperty>
+	<validTime>
+		<TimeInstant>
+			<timePosition>2010-02-23T00:00:00</timePosition>
+		</TimeInstant>
+	</validTime>
+	<snowProfileResultsOf>
+		<SnowProfileMeasurements dir="top down">
+			<comment>KT test ergibt:
+				nach größerer Zusatzbelastung (KT 22+KT25) bricht der Block in der
+				lockeren untersten Schicht in sich zusammen. die darüber liegenden
+				Schichten sind gut miteinander verbunden;</comment>
+			<profileDepth uom="cm">600</profileDepth>
+			<skyCond>BKN</skyCond>
+			<precipTI>Nil</precipTI>
+			<airTempPres uom="degC">-3,2</airTempPres>
+			<windSpd uom="ms-1">6.944444444444445</windSpd>
+			<windDir>
+				<AspectPosition>
+					<position>S</position>
+				</AspectPosition>
+			</windDir>
+			<hS>
+				<Components>
+					<snowHeight uom="cm">60</snowHeight>
+				</Components>
+			</hS>
+			<stratProfile>
+				<Layer>
+					<depthTop uom="cm">600</depthTop>
+					<grainFormPrimary>DF</grainFormPrimary>
+					<grainFormSecondary>DF</grainFormSecondary>
+					<grainSize uom="mm">
+						<Components>
+							<avg>1</avg>
+							<avgMax>1</avgMax>
+						</Components>
+					</grainSize>
+					<hardness>4F</hardness>
+					<lwc uom="">D</lwc>
+				</Layer>
+				<Layer>
+					<depthTop uom="cm">550</depthTop>
+					<grainFormPrimary>DF</grainFormPrimary>
+					<grainFormSecondary>RG</grainFormSecondary>
+					<grainSize uom="mm">
+						<Components>
+							<avg>1</avg>
+							<avgMax>1</avgMax>
+						</Components>
+					</grainSize>
+					<hardness>F</hardness>
+					<lwc uom="">D</lwc>
+				</Layer>
+				<Layer>
+					<depthTop uom="cm">500</depthTop>
+					<grainFormPrimary>RG</grainFormPrimary>
+					<grainFormSecondary>MF</grainFormSecondary>
+					<grainSize uom="mm">
+						<Components>
+							<avg>1</avg>
+							<avgMax>2</avgMax>
+						</Components>
+					</grainSize>
+					<hardness>1F</hardness>
+					<lwc uom="">D</lwc>
+				</Layer>
+				<Layer>
+					<depthTop uom="cm">430</depthTop>
+					<grainFormPrimary>RG</grainFormPrimary>
+					<grainFormSecondary>MF</grainFormSecondary>
+					<grainSize uom="mm">
+						<Components>
+							<avg>1</avg>
+							<avgMax>2</avgMax>
+						</Components>
+					</grainSize>
+					<hardness>P</hardness>
+					<lwc uom="">D</lwc>
+				</Layer>
+				<Layer>
+					<depthTop uom="cm">410</depthTop>
+					<grainFormPrimary>RG</grainFormPrimary>
+					<grainFormSecondary>RG</grainFormSecondary>
+					<grainSize uom="mm">
+						<Components>
+							<avg>1</avg>
+							<avgMax>1</avgMax>
+						</Components>
+					</grainSize>
+					<hardness>1F</hardness>
+					<lwc uom="">M</lwc>
+				</Layer>
+				<Layer>
+					<depthTop uom="cm">350</depthTop>
+					<grainFormPrimary>RG</grainFormPrimary>
+					<grainFormSecondary>FC</grainFormSecondary>
+					<grainSize uom="mm">
+						<Components>
+							<avg>1</avg>
+							<avgMax>1</avgMax>
+						</Components>
+					</grainSize>
+					<hardness>4F</hardness>
+					<lwc uom="">M</lwc>
+				</Layer>
+				<Layer>
+					<depthTop uom="cm">300</depthTop>
+					<grainFormPrimary>RG</grainFormPrimary>
+					<grainFormSecondary>FC</grainFormSecondary>
+					<grainSize uom="mm">
+						<Components>
+							<avg>1</avg>
+							<avgMax>2</avgMax>
+						</Components>
+					</grainSize>
+					<hardness>4F</hardness>
+					<lwc uom="">D</lwc>
+				</Layer>
+				<Layer>
+					<depthTop uom="cm">260</depthTop>
+					<grainFormPrimary>FC</grainFormPrimary>
+					<grainFormSecondary>DH</grainFormSecondary>
+					<grainSize uom="mm">
+						<Components>
+							<avg>2</avg>
+							<avgMax>3</avgMax>
+						</Components>
+					</grainSize>
+					<hardness>F-4F</hardness>
+					<lwc uom="">D</lwc>
+				</Layer>
+			</stratProfile>
+			<tempProfile uomTemp="degC" uomDepth="cm">
+				<Obs>
+					<depth>58</depth>
+					<snowTemp>25</snowTemp>
+				</Obs>
+				<Obs>
+					<depth>50</depth>
+					<snowTemp>13</snowTemp>
+				</Obs>
+				<Obs>
+					<depth>40</depth>
+					<snowTemp>0</snowTemp>
+				</Obs>
+				<Obs>
+					<depth>30</depth>
+					<snowTemp>0</snowTemp>
+				</Obs>
+				<Obs>
+					<depth>20</depth>
+					<snowTemp>0</snowTemp>
+				</Obs>
+				<Obs>
+					<depth>10</depth>
+					<snowTemp>0</snowTemp>
+				</Obs>
+				<Obs>
+					<depth>0</depth>
+					<snowTemp>0</snowTemp>
+				</Obs>
+			</tempProfile>
+			<densityProfile uomDensity="kgm-3" uomThickness="cm"
+				uomDepthTop="cm">
+				<Layer>
+					<depthTop>60</depthTop>
+					<thickness>17</thickness>
+					<density>1588</density>
+				</Layer>
+				<Layer>
+					<depthTop>43</depthTop>
+					<thickness>13</thickness>
+					<density>2385</density>
+				</Layer>
+				<Layer>
+					<depthTop>30</depthTop>
+					<thickness>30</thickness>
+					<density>867</density>
+				</Layer>
+			</densityProfile>
+			<hardnessProfile uomDropHeight="cm" uomWeightTube="kg"
+				uomWeightHammer="kg" uomDepthTop="cm" uomThickness="cm" uomHardness="N">
+				<MetaData>
+					<methodOfMeas>Ram Sonde</methodOfMeas>
+				</MetaData>
+				<Layer>
+					<depthTop>9</depthTop>
+					<thickness>9</thickness>
+					<hardness>9.80665</hardness>
+				</Layer>
+				<Layer>
+					<depthTop>9</depthTop>
+					<thickness>0</thickness>
+					<hardness>19.6133</hardness>
+				</Layer>
+				<Layer>
+					<depthTop>13</depthTop>
+					<thickness>4</thickness>
+					<hardness>78.4532</hardness>
+				</Layer>
+				<Layer>
+					<depthTop>17</depthTop>
+					<thickness>4</thickness>
+					<hardness>78.4532</hardness>
+				</Layer>
+				<Layer>
+					<depthTop>18</depthTop>
+					<thickness>1</thickness>
+					<hardness>264.77955</hardness>
+				</Layer>
+				<Layer>
+					<depthTop>22</depthTop>
+					<thickness>4</thickness>
+					<hardness>137.29309999999998</hardness>
+				</Layer>
+				<Layer>
+					<depthTop>28</depthTop>
+					<thickness>6</thickness>
+					<hardness>98.06649999999999</hardness>
+				</Layer>
+				<Layer>
+					<depthTop>60</depthTop>
+					<thickness>32</thickness>
+					<hardness>39.2266</hardness>
+				</Layer>
+			</hardnessProfile>
+			<stbTests>
+				<ComprTest>
+					<failedOn>
+						<Layer>
+							<depthTop uom="cm">15</depthTop>
+						</Layer>
+						<Results>
+							<fractureCharacter>Rough</fractureCharacter>
+							<testScore>22</testScore>
+						</Results>
+						<Layer>
+							<depthTop uom="cm">8</depthTop>
+						</Layer>
+						<Results>
+							<fractureCharacter>Rough</fractureCharacter>
+							<testScore>5</testScore>
+						</Results>
+					</failedOn>
+				</ComprTest>
+				<RBlockTest>
+					<noFailure />
+				</RBlockTest>
+			</stbTests>
+		</SnowProfileMeasurements>
+	</snowProfileResultsOf>
+	<locRef>
+		<ObsPoint gml:id="SLF7242_1">
+			<name>Felbertauern Nord Ödalm - (R10) Osttiroler Tauern - Tirol</name>
+			<obsPointSubType>Snowprofile Site</obsPointSubType>
+			<validElevation>
+				<ElevationPosition uom="m">
+					<position>1550</position>
+				</ElevationPosition>
+			</validElevation>
+			<validAspect>
+				<AspectPosition>
+					<position>W</position>
+				</AspectPosition>
+			</validAspect>
+			<validSlopeAngle>
+				<SlopeAnglePosition uom="deg">
+					<position>5</position>
+				</SlopeAnglePosition>
+			</validSlopeAngle>
+		</ObsPoint>
+	</locRef>
 </SnowProfile>

@@ -1,4 +1,4 @@
-package at.ac.dbisinformatik.snowprofile.server;
+package at.ac.dbisinformatik.snowprofile.web;
 
 import org.restlet.Client;
 import org.restlet.Context;

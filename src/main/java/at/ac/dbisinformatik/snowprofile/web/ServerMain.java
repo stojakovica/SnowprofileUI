@@ -1,4 +1,4 @@
-package at.ac.dbisinformatik.snowprofile.server;
+package at.ac.dbisinformatik.snowprofile.web;
 
 import org.restlet.Component;
 import org.restlet.data.Protocol;
@@ -19,7 +19,7 @@ public class ServerMain {
 	    component.getClients().add(Protocol.CLAP);
 	    
 	    // Attach the sample application.  
-	    component.getDefaultHost().attach("/lwd", new MyApplication());  
+	    component.getDefaultHost().attach("/lwd", new SnowProfileApplikation() );  
 	    //server.getContext().getParameters().add("useForwardedForHeader", "true");
 	    
 	    // Start the component.  

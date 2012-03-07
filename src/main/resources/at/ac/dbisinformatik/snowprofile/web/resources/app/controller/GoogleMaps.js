@@ -8,7 +8,7 @@ Ext.define('LWD.controller.GoogleMaps', {
 	],
 	
 	views: [
-        'googleMaps.Map',
+        'googlemaps.Map'
     ],
 
     init: function() {

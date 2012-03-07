@@ -5,14 +5,16 @@ Ext.application({
     
     controllers: [
         'Users',
-        'Messstationen',
-        'SchneeprofilEingabe'
+        'Regionen',
+        'SchneeprofilEingabe',
+        'GoogleMaps'
     ],
     
     launch: function() {
         Ext.create('Ext.Panel', {
         	id:'main-panel',
-	        baseCls:'x-plain',
+	        baseCls:'x-panel',
+	        border: false,
 	        renderTo: Ext.getBody(),
             layout: {
             	type: 'table',
@@ -20,7 +22,7 @@ Ext.application({
             },
             defaults: {
             	frame: true,
-            	width: 650,
+            	width: 674,
             	height: 400
             },
             items: [
@@ -31,15 +33,15 @@ Ext.application({
 		        },
 		        {
 		            xtype: 'userlist',
-		            title: 'Child Panel 2',
+		            title: 'Child Panel 2'
 		        },
 		        {
-		            xtype: 'messstationen',
-		            title: 'Messstationen',
+		            xtype: 'regionen',
+		            title: 'Regionen'
 		        },
 		        {
-		            xtype: 'panel',
-		            title: 'Child Panel 4',
+		            xtype: 'googlemaps',
+		            title: 'Google Maps'
 		        }
 		    ]
         });

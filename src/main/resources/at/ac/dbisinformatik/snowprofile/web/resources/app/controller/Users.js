@@ -24,6 +24,7 @@ Ext.define('LWD.controller.Users', {
     },
 
     editUser: function(grid, record) {
+    	console.log('test');
         var view = Ext.widget('useredit');
         
         view.down('form').loadRecord(record);

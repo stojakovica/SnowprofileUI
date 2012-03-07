@@ -12,6 +12,6 @@ Ext.define('LWD.controller.SchneeprofilEingabe', {
     ],
 
     init: function() {
-    	console.log('halo');
+    	console.log('Eingabe loaded!');
     }
 });

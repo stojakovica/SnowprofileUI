@@ -1,10 +1,10 @@
-Ext.define('LWD.view.messstationen.List' ,{
+Ext.define('LWD.view.regionen.List' ,{
     extend: 'Ext.grid.Panel',
-    alias : 'widget.messstationen',
+    alias : 'widget.regionen',
 	
-	store: 'Messstationen',
+	store: 'Regionen',
 	
-    title : 'Alle Messstationen',
+    title : 'Alle Regionen',
 
     initComponent: function() {
         this.columns = [

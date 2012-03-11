@@ -8,8 +8,12 @@ Ext.define('LWD.view.regionen.List' ,{
 
     initComponent: function() {
         this.columns = [
-            {header: 'Name',  dataIndex: 'name',  flex: 1},
-            {header: 'Email', dataIndex: 'email', flex: 1}
+            {header: 'Reg.',  dataIndex: 'region',  flex: 1},
+            {header: 'Profilort', dataIndex: 'profilort', flex: 1},
+            {header: 'Datum', dataIndex: 'datum', flex: 1},
+            {header: 'Seeh&ouml;he', dataIndex: 'seehoehe', flex: 1},
+            {header: 'Exp.', dataIndex: 'exposition', flex: 1},
+            {header: 'Typ', dataIndex: 'typ', flex: 1}
         ];
 
         this.callParent(arguments);

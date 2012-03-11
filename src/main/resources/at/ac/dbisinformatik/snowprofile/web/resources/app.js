@@ -33,7 +33,7 @@ Ext.application({
 		        },
 		        {
 		            xtype: 'userlist',
-		            title: 'Child Panel 2'
+		            title: 'Userliste'
 		        },
 		        {
 		            xtype: 'regionen',

@@ -20,22 +20,18 @@ Ext.define('LWD.view.googlemaps.Map', {
                 mapConfOpts: ['enableScrollWheelZoom','enableDoubleClickZoom','enableDragging'],
                 mapControls: ['GSmallMapControl','GMapTypeControl','NonExistantControl'],
                 setCenter: {
-                    geoCodeAddr: '4 Yawkey Way, Boston, MA, 02215-3409, USA',
-                    marker: {title: 'Fenway Park'}
+                    geoCodeAddr: 'Technikerstraße 15, Innsbruck, Austria',
+                    marker: {title: 'Technische Universität Innsbruck'}
                 },
                 markers: [{
-                    lat: 42.339641,
-                    lng: -71.094224,
-                    marker: {title: 'Boston Museum of Fine Arts'},
+                    lat: 47.263068,
+                    lng: 11.384271,
+                    marker: {title: 'Universität Innsbruck'},
                     listeners: {
                         click: function(e){
                             Ext.Msg.alert({title: 'Its fine', text: 'and its art.'});
                         }
                     }
-                },{
-                    lat: 42.339419,
-                    lng: -71.09077,
-                    marker: {title: 'Northeastern University'}
                 }]
             }
         ];

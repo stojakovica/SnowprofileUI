@@ -14,17 +14,17 @@ Ext.define('LWD.controller.Users', {
 
     init: function() {
         this.control({
-            'viewport > userlist': {
+            '#main-panel > userlist': {
                 itemdblclick: this.editUser
             },
             'useredit button[action=save]': {
             	click: this.updateUser
             }
         });
+        console.log('Users loaded!');
     },
 
     editUser: function(grid, record) {
-    	console.log('test');
         var view = Ext.widget('useredit');
         
         view.down('form').loadRecord(record);

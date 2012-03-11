@@ -12,6 +12,17 @@ Ext.define('LWD.controller.Regionen', {
     ],
 
     init: function() {
+        this.control({
+        	'#main-panel > regionen': {
+        		itemclick: this.test
+        	}
+        });
+        
         console.log('Regionen loaded!');
+    },
+    
+    test: function() {
+    	var gm = Ext.widget('regionen');
+    	console.log('test');
     }
 });

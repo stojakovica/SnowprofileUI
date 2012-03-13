@@ -4,10 +4,10 @@ Ext.application({
     appFolder: 'app',
     
     controllers: [
-        'Users',
         'Regionen',
         'SchneeprofilEingabe',
-        'GoogleMaps'
+        'GoogleMaps',
+        'Graph'
     ],
     
     launch: function() {
@@ -32,8 +32,8 @@ Ext.application({
 		            autoScroll: true
 		        },
 		        {
-		            xtype: 'userlist',
-		            title: 'Userliste'
+		            xtype: 'graph',
+		            title: 'Schneeprofil-Grafik'
 		        },
 		        {
 		            xtype: 'regionen',

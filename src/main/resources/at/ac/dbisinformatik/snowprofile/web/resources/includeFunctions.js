@@ -4,10 +4,10 @@ function helloWorld(){
 
 function drawGraphJSON() {
 	var json = {
-			xtype: 'draw',
-			width: 400,
-			height: 350,
-			resizable: {
+	xtype: 'draw',
+	width: 400,
+	height: 350,
+	resizable: {
 		dynamic: true,
 		pinned: true,
 		handles: 'all'

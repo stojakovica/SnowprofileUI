@@ -4,6 +4,8 @@ Ext.define('LWD.view.schneeprofil.schichtprofil.List' ,{
 	
 	store: 'schneeprofil.Schichtprofile',
 	
+	height: '100%',
+	
     initComponent: function() {
         this.columns = [
             {header: 'Von Höhe[cm]',  dataIndex: 'vonHoehe',  flex: 1},

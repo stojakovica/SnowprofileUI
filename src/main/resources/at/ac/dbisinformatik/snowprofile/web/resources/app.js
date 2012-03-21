@@ -38,11 +38,13 @@ Ext.application({
                 	    	items: [{
                                 columnWidth: 1/2,
                                 baseCls:'x-plain',
+                                autoHeight: true,
                                 items: [
                                     {
                                     	xtype: 'tabpanel',
                                     	activeTab: 0, // index or id
-                                    	height: '50%',
+                                    	height: 305,
+                                    	border: false,
                                     	items:[
                                     	    {
 	                                    		title: 'Kopf',
@@ -60,6 +62,7 @@ Ext.application({
                                     	            {
                                     	            	xtype: 'googlemaps',
                                     	            	height: '100%',
+                                    	            	border: false
                                     	            }
                                    	            ]
 	                                    	}
@@ -68,7 +71,8 @@ Ext.application({
                                     {
                                     	xtype: 'tabpanel',
                                     	activeTab: 0,
-                                    	height: '50%',
+                                    	border: false,
+                                    	autoHeight: true,
                                     	items: [
                                 	        {
                                 	        	title: 'Schichtprofil',
@@ -106,11 +110,12 @@ Ext.application({
                             },{
                                 columnWidth: 1/2,
                                 baseCls:'x-plain',
+                                autoHeight: true,
                                 items: [
                                     {
                                     	xtype: 'panel',
                                     	layout: 'fit',
-                                    	height: '100%',
+                                    	autoHeight: true,
                                     	autoScroll: true,
                                     	border: true,
                                     	html: '<img src="/lwd/static/1.0.0.0/data/img/test.gif" title="Test-Bild" style="width:100%" />'

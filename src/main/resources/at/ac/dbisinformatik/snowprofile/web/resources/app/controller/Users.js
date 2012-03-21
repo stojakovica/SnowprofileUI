@@ -14,7 +14,7 @@ Ext.define('LWD.controller.Users', {
 
     init: function() {
         this.control({
-            '#main-panel > userlist': {
+            'panel > userlist': {
                 itemdblclick: this.editUser
             },
             'useredit button[action=save]': {

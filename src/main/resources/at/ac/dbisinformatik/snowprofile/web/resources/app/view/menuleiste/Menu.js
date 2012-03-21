@@ -1,37 +1,36 @@
+Ext.require([
+    'Ext.panel.*',
+    'Ext.toolbar.*',
+    'Ext.button.*',
+    'Ext.container.ButtonGroup',
+    'Ext.layout.container.Table'
+]);
+
 Ext.define('LWD.view.menuleiste.Menu' ,{
-	extend: 'Ext.toolbar.Toolbar',
+	extend: 'Ext.Panel',
 	alias : 'widget.menu',
 	
+	tbar: [
+	    {
+	  	  text: 'Login',
+	  	  iconCls: 'add16',
+	  	  reorderable: false
+	    },
+	    {
+	  	  text: 'Bearbeiten',
+	  	  iconCls: 'add16',
+	  	  menu: [{text: 'Datei laden'},{text: 'Datei speichern'}],
+	      reorderable: false
+	    },
+	    {
+	  	  text: 'Optionen',
+	  	  iconCls: 'add16',
+	  	  menu: [{text: 'Eigenschaften'}],
+		  reorderable: false
+	    }
+	],
+	
 	initComponent: function() {
-		this.items = [
-              {
-            	  xtype:'splitbutton',
-            	  text: 'Menu Button',
-            	  iconCls: 'add16',
-            	  menu: [{text: 'Menu Item 1'}],
-            	  reorderable: false
-              },
-              {
-            	  xtype:'splitbutton',
-            	  text: 'Cut',
-            	  iconCls: 'add16',
-            	  menu: [{text: 'Cut Menu Item'}]
-              },
-              {
-            	  text: 'Copy',
-            	  iconCls: 'add16'
-              },
-              {
-            	  text: 'Paste',
-            	  iconCls: 'add16',
-            	  menu: [{text: 'Paste Menu Item'}]
-              },
-              {
-            	  text: 'Format',
-            	  iconCls: 'add16'
-              }
-		];
-		
 		this.callParent(arguments);
 	}
 });

@@ -110,12 +110,12 @@ Ext.application({
                             },{
                                 columnWidth: 1/2,
                                 baseCls:'x-plain',
-                                autoHeight: true,
+                                height: '100%',
                                 items: [
                                     {
                                     	xtype: 'panel',
                                     	layout: 'fit',
-                                    	autoHeight: true,
+                                    	height: '100%',
                                     	autoScroll: true,
                                     	border: true,
                                     	html: '<img src="/lwd/static/1.0.0.0/data/img/test.gif" title="Test-Bild" style="width:100%" />'

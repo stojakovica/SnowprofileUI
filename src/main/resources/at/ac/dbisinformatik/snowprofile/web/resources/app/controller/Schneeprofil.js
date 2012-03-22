@@ -29,7 +29,6 @@ Ext.define('LWD.controller.Schneeprofil', {
 
     edit: function(grid, record) {
         var view = Ext.widget('schichtprofiledit');
-        console.log(grid.getXTypes());
         view.down('form').loadRecord(record);
     },
     

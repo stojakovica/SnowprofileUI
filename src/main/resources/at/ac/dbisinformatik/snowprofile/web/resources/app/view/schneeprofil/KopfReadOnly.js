@@ -3,9 +3,9 @@ Ext.require([
     'Ext.data.*'
 ]);
 
-Ext.define('LWD.view.schneeprofil.kopf', {
+Ext.define('LWD.view.schneeprofil.kopfreadonly', {
 	extend: 'Ext.form.Panel',
-	alias: 'widget.kopf',
+	alias: 'widget.kopfreadonly',
 	
 	initComponent: function() {
         var date = new Date();
@@ -37,18 +37,21 @@ Ext.define('LWD.view.schneeprofil.kopf', {
                 	        	defaults: {
 	                	        	labelWidth: 130,
 	                	        	anchor:'100%',
+	                	        	disabled: disabled,
                 	        	},
                 	        	items: [
             	        	        {
             	        	        	xtype: 'textfield',
             	        	        	name : 'name',
             	        	        	fieldLabel: 'Name',
+            	        	        	value: 'Adi Keber, Stefan Köpfle'
             	        	        },
             	        	        {
             	        	        	xtype: 'datefield',
             	        	        	name : 'profildatum',
             	        	        	fieldLabel: 'Profildatum',
             	        	        	format: "d.m.Y",
+            	        	        	value: date
             	        	        },
             	        	        {
             	        	        	xtype: 'timefield',
@@ -57,6 +60,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
             	        	        	minValue: Ext.Date.parse('04:30:00 AM', 'h:i:s A'),
             	        	            maxValue: Ext.Date.parse('08:00:00 PM', 'h:i:s A'),
             	        	            format: "H:i",
+            	        	            value: date
             	        	        },
             	        	        {
             	        	        	xtype: 'combobox',
@@ -68,6 +72,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
 									    }),
 									    valueField: 'key',
 									    displayField: 'val',
+									    value: 'R1',
 									    typeAhead: true,
 									    queryMode: 'local',
 									    emptyText: 'Bitte wählen Sie...'
@@ -76,11 +81,13 @@ Ext.define('LWD.view.schneeprofil.kopf', {
             	        	        	xtype: 'textfield',
             	        	        	name : 'hoehe',
             	        	        	fieldLabel: 'H&ouml;he (in m)',
+            	        	        	value: '2180'
             	        	        },
             	        	        {
             	        	        	xtype: 'textfield',
             	        	        	name : 'profilort',
             	        	        	fieldLabel: 'Profilort',
+            	        	        	value: 'Hahnleskopf Kaisers'
             	        	        },
             	        	        {
                     	        		xtype: 'textfield',
@@ -99,6 +106,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
                     	        		labelSeparator: '',
                     	        		hideEmptyLabel: false,
                     	        		boxLabel: 'flach',
+                    	        		checked: true
                     	        	}
                 	        	]
                 	        }
@@ -115,6 +123,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
                             	defaults: {
 	                	        	labelWidth: 130,
 	                	        	anchor:'100%',
+	                	        	disabled: disabled
                 	        	},
                             	items: [
 									{
@@ -127,6 +136,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
 									    }),
 									    valueField: 'val',
 									    displayField: 'val',
+									    value: 'N',
 									    typeAhead: true,
 									    queryMode: 'local',
 									    emptyText: 'Bitte wählen Sie...'
@@ -141,6 +151,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
             	                        }),
             	                        valueField: 'key',
             	                        displayField: 'val',
+            	                        value: '20_40',
             	                        typeAhead: true,
             	                        queryMode: 'local',
             	                        emptyText: 'Bitte wählen Sie...'
@@ -155,6 +166,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
             	        	        	}),
             	        	        	valueField: 'val',
             	        	        	displayField: 'val',
+            	        	        	value: 'N',
             	        	        	typeAhead: true,
             	        	        	queryMode: 'local',
             	        	        	emptyText: 'Bitte wählen Sie...'
@@ -174,6 +186,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
             	        	        	}),
             	        	        	valueField: 'key',
             	        	        	displayField: 'val',
+            	        	        	value: 'graupel',
             	        	        	typeAhead: true,
             	        	        	queryMode: 'local',
             	        	        	emptyText: 'Bitte wählen Sie...'
@@ -188,6 +201,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
             	        	        	}),
             	        	        	valueField: 'val',
             	        	        	displayField: 'val',
+            	        	        	value: 'mittel',
             	        	        	typeAhead: true,
             	        	        	queryMode: 'local',
             	        	        	emptyText: 'Bitte wählen Sie...'
@@ -202,6 +216,7 @@ Ext.define('LWD.view.schneeprofil.kopf', {
             	        	        	}),
             	        	        	valueField: 'key',
             	        	        	displayField: 'val',
+            	        	        	value: 'starkBewoelkt',
             	        	        	typeAhead: true,
             	        	        	queryMode: 'local',
             	        	        	emptyText: 'Bitte wählen Sie...'

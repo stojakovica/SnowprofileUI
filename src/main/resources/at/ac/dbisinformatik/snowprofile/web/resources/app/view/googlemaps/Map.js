@@ -8,8 +8,7 @@ Ext.define('LWD.view.googlemaps.Map', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.googlemaps',
 	
-	title: 'Google Maps',
-	
+	border: false,
 	
 	initComponent: function() {
         this.items = [

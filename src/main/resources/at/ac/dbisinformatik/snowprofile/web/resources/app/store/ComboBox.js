@@ -33,13 +33,13 @@ var niederschlag = [
 	['keinNS', 'kein Niederschlag'],
 	['schnee', 'Schnee'],
 	['graupel', 'Graupel'],
-	['regen', 'Regen'],
+	['regen', 'Regen']
 ];
 
 var intensitaetNiederschlag = [
 	['schwach'],
 	['mittel'],
-	['stark'],
+	['stark']
 ];
 
 var bewoelkung = [
@@ -48,5 +48,20 @@ var bewoelkung = [
 	['bewoelkt', 'bewölkt (3/8 - 4-8)'],
 	['starkBewoelkt', 'stark bewölkt (5/8 - 7/8)'],
 	['bedeckt', 'bedeckt (8/8)'],
-	['nebel', 'Nebel'],
+	['nebel', 'Nebel']
+];
+
+var regionen = [
+	['R1', 'Arlberg - Außerfern'],
+	['R2', 'Westliche Nordalpen'],
+	['R3', 'Östliche Nordalpen'],
+	['R4', 'Silvretta - Samnaun'],
+	['R5', 'Nördliche Ötztaler und Stubaier Alpen'],
+	['R6', 'Tuxer Alpen'],
+	['R7', 'Kitzbüheler Alpen'],
+	['R8', 'Südliche Ötztaler und Stubaier Alpen'],
+	['R9', 'Zillertaler Alpen'],
+	['R10', 'Osttiroler Tauern'],
+	['R11', 'Zentral Osttirol'],
+	['R12', 'Osttiroler Dolomiten']
 ];

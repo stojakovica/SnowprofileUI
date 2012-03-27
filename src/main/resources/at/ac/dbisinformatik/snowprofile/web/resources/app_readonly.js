@@ -45,7 +45,7 @@ Ext.application({
                         		autoScroll: true,
                         		items: [
                     		        {
-                    		        	xtype: 'kopf',
+                    		        	xtype: 'kopfreadonly',
                     		        	border: false
                     		        }
                         		]
@@ -84,13 +84,7 @@ Ext.application({
         	        	        	    ]
             	        	        },
             	        	        {
-            	        	        	title: 'Schneetemperatur',
-        	        	        		items: [
-    	        	        		        {
-    	        	        		        	xtype: 'schneetemperaturlist',
-    	        	        		        	border: false
-    	        	        		        }
-    	        	        		    ]
+            	        	        	title: 'Schneetemperatur'
             	        	        },
             	        	        {
             	        	        	title: 'Schwachschicht'

@@ -3,12 +3,10 @@ Ext.define('LWD.controller.Schneeprofil', {
 	stores: [
 		'Schneeprofile',
 		'schneeprofil.Schichtprofile',
-		'schneeprofil.Schneetemperatur',
 	],
 	models: [
 		'Schneeprofil',
 		'schneeprofil.Schichtprofil',
-		'schneeprofil.Schneetemperatur',
 	],
 	
 	views: [
@@ -16,7 +14,6 @@ Ext.define('LWD.controller.Schneeprofil', {
         'schneeprofil.kopfreadonly',
         'schneeprofil.schichtprofil.List',
         'schneeprofil.schichtprofil.Edit',
-        'schneeprofil.schneetemperatur.List'
     ],
 
     init: function() {

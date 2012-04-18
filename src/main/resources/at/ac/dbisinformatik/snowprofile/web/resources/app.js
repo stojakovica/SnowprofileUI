@@ -72,25 +72,19 @@ Ext.application({
                 	        	xtype: 'tabpanel',
                 	        	activeTab: 0,
                 	        	border: false,
-                	        	autoScroll: true,
                 	        	items: [
             	        	        {
             	        	        	title: 'Schichtprofil',
             	        	        	items: [
         	        	        	        {
         	        	        	        	xtype: 'schichtprofillist',
+        	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }
         	        	        	    ]
             	        	        },
             	        	        {
             	        	        	title: 'Schneetemperatur',
-        	        	        		items: [
-    	        	        		        {
-    	        	        		        	xtype: 'schneetemperaturlist',
-    	        	        		        	border: false
-    	        	        		        }
-    	        	        		    ]
             	        	        },
             	        	        {
             	        	        	title: 'Schwachschicht'

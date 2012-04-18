@@ -72,7 +72,6 @@ Ext.application({
                 	        	xtype: 'tabpanel',
                 	        	activeTab: 0,
                 	        	border: false,
-                	        	autoScroll: true,
                 	        	items: [
             	        	        {
             	        	        	title: 'Schichtprofil',

@@ -1,4 +1,4 @@
-package svgcreator;
+package at.ac.dbisinformatik.snowprofile.web.svgcreator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -87,7 +87,7 @@ public class SVGCreator {
 		 Transformer transformer = tFactory.newTransformer();
 
 		  DOMSource source = new DOMSource(doc);
-		  StreamResult result = new StreamResult(new FileOutputStream(new File("/tmp/test.svg")));
+		  StreamResult result = new StreamResult(new FileOutputStream(new File("/test.svg")));
 		  transformer.transform(source, result); 
 	}
 	

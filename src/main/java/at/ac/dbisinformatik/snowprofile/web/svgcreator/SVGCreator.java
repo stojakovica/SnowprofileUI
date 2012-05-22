@@ -87,7 +87,7 @@ public class SVGCreator {
 		 Transformer transformer = tFactory.newTransformer();
 
 		  DOMSource source = new DOMSource(doc);
-		  StreamResult result = new StreamResult(new FileOutputStream(new File("/test.svg")));
+		  StreamResult result = new StreamResult(new FileOutputStream(new File("C:/vcs/snowprofile/trunk/code/src/main/resources/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/test.svg")));
 		  transformer.transform(source, result); 
 	}
 	

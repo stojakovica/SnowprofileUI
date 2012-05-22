@@ -17,6 +17,7 @@ public class ServerMain {
 	    
 	    //Define CLAP-Protokoll
 	    component.getClients().add(Protocol.CLAP);
+	    component.getClients().add(Protocol.FILE);
 	    
 	    // Attach the sample application.  
 	    component.getDefaultHost().attach("/lwd", new SnowProfileApplikation() );  

@@ -1,5 +1,5 @@
 Ext.require([ 
-    'Ext.layout.container.*', 
+    'Ext.layout.container.*'
 ]);
 
 Ext.application({
@@ -11,8 +11,7 @@ Ext.application({
         'Schneeprofil',
         'GoogleMaps',
         'Graph',
-        'Menu',
-        'Users'
+        'Menu'
     ],
     
     launch: function() {
@@ -25,7 +24,7 @@ Ext.application({
         	    region: 'north',
         	    items: [
     	            {
-    	            	xtype: 'menu',
+    	            	xtype: 'menuleiste',
     	            	border: false
     	            }
         	    ]
@@ -67,6 +66,7 @@ Ext.application({
     	            	xtype: 'panel',
     	            	layout: 'fit',
     	            	height: 319,
+    	            	border: false,
                     	items: [
                 	        {
                 	        	xtype: 'tabpanel',
@@ -75,6 +75,7 @@ Ext.application({
                 	        	items: [
             	        	        {
             	        	        	title: 'Schichtprofil',
+            	        	        	border: false,
             	        	        	items: [
         	        	        	        {
         	        	        	        	xtype: 'schichtprofillist',
@@ -84,7 +85,7 @@ Ext.application({
         	        	        	    ]
             	        	        },
             	        	        {
-            	        	        	title: 'Schneetemperatur',
+            	        	        	title: 'Schneetemperatur'
             	        	        },
             	        	        {
             	        	        	title: 'Schwachschicht'
@@ -103,7 +104,7 @@ Ext.application({
             	        	        },
             	        	        {
             	        	        	title: 'F&auml;den'
-            	        	        },
+            	        	        }
                 	        	]
                 	        }
                     	]
@@ -113,13 +114,11 @@ Ext.application({
         	    region:'center',
         	    items: [
     	            {
-    	            	xtype: 'panel',
+    	            	xtype: 'graph',
                     	layout: 'fit',
-                    	height: '100%',
+                    	height: "100%",
                     	autoScroll: true,
-                    	border: false,
-                    	html: '<img src="/lwd/static/1.0.0.0/data/img/test.gif" title="Test-Bild" style="width:100%" />'
-    	            	//xtype: 'graph'
+                    	border: false
     	            }
         	    ]
         	}]

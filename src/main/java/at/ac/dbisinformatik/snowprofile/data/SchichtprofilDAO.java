@@ -1,6 +1,6 @@
 package at.ac.dbisinformatik.snowprofile.data;
 
-public class UserDAO {
+public class SchichtprofilDAO {
 
 	public int getId() {
 		return 1;

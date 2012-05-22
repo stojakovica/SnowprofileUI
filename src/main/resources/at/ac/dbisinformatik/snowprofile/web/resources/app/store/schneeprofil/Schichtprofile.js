@@ -1,62 +1,42 @@
 Ext.define('LWD.store.schneeprofil.Schichtprofile', {
 	extend: 'Ext.data.Store',
+	autoDestroy: true,
+	autoLoad: true,
+    autoSync: true,
 	model: 'LWD.model.schneeprofil.Schichtprofil',
+	proxy: {
+        type: 'rest',
+        url: '/lwd/snowprofile',
+        reader: {
+            type: 'json',
+            root: 'data'
+        },
+        writer: {
+            type: 'json'
+        }
+    },
+    listeners: {
+        write: function(store, operation){
+            var record = operation.getRecords()[0],
+                name = Ext.String.capitalize(operation.action),
+                verb;
+            //console.log(Ext.encode(Ext.pluck(store.data.items, 'data')));
+        }
+    },
+    /*
 	data: [
 		{
-			vonHoehe: '95,0', 
-			bisHoehe: '92,0', 
+			vonHoehe: 95.0, 
+			bisHoehe: 92.0, 
 			kornform: '3-3-3', 
 			groesse: '0,5-0,5', 
 			haerte: '3-4', 
 			feuchte: '1', 
 		},
-		{
-			vonHoehe: '92,0', 
-			bisHoehe: '80,0', 
-			kornform: '2-2-2', 
-			groesse: '1,0-1,0', 
-			haerte: '3-4', 
-			feuchte: '1', 
-		},
-		{
-			vonHoehe: '80,0', 
-			bisHoehe: '77,0', 
-			kornform: '6-6-6', 
-			groesse: '1,0-2,0', 
-			haerte: '4-5', 
-			feuchte: '1', 
-		},
-		{
-			vonHoehe: '77,0', 
-			bisHoehe: '27,0', 
-			kornform: '4-4-4', 
-			groesse: '1,0-1,0', 
-			haerte: '2-2', 
-			feuchte: '1', 
-		},
-		{
-			vonHoehe: '27,0', 
-			bisHoehe: '25,0', 
-			kornform: '4-4-4', 
-			groesse: '1,5-1,5', 
-			haerte: '1-1', 
-			feuchte: '1', 
-		},
-		{
-			vonHoehe: '25,0', 
-			bisHoehe: '2,0', 
-			kornform: '6-4-4', 
-			groesse: '2,0-2,0', 
-			haerte: '2-2', 
-			feuchte: '1', 
-		},
-		{
-			vonHoehe: '2,0', 
-			bisHoehe: '0,0', 
-			kornform: '6-6-6', 
-			groesse: '2,0-2,0', 
-			haerte: '2-3', 
-			feuchte: '2', 
-		},
-	]
+	],
+	*/	
+    sorters: [{
+        property: 'vonHoehe',
+        direction:'DESC'
+    }]
 });

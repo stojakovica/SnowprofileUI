@@ -8,7 +8,7 @@ Ext.require([
 
 Ext.define('LWD.view.menuleiste.Menu' ,{
 	extend: 'Ext.Panel',
-	alias : 'widget.menu',
+	alias : 'widget.menuleiste',
 	
 	tbar: [
 	    {

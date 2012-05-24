@@ -1,15 +1,15 @@
-Ext.define('LWD.store.schneeprofil.Schichtprofile', {
+Ext.define('LWD.store.schneeprofil.Kopf', {
 	extend: 'Ext.data.Store',
 	autoDestroy: true,
 	autoLoad: true,
     autoSync: true,
-	model: 'LWD.model.schneeprofil.Schichtprofil',
+	model: 'LWD.model.schneeprofil.Kopf',
 	proxy: {
         type: 'rest',
         url: '/lwd/snowprofile',
         reader: {
             type: 'json',
-            root: 'schichtprofile'
+            root: 'kopf'
         },
         writer: {
             type: 'json'
@@ -21,9 +21,5 @@ Ext.define('LWD.store.schneeprofil.Schichtprofile', {
                 name = Ext.String.capitalize(operation.action),
                 verb;
         }
-    },
-    sorters: [{
-        property: 'vonHoehe',
-        direction:'DESC'
-    }]
+    }
 });

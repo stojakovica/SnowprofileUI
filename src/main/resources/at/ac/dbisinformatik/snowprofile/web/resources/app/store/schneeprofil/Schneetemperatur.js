@@ -1,23 +1,29 @@
 Ext.define('LWD.store.schneeprofil.Schneetemperatur', {
 	extend: 'Ext.data.Store',
-	model: 'LWD.model.schneeprofil.Schneetemperatur',
-	
-	// destroy the store if the grid is destroyed
-    autoDestroy: true,
-    model: 'Plant',
+	autoDestroy: true,
+	autoLoad: true,
+    autoSync: true,
+    model: 'LWD.model.schneeprofil.Schneetemperatur',
     proxy: {
-        type: 'ajax',
-        // load remote data using HTTP
-        url: 'plants.xml',
-        // specify a XmlReader (coincides with the XML format of the returned data)
+        type: 'rest',
+        url: '/lwd/snowprofile',
         reader: {
-            type: 'xml',
-            // records will have a 'plant' tag
-            record: 'plant'
+            type: 'json',
+            root: 'schneetemperatur'
+        },
+        writer: {
+            type: 'json'
+        }
+    },
+    listeners: {
+        write: function(store, operation){
+            var record = operation.getRecords()[0],
+                name = Ext.String.capitalize(operation.action),
+                verb;
         }
     },
     sorters: [{
-        property: 'common',
-        direction:'ASC'
+        property: 'hoehe_schneetemperatur',
+        direction:'DESC'
     }]
 });

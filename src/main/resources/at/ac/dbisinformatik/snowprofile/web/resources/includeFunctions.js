@@ -44,7 +44,7 @@ function drawGraph() {
 	return {
 		xtype: 'draw',
 		width: "100%",
-		height: "98%",
+		height: "100%",
 		renderTo: document.body,
 		items: [
 			drawRectangle("70%", "99%", "15%", "1%", 1),
@@ -65,7 +65,7 @@ function drawGraph() {
 	        drawText("o kantig", "56%", "2.3%", 0),
 	        drawText("- Eislamelle", "56%", "4.7%", 0),
 	        drawText("o Graupel", "70%", "2.3%", 0),
-	        drawText("Feuchte", "72%", "12.5%", 270),
+	        drawText("Feuchte", "69.5%", "11%", 270),
 	        drawText("Kristalle", "62.5%", "7.5%", 0),
 	        drawText("Form", "60%", "14%", 0),
 	        drawText("Durchm.", "65.5%", "14%", 0)

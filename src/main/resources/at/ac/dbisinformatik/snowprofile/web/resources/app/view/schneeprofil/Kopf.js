@@ -7,7 +7,11 @@ Ext.define('LWD.view.schneeprofil.kopf', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.kopf',
 	
+	store: 'schneeprofil.Kopf',
+	
 	initComponent: function() {
+		var store = Ext.data.StoreManager.lookup('schneeprofil.Kopf'); 
+		store.on('load', this.refresh, this);
         var date = new Date();
         
         var edit = false;
@@ -60,8 +64,8 @@ Ext.define('LWD.view.schneeprofil.kopf', {
             	        	        },
             	        	        {
             	        	        	xtype: 'combobox',
-									    fieldLabel: 'Exposition',
-									    name: 'exposition',
+									    fieldLabel: 'Region',
+									    name: 'region',
 									    store: Ext.create('Ext.data.ArrayStore', {
 									        fields: ['key', 'val'],
 									        data : regionen 
@@ -219,7 +223,13 @@ Ext.define('LWD.view.schneeprofil.kopf', {
                 ]
             }
         ];
-
+        
         this.callParent(arguments);
+    },
+
+	refresh: function(store) {
+    	var view = Ext.widget('kopf');
+    	console.log(view);
+    	view.down('form').loadRecord(Ext.pluck(store.data.items, 'data'));
     }
 });

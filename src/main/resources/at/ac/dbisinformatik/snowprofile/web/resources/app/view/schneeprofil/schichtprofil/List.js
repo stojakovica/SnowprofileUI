@@ -16,26 +16,16 @@ Ext.define('LWD.view.schneeprofil.schichtprofil.List' ,{
     dockedItems: [{
         xtype: 'toolbar',
         items: [{
-            text: 'Neues Schneeprofil',
+            text: 'Neues Schichtprofil',
             iconCls: 'icon-add',
             handler: function(){
-        		/*
-	        	var r = Ext.create('LWD.model.schneeprofil.Schichtprofil', {
-	        		vonHoehe: 0.0, 
-	    			bisHoehe: 0.0, 
-	    			kornform: '1-1-1', 
-	    			groesse: '0,5-0,5', 
-	    			haerte: '1', 
-	    			feuchte: '1'
-	            });
-	            */
-        		//Ext.data.StoreManager.lookup('schneeprofil.Schichtprofile').insert(0, r);
-        		Ext.data.StoreManager.lookup('schneeprofil.Schichtprofile').insert(0, new LWD.model.schneeprofil.Schichtprofil());
+        		var store = Ext.data.StoreManager.lookup('schneeprofil.Schichtprofile');
+        		store.insert(store.getCount(), new LWD.model.schneeprofil.Schichtprofil());
                 rowEditing.startEdit(0, 0);
             }
         }, '-', {
             itemId: 'delete',
-            text: 'Delete',
+            text: 'Löschen',
             iconCls: 'icon-delete',
             disabled: true,
             handler: function(){
@@ -147,18 +137,8 @@ Ext.define('LWD.view.schneeprofil.schichtprofil.List' ,{
 			}
         ];
         
-        /*
-        this.columns = [
-          	{id: 'vonHoehe', header: 'Von Höhe[cm]',  dataIndex: 'vonHoehe',  flex: 1},
-            {header: 'Bis Höhe[cm]', dataIndex: 'bisHoehe', flex: 1},
-            {header: 'Kornform[F]', dataIndex: 'kornform', flex: 1},
-            {header: 'Grösse[D][mm]', dataIndex: 'groesse', flex: 1},
-            {header: 'Härte[K]', dataIndex: 'haerte', flex: 1},
-            {header: 'Feuchte', dataIndex: 'feuchte', flex: 1}
-        ];
-        */
         this.getSelectionModel().on('selectionchange', function(selModel, selections){
-            //this.down('#delete').setDisabled(selections.length === 0);
+        	//this.down('#delete').setDisabled(selections.length === 0);
         });
         this.callParent(arguments);
     }

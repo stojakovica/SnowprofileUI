@@ -10,7 +10,6 @@ Ext.application({
     controllers: [
         'Schneeprofil',
         'GoogleMaps',
-        'Graph',
         'Menu'
     ],
     
@@ -85,7 +84,15 @@ Ext.application({
         	        	        	    ]
             	        	        },
             	        	        {
-            	        	        	title: 'Schneetemperatur'
+            	        	        	title: 'Schneetemperatur',
+        	        	        		border: false,
+            	        	        	items: [
+        	        	        	        {
+        	        	        	        	xtype: 'schneetemperaturlist',
+        	        	        	        	autoScroll: true,
+        	        	        	        	border: false
+        	        	        	        }
+        	        	        	    ]
             	        	        },
             	        	        {
             	        	        	title: 'Schwachschicht'

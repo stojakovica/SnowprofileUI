@@ -8,7 +8,7 @@ Ext.application({
     appFolder: 'app',
     
     controllers: [
-        'Schneeprofil',
+        'Snowprofile',
         'GoogleMaps',
         'Menu'
     ],
@@ -77,7 +77,7 @@ Ext.application({
             	        	        	border: false,
             	        	        	items: [
         	        	        	        {
-        	        	        	        	xtype: 'schichtprofillist',
+        	        	        	        	xtype: 'schichtprofil',
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }
@@ -88,7 +88,7 @@ Ext.application({
         	        	        		border: false,
             	        	        	items: [
         	        	        	        {
-        	        	        	        	xtype: 'schneetemperaturlist',
+        	        	        	        	xtype: 'schneetemperatur',
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }

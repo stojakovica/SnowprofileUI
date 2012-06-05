@@ -6,10 +6,10 @@ Ext.define('LWD.view.graph.Graph', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.graph',
 	
-	store: 'schneeprofil.Schichtprofile',
+	store: 'Snowprofile',
 	
 	initComponent: function() {
-		var store = Ext.data.StoreManager.lookup('schneeprofil.Schichtprofile');
+		var store = Ext.data.StoreManager.lookup('Snowprofile');
 		
 		store.on('load', this.refresh, this);
 		store.on('update', this.refresh, this);
@@ -20,7 +20,14 @@ Ext.define('LWD.view.graph.Graph', {
     },
     
     refresh: function(store) {
+    	//var snowprofileData = store.data.items[0].raw;
+    	//console.log(Ext.encode(store.proxy.reader.jsonData));
+    	var snowprofileData = store.proxy.reader.jsonData;
+    	console.log(snowprofileData);
+    	// LÖSCHEN UM GRAFIK NEU ZU ZEICHNEN
     	surface.removeAll();
+    	
+    	// GRUNDGERÜST ZEICHNEN
     	surface.add([
 			drawRectangle("70%", "99%", "15%", "1%", 1),
 			drawRectangle("70%", "5%", "15%", "1%", 1),
@@ -43,10 +50,12 @@ Ext.define('LWD.view.graph.Graph', {
 			drawText("Feuchte", "70%", "11%", 270),
 			drawText("Kristalle", "62.5%", "7.5%", 0),
 			drawText("Form", "60%", "14%", 0),
-			drawText("Durchm.", "65.5%", "14%", 0)       
+			drawText("Durchm.", "65.5%", "14%", 0),    
+			drawText("Rutschblock", "77%", "14%", 0)       
     	]);
-    	var schichtprofilData = Ext.pluck(store.data.items, 'data');
-    	console.log(schichtprofilData);
+    	
+    	// ZEICHNEN DES SCHICHTPROFILS
+    	var schichtprofilData = snowprofileData.schichtprofile;
     	var width = 0;
 
     	// Höhenkontrollen
@@ -90,6 +99,7 @@ Ext.define('LWD.view.graph.Graph', {
     		
     		x = 55 - width;
     		
+    		// Schicht
     		surface.add({
     	    	type: "rect",
     	    	width: width+"%",
@@ -102,11 +112,147 @@ Ext.define('LWD.view.graph.Graph', {
     	    	group: 'rectangles',
     	    	opacity: 0.2
     	    });
+    		
+    		// Details Rechteck für Form, Durchmesser und Feuchte
+    		surface.add({
+    			type: "rect",
+    			width: "12%",
+    			height: height+"%",
+    			x: "58%",
+    			y: y+"%",
+    			"stroke-width": 1,
+    			stroke:"#000",
+    			fill:"#FFF",
+    			group: 'rectangles',
+    			opacity: 0.2
+    		});
+    		
+    		// Text zu Form
+    		var text = "";
+    		if(Ext.isArray(schichtprofilData[i-1].kornform)) {
+    			var kornform = schichtprofilData[i-1].kornform[0];
+    		}
+    		else {
+    			var kornform = schichtprofilData[i-1].kornform;
+    		}
+    		switch (kornform) { 
+	            case '1-1-1': text = "+ + +"; y = (y+(y+height))/2; break;
+	            case '2-2-2': text = "/ / /"; y = (y+(y+height))/2; break;  
+	            case '3-3-3': text = "o o o"; y = (y+(y+height))/2; break;  
+	            case '4-4-4': text = "[] [] []"; y = (y+(y+height))/2; break;  
+	            case '6-4-4': text = "o [] []"; y = (y+(y+height))/2; break;  
+	            case '6-6-6': text = "* * *"; y = (y+(y+height))/2; break;  
+			}
+    		
+    		x = "60%";
+    		
+    		surface.add({
+    			type: 'text',
+    			text: text,
+    			fill: '#000',
+    			font: '8px Arial',
+    			x: x,
+    			y: y+"%",
+    			group: 'text'
+    		});
+    		
+    		// Text zu Durchmesser
+    		if(Ext.isArray(schichtprofilData[i-1].groesse)) {
+    			var groesse = schichtprofilData[i-1].groesse[0];
+    		}
+    		else {
+    			var groesse = schichtprofilData[i-1].groesse;
+    		}
+    		
+    		x = "65.5%";
+    		
+    		surface.add({
+    			type: 'text',
+    			text: groesse,
+    			fill: '#000',
+    			font: '8px Arial',
+    			x: x,
+    			y: y+"%",
+    			group: 'text'
+    		});
+    		
+    		// Feuchte
+    		if(Ext.isArray(schichtprofilData[i-1].feuchte)) {
+    			var feuchte = schichtprofilData[i-1].feuchte[0];
+    		}
+    		else {
+    			var feuchte = schichtprofilData[i-1].feuchte;
+    		}
+    		
+    		x = "71.25%";
+    		
+    		switch (feuchte) { 
+	            case '1': text = "-"; break;
+	            case '2': text = "|"; break;
+	            case '3': text = "||"; x = "71%"; break;
+	            case '4': text = "|||"; x = "70.8%"; break;
+	            case '5': text = "||||"; x = "70.6%"; break;
+			}
+    		
+    		
+    		surface.add({
+    			type: 'text',
+    			text: text,
+    			fill: '#000',
+    			font: '8px Arial',
+    			x: x,
+    			y: y+"%",
+    			group: 'text'
+    		});
+    	}
+    	
+    	// ZEICHNEN DER SCHNEETEMPERATUR
+    	var schneetemperaturData = snowprofileData.schneetemperatur;
+    	surface.add({
+    		type: "path",
+            path: "M -0 -0 L 100 100",
+            "stroke-width":"1",
+            stroke:"#F00",
+            fill:"#fff",
+            group: 'paths'
+	    });
+    	
+    	// ZEICHNEN DES MASSSTABS
+    	for(var j=0; j < 85; j=j+5) {
+    		var y = 100 - j;
+    		
+    		// links
+    		surface.add({
+    			type: "rect",
+    			width: "0.5%",
+    			height: "0.5",
+    			x: "15%",
+    			y: y+"%",
+    			"stroke-width": "0.25",
+    			stroke:"#000",
+    			fill:"#000",
+    			group: 'rectangles',
+    		});
+    		
+    		// rechts
+    		surface.add({
+    			type: "rect",
+    			width: "0.5%",
+    			height: "0.5",
+    			x: "55%",
+    			y: y+"%",
+    			"stroke-width": "0.25",
+    			stroke:"#000",
+    			fill:"#000",
+    			group: 'rectangles',
+    		});
     	}
     	
     	text = surface.getGroup('text');
     	rectangles = surface.getGroup('rectangles');
+    	paths = surface.getGroup('paths');
     	text.show(true);
     	rectangles.show(true);
+    	paths.show(true);
     }
 });

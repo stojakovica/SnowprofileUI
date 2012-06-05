@@ -3,15 +3,15 @@ Ext.require([
     'Ext.data.*'
 ]);
 
-Ext.define('LWD.view.schneeprofil.kopf', {
+Ext.define('LWD.view.snowprofile.kopf', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.kopf',
 	
-	store: 'schneeprofil.Kopf',
+	store: 'Snowprofile',
 	
 	initComponent: function() {
-		var store = Ext.data.StoreManager.lookup('schneeprofil.Kopf'); 
-		store.on('load', this.refresh, this);
+		//var store = Ext.data.StoreManager.lookup('Snowprofile'); 
+		//store.on('load', this.refresh, this);
         var date = new Date();
         
         var edit = false;
@@ -229,7 +229,6 @@ Ext.define('LWD.view.schneeprofil.kopf', {
 
 	refresh: function(store) {
     	var view = Ext.widget('kopf');
-    	console.log(view);
     	view.down('form').loadRecord(Ext.pluck(store.data.items, 'data'));
     }
 });

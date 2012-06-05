@@ -1,10 +1,10 @@
 var rowEditing = Ext.create('Ext.grid.plugin.RowEditing');
 
-Ext.define('LWD.view.schneeprofil.schneetemperatur.List' ,{
+Ext.define('LWD.view.snowprofile.schneetemperatur' ,{
     extend: 'Ext.grid.Panel',
-    alias : 'widget.schneetemperaturlist',
+    alias : 'widget.schneetemperatur',
 	
-	store: 'schneeprofil.Schneetemperatur',
+	store: 'Snowprofile',
 	
 	height: 400,
 	

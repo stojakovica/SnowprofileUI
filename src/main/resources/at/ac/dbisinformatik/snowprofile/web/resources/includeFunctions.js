@@ -45,7 +45,8 @@ function drawGraph() {
 		xtype: 'draw',
 		width: "100%",
 		height: "100%",
-		renderTo: document.body,
+		renderTo: document.body
+		/*
 		items: [
 			drawRectangle("70%", "99%", "15%", "1%", 1),
 	        drawRectangle("70%", "5%", "15%", "1%", 1),
@@ -70,5 +71,6 @@ function drawGraph() {
 	        drawText("Form", "60%", "14%", 0),
 	        drawText("Durchm.", "65.5%", "14%", 0)
         ]
+        */
 	}
 }

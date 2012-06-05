@@ -1,8 +1,13 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.XML;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.Put;
@@ -12,6 +17,21 @@ public class ListSnowProfileResource extends ServerResource {
 
 	public ListSnowProfileResource() {
 		setNegotiated(true);
+	}
+	
+	public static String readFile(String file) throws IOException {
+		StringBuilder text = new StringBuilder();
+		String NL = System.getProperty("line.separator");
+		Scanner scanner = new Scanner(new FileInputStream(file));
+		try {
+			while (scanner.hasNextLine()) {
+				text.append(scanner.nextLine() + NL);
+			}
+		} finally {
+			scanner.close();
+		}
+		
+		return text.toString();
 	}
 	
 	private JSONObject generateKopf() throws JSONException {
@@ -132,17 +152,31 @@ public class ListSnowProfileResource extends ServerResource {
 	}
 
 	@Get()
-	public String getJson() throws JSONException {
+	public String getJson() throws JSONException, IOException {
+		String file = readFile("C:/Snowprofile_IACS.xml");
+		JSONObject snowprofile = XML.toJSONObject(file);
+		
+		/*
 		JSONObject kopf = generateKopf();
 		JSONArray schichtprofil = generateSchichtprofil();
 		JSONArray schneetemperatur = generateSchneetemperatur();
 		
 		JSONObject returnObject = new JSONObject();
-		returnObject.put("kopf", kopf);
+		//returnObject.put("kopf", kopf);
 		returnObject.put("schichtprofile", schichtprofil);
 		returnObject.put("schneetemperatur", schneetemperatur);
 		
-		return returnObject.toString();
+		JSONObject tempObject = new JSONObject();
+		tempObject.put("schneeprofil", returnObject);
+		
+		return tempObject.toString();
+		*/
+		String returnProfile = snowprofile.toString();
+		returnProfile.replace("caaml:", "caaml_");
+		returnProfile.replace("gml:", "gml_");
+		returnProfile.replace("xmlns:", "xmlns_");
+		returnProfile.replace("xsi:", "xsi_");
+		return returnProfile;
 	}
 
 	@Put

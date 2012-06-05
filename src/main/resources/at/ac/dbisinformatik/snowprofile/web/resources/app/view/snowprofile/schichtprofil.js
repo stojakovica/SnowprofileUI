@@ -1,10 +1,10 @@
 var rowEditing = Ext.create('Ext.grid.plugin.RowEditing');
 
-Ext.define('LWD.view.schneeprofil.schichtprofil.List' ,{
+Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     extend: 'Ext.grid.Panel',
-    alias : 'widget.schichtprofillist',
+    alias : 'widget.schichtprofil',
 	
-	store: 'schneeprofil.Schichtprofile',
+	store: 'Snowprofile',
 	
 	height: 400,
 	
@@ -19,7 +19,7 @@ Ext.define('LWD.view.schneeprofil.schichtprofil.List' ,{
             text: 'Neues Schichtprofil',
             iconCls: 'icon-add',
             handler: function(){
-        		var store = Ext.data.StoreManager.lookup('schneeprofil.Schichtprofile');
+        		var store = Ext.data.StoreManager.lookup('Snowprofile');
         		store.insert(store.getCount(), new LWD.model.schneeprofil.Schichtprofil());
                 rowEditing.startEdit(0, 0);
             }

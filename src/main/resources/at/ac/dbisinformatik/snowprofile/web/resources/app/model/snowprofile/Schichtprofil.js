@@ -1,4 +1,4 @@
-Ext.define('LWD.model.schneeprofil.Schichtprofil', {
+Ext.define('LWD.model.snowprofile.Schichtprofil', {
 	extend: 'Ext.data.Model',
 	fields: [
         {name: 'vonHoehe', type: 'float'},
@@ -24,5 +24,6 @@ Ext.define('LWD.model.schneeprofil.Schichtprofil', {
         type: 'length',
         field: 'feuchte',
         min: 1
-    }]
+    }],
+    belongsTo: 'LWD.model.Schneeprofil'
 });

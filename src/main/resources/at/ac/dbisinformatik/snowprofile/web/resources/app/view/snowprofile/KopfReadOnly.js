@@ -3,7 +3,7 @@ Ext.require([
     'Ext.data.*'
 ]);
 
-Ext.define('LWD.view.schneeprofil.kopfreadonly', {
+Ext.define('LWD.view.snowprofile.kopfreadonly', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.kopfreadonly',
 	

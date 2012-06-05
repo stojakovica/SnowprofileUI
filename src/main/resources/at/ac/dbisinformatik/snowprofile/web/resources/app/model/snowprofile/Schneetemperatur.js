@@ -1,4 +1,4 @@
-Ext.define('LWD.model.schneeprofil.Schneetemperatur', {
+Ext.define('LWD.model.snowprofile.Schneetemperatur', {
 	extend: 'Ext.data.Model',
 	fields: [
          {name: 'hoehe_schneetemperatur', type: 'float'},
@@ -8,5 +8,6 @@ Ext.define('LWD.model.schneeprofil.Schneetemperatur', {
          type: 'length',
          field: 'temperatur',
          min: 1
-     }]
+     }],
+     belongsTo: 'LWD.model.Schneeprofil'
 });

@@ -1,4 +1,4 @@
-Ext.define('LWD.model.schneeprofil.Kopf', {
+Ext.define('LWD.model.snowprofile.Kopf', {
 	extend: 'Ext.data.Model',
 	fields: [
         {name: 'name'},

@@ -1,4 +1,4 @@
-Ext.define('LWD.model.snowprofile.gml_Point', {
+Ext.define('LWD.model.snowprofile.gml_TimeInstant', {
 	extend: 'Ext.data.Model',
 	fields: [
        'gml_id',

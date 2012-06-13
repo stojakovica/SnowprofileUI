@@ -17,8 +17,8 @@ Ext.define('LWD.model.snowprofile.caaml_Layer', {
        {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_depthTop', name: 'caaml_depthTop', associationKey:'caaml_depthTop'},
        {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_grainSize', name: 'caaml_grainSize', associationKey:'caaml_grainSize'},
        {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_impurityMeasurement', name: 'caaml_impurityMeasurement', associationKey:'caaml_impurityMeasurement'},
-       {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_porosity', name: 'caaml_porosity', associationKey:'caaml_porosity'},
-       {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_specSurfArea', name: 'caaml_specSurfArea', associationKey:'caaml_specSurfArea'},
+       {type: 'hasMany', model: 'LWD.model.schneeprofil.contentUomModel', name: 'caaml_porosity', associationKey:'caaml_porosity'},
+       {type: 'hasMany', model: 'LWD.model.schneeprofil.contentUomModel', name: 'caaml_specSurfArea', associationKey:'caaml_specSurfArea'},
        {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_validDepositionTime', name: 'caaml_validDepositionTime', associationKey:'caaml_validDepositionTime'},
        {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_validThickness', name: 'caaml_validThickness', associationKey:'caaml_validThickness'}
     ],

@@ -20,10 +20,9 @@ Ext.define('LWD.view.graph.Graph', {
     },
     
     refresh: function(store) {
-    	//var snowprofileData = store.data.items[0].raw;
-    	//console.log(Ext.encode(store.proxy.reader.jsonData));
     	var snowprofileData = store.proxy.reader.jsonData;
     	console.log(snowprofileData);
+    	
     	// LÖSCHEN UM GRAFIK NEU ZU ZEICHNEN
     	surface.removeAll();
     	
@@ -55,7 +54,7 @@ Ext.define('LWD.view.graph.Graph', {
     	]);
     	
     	// ZEICHNEN DES SCHICHTPROFILS
-    	var schichtprofilData = snowprofileData.schichtprofile;
+    	var schichtprofilData = snowprofileData.caaml_SnowProfile.caaml_snowProfileResultsOf.caaml_SnowProfileMeasurements.caaml_layerProfile.caaml_Layer;
     	var width = 0;
 
     	// Höhenkontrollen

@@ -20,7 +20,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
             iconCls: 'icon-add',
             handler: function(){
         		var store = Ext.data.StoreManager.lookup('Snowprofile');
-        		store.insert(store.getCount(), new LWD.model.schneeprofil.Schichtprofil());
+        		store.insert(store.getCount(), new LWD.model.snowprofile.Schichtprofil());
                 rowEditing.startEdit(0, 0);
             }
         }, '-', {

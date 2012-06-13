@@ -5,9 +5,7 @@ Ext.define('LWD.controller.Snowprofile', {
 	],
 	models: [
         'Snowprofile',
-        'snowprofile.Kopf',
-		'snowprofile.Schichtprofil',
-		'snowprofile.Schneetemperatur'
+        //'snowprofile.Kopf',
 	],
 	
 	views: [

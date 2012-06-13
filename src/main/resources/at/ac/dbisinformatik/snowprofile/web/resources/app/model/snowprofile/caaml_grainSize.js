@@ -4,7 +4,8 @@ Ext.define('LWD.model.snowprofile.caaml_grainSize', {
         'uom'
     ],
     associations: [
+       {type: 'belongsTo', model: 'LWD.model.schneeprofil.caaml_SnowProfileMeasurements', name: 'caaml_SnowProfileMeasurements', associationKey:'caaml_SnowProfileMeasurements'},
+       {type: 'belongsTo', model: 'LWD.model.schneeprofil.caaml_Layer', name: 'caaml_Layer', associationKey:'caaml_Layer'},
        {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_Components', name: 'caaml_Components', associationKey:'caaml_Components'}
-    ],
-    belongsTo: 'LWD.model.snowprofile.caaml_SnowProfileMeasurements'
+    ]
 });

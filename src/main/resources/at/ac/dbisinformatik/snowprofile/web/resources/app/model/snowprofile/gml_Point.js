@@ -5,6 +5,6 @@ Ext.define('LWD.model.snowprofile.gml_Point', {
        'gml_id',
        'gml_pos',
        'srsName'
-    ]
+    ],
     belongsTo: 'LWD.model.snowprofile.caaml_pointLocation'
 });

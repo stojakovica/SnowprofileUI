@@ -3,6 +3,6 @@ Ext.define('LWD.model.snowprofile.caaml_ElevationPosition', {
 	fields: [
        'caaml_position',
        'uom'
-    ]
+    ],
     belongsTo: 'LWD.model.snowprofile.caaml_validElevation'
 });

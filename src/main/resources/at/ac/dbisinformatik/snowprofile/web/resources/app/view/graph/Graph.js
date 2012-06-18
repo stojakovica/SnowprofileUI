@@ -6,13 +6,13 @@ Ext.define('LWD.view.graph.Graph', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.graph',
 	
-	store: 'Snowprofile',
+	store: 'Users',
 	
 	initComponent: function() {
 		var store = Ext.data.StoreManager.lookup('Snowprofile');
 		
-		store.on('load', this.refresh, this);
-		store.on('update', this.refresh, this);
+		//store.on('load', this.refresh, this);
+		//store.on('update', this.refresh, this);
 		
 		this.items = drawComponent;
 		
@@ -21,7 +21,7 @@ Ext.define('LWD.view.graph.Graph', {
     
     refresh: function(store) {
     	var snowprofileData = store.proxy.reader.jsonData;
-    	console.log(snowprofileData);
+    	console.log(store);
     	
     	// LÖSCHEN UM GRAFIK NEU ZU ZEICHNEN
     	surface.removeAll();

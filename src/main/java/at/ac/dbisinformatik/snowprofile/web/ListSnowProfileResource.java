@@ -40,10 +40,13 @@ public class ListSnowProfileResource extends ServerResource {
 		JSONObject snowprofile = XML.toJSONObject(file);
 		
 		String returnProfile = snowprofile.toString();
-		returnProfile = returnProfile.replace("caaml:", "caaml_");
-		returnProfile = returnProfile.replace("gml:", "gml_");
+		returnProfile = returnProfile.replace("caaml:", "");
+		returnProfile = returnProfile.replace("gml:", "");
 		returnProfile = returnProfile.replace("xmlns:", "xmlns_");
 		returnProfile = returnProfile.replace("xsi:", "xsi_");
+		
+		//String returnProfile = readFile("C:/json.txt"); 
+		
 		return returnProfile;
 	}
 

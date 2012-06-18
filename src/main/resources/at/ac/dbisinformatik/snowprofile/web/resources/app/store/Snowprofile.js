@@ -9,7 +9,7 @@ Ext.define('LWD.store.Snowprofile', {
         url: '/lwd/snowprofile',
         reader: {
             type: 'json',
-            root: 'root'
+            root: 'SnowProfile'
         },
         writer: {
             type: 'json'

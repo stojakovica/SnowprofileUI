@@ -1,7 +1,7 @@
 Ext.define('LWD.model.Snowprofile', {
 	extend: 'Ext.data.Model',
 	fields: [
-	    'gml_id',
+	    'id',
 	    'xmlns_caaml',
 	    'xmlns_gml',
 	    'xmlns_xlink',
@@ -9,8 +9,8 @@ Ext.define('LWD.model.Snowprofile', {
 	    'xsi_schemaLocation'
 	],
 	associations: [
-        {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_locRef',    name: 'caaml_locRef', associationKey:'caaml_locRef'},
-        {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_snowProfileResultsOf', name: 'caaml_snowProfileResultsOf', associationKey:'caaml_snowProfileResultsOf'},
-        {type: 'hasMany', model: 'LWD.model.schneeprofil.caaml_validTime', name: 'caaml_validTime', associationKey:'caaml_validTime'},
+        {type: 'hasMany', model: 'LWD.model.snowprofile.locRef',    name: 'locRef', associationKey:'locRef'},
+        {type: 'hasMany', model: 'LWD.model.snowprofile.snowProfileResultsOf', name: 'snowProfileResultsOf', associationKey:'snowProfileResultsOf'},
+        {type: 'hasMany', model: 'LWD.model.snowprofile.validTime', name: 'validTime', associationKey:'validTime'}
     ]
 });

@@ -11,8 +11,8 @@ Ext.define('LWD.view.graph.Graph', {
 	initComponent: function() {
 		var store = Ext.data.StoreManager.lookup('Snowprofile');
 		
-		//store.on('load', this.refresh, this);
-		//store.on('update', this.refresh, this);
+		store.on('load', this.refresh, this);
+		store.on('update', this.refresh, this);
 		
 		this.items = drawComponent;
 		
@@ -20,8 +20,8 @@ Ext.define('LWD.view.graph.Graph', {
     },
     
     refresh: function(store) {
-    	var snowprofileData = store.proxy.reader.jsonData;
-    	console.log(store);
+    	var snowprofileData = store.data.items[0];
+    	//console.log(snowprofileData);
     	
     	// LÖSCHEN UM GRAFIK NEU ZU ZEICHNEN
     	surface.removeAll();
@@ -54,26 +54,33 @@ Ext.define('LWD.view.graph.Graph', {
     	]);
     	
     	// ZEICHNEN DES SCHICHTPROFILS
-    	var schichtprofilData = snowprofileData.caaml_SnowProfile.caaml_snowProfileResultsOf.caaml_SnowProfileMeasurements.caaml_layerProfile.caaml_Layer;
+    	var schichtprofilData = snowprofileData.snowProfileResultsOfStore.data.items[0].SnowProfileMeasurementsStore.data.items[0].layerProfileStore.data.items[0].LayerStore.data.items;
     	var width = 0;
 
     	// Höhenkontrollen
+    	/*
     	for(var i=schichtprofilData.length; i>0; i--) {
 			if(i < schichtprofilData.length) {
-    			if(schichtprofilData[i].vonHoehe > schichtprofilData[i-1].bisHoehe) {
-    				schichtprofilData[i-1].vonHoehe = schichtprofilData[i].bisHoehe;
+				if(schichtprofilData[i].depthTopStore.data.items[0].content + schichtprofilData[i].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].position > schichtprofilData[i-1].depthTop.data.items[0].content) {
+    				schichtprofilData[i-1].depthTopStore.data.items[0].content + schichtprofilData[i-1].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].position = schichtprofilData[i].depthTop.data.items[0].content;
     			}
     		}
     		if(i > 1) {
-    			if(schichtprofilData[i-2].vonHoehe <= schichtprofilData[i-1].vonHoehe) {
-    				schichtprofilData[i-1].vonHoehe = schichtprofilData[i-2].vonHoehe - 1;
+    			if(schichtprofilData[i-2].depthTopStore.data.items[0].data.content + schichtprofilData[i-2].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].data.position <= schichtprofilData[i-1].depthTopStore.data.items[0].data.content + schichtprofilData[i-1].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].data.position) {
+    				schichtprofilData[i-1].depthTopStore.data.items[0].data.content + schichtprofilData[i-1].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].data.position = schichtprofilData[i-2].depthTopStore.data.items[0].data.content + schichtprofilData[i-2].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].data.position - 1;
     			}
-    			if(schichtprofilData[i-2].bisHoehe < schichtprofilData[i-1].vonHoehe) {
-    				schichtprofilData[i-2].bisHoehe = schichtprofilData[i-1].vonHoehe;
+    			if(schichtprofilData[i-2].depthTop.data.items[0].data.content < schichtprofilData[i-1].depthTopStore.data.items[0].data.content + schichtprofilData[i-1].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].data.position) {
+    				schichtprofilData[i-2].depthTop.data.items[0].data.content = schichtprofilData[i-1].depthTopStore.data.items[0].data.content + schichtprofilData[i-1].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].data.position;
     			}
     		}
     	}
+    	*/
     	for(var i = schichtprofilData.length; i > 0; i--) {
+    		var bisHoehe = schichtprofilData[i-1].depthTop.data.items[0].data.content;
+			var vonHoehe = schichtprofilData[i-1].depthTopStore.data.items[0].data.content + schichtprofilData[i].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].data.position;
+			var haerte = 
+    		
+    		
     		var height = (84 * (schichtprofilData[i-1].vonHoehe / schichtprofilData[0].vonHoehe)) - (84 * (schichtprofilData[i-1].bisHoehe / schichtprofilData[0].vonHoehe));
     		var y = 100 - (84 * (schichtprofilData[i-1].vonHoehe / schichtprofilData[0].vonHoehe));
     		

@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
@@ -44,8 +43,6 @@ public class ListSnowProfileResource extends ServerResource {
 		returnProfile = returnProfile.replace("gml:", "");
 		returnProfile = returnProfile.replace("xmlns:", "xmlns_");
 		returnProfile = returnProfile.replace("xsi:", "xsi_");
-		
-		//String returnProfile = readFile("C:/json.txt"); 
 		
 		return returnProfile;
 	}

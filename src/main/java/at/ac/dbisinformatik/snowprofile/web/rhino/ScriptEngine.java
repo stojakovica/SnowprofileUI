@@ -20,7 +20,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.JSONStringer;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;

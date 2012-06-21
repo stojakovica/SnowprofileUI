@@ -3,5 +3,5 @@ Ext.define('LWD.model.snowprofile.AspectPosition', {
 	fields: [
        'position'
     ],
-    belongsTo: 'LWD.model.snowprofile.validAspect'
+    belongsTo: 'LWD.model.snowprofile.windDir'
 });

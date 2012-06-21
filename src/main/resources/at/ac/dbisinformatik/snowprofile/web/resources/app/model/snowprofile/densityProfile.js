@@ -1,11 +1,12 @@
 Ext.define('LWD.model.snowprofile.densityProfile', {
 	extend: 'Ext.data.Model',
 	fields: [
-        'dir'
+        'uomDensity',
+        'uomDepthTop',
+        'uomThickness'
     ],
     associations: [
-       {type: 'hasMany', model: 'LWD.model.snowprofile.MeasurementComponents', name: 'MeasurementComponents', associationKey:'MeasurementComponents'},
-       {type: 'hasMany', model: 'LWD.model.snowprofile.Measurements', name: 'Measurements', associationKey:'Measurements'}
+       {type: 'hasMany', model: 'LWD.model.snowprofile.densityLayer', name: 'Layer', associationKey:'Layer'}
     ],
     belongsTo: 'LWD.model.snowprofile.SnowProfileMeasurements'
 });

@@ -54,7 +54,7 @@ Ext.define('LWD.view.graph.Graph', {
     	]);
     	
     	// ZEICHNEN DES SCHICHTPROFILS
-    	var schichtprofilData = snowprofileData.snowProfileResultsOfStore.data.items[0].SnowProfileMeasurementsStore.data.items[0].layerProfileStore.data.items[0].LayerStore.data.items;
+    	var schichtprofilData = snowprofileData.snowProfileResultsOfStore.data.items[0].SnowProfileMeasurementsStore.data.items[0].stratProfileStore.data.items[0].LayerStore.data.items;
     	var width = 0;
 
     	// Höhenkontrollen
@@ -75,32 +75,40 @@ Ext.define('LWD.view.graph.Graph', {
     		}
     	}
     	*/
-    	for(var i = schichtprofilData.length; i > 0; i--) {
-    		var bisHoehe = schichtprofilData[i-1].depthTop.data.items[0].data.content;
-			var vonHoehe = schichtprofilData[i-1].depthTopStore.data.items[0].data.content + schichtprofilData[i].validThicknessStore.data.items[0].ThinknessPositionStore.data.items[0].data.position;
-			var haerte = 
-    		
-    		
-    		var height = (84 * (schichtprofilData[i-1].vonHoehe / schichtprofilData[0].vonHoehe)) - (84 * (schichtprofilData[i-1].bisHoehe / schichtprofilData[0].vonHoehe));
-    		var y = 100 - (84 * (schichtprofilData[i-1].vonHoehe / schichtprofilData[0].vonHoehe));
-    		
-    		if(Ext.isArray(schichtprofilData[i-1].haerte)) {
-    			var haerte = schichtprofilData[i-1].haerte[0];
+    	
+    	var vonHoehe0 = schichtprofilData[0].depthTopStore.data.items[0].data.content;
+    	for(var i = 0; i < schichtprofilData.length; i++) {
+    		var vonHoehe = schichtprofilData[i].depthTopStore.data.items[0].data.content;
+    		var thickness = schichtprofilData[i].thickness();
+    		if(Ext.isObject(thickness.data.items[0])) {
+    			var bisHoehe = vonHoehe - schichtprofilData[0].thicknessStore.data.items[0].data.content;
     		}
     		else {
-    			var haerte = schichtprofilData[i-1].haerte;
+	    		if(Ext.isObject(schichtprofilData[i+1]))
+	    			var bisHoehe = schichtprofilData[i+1].depthTopStore.data.items[0].data.content;
+	    		else 
+	    			var bisHoehe = 0;
     		}
+			var kornform1 = schichtprofilData[i].data.grainFormPrimary;
+			var kornform2 = schichtprofilData[i].data.grainFormSecondary;
+			var haerte = schichtprofilData[i].data.hardness;
+    		var groesse = schichtprofilData[i].grainSizeStore.data.items[0].ComponentsStore.data.items[0].data.avg + "-" + schichtprofilData[i].grainSizeStore.data.items[0].ComponentsStore.data.items[0].data.avgMax;
+    		var feuchte = schichtprofilData[i].lwcStore.data.items[0].data.content;
+
+    		var height = (84 * (vonHoehe / vonHoehe0)) - (84 * (bisHoehe / vonHoehe0));
+    		var y = 100 - (84 * (vonHoehe / vonHoehe0));
+    		
     		switch (haerte) { 
-	            case '1': width = 1; break; 
-	            case '1-2': width = 2; break; 
-	            case '2': width = 4; break; 
-	            case '2-3': width = 8; break; 
-	            case '3': width = 12; break; 
-	            case '3-4': width = 16; break; 
-	            case '4': width = 20; break; 
-	            case '4-5': width = 24; break; 
-	            case '5': width = 28; break; 
-	            case '6': width = 32; break; 
+	            case 'F': width = 1; break; 
+	            case 'F-4F': width = 2; break; 
+	            case '4F': width = 4; break; 
+	            case '4F-1F': width = 8; break; 
+	            case '1F': width = 12; break; 
+	            case '1F-P': width = 16; break; 
+	            case 'P': width = 20; break; 
+	            case 'P-K': width = 24; break; 
+	            case 'K': width = 28; break; 
+	            case 'I': width = 32; break; 
     		}
     		
     		x = 55 - width;
@@ -135,20 +143,19 @@ Ext.define('LWD.view.graph.Graph', {
     		
     		// Text zu Form
     		var text = "";
-    		if(Ext.isArray(schichtprofilData[i-1].kornform)) {
-    			var kornform = schichtprofilData[i-1].kornform[0];
+    		switch (kornform1) { 
+	    		case 'PP': text = "<img src='files/plus.jpg' />"; y = (y+(y+height))/2; break;
+	    		case 'DF': text = "/"; y = (y+(y+height))/2; break;  
+	    		case 'RG': text = "d"; y = (y+(y+height))/2; break;  
+	    		case 'FC': text = "e [] []"; y = (y+(y+height))/2; break;  
+	    		case 'FCxr': text = "o [] []"; y = (y+(y+height))/2; break;  
+	    		case 'DH': text = "* * *"; y = (y+(y+height))/2; break;  
+	    		case 'MF': text = "* * *"; y = (y+(y+height))/2; break;  
+	    		case 'MFcr': text = "* * *"; y = (y+(y+height))/2; break;  
+	    		case 'IF': text = "* * *"; y = (y+(y+height))/2; break;  
+	    		case 'SH': text = "* * *"; y = (y+(y+height))/2; break;  
+	    		case 'PPgp': text = "* * *"; y = (y+(y+height))/2; break;  
     		}
-    		else {
-    			var kornform = schichtprofilData[i-1].kornform;
-    		}
-    		switch (kornform) { 
-	            case '1-1-1': text = "+ + +"; y = (y+(y+height))/2; break;
-	            case '2-2-2': text = "/ / /"; y = (y+(y+height))/2; break;  
-	            case '3-3-3': text = "o o o"; y = (y+(y+height))/2; break;  
-	            case '4-4-4': text = "[] [] []"; y = (y+(y+height))/2; break;  
-	            case '6-4-4': text = "o [] []"; y = (y+(y+height))/2; break;  
-	            case '6-6-6': text = "* * *"; y = (y+(y+height))/2; break;  
-			}
     		
     		x = "60%";
     		
@@ -163,13 +170,6 @@ Ext.define('LWD.view.graph.Graph', {
     		});
     		
     		// Text zu Durchmesser
-    		if(Ext.isArray(schichtprofilData[i-1].groesse)) {
-    			var groesse = schichtprofilData[i-1].groesse[0];
-    		}
-    		else {
-    			var groesse = schichtprofilData[i-1].groesse;
-    		}
-    		
     		x = "65.5%";
     		
     		surface.add({
@@ -183,21 +183,14 @@ Ext.define('LWD.view.graph.Graph', {
     		});
     		
     		// Feuchte
-    		if(Ext.isArray(schichtprofilData[i-1].feuchte)) {
-    			var feuchte = schichtprofilData[i-1].feuchte[0];
-    		}
-    		else {
-    			var feuchte = schichtprofilData[i-1].feuchte;
-    		}
-    		
     		x = "71.25%";
     		
     		switch (feuchte) { 
-	            case '1': text = "-"; break;
-	            case '2': text = "|"; break;
-	            case '3': text = "||"; x = "71%"; break;
-	            case '4': text = "|||"; x = "70.8%"; break;
-	            case '5': text = "||||"; x = "70.6%"; break;
+	            case 'D': text = "-"; break;
+	            case 'M': text = "|"; break;
+	            case 'W': text = "||"; x = "71%"; break;
+	            case 'V': text = "|||"; x = "70.8%"; break;
+	            case 'S': text = "||||"; x = "70.6%"; break;
 			}
     		
     		

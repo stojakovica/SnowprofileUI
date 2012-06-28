@@ -39,7 +39,6 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     plugins: [rowEditing],
 	
     initComponent: function() {
-    	
         this.columns = [
 			{
 				id: 'vonHoehe',

@@ -1,7 +1,8 @@
 Ext.define('LWD.controller.Snowprofile', {
     extend: 'Ext.app.Controller',
 	stores: [
-	    'Snowprofile'
+	    'Snowprofile',
+	    'Schichtprofil'
 	],
 	models: [
         'Snowprofile',

@@ -35,7 +35,7 @@ public class ListSnowProfileResource extends ServerResource {
 
 	@Get()
 	public String getJson() throws JSONException, IOException {
-		String file = readFile("C:/Snowprofile_IACS.xml");
+		String file = readFile("C:/test.xml");
 		JSONObject snowprofile = XML.toJSONObject(file);
 		
 		String returnProfile = snowprofile.toString();

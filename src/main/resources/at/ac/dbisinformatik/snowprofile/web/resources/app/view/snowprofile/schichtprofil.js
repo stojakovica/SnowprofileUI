@@ -4,7 +4,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.schichtprofil',
 	
-	store: 'Snowprofile',
+	store: 'Schichtprofil',
 	
 	height: 400,
 	
@@ -43,7 +43,14 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			{
 				id: 'vonHoehe',
 				header: 'Von Höhe[cm]',
-				dataIndex: 'id',
+				dataIndex: 'grainFormPrimary',
+				/*
+				dataIndex: 'snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.depthTop.content',
+				renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+					var dataIndex = this.columns[colIndex].dataIndex;
+					return getDataFromRecord(record, rowIndex, dataIndex);
+				},
+				*/
 				flex: 1,
 				editor: {
 				    xtype: 'numberfield',
@@ -54,7 +61,11 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			},
 			{
 				header: 'Bis Höhe[cm]',
-				dataIndex: 'bisHoehe',
+				dataIndex: 'snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.depthTop.content',
+				renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+					var dataIndex = this.columns[colIndex].dataIndex;
+					return getDataFromRecord(record, rowIndex, dataIndex);
+				},
 				flex: 1,
 				editor: {
 					xtype: 'numberfield',
@@ -63,6 +74,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 	                maxValue: 700
 				}
 			},
+			/*
 			{
 				header: 'Kornform[F]',
 				dataIndex: 'kornform',
@@ -134,6 +146,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 	        		listClass: 'x-combo-list-small'
 				})
 			}
+			*/
         ];
         
         this.getSelectionModel().on('selectionchange', function(selModel, selections){

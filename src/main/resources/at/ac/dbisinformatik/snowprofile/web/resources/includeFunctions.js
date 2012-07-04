@@ -43,34 +43,11 @@ function drawText(text, x, y, rotate) {
 function drawGraph() {
 	return {
 		xtype: 'draw',
+		viewBox: true,
+		autoSize: true,
+		flex: 1,
 		width: "100%",
 		height: "100%",
 		renderTo: document.body
-		/*
-		items: [
-			drawRectangle("70%", "99%", "15%", "1%", 1),
-	        drawRectangle("70%", "5%", "15%", "1%", 1),
-	        drawRectangle("70%", "10%", "15%", "6%", 1),
-	        drawRectangle("3%", "10%", "55%", "6%", 1),
-	        drawRectangle("3%", "84%", "55%", "16%", 1),
-	        drawRectangle("3%", "10%", "70%", "6%", 1),
-	        drawRectangle("3%", "84%", "70%", "16%", 1),
-	        drawRectangle("40%", "0.5", "15%", "11%", "0.25"),
-	        drawRectangle("0.5", "91%", "64%", "10%", "0.25"),
-	        drawText("+ Neuschnee", "16%", "2.3%", 0),
-	        drawText("< Schwimmschnee", "16%", "4.7%", 0),
-	        drawText("/ filzig", "29%", "2.3%", 0),
-	        drawText("o Schmelzform", "29%", "4.7%", 0),
-	        drawText("o rundkörnig", "42%", "2.3%", 0),
-	        drawText("> Oberflächenreif", "42%", "4.7%", 0),
-	        drawText("o kantig", "56%", "2.3%", 0),
-	        drawText("- Eislamelle", "56%", "4.7%", 0),
-	        drawText("o Graupel", "70%", "2.3%", 0),
-	        drawText("Feuchte", "69.5%", "11%", 270),
-	        drawText("Kristalle", "62.5%", "7.5%", 0),
-	        drawText("Form", "60%", "14%", 0),
-	        drawText("Durchm.", "65.5%", "14%", 0)
-        ]
-        */
 	}
 }

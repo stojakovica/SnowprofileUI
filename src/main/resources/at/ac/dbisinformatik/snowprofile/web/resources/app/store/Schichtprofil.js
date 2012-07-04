@@ -3,13 +3,13 @@ Ext.define('LWD.store.Schichtprofil', {
 	autoDestroy: true,
 	autoLoad: true,
     autoSync: true,
-    model: 'LWD.model.snowprofile.snowProfileResultsOf',
+    model: 'LWD.model.Snowprofile',
 	proxy: {
         type: 'rest',
         url: '/lwd/snowprofile',
         reader: {
             type: 'json',
-            root: 'snowProfileResultsOf'
+            root: 'SnowProfile'
         },
         writer: {
             type: 'json'
@@ -18,9 +18,10 @@ Ext.define('LWD.store.Schichtprofil', {
     listeners: {
     	load: {
 	        fn: function(store, records, success, operations) {
-	          Ext.each(records, function(rec) {
-	            console.log(Ext.encode(rec.raw));
-	          });
+    			Ext.each(records, function(rec) {
+    				var test = rec.snowProfileResultsOf().data.getAt(0).SnowProfileMeasurements().data.getAt(0).stratProfile().data.getAt(0).Layer().data.items;
+    			});
+    			return test;
 	        }
     	},
     	

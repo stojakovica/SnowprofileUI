@@ -142,32 +142,106 @@ Ext.define('LWD.view.graph.Graph', {
     		});
     		
     		// Text zu Form
+    		x = "60%";
+    		x_circle = "60.3%";
+    		y = (y+(y+height))/2; 
     		var text = "";
     		switch (kornform1) { 
-	    		case 'PP': text = "<img src='files/plus.jpg' />"; y = (y+(y+height))/2; break;
-	    		case 'DF': text = "/"; y = (y+(y+height))/2; break;  
-	    		case 'RG': text = "d"; y = (y+(y+height))/2; break;  
-	    		case 'FC': text = "e [] []"; y = (y+(y+height))/2; break;  
-	    		case 'FCxr': text = "o [] []"; y = (y+(y+height))/2; break;  
-	    		case 'DH': text = "* * *"; y = (y+(y+height))/2; break;  
-	    		case 'MF': text = "* * *"; y = (y+(y+height))/2; break;  
-	    		case 'MFcr': text = "* * *"; y = (y+(y+height))/2; break;  
-	    		case 'IF': text = "* * *"; y = (y+(y+height))/2; break;  
-	    		case 'SH': text = "* * *"; y = (y+(y+height))/2; break;  
-	    		case 'PPgp': text = "* * *"; y = (y+(y+height))/2; break;  
+	    		case 'PP': 
+	    			surface.add({
+	        			type: 'text',
+	        			text: "+",
+	        			fill: '#000',
+	        			font: '8px Arial',
+	        			x: x,
+	        			y: y+"%",
+	        			group: 'text'
+	        		});
+	    			break;
+	    		case 'DF':  
+	    			surface.add({
+	    				type: 'text',
+	    				text: "/",
+	    				fill: '#000',
+	    				font: '8px Arial',
+	    				x: x,
+	    				y: y+"%",
+	    				group: 'text'
+	    			});
+	    			break;
+	    		case 'RG': 
+	    			surface.add({
+	    				type: 'circle',
+	    		        radius: "0.3%",
+	    				fill: '#000',
+	    				x: x_circle,
+	    				y: y+"%",
+	    				group: 'text'
+	    			});
+	    			break;
+	    		case 'FC': 
+	    			surface.add(
+	    				drawRectangle("0.6%", "0.6%", x, y+"%", 1)
+	    			);
+	    			break;
+	    		case 'FCxr':
+	    			surface.add({
+		    				type: 'circle',
+		    				radius: "0.3%",
+		    				fill: '#fff',
+		    				x: x_circle,
+		    				y: (y-0.15)+"%",
+		    				"stroke-width": 1,
+		    		    	stroke:"#000000",
+		    				group: 'text'
+	    				},
+	    					drawRectangle("0.6%", "0.6%", x, y+"%", 1)
+	    			);
+	    			break;
+	    		case 'DH': 
+	    			break;
+	    		case 'MF':
+	    			surface.add({
+	    				type: 'circle',
+	    				radius: "0.3%",
+	    				fill: '#fff',
+	    				x: x_circle,
+	    				y: y+"%",
+	    				"stroke-width": 1,
+	    				stroke:"#000000",
+	    				group: 'text'
+	    			});
+	    			break;
+	    		case 'MFcr':
+	    			break;
+	    		case 'IF':
+	    			surface.add({
+	    		    	type: "rect",
+	    		    	width: "0.5%",
+	    		    	height: "0.3%",
+	    		    	x: x,
+	    		    	y: y,
+	    		    	"stroke-width": 1,
+	    		    	stroke:"#000000",
+	    		    	fill:"#000000",
+	    		    	group: 'rectangles'
+	    		    });
+	    			break;
+	    		case 'SH':
+	    			break;
+	    		case 'PPgp':
+	    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+	    			      type: 'image',
+	    			      width: 16,
+	    			      height: 16,
+	    			      x: 500,
+	    			      y: 500,
+	    			      src: "data/img/plus.jpg",
+	    			      group: 'rectangles'
+	    	         });
+	    			surface.add(spriteImg);
+	    			break;
     		}
-    		
-    		x = "60%";
-    		
-    		surface.add({
-    			type: 'text',
-    			text: text,
-    			fill: '#000',
-    			font: '8px Arial',
-    			x: x,
-    			y: y+"%",
-    			group: 'text'
-    		});
     		
     		// Text zu Durchmesser
     		x = "65.5%";

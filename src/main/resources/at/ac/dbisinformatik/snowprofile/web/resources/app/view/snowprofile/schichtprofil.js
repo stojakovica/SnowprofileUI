@@ -43,14 +43,11 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			{
 				id: 'vonHoehe',
 				header: 'Von Höhe[cm]',
-				dataIndex: 'grainFormPrimary',
-				/*
 				dataIndex: 'snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.depthTop.content',
 				renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
 					var dataIndex = this.columns[colIndex].dataIndex;
 					return getDataFromRecord(record, rowIndex, dataIndex);
 				},
-				*/
 				flex: 1,
 				editor: {
 				    xtype: 'numberfield',

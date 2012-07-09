@@ -27,6 +27,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.Measurements',
         'snowprofile.MetaData',
         'snowprofile.microPenResProfile',
+        'snowprofile.Obs',
         'snowprofile.ObsPoint',
         'snowprofile.Point',
         'snowprofile.pointLocation',

@@ -19,9 +19,8 @@ Ext.define('LWD.store.Schichtprofil', {
     	load: {
 	        fn: function(store, records, success, operations) {
     			Ext.each(records, function(rec) {
-    				var test = rec.snowProfileResultsOf().data.getAt(0).SnowProfileMeasurements().data.getAt(0).stratProfile().data.getAt(0).Layer().data.items;
+    				rec.snowProfileResultsOf().data.getAt(0).SnowProfileMeasurements().data.getAt(0).stratProfile().data.getAt(0).Layer().data.items;
     			});
-    			return test;
 	        }
     	},
     	

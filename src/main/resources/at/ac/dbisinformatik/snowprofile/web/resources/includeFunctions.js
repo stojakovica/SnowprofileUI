@@ -317,7 +317,7 @@ function drawGraph(store, surface) {
 	var schneetemperaturData = snowprofileData.snowProfileResultsOf().data.getAt(0).SnowProfileMeasurements().data.getAt(0).tempProfile().data.getAt(0).Obs().data;
 	surface.add({
 		type: "path",
-        path: "M -0 -0 L 100 100",
+        path: "M -0 -0 L 10% 10%",
         "stroke-width":"1",
         stroke:"#F00",
         fill:"#fff",

@@ -4,7 +4,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.schichtprofil',
 	
-	store: 'Schichtprofil',
+	store: 'Snowprofile',
 	
 	height: 400,
 	

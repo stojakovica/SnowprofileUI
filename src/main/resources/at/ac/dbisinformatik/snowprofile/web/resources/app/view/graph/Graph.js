@@ -1,12 +1,12 @@
 var drawComponent = Ext.create('Ext.draw.Component', 
 	initGraph()
-), surface = drawComponent.surface;
+);
 
 Ext.define('LWD.view.graph.Graph', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.graph',
 	
-	store: 'Users',
+	store: 'Snowprofile',
 	
 	initComponent: function() {
 		var store = Ext.data.StoreManager.lookup('Snowprofile');
@@ -20,6 +20,6 @@ Ext.define('LWD.view.graph.Graph', {
     },
     
     refresh: function(store) {
-    	drawGraph(store, surface);
+    	drawGraph(store, drawComponent);
     }
 });

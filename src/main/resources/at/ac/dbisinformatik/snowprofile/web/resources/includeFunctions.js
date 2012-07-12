@@ -52,7 +52,8 @@ function initGraph() {
 	}
 }
 
-function drawGraph(store, surface) {
+function drawGraph(store, drawComponent) {
+	var surface = drawComponent.surface
 	//var snowprofileData = store.data.items[0];
 	var snowprofileData = store.data.getAt(0);
 	
@@ -178,103 +179,280 @@ function drawGraph(store, surface) {
 		// Text zu Form
 		x = "60%";
 		x_circle = "60.3%";
-		y = (y+(y+height))/2; 
+		x_image = "59.6%";
+		y = (y + (y + height)) / 2;
+		y_image = y - 0.8;
+		y_rect = y - 0.5;
 		var text = "";
 		switch (kornform1) { 
     		case 'PP': 
-    			surface.add({
-        			type: 'text',
-        			text: "+",
-        			fill: '#000',
-        			font: '8px Arial',
-        			x: x,
-        			y: y+"%",
-        			group: 'text'
-        		});
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 16,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/plus.jpg",
+    				group: 'rectangles'
+    			});
+    			surface.add(spriteImg);
     			break;
     		case 'DF':  
-    			surface.add({
-    				type: 'text',
-    				text: "/",
-    				fill: '#000',
-    				font: '8px Arial',
-    				x: x,
-    				y: y+"%",
-    				group: 'text'
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 16,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/slash.jpg",
+    				group: 'rectangles'
     			});
+    			surface.add(spriteImg);
     			break;
     		case 'RG': 
-    			surface.add({
-    				type: 'circle',
-    		        radius: "0.3%",
-    				fill: '#000',
-    				x: x_circle,
-    				y: y+"%",
-    				group: 'text'
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 16,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/punkt.jpg",
+    				group: 'rectangles'
     			});
-    			break;
+    			surface.add(spriteImg);
     		case 'FC': 
-    			surface.add(
-    				drawRectangle("0.6%", "0.6%", x, y+"%", 1)
-    			);
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 16,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/viereck.jpg",
+    				group: 'rectangles'
+    			});
+    			surface.add(spriteImg);
     			break;
     		case 'FCxr':
-    			surface.add({
-	    				type: 'circle',
-	    				radius: "0.3%",
-	    				fill: '#fff',
-	    				x: x_circle,
-	    				y: (y-0.15)+"%",
-	    				"stroke-width": 1,
-	    		    	stroke:"#000000",
-	    				group: 'text'
-    				},
-    					drawRectangle("0.6%", "0.6%", x, y+"%", 1)
-    			);
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 16,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/fcxr.jpg",
+    				group: 'rectangles'
+    			});
+    			surface.add(spriteImg);
     			break;
     		case 'DH': 
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 16,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/up.jpg",
+    				group: 'rectangles'
+    			});
+    			surface.add(spriteImg);
     			break;
     		case 'MF':
-    			surface.add({
-    				type: 'circle',
-    				radius: "0.3%",
-    				fill: '#fff',
-    				x: x_circle,
-    				y: y+"%",
-    				"stroke-width": 1,
-    				stroke:"#000000",
-    				group: 'text'
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 16,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/ring.jpg",
+    				group: 'rectangles'
     			});
+    			surface.add(spriteImg);
     			break;
     		case 'MFcr':
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 9,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/mfcr.jpg",
+    				group: 'rectangles'
+    			});
+    			surface.add(spriteImg);
     			break;
     		case 'IF':
-    			surface.add({
-    		    	type: "rect",
-    		    	width: "0.5%",
-    		    	height: "0.3%",
-    		    	x: x,
-    		    	y: y,
-    		    	"stroke-width": 1,
-    		    	stroke:"#000000",
-    		    	fill:"#000000",
-    		    	group: 'rectangles'
-    		    });
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 16,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/strich.jpg",
+    				group: 'rectangles'
+    			});
+    			surface.add(spriteImg);
     			break;
     		case 'SH':
+    			var spriteImg = Ext.create('Ext.draw.Sprite', {
+    				type: 'image',
+    				width: 16,
+    				height: 16,
+    				x: x_image,
+    				y: y_image+"%",
+    				src: "data/img/down.jpg",
+    				group: 'rectangles'
+    			});
+    			surface.add(spriteImg);
     			break;
     		case 'PPgp':
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     			      type: 'image',
-    			      width: 16,
+    			      width: 15,
     			      height: 16,
-    			      x: 500,
-    			      y: 500,
-    			      src: "data/img/plus.jpg",
+    			      x: x_image,
+    			      y: y_image+"%",
+    			      src: "data/img/graupel.jpg",
     			      group: 'rectangles'
     	         });
     			surface.add(spriteImg);
     			break;
+		}
+		
+		x = "62%";
+		x_circle = "62.3%";
+		x_image = "61.6%";
+		switch (kornform2) { 
+			case 'PP': 
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 16,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/plus.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+				break;
+			case 'DF':  
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 16,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/slash.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+				break;
+			case 'RG': 
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 16,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/punkt.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+			case 'FC': 
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 16,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/viereck.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+				break;
+			case 'FCxr':
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 16,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/fcxr.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+				break;
+			case 'DH': 
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 16,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/up.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+				break;
+			case 'MF':
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 16,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/ring.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+				break;
+			case 'MFcr':
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 9,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/mfcr.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+				break;
+			case 'IF':
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 16,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/strich.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+				break;
+			case 'SH':
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+					type: 'image',
+					width: 16,
+					height: 16,
+					x: x_image,
+					y: y_image+"%",
+					src: "data/img/down.jpg",
+					group: 'rectangles'
+				});
+				surface.add(spriteImg);
+				break;
+			case 'PPgp':
+				var spriteImg = Ext.create('Ext.draw.Sprite', {
+				      type: 'image',
+				      width: 15,
+				      height: 16,
+				      x: x_image,
+				      y: y_image+"%",
+				      src: "data/img/graupel.jpg",
+				      group: 'rectangles'
+		         });
+				surface.add(spriteImg);
+				break;
 		}
 		
 		// Text zu Durchmesser
@@ -292,8 +470,7 @@ function drawGraph(store, surface) {
 		
 		// Feuchte
 		x = "71.25%";
-		
-		switch (feuchte) { 
+		switch (feuchte) {
             case 'D': text = "-"; break;
             case 'M': text = "|"; break;
             case 'W': text = "||"; x = "71%"; break;
@@ -315,14 +492,36 @@ function drawGraph(store, surface) {
 	
 	// ZEICHNEN DER SCHNEETEMPERATUR
 	var schneetemperaturData = snowprofileData.snowProfileResultsOf().data.getAt(0).SnowProfileMeasurements().data.getAt(0).tempProfile().data.getAt(0).Obs().data;
-	surface.add({
-		type: "path",
-        path: "M -0 -0 L 10% 10%",
-        "stroke-width":"1",
-        stroke:"#F00",
-        fill:"#fff",
-        group: 'paths'
-    });
+	var h100 = drawComponent.getHeight();
+	var w100 = drawComponent.getWidth();
+	for(var i = 0; i < schneetemperaturData.items.length; i++) {
+		var h84 = h100 * 0.84;
+		var w55 = w100 * 0.55;
+		vonHoehe = schneetemperaturData.getAt(i).data.depth;
+		var temp = schneetemperaturData.getAt(i).data.snowTemp;
+		if(Ext.isObject(schneetemperaturData.getAt(i+1))) {
+			bisHoehe = schneetemperaturData.getAt(i+1).data.depth;
+			var tempNext = schneetemperaturData.getAt(i+1).data.snowTemp;
+		}
+		else {
+			var tempNext = 0;
+			bisHoehe = 0;
+		}
+		
+		var startx = w55 - temp;
+		var starty = h100 - (h84 * vonHoehe / vonHoehe0);
+		var endx = w55 - tempNext;
+		var endy = h100 - (h84 * bisHoehe / vonHoehe0);
+		
+		surface.add({
+			type: "path",
+			path: "M "+startx+" "+starty+" L "+endx+" "+endy,
+			"stroke-width":"1",
+			stroke:"#F00",
+			fill:"#fff",
+			group: 'paths'
+		});
+	}
 	
 	// ZEICHNEN DES MASSSTABS
 	for(var j=0; j < 85; j=j+5) {

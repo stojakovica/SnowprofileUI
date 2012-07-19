@@ -3,9 +3,9 @@ var rowEditing = Ext.create('Ext.grid.plugin.RowEditing');
 Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.schichtprofil',
-	
-	store: 'Snowprofile',
-	
+		
+    store: 'Schichtprofil',
+    
 	height: 400,
 	
 	border: false,
@@ -39,14 +39,20 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     plugins: [rowEditing],
 	
     initComponent: function() {
-        this.columns = [
+    	/*
+        this.store = StoreManager.lookup('Snowprofile');
+        this.store.load();
+        this.callParent(arguments);
+        this.on('selectionchange', this.onRowSelect, this);
+		*/
+    	this.columns = [
 			{
-				id: 'vonHoehe',
 				header: 'Von Höhe[cm]',
-				dataIndex: 'snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.depthTop.content',
+				dataIndex: 'depthTop.content',
 				renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-					var dataIndex = this.columns[colIndex].dataIndex;
-					return getDataFromRecord(record, rowIndex, dataIndex);
+					/*var dataIndex = this.columns[colIndex].dataIndex;
+					return getDataFromRecord(record, rowIndex, dataIndex);*/
+					return "test";
 				},
 				flex: 1,
 				editor: {
@@ -58,10 +64,11 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			},
 			{
 				header: 'Bis Höhe[cm]',
-				dataIndex: 'snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.depthTop.content',
+				dataIndex: 'depthTop.content',
 				renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-					var dataIndex = this.columns[colIndex].dataIndex;
-					return getDataFromRecord(record, rowIndex, dataIndex);
+					/*var dataIndex = this.columns[colIndex].dataIndex;
+					return getDataFromRecord(record, rowIndex, dataIndex);*/
+					return "test1";
 				},
 				flex: 1,
 				editor: {
@@ -145,10 +152,11 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			}
 			*/
         ];
-        
+    	
         this.getSelectionModel().on('selectionchange', function(selModel, selections){
         	//this.down('#delete').setDisabled(selections.length === 0);
         });
+        
         this.callParent(arguments);
     }
 });

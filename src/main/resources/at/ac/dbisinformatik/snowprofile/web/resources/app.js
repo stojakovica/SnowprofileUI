@@ -95,22 +95,16 @@ Ext.application({
         	        	        	    ]
             	        	        },
             	        	        {
-            	        	        	title: 'Schwachschicht'
-            	        	        },
-            	        	        {
             	        	        	title: 'Rutschblocktest'
             	        	        },
             	        	        {
             	        	        	title: 'Kompressionstest'
             	        	        },
             	        	        {
-            	        	        	title: 'Rammwiderstand'
+            	        	        	title: 'Erweiterter Kompressionstest'
             	        	        },
             	        	        {
             	        	        	title: 'Dichte'
-            	        	        },
-            	        	        {
-            	        	        	title: 'F&auml;den'
             	        	        }
                 	        	]
                 	        }

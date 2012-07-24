@@ -10,7 +10,8 @@ Ext.define('LWD.model.Snowprofile', {
 	],
 	associations: [
         {type: 'hasMany', model: 'LWD.model.snowprofile.locRef',    name: 'locRef', associationKey:'locRef'},
-        {type: 'hasMany', model: 'LWD.model.snowprofile.snowProfileResultsOf', name: 'snowProfileResultsOf', associationKey:'snowProfileResultsOf'},
+        {type: 'hasOne', model: 'LWD.model.snowprofile.snowProfileResultsOf', name: 'snowProfileResultsOf', associationKey:'snowProfileResultsOf', 
+        	getterName: 'getSnowProfileData'},
         {type: 'hasMany', model: 'LWD.model.snowprofile.validTime', name: 'validTime', associationKey:'validTime'}
     ]
 });

@@ -15,15 +15,7 @@ Ext.define('LWD.store.Snowprofile', {
             type: 'json'
         }
     },
-    listeners: {
-    	load: {
-	        fn: function(store, records, success, operations) {
-	          Ext.each(records, function(rec) {
-	            //console.log(Ext.encode(rec.raw));
-	          });
-	        }
-    	},
-    	
+    listeners: {    	
     	write: function(store, operation){
             var record = operation.getRecords()[0],
                 name = Ext.String.capitalize(operation.action),

@@ -1,9 +1,11 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
@@ -35,8 +37,10 @@ public class ListSnowProfileResource extends ServerResource {
 
 	@Get()
 	public String getJson() throws JSONException, IOException {
-		String file = readFile("C:/test.xml");
-		JSONObject snowprofile = XML.toJSONObject(file);
+		//String content = IOUtils.toString(getClass().getResourceAsStream("/at/ac/dbisinformatik/snowprofile/dataconverter/testoutputs/test.xml"));
+		String content = IOUtils.toString(new FileInputStream("/Users/rbinna/VCS/snowprofile/trunk/code/src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testoutputs/test.xml"));
+		//String file = readFile("C:/test.xml");
+		JSONObject snowprofile = XML.toJSONObject(content);
 		
 		String returnProfile = snowprofile.toString();
 		returnProfile = returnProfile.replace("caaml:", "");

@@ -13,7 +13,10 @@ Ext.define('LWD.model.snowprofile.SnowProfileMeasurements', {
        {type: 'hasMany', model: 'LWD.model.snowprofile.hardnessProfile', name: 'hardnessProfile', associationKey:'hardnessProfile'},
        {type: 'hasMany', model: 'LWD.model.snowprofile.contentUomModel', name: 'penetrationSki', associationKey:'penetrationSki'},
        {type: 'hasMany', model: 'LWD.model.snowprofile.contentUomModel', name: 'profileDepth', associationKey:'profileDepth'},
-       {type: 'hasMany', model: 'LWD.model.snowprofile.stratProfile', name: 'stratProfile', associationKey:'stratProfile'},
+       {type: 'hasMany', model: 'LWD.model.LayerProfile', name: 'stratProfiles', associationKey:'stratProfile', reader: {
+    	   type  : 'json',
+    	   root  : 'Layer',
+       }},
        {type: 'hasMany', model: 'LWD.model.snowprofile.tempProfile', name: 'tempProfile', associationKey:'tempProfile'},
        {type: 'hasMany', model: 'LWD.model.snowprofile.windDir', name: 'windDir', associationKey:'windDir'},
        {type: 'hasMany', model: 'LWD.model.snowprofile.contentUomModel', name: 'windSpd', associationKey:'windSpd'}

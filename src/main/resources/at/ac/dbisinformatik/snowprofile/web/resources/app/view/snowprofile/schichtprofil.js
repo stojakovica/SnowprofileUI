@@ -1,59 +1,59 @@
-var rowEditing = Ext.create('Ext.grid.plugin.RowEditing');
+var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
+    clicksToEdit: 1
+})
 
 Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.schichtprofil',
 		
     store: 'Schichtprofil',
-    
-	height: 400,
 	
 	border: false,
 	
-	selModel: {
-        selType: 'cellmodel'
-    },
-    dockedItems: [{
-        xtype: 'toolbar',
-        items: [{
-            text: 'Neues Schichtprofil',
-            iconCls: 'icon-add',
-            handler: function(){
-        		var store = Ext.data.StoreManager.lookup('Snowprofile');
-        		store.insert(store.getCount(), new LWD.model.snowprofile.Schichtprofil());
-                rowEditing.startEdit(0, 0);
+	selType: 'rowmodel',
+
+    tbar: [{
+        text: 'Neues Schichtprofil',
+        iconCls: 'icon-add',
+        handler: function(){
+    		this.store.insert(store.getCount(), new LWD.model.snowprofile.stratLayer());
+            rowEditing.startEdit(0, 0);
+        }
+    }, '-', {
+        itemId: 'delete',
+        text: 'Löschen',
+        iconCls: 'icon-delete',
+        disabled: true,
+        handler: function(){
+            var selection = grid.getView().getSelectionModel().getSelection()[0];
+            if (selection) {
+                store.remove(selection);
             }
-        }, '-', {
-            itemId: 'delete',
-            text: 'Löschen',
-            iconCls: 'icon-delete',
-            disabled: true,
-            handler: function(){
-                var selection = grid.getView().getSelectionModel().getSelection()[0];
-                if (selection) {
-                    store.remove(selection);
-                }
-            }
-        }]
+        }
     }],
-    plugins: [rowEditing],
+    plugins: [Ext.create('Ext.grid.plugin.RowEditing', {
+        clicksToEdit: 1
+    })],
+    
+    columns: [
+		{
+			header: 'Von Höhe[cm]',
+			dataIndex: 'depthTop',
+			flex: 1,
+			editor: {
+			    xtype: 'numberfield',
+             allowBlank: false,
+             minValue: 0,
+             maxValue: 700
+			}
+		}
+	],
 	
     initComponent: function() {
-    	/*
-        this.store = StoreManager.lookup('Snowprofile');
-        this.store.load();
-        this.callParent(arguments);
-        this.on('selectionchange', this.onRowSelect, this);
-		*/
-    	this.columns = [
+    	/*this.columns = [
 			{
 				header: 'Von Höhe[cm]',
-				dataIndex: 'depthTop.content',
-				renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-					/*var dataIndex = this.columns[colIndex].dataIndex;
-					return getDataFromRecord(record, rowIndex, dataIndex);*/
-					return "test";
-				},
+				dataIndex: 'depthTop',
 				flex: 1,
 				editor: {
 				    xtype: 'numberfield',
@@ -64,12 +64,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			},
 			{
 				header: 'Bis Höhe[cm]',
-				dataIndex: 'depthTop.content',
-				renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-					/*var dataIndex = this.columns[colIndex].dataIndex;
-					return getDataFromRecord(record, rowIndex, dataIndex);*/
-					return "test1";
-				},
+				dataIndex: 'depthTop',
 				flex: 1,
 				editor: {
 					xtype: 'numberfield',
@@ -78,7 +73,6 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 	                maxValue: 700
 				}
 			},
-			/*
 			{
 				header: 'Kornform[F]',
 				dataIndex: 'kornform',
@@ -150,12 +144,12 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 	        		listClass: 'x-combo-list-small'
 				})
 			}
-			*/
-        ];
+			
+        ];*/
     	
-        this.getSelectionModel().on('selectionchange', function(selModel, selections){
+        /*this.getSelectionModel().on('selectionchange', function(selModel, selections){
         	//this.down('#delete').setDisabled(selections.length === 0);
-        });
+        });*/
         
         this.callParent(arguments);
     }

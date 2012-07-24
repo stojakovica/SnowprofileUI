@@ -17,7 +17,7 @@ public class SnowProfileApplikation extends Application {
 		Router router = new Router(this.getContext());
 
 		final Directory dir = new Directory(getContext(),
-				"file:///C:/vcs/snowprofile/trunk/code/src/main/resources/at/ac/dbisinformatik/snowprofile/web/resources");
+				"clap://system/at/ac/dbisinformatik/snowprofile/web/resources/");
 		dir.setDeeplyAccessible(true);
 		dir.setListingAllowed(true);
 		dir.setNegotiatingContent(false);

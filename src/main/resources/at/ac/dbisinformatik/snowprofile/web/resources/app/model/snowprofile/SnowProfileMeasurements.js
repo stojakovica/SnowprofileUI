@@ -17,7 +17,10 @@ Ext.define('LWD.model.snowprofile.SnowProfileMeasurements', {
     	   type  : 'json',
     	   root  : 'Layer',
        }},
-       {type: 'hasMany', model: 'LWD.model.snowprofile.tempProfile', name: 'tempProfile', associationKey:'tempProfile'},
+       {type: 'hasMany', model: 'LWD.model.TempProfile', name: 'tempProfile', associationKey:'tempProfile', reader: {
+    	   type  : 'json',
+    	   root  : 'Obs',
+       }},
        {type: 'hasMany', model: 'LWD.model.snowprofile.windDir', name: 'windDir', associationKey:'windDir'},
        {type: 'hasMany', model: 'LWD.model.snowprofile.contentUomModel', name: 'windSpd', associationKey:'windSpd'}
     ],

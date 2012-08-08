@@ -1,6 +1,5 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
@@ -37,16 +36,21 @@ public class ListSnowProfileResource extends ServerResource {
 
 	@Get()
 	public String getJson() throws JSONException, IOException {
-		//String content = IOUtils.toString(getClass().getResourceAsStream("/at/ac/dbisinformatik/snowprofile/dataconverter/testoutputs/test.xml"));
-		String content = IOUtils.toString(new FileInputStream("/Users/rbinna/VCS/snowprofile/trunk/code/src/main/resources/at/ac/dbisinformatik/snowprofile/dataconverter/testoutputs/test.xml"));
-		//String file = readFile("C:/test.xml");
+		//TODO
+		String content = IOUtils.toString(new FileInputStream("C:/test.xml"));
+
 		JSONObject snowprofile = XML.toJSONObject(content);
+		JSONObject snowprofile2 = new JSONObject(JSONHelpers.jsonToMap("", snowprofile));
 		
-		String returnProfile = snowprofile.toString();
+//		String returnProfile = snowprofile.toString();
+		String returnProfile = snowprofile2.toString();
 		returnProfile = returnProfile.replace("caaml:", "");
 		returnProfile = returnProfile.replace("gml:", "");
 		returnProfile = returnProfile.replace("xmlns:", "xmlns_");
 		returnProfile = returnProfile.replace("xsi:", "xsi_");
+		
+		
+//		JSONHelpers.getSubNode("stratProfile", snowprofile);
 		
 		return returnProfile;
 	}

@@ -88,7 +88,7 @@ Ext.application({
         	        	        		border: false,
             	        	        	items: [
         	        	        	        {
-        	        	        	        	xtype: 'schneetemperatur',
+        	        	        	        	xtype: 'snowtemperature',
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }

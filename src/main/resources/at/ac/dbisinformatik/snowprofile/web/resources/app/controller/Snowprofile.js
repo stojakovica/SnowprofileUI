@@ -1,6 +1,7 @@
 Ext.define('LWD.controller.Snowprofile', {
     extend: 'Ext.app.Controller',
 	stores: [
+        'Snowtemperature',
 	    'Schichtprofil',
 	    'Snowprofile'
 	],
@@ -52,7 +53,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.kopf',
         'snowprofile.kopfreadonly',
         'snowprofile.schichtprofil',
-        'snowprofile.schneetemperatur',
+        'snowprofile.snowtemperature',
         'graph.Graph'
     ],
 
@@ -66,6 +67,11 @@ Ext.define('LWD.controller.Snowprofile', {
         			var schichtProfileStore = this.getSchichtprofilStore();
         			schichtProfileStore.getProxy().clear();
         			schichtProfileStore.add(originalStratProfiles.data.items);
+        			
+        			var originalTempProfiles = snowProfileMeassurements.tempProfile(); 
+        			var tempProfileStore = this.getSnowtemperatureStore();
+        			tempProfileStore.getProxy().clear();
+        			tempProfileStore.add(originalTempProfiles.data.items);
         		}, this);
         	}, this);
         	//this.getSchichtprofilStore().loadRawData(store.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
@@ -78,6 +84,18 @@ Ext.define('LWD.controller.Snowprofile', {
         			var schichtProfileStore = this.getSchichtprofilStore();
         			originalStratProfiles.removeAll(true);
         			originalStratProfiles.add(schichtProfileStore.data.items);
+        			snowProfileStore.fireEvent("datachanged", snowProfileStore);
+        		}, this);
+        	}, this);
+        }, this);
+        this.getSnowtemperatureStore().on('datachanged', function(snowtemperatureStore, eOpts) {
+        	var snowProfileStore = this.getSnowprofileStore();
+        	snowProfileStore.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
+        		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
+        			var originalTempProfile = snowProfileMeassurements.tempProfile(); 
+        			var snowtemperatureStore = this.getSnowtemperatureStore();
+        			originalTempProfile.removeAll(true);
+        			originalTempProfile.add(snowtemperatureStore.data.items);
         			snowProfileStore.fireEvent("datachanged", snowProfileStore);
         		}, this);
         	}, this);

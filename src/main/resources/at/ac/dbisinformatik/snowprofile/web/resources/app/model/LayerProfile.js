@@ -1,7 +1,7 @@
 Ext.define('LWD.model.LayerProfile', {
 	extend: 'Ext.data.Model',
 	fields: [
-	    { mapping: "depthTop.content", name:"depthTop" },
+	    { mapping: "depthTop_content", name:"depthTop_content" },
 	    { mapping: "hardness", name:"hardness" },
 	    { name:"thickness", convert: function(v, record) {
 	    	var thickness;

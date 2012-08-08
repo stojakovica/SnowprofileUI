@@ -40,17 +40,14 @@ public class ListSnowProfileResource extends ServerResource {
 		String content = IOUtils.toString(new FileInputStream("C:/test.xml"));
 
 		JSONObject snowprofile = XML.toJSONObject(content);
-		JSONObject snowprofile2 = new JSONObject(JSONHelpers.jsonToMap("", snowprofile));
 		
-//		String returnProfile = snowprofile.toString();
-		String returnProfile = snowprofile2.toString();
+		snowprofile = new JSONObject(JSONHelpers.flatten("stratProfile", null, snowprofile));
+		
+		String returnProfile = snowprofile.toString();
 		returnProfile = returnProfile.replace("caaml:", "");
 		returnProfile = returnProfile.replace("gml:", "");
 		returnProfile = returnProfile.replace("xmlns:", "xmlns_");
 		returnProfile = returnProfile.replace("xsi:", "xsi_");
-		
-		
-//		JSONHelpers.getSubNode("stratProfile", snowprofile);
 		
 		return returnProfile;
 	}

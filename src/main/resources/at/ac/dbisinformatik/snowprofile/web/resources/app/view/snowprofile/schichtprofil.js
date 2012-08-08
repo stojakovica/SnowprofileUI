@@ -38,7 +38,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     columns: [
 		{
 			header: 'Von Höhe[cm]',
-			dataIndex: 'depthTop',
+			dataIndex: 'depthTop_content',
 			flex: 1,
 			editor: {
 			    xtype: 'numberfield',

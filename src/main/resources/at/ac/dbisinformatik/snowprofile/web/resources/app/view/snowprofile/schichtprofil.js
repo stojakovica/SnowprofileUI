@@ -38,14 +38,45 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     columns: [
 		{
 			header: 'Von Höhe[cm]',
-			dataIndex: 'depthTop_content',
+			dataIndex: 'depthTop',
 			flex: 1,
 			editor: {
 			    xtype: 'numberfield',
              allowBlank: false,
              minValue: 0,
-             maxValue: 700
 			}
+		},
+		{
+            header: 'Kornform',
+            dataIndex: 'kornform',
+            flex: 1,
+            editor: {
+                allowBlank: false
+            }
+		},
+		{
+			header: 'Grösse[D][mm]',
+			dataIndex: 'groesse',
+			flex: 1,
+			editor: {
+			allowBlank: false
+		}
+		},
+		{
+			header: 'Härte[K]',
+			dataIndex: 'hardness',
+			flex: 1,
+			editor: {
+			allowBlank: false
+		}
+		},
+		{
+			header: 'Feuchte',
+			dataIndex: 'lwc',
+			flex: 1,
+			editor: {
+			allowBlank: false
+		}
 		}
 	],
 	

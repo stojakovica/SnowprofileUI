@@ -64,7 +64,8 @@ Ext.application({
     	            {
     	            	xtype: 'panel',
     	            	layout: 'fit',
-    	            	height: 319,
+//    	            	height: 319,
+    	            	autoScroll: true,
     	            	border: false,
                     	items: [
                 	        {

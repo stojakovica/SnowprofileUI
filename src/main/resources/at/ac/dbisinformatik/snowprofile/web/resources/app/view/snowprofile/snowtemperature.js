@@ -44,7 +44,6 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 			    xtype: 'numberfield',
 	             allowBlank: false,
 	             minValue: 0,
-	             maxValue: 700
 			}
 		},
 		{
@@ -55,7 +54,6 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 				xtype: 'numberfield',
 				allowBlank: false,
 				minValue: 0,
-				maxValue: 700
 			}
 		}
 	],

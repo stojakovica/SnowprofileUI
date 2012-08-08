@@ -41,7 +41,7 @@ public class ListSnowProfileResource extends ServerResource {
 
 		JSONObject snowprofile = XML.toJSONObject(content);
 		
-		snowprofile = new JSONObject(JSONHelpers.flatten("stratProfile", null, snowprofile));
+		snowprofile = new JSONObject(JSONHelpers.flatten("stratProfile", snowprofile));
 		
 		String returnProfile = snowprofile.toString();
 		returnProfile = returnProfile.replace("caaml:", "");

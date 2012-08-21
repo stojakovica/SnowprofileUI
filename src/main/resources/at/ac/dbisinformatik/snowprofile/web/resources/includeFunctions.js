@@ -289,10 +289,10 @@ function drawGraph(store, drawComponent) {
 		});
 		
 		// Text zu Form
-		x = "60%";
-		x_circle = "60.3%";
-		x_image = "59.6%";
-		y = (y + (y + height)) / 2;
+		x = "59.4%";
+		x_circle = "59.7%";
+		x_image = "59%";
+		y = ((y + (y + height)) / 2)-0.2;
 		y_image = y - 0.8;
 		y_rect = y - 0.5;
 		var text = "";
@@ -430,9 +430,9 @@ function drawGraph(store, drawComponent) {
     			break;
 		}
 		
-		x = "62%";
-		x_circle = "62.3%";
-		x_image = "61.6%";
+		x = "61.8%";
+		x_circle = "62.1%";
+		x_image = "61.4%";
 		switch (kornform2) { 
 			case 'PP': 
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
@@ -582,7 +582,6 @@ function drawGraph(store, drawComponent) {
 		
 		// Feuchte
 		x = "71.25%";
-		console.log(feuchte);
 		switch (feuchte) {
             case 'D': text = "-"; break;
             case 'M': text = "|"; break;

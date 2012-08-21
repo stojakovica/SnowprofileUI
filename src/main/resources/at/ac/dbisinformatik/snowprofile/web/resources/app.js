@@ -96,16 +96,15 @@ Ext.application({
         	        	        	    ]
             	        	        },
             	        	        {
-            	        	        	title: 'Rutschblocktest'
-            	        	        },
-            	        	        {
-            	        	        	title: 'Kompressionstest'
-            	        	        },
-            	        	        {
-            	        	        	title: 'Erweiterter Kompressionstest'
-            	        	        },
-            	        	        {
-            	        	        	title: 'Dichte'
+            	        	        	title: 'Stabilitätstests',
+            	        	        	border: false,
+            	        	        	items: [
+        	        	        	        {
+        	        	        	        	xtype: 'stabilitytest',
+        	        	        	        	autoScroll: true,
+        	        	        	        	border: false
+        	        	        	        }
+        	        	        	    ]
             	        	        }
                 	        	]
                 	        }

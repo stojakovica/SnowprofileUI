@@ -54,6 +54,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.kopfreadonly',
         'snowprofile.schichtprofil',
         'snowprofile.snowtemperature',
+        'snowprofile.stabilitytest',
         'graph.Graph'
     ],
 

@@ -623,7 +623,6 @@ function drawGraph(store, drawComponent) {
 	for(var i = 0; i < schneetemperaturData.length; i++) {
 		vonHoehe = schneetemperaturData[i].depth;
 		var temp = (schneetemperaturData[i].snowTemp/10);
-		console.log(temp);
 		if(Ext.isObject(schneetemperaturData[i+1])) {
 			bisHoehe = schneetemperaturData[i+1].depth;
 			var tempNext = (schneetemperaturData[i+1].snowTemp/10);

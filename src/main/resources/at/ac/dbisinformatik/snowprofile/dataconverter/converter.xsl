@@ -175,7 +175,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:for-each select="SPP-Profil/Schneetemperatur/Schicht">
 				<Obs>
 					<depth><xsl:value-of select="H div 10"/></depth>
-					<snowTemp><xsl:value-of select="T"/></snowTemp>
+					<snowTemp>-<xsl:value-of select="T"/></snowTemp>
 				</Obs>
 				</xsl:for-each>
 			</tempProfile>

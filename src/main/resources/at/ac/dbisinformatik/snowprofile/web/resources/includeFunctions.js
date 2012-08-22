@@ -221,9 +221,10 @@ function drawGraph(store, drawComponent) {
     
 	
 	var width = 0;
-
-	//TODO temporary
-	var vonHoehe0 = roundUp(schichtprofilData[0].depthTop);
+	
+	vonHoehe0 = 250;
+	if(schichtprofilData[0].depthTop > snowTopValue)
+		var vonHoehe0 = roundUp(schichtprofilData[0].depthTop);
 	for(var i = 0; i < schichtprofilData.length; i++) {
 		var vonHoehe = schichtprofilData[i].depthTop;
 		var thickness = schichtprofilData[i].thickness;
@@ -615,9 +616,10 @@ function drawGraph(store, drawComponent) {
 	
 	var h100 = drawComponent.getHeight();
 	var w100 = drawComponent.getWidth();
+	var h84 = h100 * 0.84;
+	var w55 = w100 * 0.55;
+	var w15 = w100 * 0.15;
 	for(var i = 0; i < schneetemperaturData.length; i++) {
-		var h84 = h100 * 0.84;
-		var w55 = w100 * 0.55;
 		vonHoehe = schneetemperaturData[i].depth;
 		var temp = schneetemperaturData[i].snowTemp;
 		if(Ext.isObject(schneetemperaturData[i+1])) {
@@ -687,9 +689,9 @@ function drawGraph(store, drawComponent) {
 		});
 	}
 
-	// TEMPERATUR
-	for(var j=0; j < 40; j=j+3.5) {
-		var x = 55 - j;
+	// TEMPERATUR-MASSSTAB
+	for(var j=0; j < 20; j=j+2) {
+		var x = 55 - (j*2);
 		surface.add({
 			type: "rect",
 			width: "0.5",
@@ -700,6 +702,17 @@ function drawGraph(store, drawComponent) {
 			stroke:"#000",
 			fill:"#000",
 			group: 'rectangles',
+		});
+		
+		// Text
+		surface.add({
+			type: 'text',
+			text: j,
+			fill: '#000',
+			font: '8px Arial',
+			x: (x-0.5)+"%",
+			y: "7.5%",
+			group: 'text'
 		});
 	}
 	

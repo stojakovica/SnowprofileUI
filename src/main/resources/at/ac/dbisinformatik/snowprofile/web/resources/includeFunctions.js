@@ -690,8 +690,9 @@ function drawGraph(store, drawComponent) {
 	}
 
 	// TEMPERATUR-MASSSTAB
-	for(var j=0; j < 20; j=j+2) {
-		var x = 55 - (j*2);
+	var tempMax = 26;
+	for(var j=2; j < tempMax; j=j+2) {
+		var x = 55 - (40* j/tempMax);
 		surface.add({
 			type: "rect",
 			width: "0.5",
@@ -710,7 +711,7 @@ function drawGraph(store, drawComponent) {
 			text: j,
 			fill: '#000',
 			font: '8px Arial',
-			x: (x-0.5)+"%",
+			x: (x-0.4)+"%",
 			y: "7.5%",
 			group: 'text'
 		});

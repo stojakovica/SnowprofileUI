@@ -633,10 +633,8 @@ function drawGraph(store, drawComponent) {
 			bisHoehe = 0;
 		}
 		
-//		var startx = w55 - temp;
 		var startx = w55 - (w40 * temp/tempMax);
 		var starty = h100 - (h84 * vonHoehe / vonHoehe0);
-//		var endx = w55 - tempNext;
 		var endx = w55 - (w40 * tempNext/tempMax);
 		var endy = h100 - (h84 * bisHoehe / vonHoehe0);
 		

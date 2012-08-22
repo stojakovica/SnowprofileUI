@@ -618,22 +618,26 @@ function drawGraph(store, drawComponent) {
 	var w100 = drawComponent.getWidth();
 	var h84 = h100 * 0.84;
 	var w55 = w100 * 0.55;
-	var w15 = w100 * 0.15;
+	var w40 = w100 * 0.4;
+	var tempMax = 26;
 	for(var i = 0; i < schneetemperaturData.length; i++) {
 		vonHoehe = schneetemperaturData[i].depth;
-		var temp = schneetemperaturData[i].snowTemp;
+		var temp = (schneetemperaturData[i].snowTemp/10);
+		console.log(temp);
 		if(Ext.isObject(schneetemperaturData[i+1])) {
 			bisHoehe = schneetemperaturData[i+1].depth;
-			var tempNext = schneetemperaturData[i+1].snowTemp;
+			var tempNext = (schneetemperaturData[i+1].snowTemp/10);
 		}
 		else {
 			var tempNext = 0;
 			bisHoehe = 0;
 		}
 		
-		var startx = w55 - temp;
+//		var startx = w55 - temp;
+		var startx = w55 - (w40 * temp/tempMax);
 		var starty = h100 - (h84 * vonHoehe / vonHoehe0);
-		var endx = w55 - tempNext;
+//		var endx = w55 - tempNext;
+		var endx = w55 - (w40 * tempNext/tempMax);
 		var endy = h100 - (h84 * bisHoehe / vonHoehe0);
 		
 		surface.add({
@@ -690,7 +694,6 @@ function drawGraph(store, drawComponent) {
 	}
 
 	// TEMPERATUR-MASSSTAB
-	var tempMax = 26;
 	for(var j=2; j < tempMax; j=j+2) {
 		var x = 55 - (40* j/tempMax);
 		surface.add({

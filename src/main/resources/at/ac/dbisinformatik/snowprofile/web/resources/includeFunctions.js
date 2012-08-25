@@ -619,7 +619,6 @@ function drawGraph(store, drawComponent) {
 	var h84 = h100 * 0.84;
 	var w55 = w100 * 0.55;
 	var w40 = w100 * 0.4;
-	var tempMax = 26;
 	for(var i = 0; i < schneetemperaturData.length; i++) {
 		vonHoehe = schneetemperaturData[i].depth;
 		var temp = (schneetemperaturData[i].snowTemp/10);

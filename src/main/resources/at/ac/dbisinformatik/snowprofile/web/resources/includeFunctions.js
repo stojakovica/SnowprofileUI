@@ -590,20 +590,8 @@ function drawGraph(store, drawComponent) {
 		});
 	}
 	
-	/*
 	// ZEICHNEN DER SCHNEETEMPERATUR
-	var schneetemperaturData = []; //= snowprofileData.getSnowProfileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.raw;
-	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
-		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
-			var tempProfileStore = snowProfileMeassurements.tempProfile(); 
-			for(var i=0; i < tempProfileStore.data.items.length; ++i) {
-				schneetemperaturData.push(tempProfileStore.data.items[i].getData(true));
-			}
-		}, this);
-	}, this);
-	*/
-	
-	var schneetemperaturData = [];
+	var schneetemperaturData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs;
 	
 	var h100 = drawComponent.getHeight();
 	var w100 = drawComponent.getWidth();

@@ -60,7 +60,8 @@ function initGraph() {
 function drawGraph(store, drawComponent) {
 	var surface = drawComponent.surface
 	//var snowprofileData = store.data.items[0];
-	var snowprofileData = store.data.getAt(0);
+//	var snowprofileData = store.data.getAt(0);
+	var snowprofileData = store.SnowProfile;
 	
 	// LÖSCHEN UM GRAFIK NEU ZU ZEICHNEN
 	surface.removeAll();
@@ -204,36 +205,22 @@ function drawGraph(store, drawComponent) {
 	surface.add(spriteImg);
 	
 	// ZEICHNEN DES SCHICHTPROFILS
-	//var schichtprofilData = snowprofileData.snowProfileResultsOfStore.data.items[0].SnowProfileMeasurementsStore.data.items[0].stratProfileStore.data.items[0].LayerStore.data.items;
-	var schichtprofilData = []; //= snowprofileData.getSnowProfileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.raw;
-	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
-		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
-			var stratProfilesStore = snowProfileMeassurements.stratProfiles(); 
-			for(var i=0; i < stratProfilesStore.data.items.length; ++i) {
-				schichtprofilData.push(stratProfilesStore.data.items[i].getData(true));
-			}
-			/*var schichtProfileStore = this.getSchichtprofilStore();
-			schichtProfileStore.getProxy().clear();
-			schichtProfileStore.add(originalStratProfiles.data.items);*/
-		}, this);
-	}, this);
-    	//this.getSchichtprofilStore().loadRawData(store.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
-    
+	var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
 	
 	var width = 0;
 	
-	vonHoehe0 = 250;
-	if(schichtprofilData[0].depthTop > snowTopValue)
-		var vonHoehe0 = roundUp(schichtprofilData[0].depthTop);
+	vonHoehe0 = snowTopValue;
+	if(schichtprofilData[0].depthTop_content > snowTopValue)
+		var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
 	for(var i = 0; i < schichtprofilData.length; i++) {
-		var vonHoehe = schichtprofilData[i].depthTop;
-		var thickness = schichtprofilData[i].thickness;
-		if(Ext.isObject(thickness)) {
-			var bisHoehe = vonHoehe - thickness.content;
+		var vonHoehe = schichtprofilData[i].depthTop_content;
+		if(typeof schichtprofilData[i].thickness_content != 'undefined') {
+			var thickness = schichtprofilData[i].thickness_content;
+			var bisHoehe = vonHoehe - thickness;
 		}
 		else {
     		if(i < (schichtprofilData.length - 1))
-    			var bisHoehe = schichtprofilData[i+1].depthTop;
+    			var bisHoehe = schichtprofilData[i+1].depthTop_content;
     		else 
     			var bisHoehe = 0;
 		}
@@ -241,7 +228,7 @@ function drawGraph(store, drawComponent) {
 		var kornform2 = schichtprofilData[i].grainFormSecondary;
 		var haerte = schichtprofilData[i].hardness;
 		var groesse = schichtprofilData[i].grainSize_Components_avg+"-"+schichtprofilData[i].grainSize_Components_avgMax;
-		var feuchte = schichtprofilData[i].lwc;
+		var feuchte = schichtprofilData[i].lwc_content;
 
 		var height = (84 * (vonHoehe / vonHoehe0)) - (84 * (bisHoehe / vonHoehe0));
 		var y = 100 - (84 * (vonHoehe / vonHoehe0));
@@ -603,6 +590,7 @@ function drawGraph(store, drawComponent) {
 		});
 	}
 	
+	/*
 	// ZEICHNEN DER SCHNEETEMPERATUR
 	var schneetemperaturData = []; //= snowprofileData.getSnowProfileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.raw;
 	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
@@ -613,6 +601,9 @@ function drawGraph(store, drawComponent) {
 			}
 		}, this);
 	}, this);
+	*/
+	
+	var schneetemperaturData = [];
 	
 	var h100 = drawComponent.getHeight();
 	var w100 = drawComponent.getWidth();

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Map;
 
+import javax.xml.soap.Text;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -124,7 +125,7 @@ public class SVGCreator {
 
 				// Create the text.
 				element = doc.createElementNS(svgNS, "text");
-//				element.setAttributeNS(null, "text", text);
+				element.setAttributeNS(null, "text", text);
 				element.setAttributeNS(null, "fill", "blue");
 				element.setAttributeNS(null, "font-family", fontFamily);
 				element.setAttributeNS(null, "font-size", fontSize);

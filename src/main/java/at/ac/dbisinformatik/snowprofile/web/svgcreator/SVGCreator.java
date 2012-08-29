@@ -3,9 +3,7 @@ package at.ac.dbisinformatik.snowprofile.web.svgcreator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.Map;
 
-import javax.xml.soap.Text;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -18,7 +16,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
@@ -69,9 +66,9 @@ public class SVGCreator {
 		JsonArray items = jsonDocument.get("items").getAsJsonArray();
 
 		for (int i = 0; i < items.size(); ++i) {
-			String type = items.get(i).getAsJsonObject().get("type")
-					.getAsString();
+			String type = items.get(i).getAsJsonObject().get("type").getAsString();
 			Element element = null;
+			org.w3c.dom.Text test = null;
 			String path = "";
 			String width = "";
 			String height = "";
@@ -82,6 +79,7 @@ public class SVGCreator {
 			String font = "";
 			String fontFamily = "";
 			String fontSize = "";
+			String degrees = "";
 			switch (type) {
 			case "rect":
 				width = items.get(i).getAsJsonObject().get("width").getAsString();
@@ -119,18 +117,29 @@ public class SVGCreator {
 				font = items.get(i).getAsJsonObject().get("font").getAsString();
 				x = items.get(i).getAsJsonObject().get("x").getAsString();
 				y = items.get(i).getAsJsonObject().get("y").getAsString();
+
+				// Transformation
+				if(items.get(i).getAsJsonObject().get("rotate") != null) {
+					JsonObject temp = items.get(i).getAsJsonObject().get("rotate").getAsJsonObject();
+					degrees = temp.get("degrees").getAsString();
+				}
 				
 				fontFamily = "Arial";
-				fontSize = "55";
+				fontSize = "8";
 
 				// Create the text.
+				test = doc.createTextNode(text);
 				element = doc.createElementNS(svgNS, "text");
 				element.setAttributeNS(null, "text", text);
-				element.setAttributeNS(null, "fill", "blue");
+				element.setAttributeNS(null, "fill", fill);
 				element.setAttributeNS(null, "font-family", fontFamily);
 				element.setAttributeNS(null, "font-size", fontSize);
 				element.setAttributeNS(null, "x", x);
 				element.setAttributeNS(null, "y", y);
+				if(!degrees.equals("")) {
+//					element.setAttributeNS(null, "transform", "rotate(270 "+500+","+80+")");
+				}
+				element.appendChild(test);
 				break;
 
 			default:

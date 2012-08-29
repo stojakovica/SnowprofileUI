@@ -1,62 +1,3 @@
-function roundUp(num) {
-	var returnNum = Math.ceil(num/100);
-	return returnNum * 100;
-}
-
-function drawRectangle(width, height, x, y, stroke_width) {
-	return {
-    	type: "rect",
-    	width: width,
-    	height: height,
-    	x: x,
-    	y: y,
-    	"stroke-width": stroke_width,
-    	stroke:"#000000",
-    	fill:"#ffffff",
-    	group: 'rectangles'
-    }
-}
-
-function drawText(text, x, y, rotate) {
-	if(rotate > 0) {
-		return {
-			type: 'text',
-	        text: text,
-	        fill: '#000',
-	        font: '8px Arial',
-	        x: x,
-	        y: y,
-	        rotate: {
-                degrees: 270
-            },
-	        group: 'text'
-		}
-	}
-	else {
-		return {
-			type: 'text',
-			text: text,
-			fill: '#000',
-			font: '8px Arial',
-			x: x,
-			y: y,
-			group: 'text'
-		}
-	}
-}
-
-function initGraph() {
-	return {
-		xtype: 'draw',
-		viewBox: true,
-		autoSize: true,
-		flex: 1,
-		width: "100%",
-		height: "100%"
-		//renderTo: document.body
-	}
-}
-
 function drawGraph(store, drawComponent) {
 	var surface = drawComponent.surface
 	//var snowprofileData = store.data.items[0];
@@ -106,12 +47,12 @@ function drawGraph(store, drawComponent) {
 	var width_image = drawComponent.getHeight() * 0.012; 
 	var height_image = width_image;
 	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
+		type: 'svg',
 		width: width_image,
 		height: 10,
 		x: "16%",
 		y: "1.7%",
-		src: "data/img/plus.jpg",
+		src: "data/img/eislamelle.svg",
 		group: 'rectangles'
 	});
 	surface.add(spriteImg);
@@ -701,4 +642,51 @@ function drawGraph(store, drawComponent) {
 	text.show(true);
 	rectangles.show(true);
 	paths.show(true);
+}
+
+function roundUp(num) {
+	var returnNum = Math.ceil(num/100);
+	return returnNum * 100;
+}
+
+function drawText(text, x, y, rotate) {
+	if(rotate > 0) {
+		return {
+			type: 'text',
+	        text: text,
+	        fill: '#000',
+	        font: '8px Arial',
+	        x: x,
+	        y: y,
+	        rotate: {
+                degrees: 270
+            },
+	        group: 'text'
+		}
+	}
+	else {
+		return {
+			type: 'text',
+			text: text,
+			fill: '#000',
+			font: '8px Arial',
+			x: x,
+			y: y,
+			group: 'text'
+		}
+	}
+}
+
+function drawRectangle(width, height, x, y, stroke_width) {
+	return {
+    	type: "rect",
+    	width: width,
+    	height: height,
+    	x: x,
+    	y: y,
+    	"stroke-width": stroke_width,
+    	stroke:"#000000",
+    	fill:"#ffffff",
+    	group: 'rectangles'
+    }
 }

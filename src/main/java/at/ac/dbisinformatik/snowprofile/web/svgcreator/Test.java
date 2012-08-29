@@ -31,13 +31,13 @@ public class Test {
 		try {
             Context cx = Context.enter();
             Scriptable scope = cx.initStandardObjects();  
-            Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
-            //Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/test.js"));
+//            Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
+            Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/test.js"));
             //Reader jsonScriptReader = new InputStreamReader(Test.class.getResourceAsStream("/json.js"));
             //cx.evaluateReader(scope, jsonScriptReader,"<cmd>", 1, null);
             cx.evaluateReader(scope, script,"<cmd>", 1, null);
-            Object func = scope.get("drawGraph", scope);
-            //Object func = scope.get("getJSON", scope);
+            Object func = scope.get("getJSON", scope);
+//            Object func = scope.get("getJSON", scope);
             Object stringify = ((Scriptable) scope.get("JSON", scope)).get("stringify", scope);
             if (func instanceof Function) {
                 Object funcArgs[] = null;

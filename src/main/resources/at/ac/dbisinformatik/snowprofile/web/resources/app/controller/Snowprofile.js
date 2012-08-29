@@ -1,3 +1,9 @@
+function getJsonOfStore(store){
+	store.each(function(rec) {
+	    console.log(Ext.encode(rec.raw));
+	});
+}
+
 Ext.define('LWD.controller.Snowprofile', {
     extend: 'Ext.app.Controller',
 	stores: [
@@ -72,10 +78,13 @@ Ext.define('LWD.controller.Snowprofile', {
         			var originalTempProfiles = snowProfileMeassurements.tempProfile(); 
         			var tempProfileStore = this.getSnowtemperatureStore();
         			tempProfileStore.getProxy().clear();
+        			Ext.each(originalTempProfiles.data.items, function(tempLayer, index) {
+        				tempLayer.data.snowTemp = tempLayer.data.snowTemp / 10;
+    				});
         			tempProfileStore.add(originalTempProfiles.data.items);
         		}, this);
         	}, this);
-        	//this.getSchichtprofilStore().loadRawData(store.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
+//        	this.getSchichtprofilStore().loadRawData(store.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
         }, this);
         this.getSchichtprofilStore().on('datachanged', function(schichtprofileStore, eOpts) {
         	var snowProfileStore = this.getSnowprofileStore();
@@ -88,6 +97,8 @@ Ext.define('LWD.controller.Snowprofile', {
         			snowProfileStore.fireEvent("datachanged", snowProfileStore);
         		}, this);
         	}, this);
+        	console.log(getJsonOfStore(snowProfileStore));
+//        	this.getSchichtprofilStore().loadRawData(snowProfileStore.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
         }, this);
         this.getSnowtemperatureStore().on('datachanged', function(snowtemperatureStore, eOpts) {
         	var snowProfileStore = this.getSnowprofileStore();

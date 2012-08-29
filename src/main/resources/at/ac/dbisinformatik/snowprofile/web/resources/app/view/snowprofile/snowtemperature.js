@@ -48,7 +48,7 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 		},
 		{
 			header: 'Temperatur[°C]',
-			dataIndex: 'temp',
+			dataIndex: 'snowTemp',
 			flex: 1,
 			editor: {
 				xtype: 'numberfield',

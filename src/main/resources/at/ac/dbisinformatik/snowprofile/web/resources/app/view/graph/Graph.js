@@ -17,6 +17,6 @@ Ext.define('LWD.view.graph.Graph', {
 
 	refresh : function(store) {
 		console.log("draw graph");
-		drawGraph(store.proxy.reader.rawData, this);
+		drawGraph(store.getProxy().getReader().rawData, this);
 	}
 });

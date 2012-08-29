@@ -95,7 +95,7 @@ public class SVGCreator {
 				element.setAttributeNS(null, "height", height);
 				element.setAttributeNS(null, "x", x);
 				element.setAttributeNS(null, "y", y);
-				element.setAttributeNS(null, "fill", fill);
+				element.setAttributeNS(null, "fill", "none");
 				element.setAttributeNS(null, "stroke", "black");
 				break;
 
@@ -120,12 +120,12 @@ public class SVGCreator {
 				y = items.get(i).getAsJsonObject().get("y").getAsString();
 				
 				fontFamily = "Arial";
-				fontSize = "8";
+				fontSize = "55";
 
 				// Create the text.
 				element = doc.createElementNS(svgNS, "text");
-				element.setAttributeNS(null, "text", text);
-				element.setAttributeNS(null, "fill", fill);
+//				element.setAttributeNS(null, "text", text);
+				element.setAttributeNS(null, "fill", "blue");
 				element.setAttributeNS(null, "font-family", fontFamily);
 				element.setAttributeNS(null, "font-size", fontSize);
 				element.setAttributeNS(null, "x", x);

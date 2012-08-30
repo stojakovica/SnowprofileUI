@@ -1,8 +1,8 @@
 function drawGraph(store, drawComponent) {
 	var surface = drawComponent.surface
-	//var snowprofileData = store.data.items[0];
-//	var snowprofileData = store.data.getAt(0);
 	var snowprofileData = store.SnowProfile;
+	var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir; 
+//	direction = "down top";
 	
 	// LÖSCHEN UM GRAFIK NEU ZU ZEICHNEN
 	surface.removeAll();
@@ -566,10 +566,18 @@ function drawGraph(store, drawComponent) {
 		});
 	}
 	
-	// ZEICHNEN DES MASSSTABS
+	// SCHICHTPROFIL-MASSSTABS
 	for(var j=0; j < vonHoehe0; j=j+50) {
-		if(j == 0) continue;
 		var vonHoehe = vonHoehe0 - j;
+		if(direction == "top down") {
+			if(j == 0) continue;
+			var text = vonHoehe;
+		}
+		else {
+			if(j == vonHoehe0) continue;
+			var text = j;
+		}
+
 		var y = 100 - (84 * (vonHoehe / vonHoehe0));
 
 		// links
@@ -588,7 +596,7 @@ function drawGraph(store, drawComponent) {
 		// rechts
 		surface.add({
 			type: 'text',
-			text: vonHoehe,
+			text: text,
 			fill: '#000',
 			font: '8px Arial',
 			x: "55.7%",

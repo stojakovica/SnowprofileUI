@@ -24,7 +24,8 @@ import com.google.gson.JsonObject;
  */
 public class SVGCreator {
 
-	public static void svgDocument(JsonObject jsonDocument)	throws TransformerException, FileNotFoundException {
+	public static void svgDocument(JsonArray jsonDocument)	throws TransformerException, FileNotFoundException {
+		System.out.println(jsonDocument);
 		DOMImplementation impl = SVGDOMImplementation.getDOMImplementation();
 		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
 		Document doc = impl.createDocument(svgNS, "svg", null);
@@ -63,7 +64,8 @@ public class SVGCreator {
 		 * defs.appendChild(gradient); } svgRoot.appendChild(defs);
 		 */
 
-		JsonArray items = jsonDocument.get("items").getAsJsonArray();
+//		JsonArray items = jsonDocument.get("items").getAsJsonArray();
+		JsonArray items = jsonDocument;
 
 		for (int i = 0; i < items.size(); ++i) {
 			String type = items.get(i).getAsJsonObject().get("type").getAsString();
@@ -80,6 +82,8 @@ public class SVGCreator {
 			String fontFamily = "";
 			String fontSize = "";
 			String degrees = "";
+			String stroke = "";
+			String opacity = "";
 			switch (type) {
 			case "rect":
 				width = items.get(i).getAsJsonObject().get("width").getAsString();
@@ -87,6 +91,8 @@ public class SVGCreator {
 				x = items.get(i).getAsJsonObject().get("x").getAsString();
 				y = items.get(i).getAsJsonObject().get("y").getAsString();
 				fill = items.get(i).getAsJsonObject().get("fill").getAsString();
+				stroke = items.get(i).getAsJsonObject().get("stroke").getAsString();
+				opacity = items.get(i).getAsJsonObject().get("opacity").getAsString();
 
 				// Create the rectangle.
 				element = doc.createElementNS(svgNS, "rect");
@@ -94,8 +100,9 @@ public class SVGCreator {
 				element.setAttributeNS(null, "height", height);
 				element.setAttributeNS(null, "x", x);
 				element.setAttributeNS(null, "y", y);
-				element.setAttributeNS(null, "fill", "none");
-				element.setAttributeNS(null, "stroke", "black");
+				element.setAttributeNS(null, "fill", fill);
+				element.setAttributeNS(null, "stroke", stroke);
+				element.setAttributeNS(null, "opacity", opacity);
 				break;
 
 			case "path":

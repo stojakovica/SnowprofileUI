@@ -2,7 +2,6 @@ function drawGraph(store, drawComponent) {
 	var surface = drawComponent.surface
 	var snowprofileData = store.SnowProfile;
 	var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir; 
-//	direction = "down top";
 	
 	// LÖSCHEN UM GRAFIK NEU ZU ZEICHNEN
 	surface.removeAll();
@@ -153,6 +152,7 @@ function drawGraph(store, drawComponent) {
 	vonHoehe0 = snowTopValue;
 	if(schichtprofilData[0].depthTop_content > snowTopValue)
 		var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
+	var hoechstWert = schichtprofilData[0].depthTop_content;;
 	for(var i = 0; i < schichtprofilData.length; i++) {
 		var vonHoehe = schichtprofilData[i].depthTop_content;
 		if(typeof schichtprofilData[i].thickness_content != 'undefined') {
@@ -165,14 +165,27 @@ function drawGraph(store, drawComponent) {
     		else 
     			var bisHoehe = 0;
 		}
+		
+		if(direction != "top down") {
+			var temp = vonHoehe;
+			vonHoehe = hoechstWert - bisHoehe;
+			bisHoehe = hoechstWert - temp;
+		}
+		
 		var kornform1 = schichtprofilData[i].grainFormPrimary;
 		var kornform2 = schichtprofilData[i].grainFormSecondary;
 		var haerte = schichtprofilData[i].hardness;
 		var groesse = schichtprofilData[i].grainSize_Components_avg+"-"+schichtprofilData[i].grainSize_Components_avgMax;
 		var feuchte = schichtprofilData[i].lwc_content;
-
-		var height = (84 * (vonHoehe / vonHoehe0)) - (84 * (bisHoehe / vonHoehe0));
-		var y = 100 - (84 * (vonHoehe / vonHoehe0));
+		
+		if(direction == "top down") {
+			var height = (84 * (vonHoehe / vonHoehe0)) - (84 * (bisHoehe / vonHoehe0));
+			var y = 16 + (84 * (bisHoehe / vonHoehe0));
+		}
+		else {
+			var height = (84 * ((vonHoehe) / vonHoehe0)) - (84 * ((bisHoehe) / vonHoehe0));
+			var y = 100 - (84 * ((vonHoehe) / vonHoehe0));
+		}
 		
 		switch (haerte) { 
 	        case 'F': width = 1; break; 
@@ -537,8 +550,10 @@ function drawGraph(store, drawComponent) {
 	var h100 = drawComponent.getHeight();
 	var w100 = drawComponent.getWidth();
 	var h84 = h100 * 0.84;
+	var h16 = h100 * 0.16;
 	var w55 = w100 * 0.55;
 	var w40 = w100 * 0.4;
+	var hoechstWertTemp = schneetemperaturData[0].depth;
 	for(var i = 0; i < schneetemperaturData.length; i++) {
 		vonHoehe = schneetemperaturData[i].depth;
 		var temp = (schneetemperaturData[i].snowTemp/10);
@@ -552,9 +567,16 @@ function drawGraph(store, drawComponent) {
 		}
 		
 		var startx = w55 - (w40 * temp/tempMax);
-		var starty = h100 - (h84 * vonHoehe / vonHoehe0);
 		var endx = w55 - (w40 * tempNext/tempMax);
-		var endy = h100 - (h84 * bisHoehe / vonHoehe0);
+		
+		if(direction == "top down") {
+			var starty = h16 + (h84 * vonHoehe / vonHoehe0);
+			var endy = h16 + (h84 * bisHoehe / vonHoehe0);
+		}
+		else {
+			var starty = h100 - (h84 * vonHoehe / vonHoehe0);
+			var endy = h100 - (h84 * bisHoehe / vonHoehe0);
+		}
 		
 		surface.add({
 			type: "path",
@@ -570,12 +592,12 @@ function drawGraph(store, drawComponent) {
 	for(var j=0; j < vonHoehe0; j=j+50) {
 		var vonHoehe = vonHoehe0 - j;
 		if(direction == "top down") {
-			if(j == 0) continue;
-			var text = vonHoehe;
-		}
-		else {
 			if(j == vonHoehe0) continue;
 			var text = j;
+		}
+		else {
+			if(j == 0) continue;
+			var text = vonHoehe;
 		}
 
 		var y = 100 - (84 * (vonHoehe / vonHoehe0));

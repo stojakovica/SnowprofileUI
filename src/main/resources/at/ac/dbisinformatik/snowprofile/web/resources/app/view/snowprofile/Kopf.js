@@ -89,7 +89,7 @@ Ext.define('LWD.view.snowprofile.kopf', {
             	        	        {
                     	        		xtype: 'textfield',
                     	        		name : 'utmKoordinaten',
-                    	        		fieldLabel: 'UTM-Koordinaten'
+                    	        		fieldLabel: 'Koordinaten'
                     	        	},
                     	        	{
                     	        		xtype: 'textfield',

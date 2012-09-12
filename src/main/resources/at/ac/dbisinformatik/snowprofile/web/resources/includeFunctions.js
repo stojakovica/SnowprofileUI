@@ -22,15 +22,15 @@ function drawGraph(store, drawComponent) {
 		drawRectangle("0.5", "86%", "45%", "15%", "0.25"),
 		drawRectangle("0.5", "86%", "52%", "15%", "0.25"),
 		drawRectangle("0.5", "86%", "53.9%", "15%", "0.25"),
-		drawText("Neuschnee", "17%", "2.3%", 0),
-		drawText("Schwimmschnee", "17%", "4.7%", 0),
-		drawText("filzig", "30%", "2.3%", 0),
-		drawText("Schmelzform", "30%", "4.7%", 0),
-		drawText("rundkörnig", "43%", "2.3%", 0),
-		drawText("Oberflächenreif", "43%", "4.7%", 0),
-		drawText("kantig", "57%", "2.3%", 0),
-		drawText("Eislamelle", "57%", "4.7%", 0),
-		drawText("Graupel", "71%", "2.3%", 0),
+		drawText("Neuschnee", "18%", "2.3%", 0),
+		drawText("Schwimmschnee", "18%", "4.7%", 0),
+		drawText("filzig", "31%", "2.3%", 0),
+		drawText("Schmelzform", "31%", "4.7%", 0),
+		drawText("rundkörnig", "44%", "2.3%", 0),
+		drawText("Oberflächenreif", "44%", "4.7%", 0),
+		drawText("kantig", "58%", "2.3%", 0),
+		drawText("Eislamelle", "58%", "4.7%", 0),
+		drawText("Graupel", "72%", "2.3%", 0),
 		drawText("Feuchte", "70%", "11%", 270),
 		drawText("Kristalle", "62.5%", "7.5%", 0),
 		drawText("Form", "60%", "14%", 0),
@@ -43,15 +43,17 @@ function drawGraph(store, drawComponent) {
 		drawText("FA", "53.5%", "14%", 270)     
 	]);
 
-	var width_image = drawComponent.getHeight() * 0.012; 
+	var width_image = drawComponent.getHeight() * 0.015; 
 	var height_image = width_image;
+	var y_first_row = "1.5%";
+	var y_second_row = "4%";
 	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'svg',
+		type: 'image',
 		width: width_image,
 		height: 10,
 		x: "16%",
-		y: "1.7%",
-		src: "data/img/eislamelle.svg",
+		y: y_first_row,
+		src: "data/img/new/neuschnee.jpg",
 		group: 'rectangles'
 	});
 	surface.add(spriteImg);
@@ -61,8 +63,8 @@ function drawGraph(store, drawComponent) {
 		width: width_image,
 		height: height_image,
 		x: "16%",
-		y: "4.1%",
-		src: "data/img/up.jpg",
+		y: y_second_row,
+		src: "data/img/new/schwimmschnee.jpg",
 		group: 'rectangles'
 	});
 	surface.add(spriteImg);
@@ -72,8 +74,8 @@ function drawGraph(store, drawComponent) {
 		width: width_image,
 		height: height_image,
 		x: "29%",
-		y: "1.7%",
-		src: "data/img/slash.jpg",
+		y: y_first_row,
+		src: "data/img/new/filziger_schnee.jpg",
 		group: 'rectangles'
 	});
 	surface.add(spriteImg);
@@ -83,7 +85,7 @@ function drawGraph(store, drawComponent) {
 		width: width_image,
 		height: height_image,
 		x: "29%",
-		y: "4.1%",
+		y: y_second_row,
 		src: "data/img/ring.jpg",
 		group: 'rectangles'
 	});
@@ -94,8 +96,8 @@ function drawGraph(store, drawComponent) {
 		width: width_image,
 		height: height_image,
 		x: "42%",
-		y: "1.7%",
-		src: "data/img/punkt.jpg",
+		y: y_first_row,
+		src: "data/img/new/rundkoerniger_schnee.jpg",
 		group: 'rectangles'
 	});
 	surface.add(spriteImg);
@@ -105,8 +107,8 @@ function drawGraph(store, drawComponent) {
 		width: width_image,
 		height: height_image,
 		x: "42%",
-		y: "4.1%",
-		src: "data/img/down.jpg",
+		y: y_second_row,
+		src: "data/img/new/oberflaechenreif.jpg",
 		group: 'rectangles'
 	});
 	surface.add(spriteImg);
@@ -116,8 +118,8 @@ function drawGraph(store, drawComponent) {
 		width: width_image,
 		height: height_image,
 		x: "56%",
-		y: "1.7%",
-		src: "data/img/viereck.jpg",
+		y: y_first_row,
+		src: "data/img/new/kantigfoermiger_schnee.jpg",
 		group: 'rectangles'
 	});
 	surface.add(spriteImg);
@@ -127,8 +129,8 @@ function drawGraph(store, drawComponent) {
 		width: width_image,
 		height: height_image,
 		x: "56%",
-		y: "4.1%",
-		src: "data/img/strich.jpg",
+		y: y_second_row,
+		src: "data/img/new/eislamelle.jpg",
 		group: 'rectangles'
 	});
 	surface.add(spriteImg);
@@ -138,8 +140,8 @@ function drawGraph(store, drawComponent) {
 		width: width_image,
 		height: height_image,
 		x: "70%",
-		y: "1.7%",
-		src: "data/img/graupel.jpg",
+		y: y_first_row,
+		src: "data/img/new/graupel.jpg",
 		group: 'rectangles'
 	});
 	surface.add(spriteImg);
@@ -242,11 +244,11 @@ function drawGraph(store, drawComponent) {
     		case 'PP': 
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 16,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/plus.jpg",
+    				src: "data/img/new/neuschnee.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
@@ -254,11 +256,11 @@ function drawGraph(store, drawComponent) {
     		case 'DF':  
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 16,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/slash.jpg",
+    				src: "data/img/new/filziger_schnee.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
@@ -266,22 +268,23 @@ function drawGraph(store, drawComponent) {
     		case 'RG': 
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 16,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/punkt.jpg",
+    				src: "data/img/new/rundkoerniger_schnee.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
+    			break;
     		case 'FC': 
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 16,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/viereck.jpg",
+    				src: "data/img/new/kantigfoermiger_schnee.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
@@ -289,11 +292,11 @@ function drawGraph(store, drawComponent) {
     		case 'FCxr':
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 16,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/fcxr.jpg",
+    				src: "data/img/new/kantig_abgerundet.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
@@ -301,11 +304,11 @@ function drawGraph(store, drawComponent) {
     		case 'DH': 
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 16,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/up.jpg",
+    				src: "data/img/new/schwimmschnee.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
@@ -313,11 +316,11 @@ function drawGraph(store, drawComponent) {
     		case 'MF':
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 16,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/ring.jpg",
+    				src: "data/img/new/schmelzform.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
@@ -325,11 +328,11 @@ function drawGraph(store, drawComponent) {
     		case 'MFcr':
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 9,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/mfcr.jpg",
+    				src: "data/img/new/schneekruste.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
@@ -337,11 +340,11 @@ function drawGraph(store, drawComponent) {
     		case 'IF':
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 16,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/strich.jpg",
+    				src: "data/img/new/eislamelle.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
@@ -349,11 +352,11 @@ function drawGraph(store, drawComponent) {
     		case 'SH':
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
-    				width: 16,
-    				height: 16,
+    				width: width_image,
+    				height: height_image,
     				x: x_image,
     				y: y_image+"%",
-    				src: "data/img/down.jpg",
+    				src: "data/img/new/oberflaechenreif.jpg",
     				group: 'rectangles'
     			});
     			surface.add(spriteImg);
@@ -361,11 +364,11 @@ function drawGraph(store, drawComponent) {
     		case 'PPgp':
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     			      type: 'image',
-    			      width: 15,
-    			      height: 16,
+    			      width: width_image,
+    			      height: height_image,
     			      x: x_image,
     			      y: y_image+"%",
-    			      src: "data/img/graupel.jpg",
+    			      src: "data/img/new/graupel.jpg",
     			      group: 'rectangles'
     	         });
     			surface.add(spriteImg);
@@ -379,11 +382,11 @@ function drawGraph(store, drawComponent) {
 			case 'PP': 
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 16,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/plus.jpg",
+					src: "data/img/new/neuschnee.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
@@ -391,11 +394,11 @@ function drawGraph(store, drawComponent) {
 			case 'DF':  
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 16,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/slash.jpg",
+					src: "data/img/new/filziger_schnee.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
@@ -403,22 +406,23 @@ function drawGraph(store, drawComponent) {
 			case 'RG': 
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 16,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/punkt.jpg",
+					src: "data/img/new/rundkoerniger_schnee.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
+				break;
 			case 'FC': 
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 16,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/viereck.jpg",
+					src: "data/img/new/kantigfoermiger_schnee.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
@@ -426,11 +430,11 @@ function drawGraph(store, drawComponent) {
 			case 'FCxr':
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 16,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/fcxr.jpg",
+					src: "data/img/new/kantig_abgerundet.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
@@ -438,11 +442,11 @@ function drawGraph(store, drawComponent) {
 			case 'DH': 
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 16,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/up.jpg",
+					src: "data/img/new/schwimmschnee.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
@@ -450,11 +454,11 @@ function drawGraph(store, drawComponent) {
 			case 'MF':
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 16,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/ring.jpg",
+					src: "data/img/new/schmelzform.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
@@ -462,11 +466,11 @@ function drawGraph(store, drawComponent) {
 			case 'MFcr':
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 9,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/mfcr.jpg",
+					src: "data/img/new/schneekruste.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
@@ -474,11 +478,11 @@ function drawGraph(store, drawComponent) {
 			case 'IF':
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 16,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/strich.jpg",
+					src: "data/img/new/eislamelle.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
@@ -486,11 +490,11 @@ function drawGraph(store, drawComponent) {
 			case 'SH':
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 					type: 'image',
-					width: 16,
-					height: 16,
+					width: width_image,
+					height: height_image,
 					x: x_image,
 					y: y_image+"%",
-					src: "data/img/down.jpg",
+					src: "data/img/new/oberflaechenreif.jpg",
 					group: 'rectangles'
 				});
 				surface.add(spriteImg);
@@ -498,11 +502,11 @@ function drawGraph(store, drawComponent) {
 			case 'PPgp':
 				var spriteImg = Ext.create('Ext.draw.Sprite', {
 				      type: 'image',
-				      width: 15,
-				      height: 16,
+				      width: width_image,
+				      height: height_image,
 				      x: x_image,
 				      y: y_image+"%",
-				      src: "data/img/graupel.jpg",
+				      src: "data/img/new/graupel.jpg",
 				      group: 'rectangles'
 		         });
 				surface.add(spriteImg);

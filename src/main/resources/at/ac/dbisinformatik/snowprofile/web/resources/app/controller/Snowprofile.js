@@ -1,6 +1,6 @@
 function getJsonOfStore(store){
 	store.each(function(rec) {
-	    console.log(Ext.encode(rec.raw));
+//	    console.log(Ext.encode(rec.raw));
 	});
 }
 

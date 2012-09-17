@@ -84,6 +84,7 @@ public class SVGCreator {
 			String degrees = "";
 			String stroke = "";
 			String opacity = "";
+			String src = "";
 			switch (type) {
 			case "rect":
 				width = items.get(i).getAsJsonObject().get("width").getAsString();
@@ -108,11 +109,29 @@ public class SVGCreator {
 			case "path":
 				path = items.get(i).getAsJsonObject().get("path").getAsString();
 				fill = items.get(i).getAsJsonObject().get("fill").getAsString();
+				stroke = items.get(i).getAsJsonObject().get("stroke").getAsString();
 
 				// Create the path.
 				element = doc.createElementNS(svgNS, "path");
 				element.setAttributeNS(null, "d", path);
 				element.setAttributeNS(null, "fill", fill);
+				element.setAttributeNS(null, "stroke", stroke);
+				break;
+				
+			case "image":
+				x = items.get(i).getAsJsonObject().get("x").getAsString();
+				y = items.get(i).getAsJsonObject().get("y").getAsString();
+				width = items.get(i).getAsJsonObject().get("width").getAsString();
+				height = items.get(i).getAsJsonObject().get("height").getAsString();
+				src = items.get(i).getAsJsonObject().get("src").getAsString();
+				
+				// Create the path.
+				element = doc.createElementNS(svgNS, "image");
+				element.setAttributeNS(null, "x", x);
+				element.setAttributeNS(null, "y", y);
+				element.setAttributeNS(null, "width", width);
+				element.setAttributeNS(null, "height", height);
+				element.setAttributeNS(null, "xlink:href", src);
 				break;
 
 			case "text":

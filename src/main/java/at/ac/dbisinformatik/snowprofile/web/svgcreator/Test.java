@@ -33,6 +33,7 @@ public class Test {
 	 */
 	public static void main(String[] args) {
 		try {
+			boolean pdfFlag = true;
             Context cx = Context.enter();
             Scriptable scope = cx.initStandardObjects();  
 //            Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
@@ -47,10 +48,9 @@ public class Test {
             Object jsonRawObject = ((Function)jsonParse).call(cx, scope, scope, new Object[] { jsonRawString });
             
             if (func instanceof Function) {
-                Object funcArgs[] = new Object[] { jsonRawObject };
+                Object funcArgs[] = new Object[] { jsonRawObject, pdfFlag };
                 Object result = ((Function)func).call(cx, scope, scope, funcArgs);
                 String jsonString = (String) ((Function)stringify).call(cx, scope, scope, new Object[] { result });
-//                JsonObject jsonObject = (JsonObject) new JsonParser().parse(jsonString);
                 JsonArray jsonObject = (JsonArray) new JsonParser().parse(jsonString);
                 SVGCreator.svgDocument(jsonObject);
             }

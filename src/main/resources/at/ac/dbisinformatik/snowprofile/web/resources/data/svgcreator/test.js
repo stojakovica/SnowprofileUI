@@ -1,47 +1,75 @@
-function getJSON(store)  {
-	var items = new Array();
+function getJSON(store, pdfFlag)  {
+	// Define standard values
+	// Define components dimensions
+	if(pdfFlag) {
+		var tempMax = 26;
+		var snowTopValue = 250;
+		componentHeight = 1000;
+		componentWidth = 1000;
+	}
+	else {
+		componentHeight = drawComponent.getHeight();
+		componentWidth = drawComponent.getWidth();
+	}
 	
-	items.push(drawRectangle("70%", "99%", "15%", "1%", 1, "#000000", "#ffffff", 1));
-	items.push(drawRectangle("70%", "5%", "15%", "1%", 1, "#000000", "#ffffff", 1));
-	items.push(drawRectangle("70%", "10%", "15%", "6%", 1, "#000000", "#ffffff", 1));
-	items.push(drawRectangle("3%", "10%", "55%", "6%", 1, "#000000", "#ffffff", 1));
-	items.push(drawRectangle("3%", "84%", "55%", "16%", 1, "#000000", "#ffffff", 1));
-	items.push(drawRectangle("3%", "10%", "70%", "6%", 1, "#000000", "#ffffff", 1));
-	items.push(drawRectangle("3%", "84%", "70%", "16%", 1, "#000000", "#ffffff", 1));
-	items.push(drawRectangle("40%", "0.5", "15%", "9%", "0.25", "#000000", "#ffffff", 1));
-	items.push(drawRectangle("0.5", "91%", "64%", "10%", "0.25", "#000000", "#ffffff", 1));
-	items.push(drawRectangle("0.5", "86%", "24.25%", "15%", "0.25", "#000000", "#ffffff", 1));
-	items.push(drawRectangle("0.5", "86%", "35%", "15%", "0.25", "#000000", "#ffffff", 1));
-	items.push(drawRectangle("0.5", "86%", "45%", "15%", "0.25", "#000000", "#ffffff", 1));
-	items.push(drawRectangle("0.5", "86%", "52%", "15%", "0.25", "#000000", "#ffffff", 1));
-	items.push(drawRectangle("0.5", "86%", "53.9%", "15%", "0.25", "#000000", "#ffffff", 1));
-	items.push(drawText("Neuschnee", "17%", "2.3%", 0, "#000000"));
-	items.push(drawText("Schwimmschnee", "17%", "4.7%", 0, "#000000"));
-	items.push(drawText("filzig", "30%", "2.3%", 0, "#000000"));
-	items.push(drawText("Schmelzform", "30%", "4.7%", 0, "#000000"));
-	items.push(drawText("rundkörnig", "43%", "2.3%", 0, "#000000"));
-	items.push(drawText("Oberflächenreif", "43%", "4.7%", 0, "#000000"));
-	items.push(drawText("kantig", "57%", "2.3%", 0, "#000000"));
-	items.push(drawText("Eislamelle", "57%", "4.7%", 0, "#000000"));
-	items.push(drawText("Graupel", "71%", "2.3%", 0, "#000000"));
-	items.push(drawText("Feuchte", "70%", "11%", 270, "#000000"));
-	items.push(drawText("Kristalle", "62.5%", "7.5%", 0, "#000000"));
-	items.push(drawText("Form", "60%", "14%", 0, "#000000"));
-	items.push(drawText("Durchm.", "65.5%", "14%", 0, "#000000"));    
-	items.push(drawText("Rutschblock", "77%", "14%", 0, "#000000"));       
-	items.push(drawText("M", "23.95%", "14%", 270, "#000000"));
-	items.push(drawText("B", "34.75%", "14%", 270, "#000000"));
-	items.push(drawText("1F", "44.65%", "14%", 270, "#000000"));
-	items.push(drawText("4F", "51.65%", "14%", 270, "#000000"));
-	items.push(drawText("FA", "53.5%", "14%", 270, "#000000"));
+	// Definitions for Image in Legend
+	var widthImage = componentHeight * 0.015; 
+	var heightImage = widthImage;
+	var yLegendFirstRow = "2.6%";
+	
+	var items = new Array();
+
+	items.push(drawRectangle("64%", "2.5%", "18%", "1%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("64%", "2.5%", "18%", "3.5%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("70%", "90%", "15%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("3%", "90%", "55%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("3%", "90%", "60%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("2%", "90%", "68%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("3%", "90%", "70%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawText("Neuschnee", "19.5%", yLegendFirstRow, 0, "#000000"));
+//	items.push(drawImage(widthImage, heightImage, "18.5%", yLegendFirstRow, "data/img/new/neuschnee.jpg", pdfFlag));
+//	items.push(drawText("Schwimmschnee", "17%", "4.7%", 0, "#000000"));
+//	items.push(drawText("filzig", "30%", "2.3%", 0, "#000000"));
+//	items.push(drawText("Schmelzform", "30%", "4.7%", 0, "#000000"));
+//	items.push(drawText("rundkörnig", "43%", "2.3%", 0, "#000000"));
+//	items.push(drawText("Oberflächenreif", "43%", "4.7%", 0, "#000000"));
+//	items.push(drawText("kantig", "57%", "2.3%", 0, "#000000"));
+//	items.push(drawText("Eislamelle", "57%", "4.7%", 0, "#000000"));
+//	items.push(drawText("Graupel", "71%", "2.3%", 0, "#000000"));
+//	items.push(drawText("Feuchte", "70%", "11%", 270, "#000000"));
+//	items.push(drawText("Kristalle", "62.5%", "7.5%", 0, "#000000"));
+//	items.push(drawText("Form", "60%", "14%", 0, "#000000"));
+//	items.push(drawText("Durchm.", "65.5%", "14%", 0, "#000000"));    
+//	items.push(drawText("Rutschblock", "77%", "14%", 0, "#000000"));       
+	items.push(drawText("H", "56%", "9%", 0, "#000000"));
+	items.push(drawText("Θ", "58.7%", "9%", 0, "#000000"));
+	items.push(drawText("F", "61%", "9%", 0, "#000000"));
+	items.push(drawText("D", "65%", "9%", 0, "#000000"));
+	items.push(drawText("K", "68.7%", "9%", 0, "#000000"));
+	items.push(drawText("Niete", "70.5%", "9%", 0, "#000000"));
+	items.push(drawText("Stabilitätstests", "76%", "9%", 0, "#000000"));
+	items.push(drawRectangle("0.5", "0.5%", "24.25%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("0.5", "0.5%", "35%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("0.5", "0.5%", "45%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("0.5", "0.5%", "52%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("0.5", "0.5%", "54%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawText("M", "23.95%", "11.5%", 270, "#000000"));
+	items.push(drawText("B", "34.75%", "11.5%", 270, "#000000"));
+	items.push(drawText("1F", "44.65%", "11.5%", 270, "#000000"));
+	items.push(drawText("4F", "51.65%", "11.5%", 270, "#000000"));
+	items.push(drawText("FA", "53.5%", "11.5%", 270, "#000000"));
 	
 	var snowprofileData = store;
 	var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
+	var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir;
+//	direction = "down top";
 	
 	var width = 0;
-	vonHoehe0 = 240;
-	if(schichtprofilData[0].depthTop_content > 240)
+	vonHoehe0 = snowTopValue;
+	if(schichtprofilData[0].depthTop_content > snowTopValue)
 		var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
+	
+	var hoechstWert = schichtprofilData[0].depthTop_content;
 	
 	for(var i = 0; i < schichtprofilData.length; i++) {
 		var vonHoehe = schichtprofilData[i].depthTop_content;
@@ -55,16 +83,29 @@ function getJSON(store)  {
     		else 
     			var bisHoehe = 0;
 		}
+		
+		if(direction != "top down") {
+			var temp = vonHoehe;
+			vonHoehe = hoechstWert - bisHoehe;
+			bisHoehe = hoechstWert - temp;
+		}
+		
 		var kornform1 = schichtprofilData[i].grainFormPrimary;
 		var kornform2 = schichtprofilData[i].grainFormSecondary;
 		var haerte = schichtprofilData[i].hardness;
 		var groesse = schichtprofilData[i].grainSize_Components_avg+"-"+schichtprofilData[i].grainSize_Components_avgMax;
 		var feuchte = schichtprofilData[i].lwc_content;
 
-		var height = (84 * (vonHoehe / vonHoehe0)) - (84 * (bisHoehe / vonHoehe0));
-		var y = 100 - (84 * (vonHoehe / vonHoehe0));
+		if(direction == "top down") {
+			var height = (90 * (vonHoehe / vonHoehe0)) - (90 * (bisHoehe / vonHoehe0));
+			var y = 10 + (90 * (bisHoehe / vonHoehe0));
+		}
+		else {
+			var height = (90 * (vonHoehe / vonHoehe0)) - (90 * (bisHoehe / vonHoehe0));
+			var y = 100 - (90 * (vonHoehe / vonHoehe0));
+		}
 		
-		switch (haerte) { 
+		switch (haerte) {
 	        case 'F': width = 1; break; 
 	        case 'F-4F': width = 2.05; break; 
 	        case '4F': width = 3; break; 
@@ -80,8 +121,111 @@ function getJSON(store)  {
 		x = 55 - width;
 		
 		items.push(drawRectangle(width+"%", height+"%", x+"%", y+"%", 2, "#1C86EE", "#1C86EE", 0.2));
+		
+		// Details Rechteck für Form, Durchmesser und Feuchte
+		items.push(drawRectangle("12%", height+"%", "58%", y+"%", 1, "#000000", "#FFFFFF", 0.2));
+		
+		// Vorbereitung für Kornformen
+		x = "59.4%";
+		x_circle = "59.7%";
+		x_image = "59%";
+		y = ((y + (y + height)) / 2) + 0.2;
+		y_image = y - 0.8;
+		y_rect = y - 0.5;
+		var text = "";
+		// TODO: Kornformen, switch-case
+		
+		
+		// Text zu Durchmesser
+		x = "64.5%";
+		items.push(drawText(groesse, x, y+"%", 0, "#000000"));
+		
+		// Feuchte
+		x = "58.7%";
+		switch (feuchte) {
+            case 'D': text = "-"; break;
+            case 'M': text = "|"; break;
+            case 'W': text = "||"; x = "58.6%"; break;
+            case 'V': text = "|||"; x = "58.5%"; break;
+            case 'S': text = "||||"; x = "58.4%"; break;
+		}
+		items.push(drawText(text, x, y+"%", 0, "#000000"));
 	}
 	
+	// ZEICHNEN DER SCHNEETEMPERATUR
+	var schneetemperaturData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs;
+	
+	var h100 = componentHeight;
+	var w100 = componentWidth;
+	var h84 = h100 * 0.90;
+	var h16 = h100 * 0.1;
+	var w55 = w100 * 0.55;
+	var w40 = w100 * 0.4;
+	var hoechstWertTemp = schneetemperaturData[0].depth;
+	for(var i = 0; i < schneetemperaturData.length; i++) {
+		vonHoehe = schneetemperaturData[i].depth;
+		var temp = (schneetemperaturData[i].snowTemp/10);
+		if(typeof schneetemperaturData[i+1] != 'undefined') {
+			bisHoehe = schneetemperaturData[i+1].depth;
+			var tempNext = (schneetemperaturData[i+1].snowTemp/10);
+		}
+		else {
+			var tempNext = 0;
+			bisHoehe = 0;
+		}
+		
+		var startx = w55 - (w40 * temp/tempMax);
+		var endx = w55 - (w40 * tempNext/tempMax);
+		
+		if(direction == "top down") {
+			var starty = h16 + (h84 * vonHoehe / vonHoehe0);
+			var endy = h16 + (h84 * bisHoehe / vonHoehe0);
+		}
+		else {
+			var starty = h100 - (h84 * vonHoehe / vonHoehe0);
+			var endy = h100 - (h84 * bisHoehe / vonHoehe0);
+		}
+		
+		items.push({
+			type: "path",
+			path: "M "+startx+" "+starty+" L "+endx+" "+endy,
+			"stroke-width":"1",
+			stroke:"#F00",
+			fill:"#fff",
+			group: 'paths'
+		});
+	}
+	
+	// SCHICHTPROFIL-MASSSTABS
+	for(var j=0; j < vonHoehe0; j=j+50) {
+		var vonHoehe = vonHoehe0 - j;
+		if(direction == "top down") {
+			var text = j;
+		}
+		else {
+			var text = vonHoehe;
+		}
+		if(j == 0) continue;
+		if(j == vonHoehe0) continue;
+
+		var y = 100 - (90 * (vonHoehe / vonHoehe0));
+		
+		// links
+		items.push(drawRectangle("0.5%", "0.5", "15%", y+"%", "0.25", "#000000", "#000000", 1));
+		
+		// rechts
+		items.push(drawText(text, "55.7%", y+"%", 0, "#000"));
+		items.push(drawRectangle("0.5%", "0.5", "55%", y+"%", "0.25", "#000000", "#000000", 1));
+	}
+	
+	// TEMPERATUR-MASSSTAB
+	for(var j=2; j < tempMax; j=j+2) {
+		var x = 55 - (40* j/tempMax);
+		
+		items.push(drawText(j, (x-0.25)+"%", "8.8%", 0, "#000"));
+		items.push(drawRectangle("0.5", "0.5%", x+"%", "9.5%", "0.25", "#000000", "#000000", 1));
+	}
+
 	return items;
 }
 
@@ -131,4 +275,27 @@ function drawRectangle(width, height, x, y, stroke_width, stroke, fill, opacity)
     	opacity: opacity,
     	group: 'rectangles'
     }
+}
+
+function drawImage(width, height, x, y, src, pdfFlag) {
+	if(pdfFlag) {
+		return {
+			type: 'image',
+			width: width+"px",
+			height: height+"px",
+			x: x,
+			y: y,
+			src: src,
+		};
+	}
+	else {
+		return {
+			type: 'image',
+			width: width,
+			height: height,
+			x: x,
+			y: y,
+			src: src,
+		};
+	}
 }

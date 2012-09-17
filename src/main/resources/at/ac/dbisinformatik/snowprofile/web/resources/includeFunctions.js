@@ -1,7 +1,8 @@
 function drawGraph(store, drawComponent) {
 	var surface = drawComponent.surface
 	var snowprofileData = store.SnowProfile;
-	var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir; 
+	var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir;
+	direction = "down top";
 	
 	// LÖSCHEN UM GRAFIK NEU ZU ZEICHNEN
 	surface.removeAll();
@@ -154,7 +155,7 @@ function drawGraph(store, drawComponent) {
 	vonHoehe0 = snowTopValue;
 	if(schichtprofilData[0].depthTop_content > snowTopValue)
 		var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
-	var hoechstWert = schichtprofilData[0].depthTop_content;;
+	var hoechstWert = schichtprofilData[0].depthTop_content;
 	for(var i = 0; i < schichtprofilData.length; i++) {
 		var vonHoehe = schichtprofilData[i].depthTop_content;
 		if(typeof schichtprofilData[i].thickness_content != 'undefined') {
@@ -236,11 +237,11 @@ function drawGraph(store, drawComponent) {
 		x = "59.4%";
 		x_circle = "59.7%";
 		x_image = "59%";
-		y = ((y + (y + height)) / 2)-0.2;
+		y = ((y + (y + height)) / 2)+0.2;
 		y_image = y - 0.8;
 		y_rect = y - 0.5;
 		var text = "";
-		switch (kornform1) { 
+		switch (kornform1) {
     		case 'PP': 
     			var spriteImg = Ext.create('Ext.draw.Sprite', {
     				type: 'image',
@@ -535,7 +536,6 @@ function drawGraph(store, drawComponent) {
             case 'V': text = "|||"; x = "70.8%"; break;
             case 'S': text = "||||"; x = "70.6%"; break;
 		}
-		
 		
 		surface.add({
 			type: 'text',

@@ -1,161 +1,76 @@
-function drawGraph(store, drawComponent) {
-	var surface = drawComponent.surface
-	var snowprofileData = store.SnowProfile;
+function getJSON(store, pdfFlag, drawComponent)  {
+	// Define standard values
+	// Define components dimensions
+	var tempMax = 26;
+	var snowTopValue = 250;
+	if(pdfFlag) {
+		componentHeight = 1000;
+		componentWidth = 1000;
+	}
+	else {
+		componentHeight = drawComponent.getHeight();
+		componentWidth = drawComponent.getWidth();
+	}
+	
+	// Definitions for Image in Legend
+	var widthImage = componentHeight * 0.015; 
+	var heightImage = widthImage;
+	var yLegendFirstRow = "2.6%";
+	
+	var items = new Array();
+
+	items.push(drawRectangle("64%", "2.5%", "18%", "1%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("64%", "2.5%", "18%", "3.5%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("70%", "90%", "15%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("3%", "90%", "55%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("3%", "90%", "60%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("2%", "90%", "68%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("3%", "90%", "70%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawText("Neuschnee", "19.5%", yLegendFirstRow, 0, "#000000"));
+//	items.push(drawImage(widthImage, heightImage, "18.5%", yLegendFirstRow, "data/img/new/neuschnee.jpg", pdfFlag));
+//	items.push(drawText("Schwimmschnee", "17%", "4.7%", 0, "#000000"));
+//	items.push(drawText("filzig", "30%", "2.3%", 0, "#000000"));
+//	items.push(drawText("Schmelzform", "30%", "4.7%", 0, "#000000"));
+//	items.push(drawText("rundkörnig", "43%", "2.3%", 0, "#000000"));
+//	items.push(drawText("Oberflächenreif", "43%", "4.7%", 0, "#000000"));
+//	items.push(drawText("kantig", "57%", "2.3%", 0, "#000000"));
+//	items.push(drawText("Eislamelle", "57%", "4.7%", 0, "#000000"));
+//	items.push(drawText("Graupel", "71%", "2.3%", 0, "#000000"));
+//	items.push(drawText("Feuchte", "70%", "11%", 270, "#000000"));
+//	items.push(drawText("Kristalle", "62.5%", "7.5%", 0, "#000000"));
+//	items.push(drawText("Form", "60%", "14%", 0, "#000000"));
+//	items.push(drawText("Durchm.", "65.5%", "14%", 0, "#000000"));    
+//	items.push(drawText("Rutschblock", "77%", "14%", 0, "#000000"));       
+	items.push(drawText("H", "56%", "9%", 0, "#000000"));
+	items.push(drawText("Θ", "58.7%", "9%", 0, "#000000"));
+	items.push(drawText("F", "61%", "9%", 0, "#000000"));
+	items.push(drawText("D", "65%", "9%", 0, "#000000"));
+	items.push(drawText("K", "68.7%", "9%", 0, "#000000"));
+	items.push(drawText("Niete", "70.5%", "9%", 0, "#000000"));
+	items.push(drawText("Stabilitätstests", "76%", "9%", 0, "#000000"));
+	items.push(drawRectangle("0.5", "0.5%", "24.25%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("0.5", "0.5%", "35%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("0.5", "0.5%", "45%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("0.5", "0.5%", "52%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("0.5", "0.5%", "54%", "10%", 1, "#000000", "#ffffff", 1));
+	items.push(drawText("M", "23.95%", "11.5%", 270, "#000000"));
+	items.push(drawText("B", "34.75%", "11.5%", 270, "#000000"));
+	items.push(drawText("1F", "44.65%", "11.5%", 270, "#000000"));
+	items.push(drawText("4F", "51.65%", "11.5%", 270, "#000000"));
+	items.push(drawText("FA", "53.5%", "11.5%", 270, "#000000"));
+	
+	var snowprofileData = store;
+	var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
 	var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir;
 	direction = "down top";
 	
-	// LÖSCHEN UM GRAFIK NEU ZU ZEICHNEN
-	surface.removeAll();
-	
-	// GRUNDGERÜST ZEICHNEN
-	surface.add([
-		drawRectangle("70%", "99%", "15%", "1%", 1),
-		drawRectangle("70%", "5%", "15%", "1%", 1),
-		drawRectangle("70%", "10%", "15%", "6%", 1),
-		drawRectangle("3%", "10%", "55%", "6%", 1),
-		drawRectangle("3%", "84%", "55%", "16%", 1),
-		drawRectangle("3%", "10%", "70%", "6%", 1),
-		drawRectangle("3%", "84%", "70%", "16%", 1),
-		drawRectangle("40%", "0.5", "15%", "9%", "0.25"),
-		drawRectangle("0.5", "91%", "64%", "10%", "0.25"),
-		drawRectangle("0.5", "86%", "24.25%", "15%", "0.25"),
-		drawRectangle("0.5", "86%", "35%", "15%", "0.25"),
-		drawRectangle("0.5", "86%", "45%", "15%", "0.25"),
-		drawRectangle("0.5", "86%", "52%", "15%", "0.25"),
-		drawRectangle("0.5", "86%", "53.9%", "15%", "0.25"),
-		drawText("Neuschnee", "18%", "2.3%", 0),
-		drawText("Schwimmschnee", "18%", "4.7%", 0),
-		drawText("filzig", "31%", "2.3%", 0),
-		drawText("Schmelzform", "31%", "4.7%", 0),
-		drawText("rundkörnig", "44%", "2.3%", 0),
-		drawText("Oberflächenreif", "44%", "4.7%", 0),
-		drawText("kantig", "58%", "2.3%", 0),
-		drawText("Eislamelle", "58%", "4.7%", 0),
-		drawText("Graupel", "72%", "2.3%", 0),
-		drawText("Feuchte", "70%", "11%", 270),
-		drawText("Kristalle", "62.5%", "7.5%", 0),
-		drawText("Form", "60%", "14%", 0),
-		drawText("Durchm.", "65.5%", "14%", 0),    
-		drawText("Rutschblock", "77%", "14%", 0),       
-		drawText("M", "23.95%", "14%", 270),
-		drawText("B", "34.75%", "14%", 270),
-		drawText("1F", "44.65%", "14%", 270),
-		drawText("4F", "51.65%", "14%", 270),
-		drawText("FA", "53.5%", "14%", 270)     
-	]);
-
-	var width_image = drawComponent.getHeight() * 0.015; 
-	var height_image = width_image;
-	var y_first_row = "1.5%";
-	var y_second_row = "4%";
-	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
-		width: width_image,
-		height: 10,
-		x: "16%",
-		y: y_first_row,
-		src: "data/img/new/neuschnee.jpg",
-		group: 'rectangles'
-	});
-	surface.add(spriteImg);
-	
-	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
-		width: width_image,
-		height: height_image,
-		x: "16%",
-		y: y_second_row,
-		src: "data/img/new/schwimmschnee.jpg",
-		group: 'rectangles'
-	});
-	surface.add(spriteImg);
-	
-	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
-		width: width_image,
-		height: height_image,
-		x: "29%",
-		y: y_first_row,
-		src: "data/img/new/filziger_schnee.jpg",
-		group: 'rectangles'
-	});
-	surface.add(spriteImg);
-	
-	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
-		width: width_image,
-		height: height_image,
-		x: "29%",
-		y: y_second_row,
-		src: "data/img/ring.jpg",
-		group: 'rectangles'
-	});
-	surface.add(spriteImg);
-	
-	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
-		width: width_image,
-		height: height_image,
-		x: "42%",
-		y: y_first_row,
-		src: "data/img/new/rundkoerniger_schnee.jpg",
-		group: 'rectangles'
-	});
-	surface.add(spriteImg);
-	
-	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
-		width: width_image,
-		height: height_image,
-		x: "42%",
-		y: y_second_row,
-		src: "data/img/new/oberflaechenreif.jpg",
-		group: 'rectangles'
-	});
-	surface.add(spriteImg);
-	
-	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
-		width: width_image,
-		height: height_image,
-		x: "56%",
-		y: y_first_row,
-		src: "data/img/new/kantigfoermiger_schnee.jpg",
-		group: 'rectangles'
-	});
-	surface.add(spriteImg);
-	
-	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
-		width: width_image,
-		height: height_image,
-		x: "56%",
-		y: y_second_row,
-		src: "data/img/new/eislamelle.jpg",
-		group: 'rectangles'
-	});
-	surface.add(spriteImg);
-	
-	var spriteImg = Ext.create('Ext.draw.Sprite', {
-		type: 'image',
-		width: width_image,
-		height: height_image,
-		x: "70%",
-		y: y_first_row,
-		src: "data/img/new/graupel.jpg",
-		group: 'rectangles'
-	});
-	surface.add(spriteImg);
-	
-	// ZEICHNEN DES SCHICHTPROFILS
-	var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
-	
 	var width = 0;
-	
 	vonHoehe0 = snowTopValue;
 	if(schichtprofilData[0].depthTop_content > snowTopValue)
 		var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
+	
 	var hoechstWert = schichtprofilData[0].depthTop_content;
+	
 	for(var i = 0; i < schichtprofilData.length; i++) {
 		var vonHoehe = schichtprofilData[i].depthTop_content;
 		if(typeof schichtprofilData[i].thickness_content != 'undefined') {
@@ -180,17 +95,17 @@ function drawGraph(store, drawComponent) {
 		var haerte = schichtprofilData[i].hardness;
 		var groesse = schichtprofilData[i].grainSize_Components_avg+"-"+schichtprofilData[i].grainSize_Components_avgMax;
 		var feuchte = schichtprofilData[i].lwc_content;
-		
+
 		if(direction == "top down") {
-			var height = (84 * (vonHoehe / vonHoehe0)) - (84 * (bisHoehe / vonHoehe0));
-			var y = 16 + (84 * (bisHoehe / vonHoehe0));
+			var height = (90 * (vonHoehe / vonHoehe0)) - (90 * (bisHoehe / vonHoehe0));
+			var y = 10 + (90 * (bisHoehe / vonHoehe0));
 		}
 		else {
-			var height = (84 * ((vonHoehe) / vonHoehe0)) - (84 * ((bisHoehe) / vonHoehe0));
-			var y = 100 - (84 * ((vonHoehe) / vonHoehe0));
+			var height = (90 * (vonHoehe / vonHoehe0)) - (90 * (bisHoehe / vonHoehe0));
+			var y = 100 - (90 * (vonHoehe / vonHoehe0));
 		}
 		
-		switch (haerte) { 
+		switch (haerte) {
 	        case 'F': width = 1; break; 
 	        case 'F-4F': width = 2.05; break; 
 	        case '4F': width = 3; break; 
@@ -204,364 +119,52 @@ function drawGraph(store, drawComponent) {
 		}
 		
 		x = 55 - width;
-		
-		// Schicht
-		surface.add({
-	    	type: "rect",
-	    	width: width+"%",
-	    	height: height+"%",
-	    	x: x+"%",
-	    	y: y+"%",
-	    	"stroke-width": 2,
-	    	stroke:"#1C86EE",
-	    	fill:"#1C86EE",
-	    	group: 'rectangles',
-	    	opacity: 0.2
-	    });
+		items.push(drawRectangle(width+"%", height+"%", x+"%", y+"%", 2, "#1C86EE", "#1C86EE", 0.2));
 		
 		// Details Rechteck für Form, Durchmesser und Feuchte
-		surface.add({
-			type: "rect",
-			width: "12%",
-			height: height+"%",
-			x: "58%",
-			y: y+"%",
-			"stroke-width": 1,
-			stroke:"#000",
-			fill:"#FFF",
-			group: 'rectangles',
-			opacity: 0.2
-		});
+		items.push(drawRectangle("12%", height+"%", "58%", y+"%", 1, "#000000", "#FFFFFF", 0.2));
 		
-		// Text zu Form
+		// Vorbereitung für Kornformen
 		x = "59.4%";
 		x_circle = "59.7%";
 		x_image = "59%";
-		y = ((y + (y + height)) / 2)+0.2;
+		y = ((y + (y + height)) / 2) + 0.2;
 		y_image = y - 0.8;
 		y_rect = y - 0.5;
 		var text = "";
-		switch (kornform1) {
-    		case 'PP': 
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/neuschnee.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'DF':  
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/filziger_schnee.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'RG': 
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/rundkoerniger_schnee.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'FC': 
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/kantigfoermiger_schnee.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'FCxr':
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/kantig_abgerundet.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'DH': 
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/schwimmschnee.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'MF':
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/schmelzform.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'MFcr':
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/schneekruste.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'IF':
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/eislamelle.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'SH':
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    				type: 'image',
-    				width: width_image,
-    				height: height_image,
-    				x: x_image,
-    				y: y_image+"%",
-    				src: "data/img/new/oberflaechenreif.jpg",
-    				group: 'rectangles'
-    			});
-    			surface.add(spriteImg);
-    			break;
-    		case 'PPgp':
-    			var spriteImg = Ext.create('Ext.draw.Sprite', {
-    			      type: 'image',
-    			      width: width_image,
-    			      height: height_image,
-    			      x: x_image,
-    			      y: y_image+"%",
-    			      src: "data/img/new/graupel.jpg",
-    			      group: 'rectangles'
-    	         });
-    			surface.add(spriteImg);
-    			break;
-		}
+		// TODO: Kornformen, switch-case
 		
-		x = "61.8%";
-		x_circle = "62.1%";
-		x_image = "61.4%";
-		switch (kornform2) { 
-			case 'PP': 
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/neuschnee.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'DF':  
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/filziger_schnee.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'RG': 
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/rundkoerniger_schnee.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'FC': 
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/kantigfoermiger_schnee.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'FCxr':
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/kantig_abgerundet.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'DH': 
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/schwimmschnee.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'MF':
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/schmelzform.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'MFcr':
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/schneekruste.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'IF':
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/eislamelle.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'SH':
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-					type: 'image',
-					width: width_image,
-					height: height_image,
-					x: x_image,
-					y: y_image+"%",
-					src: "data/img/new/oberflaechenreif.jpg",
-					group: 'rectangles'
-				});
-				surface.add(spriteImg);
-				break;
-			case 'PPgp':
-				var spriteImg = Ext.create('Ext.draw.Sprite', {
-				      type: 'image',
-				      width: width_image,
-				      height: height_image,
-				      x: x_image,
-				      y: y_image+"%",
-				      src: "data/img/new/graupel.jpg",
-				      group: 'rectangles'
-		         });
-				surface.add(spriteImg);
-				break;
-		}
 		
 		// Text zu Durchmesser
-		x = "65.5%";
-		
-		surface.add({
-			type: 'text',
-			text: groesse,
-			fill: '#000',
-			font: '8px Arial',
-			x: x,
-			y: y+"%",
-			group: 'text'
-		});
+		x = "64.5%";
+		items.push(drawText(groesse, x, y+"%", 0, "#000000"));
 		
 		// Feuchte
-		x = "71.25%";
+		x = "58.7%";
 		switch (feuchte) {
             case 'D': text = "-"; break;
             case 'M': text = "|"; break;
-            case 'W': text = "||"; x = "71%"; break;
-            case 'V': text = "|||"; x = "70.8%"; break;
-            case 'S': text = "||||"; x = "70.6%"; break;
+            case 'W': text = "||"; x = "58.6%"; break;
+            case 'V': text = "|||"; x = "58.5%"; break;
+            case 'S': text = "||||"; x = "58.4%"; break;
 		}
-		
-		surface.add({
-			type: 'text',
-			text: text,
-			fill: '#000',
-			font: '8px Arial',
-			x: x,
-			y: y+"%",
-			group: 'text'
-		});
+		items.push(drawText(text, x, y+"%", 0, "#000000"));
 	}
 	
 	// ZEICHNEN DER SCHNEETEMPERATUR
 	var schneetemperaturData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs;
 	
-	var h100 = drawComponent.getHeight();
-	var w100 = drawComponent.getWidth();
-	var h84 = h100 * 0.84;
-	var h16 = h100 * 0.16;
+	var h100 = componentHeight;
+	var w100 = componentWidth;
+	var h84 = h100 * 0.90;
+	var h16 = h100 * 0.1;
 	var w55 = w100 * 0.55;
 	var w40 = w100 * 0.4;
 	var hoechstWertTemp = schneetemperaturData[0].depth;
 	for(var i = 0; i < schneetemperaturData.length; i++) {
 		vonHoehe = schneetemperaturData[i].depth;
 		var temp = (schneetemperaturData[i].snowTemp/10);
-		if(Ext.isObject(schneetemperaturData[i+1])) {
+		if(typeof schneetemperaturData[i+1] != 'undefined') {
 			bisHoehe = schneetemperaturData[i+1].depth;
 			var tempNext = (schneetemperaturData[i+1].snowTemp/10);
 		}
@@ -582,7 +185,7 @@ function drawGraph(store, drawComponent) {
 			var endy = h100 - (h84 * bisHoehe / vonHoehe0);
 		}
 		
-		surface.add({
+		items.push({
 			type: "path",
 			path: "M "+startx+" "+starty+" L "+endx+" "+endy,
 			"stroke-width":"1",
@@ -596,86 +199,33 @@ function drawGraph(store, drawComponent) {
 	for(var j=0; j < vonHoehe0; j=j+50) {
 		var vonHoehe = vonHoehe0 - j;
 		if(direction == "top down") {
-			if(j == vonHoehe0) continue;
 			var text = j;
 		}
 		else {
-			if(j == 0) continue;
 			var text = vonHoehe;
 		}
+		if(j == 0) continue;
+		if(j == vonHoehe0) continue;
 
-		var y = 100 - (84 * (vonHoehe / vonHoehe0));
-
-		// links
-		surface.add({
-			type: "rect",
-			width: "0.5%",
-			height: "0.5",
-			x: "15%",
-			y: y+"%",
-			"stroke-width": "0.25",
-			stroke:"#000",
-			fill:"#000",
-			group: 'rectangles',
-		});
-
-		// rechts
-		surface.add({
-			type: 'text',
-			text: text,
-			fill: '#000',
-			font: '8px Arial',
-			x: "55.7%",
-			y: y+"%",
-			group: 'text'
-		});
+		var y = 100 - (90 * (vonHoehe / vonHoehe0));
 		
-		surface.add({
-			type: "rect",
-			width: "0.5%",
-			height: "0.5",
-			x: "55%",
-			y: y+"%",
-			"stroke-width": "0.25",
-			stroke:"#000",
-			fill:"#000",
-			group: 'rectangles',
-		});
+		// links
+		items.push(drawRectangle("0.5%", "0.5", "15%", y+"%", "0.25", "#000000", "#000000", 1));
+		
+		// rechts
+		items.push(drawText(text, "55.7%", y+"%", 0, "#000"));
+		items.push(drawRectangle("0.5%", "0.5", "55%", y+"%", "0.25", "#000000", "#000000", 1));
 	}
-
+	
 	// TEMPERATUR-MASSSTAB
 	for(var j=2; j < tempMax; j=j+2) {
 		var x = 55 - (40* j/tempMax);
-		surface.add({
-			type: "rect",
-			width: "0.5",
-			height: "1%",
-			x: x+"%",
-			y: "8.5%",
-			"stroke-width": "0.25",
-			stroke:"#000",
-			fill:"#000",
-			group: 'rectangles',
-		});
 		
-		// Text
-		surface.add({
-			type: 'text',
-			text: j,
-			fill: '#000',
-			font: '8px Arial',
-			x: (x-0.4)+"%",
-			y: "7.5%",
-			group: 'text'
-		});
+		items.push(drawText(j, (x-0.25)+"%", "8.8%", 0, "#000"));
+		items.push(drawRectangle("0.5", "0.5%", x+"%", "9.5%", "0.25", "#000000", "#000000", 1));
 	}
-	
-	text = surface.getGroup('text');
-	rectangles = surface.getGroup('rectangles');
-	paths = surface.getGroup('paths');
-	text.show(true);
-	rectangles.show(true);
-	paths.show(true);
+
+	return items;
 }
 
 function roundUp(num) {
@@ -683,12 +233,12 @@ function roundUp(num) {
 	return returnNum * 100;
 }
 
-function drawText(text, x, y, rotate) {
+function drawText(text, x, y, rotate, fill) {
 	if(rotate > 0) {
 		return {
 			type: 'text',
 	        text: text,
-	        fill: '#000',
+	        fill: 'fill',
 	        font: '8px Arial',
 	        x: x,
 	        y: y,
@@ -711,7 +261,7 @@ function drawText(text, x, y, rotate) {
 	}
 }
 
-function drawRectangle(width, height, x, y, stroke_width) {
+function drawRectangle(width, height, x, y, stroke_width, stroke, fill, opacity) {
 	return {
     	type: "rect",
     	width: width,
@@ -719,8 +269,32 @@ function drawRectangle(width, height, x, y, stroke_width) {
     	x: x,
     	y: y,
     	"stroke-width": stroke_width,
-    	stroke:"#000000",
-    	fill:"#ffffff",
+    	stroke: stroke,
+    	fill: fill,
+    	opacity: opacity,
     	group: 'rectangles'
     }
+}
+
+function drawImage(width, height, x, y, src, pdfFlag) {
+	if(pdfFlag) {
+		return {
+			type: 'image',
+			width: width+"px",
+			height: height+"px",
+			x: x,
+			y: y,
+			src: src,
+		};
+	}
+	else {
+		return {
+			type: 'image',
+			width: width,
+			height: height,
+			x: x,
+			y: y,
+			src: src,
+		};
+	}
 }

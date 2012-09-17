@@ -36,8 +36,8 @@ public class Test {
 			boolean pdfFlag = true;
             Context cx = Context.enter();
             Scriptable scope = cx.initStandardObjects();  
-//            Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
-            Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/test.js"));
+            Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
+//            Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/test.js"));
             cx.evaluateReader(scope, script,"<cmd>", 1, null);
             Object func = scope.get("getJSON", scope);
             

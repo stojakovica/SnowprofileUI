@@ -16,7 +16,16 @@ Ext.define('LWD.view.graph.Graph', {
 	},
 
 	refresh : function(store) {
+		this.surface.removeAll();
+		this.surface.add(getJSON(store.getProxy().getReader().rawData.SnowProfile, false, this));
+		
+		var text = this.surface.getGroup('text');
+		var rectangles = this.surface.getGroup('rectangles');
+		var paths = this.surface.getGroup('paths');
+		
+		text.show(true);
+		rectangles.show(true);
+		paths.show(true);
 		console.log("draw graph");
-		drawGraph(store.getProxy().getReader().rawData, this);
 	}
 });

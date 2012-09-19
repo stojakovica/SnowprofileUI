@@ -11,11 +11,13 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		componentHeight = drawComponent.getHeight();
 		componentWidth = drawComponent.getWidth();
 	}
+	var fontSize = Math.round(componentWidth * 0.01);
 	
 	// Definitions for Image in Legend
-	var widthImage = componentWidth * 0.012; 
+	var widthImage = componentWidth * 0.012;
 	var heightImage = widthImage;
 	var yLegendFirstRow = "2.25%";
+	var yLegendSecondRow = "4.78%";
 	var yLegendFirstRowImage = "1.55%";
 	
 	var items = new Array();
@@ -28,43 +30,47 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	items.push(drawRectangle("2%", "90%", "68%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("3%", "90%", "70%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawImage(widthImage, heightImage, "15.5%", yLegendFirstRowImage, "data/img/new/neuschnee.jpg", pdfFlag));
-	items.push(drawText("Neuschnee", "17%", yLegendFirstRow, 0, "#000000"));
-	items.push(drawImage(widthImage, heightImage, "22.6%", yLegendFirstRowImage, "data/img/new/filziger_schnee.jpg", pdfFlag));
-	items.push(drawText("Filz", "24.1%", yLegendFirstRow, 0, "#000000"));
-	items.push(drawImage(widthImage, heightImage, "26.3%", yLegendFirstRowImage, "data/img/new/rundkoerniger_schnee.jpg", pdfFlag));
-	items.push(drawText("kleine Runde", "27.7%", yLegendFirstRow, 0, "#000000"));
-	items.push(drawImage(widthImage, heightImage, "34.2%", yLegendFirstRowImage, "data/img/new/kantigfoermiger_schnee.jpg", pdfFlag));
-	items.push(drawText("kantig", "35.7%", yLegendFirstRow, 0, "#000000"));
-	items.push(drawImage(widthImage, heightImage, "39%", yLegendFirstRowImage, "data/img/new/schwimmschnee.jpg", pdfFlag));
-	items.push(drawText("Tiefenreif", "40.5%", yLegendFirstRow, 0, "#000000"));
-	items.push(drawImage(widthImage, heightImage, "45.4%", yLegendFirstRowImage, "data/img/new/oberflaechenreif.jpg", pdfFlag));
-	items.push(drawText("Oberflächenreif", "46.7%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawText("Neuschnee", "17%", yLegendFirstRow, 0, "#000000", fontSize));
+	items.push(drawImage(widthImage, heightImage, "22.4%", yLegendFirstRowImage, "data/img/new/filziger_schnee.jpg", pdfFlag));
+	items.push(drawText("Filz", "23.9%", yLegendFirstRow, 0, "#000000", fontSize));
+	items.push(drawImage(widthImage, heightImage, "26.6%", yLegendFirstRowImage, "data/img/new/rundkoerniger_schnee.jpg", pdfFlag));
+	items.push(drawText("kleine Runde", "28%", yLegendFirstRow, 0, "#000000", fontSize));
+	items.push(drawImage(widthImage, heightImage, "34.4%", yLegendFirstRowImage, "data/img/new/kantigfoermiger_schnee.jpg", pdfFlag));
+	items.push(drawText("kantig", "35.9%", yLegendFirstRow, 0, "#000000", fontSize));
+	items.push(drawImage(widthImage, heightImage, "39.2%", yLegendFirstRowImage, "data/img/new/schwimmschnee.jpg", pdfFlag));
+	items.push(drawText("Tiefenreif", "40.7%", yLegendFirstRow, 0, "#000000", fontSize));
+	items.push(drawImage(widthImage, heightImage, "45.6%", yLegendFirstRowImage, "data/img/new/oberflaechenreif.jpg", pdfFlag));
+	items.push(drawText("Oberflächenreif", "46.9%", yLegendFirstRow, 0, "#000000", fontSize));
 	items.push(drawImage(widthImage, heightImage, "54.3%", yLegendFirstRowImage, "data/img/new/schmelzform.jpg", pdfFlag));
-	items.push(drawText("Schmelzform", "55.8%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawText("Schmelzform", "55.8%", yLegendFirstRow, 0, "#000000", fontSize));
 	items.push(drawImage(widthImage, heightImage, "62.3%", yLegendFirstRowImage, "data/img/new/eislamelle.jpg", pdfFlag));
-	items.push(drawText("Eislamelle", "63.8%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawText("Eislamelle", "63.8%", yLegendFirstRow, 0, "#000000", fontSize));
 	items.push(drawImage(widthImage, heightImage, "68.7%", yLegendFirstRowImage, "data/img/new/kantig_abgerundet.jpg", pdfFlag));
-	items.push(drawText("kantig, abgerundet", "70%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawText("kantig, abgerundet", "70%", yLegendFirstRow, 0, "#000000", fontSize));
 	items.push(drawImage(widthImage, heightImage, "79%", yLegendFirstRowImage, "data/img/new/graupel.jpg", pdfFlag));
-	items.push(drawText("Graupel", "80.5%", yLegendFirstRow, 0, "#000000"));
-	
-	items.push(drawText("H", "56%", "9%", 0, "#000000"));
-	items.push(drawText("Θ", "58.7%", "9%", 0, "#000000"));
-	items.push(drawText("F", "61%", "9%", 0, "#000000"));
-	items.push(drawText("D", "65%", "9%", 0, "#000000"));
-	items.push(drawText("K", "68.7%", "9%", 0, "#000000"));
-	items.push(drawText("Niete", "70.5%", "9%", 0, "#000000"));
-	items.push(drawText("Stabilitätstests", "76%", "9%", 0, "#000000"));
+	items.push(drawText("Graupel", "80.5%", yLegendFirstRow, 0, "#000000", fontSize));
+	items.push(drawText("H[cm] Höhe", "15.5%", yLegendSecondRow, 0, "#000000", fontSize));
+	items.push(drawText("Θ Feuchte", "22.5%", yLegendSecondRow, 0, "#000000", fontSize));
+	items.push(drawText("F Kornformen", "28.8%", yLegendSecondRow, 0, "#000000", fontSize));
+	items.push(drawText("D[mm] Größe", "36.5%", yLegendSecondRow, 0, "#000000", fontSize));
+	items.push(drawText("K Härte", "44.3%", yLegendSecondRow, 0, "#000000", fontSize));
+	items.push(drawText("H", "56%", "9%", 0, "#000000", fontSize));
+	items.push(drawText("Θ", "58.7%", "9%", 0, "#000000", fontSize));
+	items.push(drawText("F", "61%", "9%", 0, "#000000", fontSize));
+	items.push(drawText("D", "65%", "9%", 0, "#000000", fontSize));
+	items.push(drawText("K", "68.7%", "9%", 0, "#000000", fontSize));
+	items.push(drawText("Niete", "70.5%", "9%", 0, "#000000", fontSize));
+	items.push(drawText("Stabilitätstests", "76%", "9%", 0, "#000000", fontSize));
 	items.push(drawRectangle("0.5", "0.5%", "24.25%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("0.5", "0.5%", "35%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("0.5", "0.5%", "45%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("0.5", "0.5%", "52%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("0.5", "0.5%", "54%", "10%", 1, "#000000", "#ffffff", 1));
-	items.push(drawText("M", "23.95%", "11.5%", 270, "#000000"));
-	items.push(drawText("B", "34.75%", "11.5%", 270, "#000000"));
-	items.push(drawText("1F", "44.65%", "11.5%", 270, "#000000"));
-	items.push(drawText("4F", "51.65%", "11.5%", 270, "#000000"));
-	items.push(drawText("FA", "53.5%", "11.5%", 270, "#000000"));
+	items.push(drawText("M", "23.95%", "11.5%", 0, "#000000", fontSize));
+	items.push(drawText("B", "34.75%", "11.5%", 0, "#000000", fontSize));
+	items.push(drawText("1F", "44.65%", "11.5%", 0, "#000000", fontSize));
+	items.push(drawText("4F", "51.6%", "11.5%", 0, "#000000", fontSize));
+	items.push(drawText("FA", "53.5%", "11.5%", 0, "#000000", fontSize));
 	
 	var snowprofileData = store;
 	var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
@@ -144,7 +150,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		
 		// Text zu Durchmesser
 		x = "64.5%";
-		items.push(drawText(groesse, x, y+"%", 0, "#000000"));
+		items.push(drawText(groesse, x, y+"%", 0, "#000000", fontSize));
 		
 		// Feuchte
 		x = "58.7%";
@@ -155,7 +161,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
             case 'V': text = "|||"; x = "58.5%"; break;
             case 'S': text = "||||"; x = "58.4%"; break;
 		}
-		items.push(drawText(text, x, y+"%", 0, "#000000"));
+		items.push(drawText(text, x, y+"%", 0, "#000000", fontSize));
 	}
 	
 	// ZEICHNEN DER SCHNEETEMPERATUR
@@ -213,7 +219,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		items.push(drawRectangle("0.5%", "0.5", "15%", y+"%", "0.25", "#000000", "#000000", 1));
 		
 		// rechts
-		items.push(drawText(text, "55.7%", y+"%", 0, "#000"));
+		items.push(drawText(text, "55.7%", y+"%", 0, "#000", fontSize));
 		items.push(drawRectangle("0.5%", "0.5", "55%", y+"%", "0.25", "#000000", "#000000", 1));
 	}
 	
@@ -221,7 +227,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	for(var j=2; j < tempMax; j=j+2) {
 		var x = 55 - (40* j/tempMax);
 		
-		items.push(drawText(j, (x-0.25)+"%", "8.8%", 0, "#000"));
+		items.push(drawText(j, (x-0.25)+"%", "8.8%", 0, "#000", fontSize));
 		items.push(drawRectangle("0.5", "0.5%", x+"%", "9.5%", "0.25", "#000000", "#000000", 1));
 	}
 
@@ -233,27 +239,27 @@ function roundUp(num) {
 	return returnNum * 100;
 }
 
-function drawText(text, x, y, rotate, fill) {
+function drawText(text, x, y, rotate, fill, fontSize) {
 	if(rotate > 0) {
 		return {
 			type: 'text',
 	        text: text,
-	        fill: 'fill',
-	        font: '8px Arial',
+	        fill: fill,
+	        font: fontSize+'px Arial',
 	        x: x,
 	        y: y,
 	        rotate: {
                 degrees: 270
             },
-	        group: 'snowprofile'
+            group: 'snowprofile'
 		}
 	}
 	else {
 		return {
 			type: 'text',
 			text: text,
-			fill: '#000',
-			font: '8px Arial',
+			fill: fill,
+			font: fontSize+'px Arial',
 			x: x,
 			y: y,
 			group: 'snowprofile'

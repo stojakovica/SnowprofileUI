@@ -13,9 +13,10 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	}
 	
 	// Definitions for Image in Legend
-	var widthImage = componentHeight * 0.015; 
+	var widthImage = componentWidth * 0.012; 
 	var heightImage = widthImage;
-	var yLegendFirstRow = "2.6%";
+	var yLegendFirstRow = "2.25%";
+	var yLegendFirstRowImage = "1.55%";
 	
 	var items = new Array();
 
@@ -26,8 +27,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	items.push(drawRectangle("3%", "90%", "60%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("2%", "90%", "68%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("3%", "90%", "70%", "10%", 1, "#000000", "#ffffff", 1));
-	items.push(drawText("Neuschnee", "19.5%", yLegendFirstRow, 0, "#000000"));
-//	items.push(drawImage(widthImage, heightImage, "18.5%", yLegendFirstRow, "data/img/new/neuschnee.jpg", pdfFlag));
+	items.push(drawText("Neuschnee", "20%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "18.5%", yLegendFirstRowImage, "data/img/new/neuschnee.jpg", pdfFlag));
 //	items.push(drawText("Schwimmschnee", "17%", "4.7%", 0, "#000000"));
 //	items.push(drawText("filzig", "30%", "2.3%", 0, "#000000"));
 //	items.push(drawText("Schmelzform", "30%", "4.7%", 0, "#000000"));
@@ -62,7 +63,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var snowprofileData = store;
 	var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
 	var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir;
-	direction = "down top";
+//	direction = "down top";
 	
 	var width = 0;
 	vonHoehe0 = snowTopValue;
@@ -185,14 +186,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			var endy = h100 - (h84 * bisHoehe / vonHoehe0);
 		}
 		
-		items.push({
-			type: "path",
-			path: "M "+startx+" "+starty+" L "+endx+" "+endy,
-			"stroke-width":"1",
-			stroke:"#F00",
-			fill:"#fff",
-			group: 'paths'
-		});
+		items.push(drawPath(startx, starty, endx, endy, "1", "#F00", "fff"));
 	}
 	
 	// SCHICHTPROFIL-MASSSTABS
@@ -245,7 +239,7 @@ function drawText(text, x, y, rotate, fill) {
 	        rotate: {
                 degrees: 270
             },
-	        group: 'text'
+	        group: 'snowprofile'
 		}
 	}
 	else {
@@ -256,24 +250,35 @@ function drawText(text, x, y, rotate, fill) {
 			font: '8px Arial',
 			x: x,
 			y: y,
-			group: 'text'
+			group: 'snowprofile'
 		}
 	}
 }
 
+function drawPath(startx, starty, endx, endy, stroke_width, stroke, fill) {
+	return {
+		type: "path",
+		path: "M "+startx+" "+starty+" L "+endx+" "+endy,
+		"stroke-width": stroke_width,
+		stroke: stroke,
+		fill: fill,
+		group: 'snowprofile'
+    }
+}
+
 function drawRectangle(width, height, x, y, stroke_width, stroke, fill, opacity) {
 	return {
-    	type: "rect",
-    	width: width,
-    	height: height,
-    	x: x,
-    	y: y,
-    	"stroke-width": stroke_width,
-    	stroke: stroke,
-    	fill: fill,
-    	opacity: opacity,
-    	group: 'rectangles'
-    }
+		type: "rect",
+		width: width,
+		height: height,
+		x: x,
+		y: y,
+		"stroke-width": stroke_width,
+		stroke: stroke,
+		fill: fill,
+		opacity: opacity,
+		group: 'snowprofile'
+	}
 }
 
 function drawImage(width, height, x, y, src, pdfFlag) {
@@ -288,13 +293,14 @@ function drawImage(width, height, x, y, src, pdfFlag) {
 		};
 	}
 	else {
-		return {
+		return Ext.create('Ext.draw.Sprite', {
 			type: 'image',
 			width: width,
 			height: height,
 			x: x,
 			y: y,
 			src: src,
-		};
+			group: 'snowprofile'
+		});
 	}
 }

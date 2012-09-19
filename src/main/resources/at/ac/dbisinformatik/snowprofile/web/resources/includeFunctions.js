@@ -138,14 +138,85 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		items.push(drawRectangle("12%", height+"%", "58%", y+"%", 1, "#000000", "#FFFFFF", 0.2));
 		
 		// Vorbereitung für Kornformen
-		x = "59.4%";
-		x_circle = "59.7%";
-		x_image = "59%";
+		var widthImageKF = componentWidth * 0.009;
+		var heightImageKF = widthImageKF;
+		
+		x_image = "60.3%";
 		y = ((y + (y + height)) / 2) + 0.2;
 		y_image = y - 0.8;
-		y_rect = y - 0.5;
 		var text = "";
-		// TODO: Kornformen, switch-case
+		switch (kornform1) { 
+			case 'PP': 
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/neuschnee.jpg", pdfFlag));
+				break;
+			case 'DF':  
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/filziger_schnee.jpg", pdfFlag));
+				break;
+			case 'RG': 
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/rundkoerniger_schnee.jpg", pdfFlag));
+				break;
+			case 'FC': 
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/kantigfoermiger_schnee.jpg", pdfFlag));
+				break;
+			case 'FCxr':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/kantig_abgerundet.jpg", pdfFlag));
+				break;
+			case 'DH': 
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/schwimmschnee.jpg", pdfFlag));
+				break;
+			case 'MF':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/schmelzform.jpg", pdfFlag));
+				break;
+			case 'MFcr':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/schneekruste.jpg", pdfFlag));
+				break;
+			case 'IF':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/eislamelle.jpg", pdfFlag));
+				break;
+			case 'SH':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/oberflaechenreif.jpg", pdfFlag));
+				break;
+			case 'PPgp':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/graupel.jpg", pdfFlag));
+				break;
+		}
+		
+		x_image = "61.6%";
+		switch (kornform2) { 
+			case 'PP': 
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/neuschnee.jpg", pdfFlag));
+				break;
+			case 'DF':  
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/filziger_schnee.jpg", pdfFlag));
+				break;
+			case 'RG': 
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/rundkoerniger_schnee.jpg", pdfFlag));
+				break;
+			case 'FC': 
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/kantigfoermiger_schnee.jpg", pdfFlag));
+				break;
+			case 'FCxr':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/kantig_abgerundet.jpg", pdfFlag));
+				break;
+			case 'DH': 
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/schwimmschnee.jpg", pdfFlag));
+				break;
+			case 'MF':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/schmelzform.jpg", pdfFlag));
+				break;
+			case 'MFcr':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/schneekruste.jpg", pdfFlag));
+				break;
+			case 'IF':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/eislamelle.jpg", pdfFlag));
+				break;
+			case 'SH':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/oberflaechenreif.jpg", pdfFlag));
+				break;
+			case 'PPgp':
+				items.push(drawImage(widthImageKF, heightImageKF, x_image, y_image+"%", "data/img/graupel.jpg", pdfFlag));
+				break;
+		}
 		
 		
 		// Text zu Durchmesser

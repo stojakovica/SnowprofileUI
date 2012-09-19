@@ -29,8 +29,25 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	items.push(drawRectangle("3%", "90%", "70%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawImage(widthImage, heightImage, "15.5%", yLegendFirstRowImage, "data/img/new/neuschnee.jpg", pdfFlag));
 	items.push(drawText("Neuschnee", "17%", yLegendFirstRow, 0, "#000000"));
-	items.push(drawImage(widthImage, heightImage, "23%", yLegendFirstRowImage, "data/img/new/filziger_schnee.jpg", pdfFlag));
-	items.push(drawText("Filz", "24.5%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "22.6%", yLegendFirstRowImage, "data/img/new/filziger_schnee.jpg", pdfFlag));
+	items.push(drawText("Filz", "24.1%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "26.3%", yLegendFirstRowImage, "data/img/new/rundkoerniger_schnee.jpg", pdfFlag));
+	items.push(drawText("kleine Runde", "27.7%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "34.2%", yLegendFirstRowImage, "data/img/new/kantigfoermiger_schnee.jpg", pdfFlag));
+	items.push(drawText("kantig", "35.7%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "39%", yLegendFirstRowImage, "data/img/new/schwimmschnee.jpg", pdfFlag));
+	items.push(drawText("Tiefenreif", "40.5%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "45.4%", yLegendFirstRowImage, "data/img/new/oberflaechenreif.jpg", pdfFlag));
+	items.push(drawText("Oberflächenreif", "46.7%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "54.3%", yLegendFirstRowImage, "data/img/new/schmelzform.jpg", pdfFlag));
+	items.push(drawText("Schmelzform", "55.8%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "62.3%", yLegendFirstRowImage, "data/img/new/eislamelle.jpg", pdfFlag));
+	items.push(drawText("Eislamelle", "63.8%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "68.7%", yLegendFirstRowImage, "data/img/new/kantig_abgerundet.jpg", pdfFlag));
+	items.push(drawText("kantig, abgerundet", "70%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "79%", yLegendFirstRowImage, "data/img/new/graupel.jpg", pdfFlag));
+	items.push(drawText("Graupel", "80.5%", yLegendFirstRow, 0, "#000000"));
+	
 	items.push(drawText("H", "56%", "9%", 0, "#000000"));
 	items.push(drawText("Θ", "58.7%", "9%", 0, "#000000"));
 	items.push(drawText("F", "61%", "9%", 0, "#000000"));

@@ -20,28 +20,17 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	
 	var items = new Array();
 
-	items.push(drawRectangle("64%", "2.5%", "18%", "1%", 1, "#000000", "#ffffff", 1));
-	items.push(drawRectangle("64%", "2.5%", "18%", "3.5%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("70%", "2.5%", "15%", "1%", 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle("70%", "2.5%", "15%", "3.5%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("70%", "90%", "15%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("3%", "90%", "55%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("3%", "90%", "60%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("2%", "90%", "68%", "10%", 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle("3%", "90%", "70%", "10%", 1, "#000000", "#ffffff", 1));
-	items.push(drawText("Neuschnee", "20%", yLegendFirstRow, 0, "#000000"));
-	items.push(drawImage(widthImage, heightImage, "18.5%", yLegendFirstRowImage, "data/img/new/neuschnee.jpg", pdfFlag));
-//	items.push(drawText("Schwimmschnee", "17%", "4.7%", 0, "#000000"));
-//	items.push(drawText("filzig", "30%", "2.3%", 0, "#000000"));
-//	items.push(drawText("Schmelzform", "30%", "4.7%", 0, "#000000"));
-//	items.push(drawText("rundkörnig", "43%", "2.3%", 0, "#000000"));
-//	items.push(drawText("Oberflächenreif", "43%", "4.7%", 0, "#000000"));
-//	items.push(drawText("kantig", "57%", "2.3%", 0, "#000000"));
-//	items.push(drawText("Eislamelle", "57%", "4.7%", 0, "#000000"));
-//	items.push(drawText("Graupel", "71%", "2.3%", 0, "#000000"));
-//	items.push(drawText("Feuchte", "70%", "11%", 270, "#000000"));
-//	items.push(drawText("Kristalle", "62.5%", "7.5%", 0, "#000000"));
-//	items.push(drawText("Form", "60%", "14%", 0, "#000000"));
-//	items.push(drawText("Durchm.", "65.5%", "14%", 0, "#000000"));    
-//	items.push(drawText("Rutschblock", "77%", "14%", 0, "#000000"));       
+	items.push(drawImage(widthImage, heightImage, "15.5%", yLegendFirstRowImage, "data/img/new/neuschnee.jpg", pdfFlag));
+	items.push(drawText("Neuschnee", "17%", yLegendFirstRow, 0, "#000000"));
+	items.push(drawImage(widthImage, heightImage, "23%", yLegendFirstRowImage, "data/img/new/filziger_schnee.jpg", pdfFlag));
+	items.push(drawText("Filz", "24.5%", yLegendFirstRow, 0, "#000000"));
 	items.push(drawText("H", "56%", "9%", 0, "#000000"));
 	items.push(drawText("Θ", "58.7%", "9%", 0, "#000000"));
 	items.push(drawText("F", "61%", "9%", 0, "#000000"));

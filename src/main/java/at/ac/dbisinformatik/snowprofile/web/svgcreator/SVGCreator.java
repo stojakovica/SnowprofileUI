@@ -34,37 +34,9 @@ public class SVGCreator {
 		Element svgRoot = doc.getDocumentElement();
 
 		// Set the width and height attributes on the root 'svg' element.
-		svgRoot.setAttributeNS(null, "width", "1000");
-		svgRoot.setAttributeNS(null, "height", "1000");
+		svgRoot.setAttributeNS(null, "width", "1500");
+		svgRoot.setAttributeNS(null, "height", "1500");
 
-		/*
-		 * define Gradients. Not needed
-		 * 
-		 * JsonArray gradients = jsonDocument.get("gradients").getAsJsonArray();
-		 * Element defs = doc.createElementNS(svgNS, "defs"); for(int i=0; i <
-		 * gradients.size(); ++i) { Element gradient =
-		 * doc.createElementNS(svgNS, "linearGradient");
-		 * 
-		 * JsonObject jsonGradient = gradients.get(i).getAsJsonObject();
-		 * 
-		 * for(Map.Entry<String,JsonElement> subElement :
-		 * jsonGradient.entrySet()) { if(subElement.getKey().equals("stops")) {
-		 * for(Map.Entry<String,JsonElement> stop :
-		 * subElement.getValue().getAsJsonObject().entrySet()) { Element
-		 * stopElement = doc.createElementNS(svgNS, "stop");
-		 * stopElement.setAttributeNS(null, "offset", stop.getKey() + "%");
-		 * for(Map.Entry<String,JsonElement> stopAttribute :
-		 * stop.getValue().getAsJsonObject().entrySet()) {
-		 * stopElement.setAttributeNS(null, stopAttribute.getKey(), "" +
-		 * stopAttribute.getValue().getAsString()); }
-		 * gradient.appendChild(stopElement); } } else {
-		 * gradient.setAttributeNS(null, subElement.getKey(), "" +
-		 * subElement.getValue().getAsString()); } }
-		 * 
-		 * defs.appendChild(gradient); } svgRoot.appendChild(defs);
-		 */
-
-//		JsonArray items = jsonDocument.get("items").getAsJsonArray();
 		JsonArray items = jsonDocument;
 
 		for (int i = 0; i < items.size(); ++i) {
@@ -135,9 +107,6 @@ public class SVGCreator {
 				break;
 
 			case "text":
-				/*
-				 * TODO: bind degrees to it rotate: { degrees: 270 },
-				 */
 				text = items.get(i).getAsJsonObject().get("text").getAsString();
 				fill = items.get(i).getAsJsonObject().get("fill").getAsString();
 				font = items.get(i).getAsJsonObject().get("font").getAsString();
@@ -150,8 +119,8 @@ public class SVGCreator {
 					degrees = temp.get("degrees").getAsString();
 				}
 				
-				fontFamily = "Arial";
-				fontSize = "8";
+				fontSize = font.split(" ")[0];
+				fontFamily = font.split(" ")[1];
 
 				// Create the text.
 				test = doc.createTextNode(text);

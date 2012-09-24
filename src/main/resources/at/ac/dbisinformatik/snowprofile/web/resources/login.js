@@ -49,7 +49,7 @@ Ext.onReady(function(){
                         success:function(){ 
                         	Ext.Msg.alert('Status', 'Login Successful!', function(btn, text){
 				   if (btn == 'ok'){
-		                        var redirect = '/lwd/static/1.0.0.0/index.html'; 
+		                        var redirect = '/lwd/static/1.0.0.0/snowprofile.html'; 
 		                        window.location = redirect;
                                    }
 			        });

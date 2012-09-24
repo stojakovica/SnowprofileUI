@@ -29,9 +29,9 @@ public class SnowProfileApplikation extends Application {
 		//Attach Directory with Filter for caching
 		router.attach("/static/1.0.0.0", cacheFilter);
 		
-		router.attach("/", new Redirector(getContext(), "/lwd/static/1.0.0.0/index.html", Redirector.MODE_CLIENT_TEMPORARY));
+		router.attach("/", new Redirector(getContext(), "/lwd/static/1.0.0.0/login.html", Redirector.MODE_CLIENT_TEMPORARY));
 		router.attach("/user", ListUserResource.class);
-		router.attach("/user/{id}", SingleUserResource.class);
+		router.attach("/user/{usrn}/{pwd}", SingleUserResource.class);
 		
 		router.attach("/snowprofile", ListSnowProfileResource.class);
 		//router.attach("/snowprofile/{id}", SingleSnowProfileResource.class);

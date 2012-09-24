@@ -5,7 +5,6 @@ Ext.onReady(function(){
 	// Assign various config options as seen.	 
     var login = new Ext.FormPanel({ 
         labelWidth:80,
-        url:'/lwd/user', 
         frame:true, 
         title:'Bitte anmelden', 
         defaultType:'textfield',
@@ -30,7 +29,9 @@ Ext.onReady(function(){
                 // Function that fires when user clicks the button 
                 handler:function(){ 
                     login.getForm().submit({ 
+                    	type: 'rest',
                         method:'GET', 
+                        url: '/lwd/user/'+login.getForm().getFieldValues().loginUsername+'/'+login.getForm().getFieldValues().loginPassword,
                         waitTitle:'Connecting', 
                         waitMsg:'Sending data...',
  

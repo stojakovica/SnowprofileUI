@@ -22,7 +22,7 @@ public class ListUserResource extends ServerResource {
 	// search
 	@Get
 	protected Representation get(Variant variant) throws ResourceException {
-		return new StringRepresentation("{ success : true }");
+		return new StringRepresentation("{ hallo : welt }");
 	}
 
 	// add

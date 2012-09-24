@@ -1,5 +1,6 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
+import org.json.JSONObject;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
@@ -20,9 +21,8 @@ public class ListUserResource extends ServerResource {
 
 	// search
 	@Get
-	@Override
 	protected Representation get(Variant variant) throws ResourceException {
-		return new StringRepresentation("Hallo World!");
+		return new StringRepresentation("{ success : true }");
 	}
 
 	// add

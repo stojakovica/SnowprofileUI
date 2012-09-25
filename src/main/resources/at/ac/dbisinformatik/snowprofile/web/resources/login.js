@@ -47,12 +47,8 @@ Ext.onReady(function(){
 			// you define as redirect. 
  
                         success:function(){ 
-                        	Ext.Msg.alert('Status', 'Login Successful!', function(btn, text){
-				   if (btn == 'ok'){
-		                        var redirect = '/lwd/static/1.0.0.0/snowprofile.html'; 
-		                        window.location = redirect;
-                                   }
-			        });
+	                        var redirect = '/lwd/static/1.0.0.0/snowprofile.html'; 
+	                        window.location = redirect;
                         },
  
 			// Failure function, see comment above re: success and failure. 

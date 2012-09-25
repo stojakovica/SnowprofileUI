@@ -12,21 +12,28 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 	
 	tbar: [
 	    {
-	  	  text: 'Login',
+	  	  text: 'Datei',
 	  	  iconCls: 'add16',
-	  	  reorderable: false
-	    },
-	    {
-	  	  text: 'Bearbeiten',
-	  	  iconCls: 'add16',
-	  	  menu: [{text: 'Datei laden'},{text: 'Datei speichern'}],
-	      reorderable: false
+	  	  menu: [{
+	  		  text: 'Datei laden',
+	  		  itemId: 'dataLoad'
+	  	  },
+	  	  {
+	  		  text: 'Datei speichern',
+	  		  itemId: 'dataSave'
+	  	  }],
+	      reorderable: false,
 	    },
 	    {
 	  	  text: 'Optionen',
 	  	  iconCls: 'add16',
 	  	  menu: [{text: 'Eigenschaften'}],
 		  reorderable: false
+	    },
+	    {
+	    	text: 'Login',
+	    	iconCls: 'add16',
+	    	reorderable: false
 	    }
 	],
 	

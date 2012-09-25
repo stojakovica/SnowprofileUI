@@ -1,9 +1,3 @@
-function getJsonOfStore(store){
-	store.each(function(rec) {
-//	    console.log(Ext.encode(rec.raw));
-	});
-}
-
 Ext.define('LWD.controller.Snowprofile', {
     extend: 'Ext.app.Controller',
 	stores: [
@@ -61,11 +55,21 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.schichtprofil',
         'snowprofile.snowtemperature',
         'snowprofile.stabilitytest',
-        'graph.Graph'
+        'graph.Graph',
+        'menuleiste.Menu'
     ],
 
     init: function() {
         console.log('Snowprofile loaded!');
+        this.control({
+	    	'toolbar #dataSave': {
+				click: this.onClick
+			},
+			'toolbar #dataLoad': {
+				click: this.onClick
+			}
+		});
+        
         this.getSnowprofileStore().on('load', function(store, records, success, operations) {
         	//breakpoint;
         	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
@@ -97,7 +101,6 @@ Ext.define('LWD.controller.Snowprofile', {
         			snowProfileStore.fireEvent("datachanged", snowProfileStore);
         		}, this);
         	}, this);
-        	console.log(getJsonOfStore(snowProfileStore));
 //        	this.getSchichtprofilStore().loadRawData(snowProfileStore.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
         }, this);
         this.getSnowtemperatureStore().on('datachanged', function(snowtemperatureStore, eOpts) {
@@ -112,5 +115,32 @@ Ext.define('LWD.controller.Snowprofile', {
         		}, this);
         	}, this);
         }, this);
+    },
+
+	onClick: function(item) {
+    	var itemId = item.getItemId();
+    	var store = Ext.data.StoreManager.lookup('Snowprofile');
+    	var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
+    	if(itemId == "dataLoad") {
+    		storeModel.load(123, {
+    		    success: function(snowprofile) {
+    				store.removeAll();
+    				store.add(snowprofile);
+    		    }
+    		});
+    		this.getSchichtprofilStore().on('datachanged', function(schichtprofileStore, eOpts) {
+            	var snowProfileStore = this.getSnowprofileStore();
+            	snowProfileStore.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
+            		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
+            			var originalStratProfiles = snowProfileMeassurements.stratProfiles(); 
+            			var schichtProfileStore = this.getSchichtprofilStore();
+            			originalStratProfiles.removeAll(true);
+            			originalStratProfiles.add(schichtProfileStore.data.items);
+            			snowProfileStore.fireEvent("datachanged", snowProfileStore);
+            		}, this);
+            	}, this);
+//            	this.getSchichtprofilStore().loadRawData(snowProfileStore.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
+            }, this);
+    	}
     }
 });

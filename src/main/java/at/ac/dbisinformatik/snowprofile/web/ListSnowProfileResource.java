@@ -19,37 +19,22 @@ public class ListSnowProfileResource extends ServerResource {
 		setNegotiated(true);
 	}
 	
-	public static String readFile(String file) throws IOException {
-		StringBuilder text = new StringBuilder();
-		String NL = System.getProperty("line.separator");
-		Scanner scanner = new Scanner(new FileInputStream(file));
-		try {
-			while (scanner.hasNextLine()) {
-				text.append(scanner.nextLine() + NL);
-			}
-		} finally {
-			scanner.close();
-		}
-		
-		return text.toString();
-	}
-
 	@Get()
 	public String getJson() throws JSONException, IOException {
-		//TODO
-		String content = IOUtils.toString(new FileInputStream("C:/test.xml"));
-
-		JSONObject snowprofile = XML.toJSONObject(content);
-		
-		snowprofile = new JSONObject(JSONHelpers.flatten("stratProfile", snowprofile));
-		
-		String returnProfile = snowprofile.toString();
-		returnProfile = returnProfile.replace("caaml:", "");
-		returnProfile = returnProfile.replace("gml:", "");
-		returnProfile = returnProfile.replace("xmlns:", "xmlns_");
-		returnProfile = returnProfile.replace("xsi:", "xsi_");
-		
-		return returnProfile;
+//		String content = IOUtils.toString(new FileInputStream("C:/test.xml"));
+//
+//		JSONObject snowprofile = XML.toJSONObject(content);
+//		
+//		snowprofile = new JSONObject(JSONHelpers.flatten("stratProfile", snowprofile));
+//		
+//		String returnProfile = snowprofile.toString();
+//		returnProfile = returnProfile.replace("caaml:", "");
+//		returnProfile = returnProfile.replace("gml:", "");
+//		returnProfile = returnProfile.replace("xmlns:", "xmlns_");
+//		returnProfile = returnProfile.replace("xsi:", "xsi_");
+//		
+//		return returnProfile;
+		return "{}";
 	}
 
 	@Put

@@ -9,8 +9,7 @@ Ext.application({
     
     controllers: [
         'Snowprofile',
-        'GoogleMaps',
-        'Menu'
+        'GoogleMaps'
     ],
     
     launch: function() {

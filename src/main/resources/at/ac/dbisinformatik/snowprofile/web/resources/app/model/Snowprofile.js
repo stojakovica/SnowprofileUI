@@ -1,5 +1,16 @@
 Ext.define('LWD.model.Snowprofile', {
 	extend: 'Ext.data.Model',
+	proxy: {
+        type: 'rest',
+        url: '/lwd/snowprofile',
+        reader: {
+            type: 'json',
+            root: 'SnowProfile'
+        },
+        writer: {
+            type: 'json'
+        }
+    },
 	fields: [
 	    'id',
 	    'xmlns_caaml',

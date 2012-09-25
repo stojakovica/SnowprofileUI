@@ -19,7 +19,6 @@ Ext.define('LWD.view.graph.Graph', {
 		console.log("draw graph");
 		this.surface.removeAll();
 		this.surface.add(getJSON(store.getProxy().getReader().rawData.SnowProfile, false, this));
-		
 		var snowprofile = this.surface.getGroup('snowprofile');
 		snowprofile.show(true);
 	}

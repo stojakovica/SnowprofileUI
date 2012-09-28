@@ -35,17 +35,6 @@ Ext.onReady(function(){
                         waitTitle:'Connecting', 
                         waitMsg:'Sending data...',
  
-			// Functions that fire (success or failure) when the server responds. 
-			// The one that executes is determined by the 
-			// response that comes from login.asp as seen below. The server would 
-			// actually respond with valid JSON, 
-			// something like: response.write "{ success: true}" or 
-			// response.write "{ success: false, errors: { reason: 'Login failed. Try again.' }}" 
-			// depending on the logic contained within your server script.
-			// If a success occurs, the user is notified with an alert messagebox, 
-			// and when they click "OK", they are redirected to whatever page
-			// you define as redirect. 
- 
                         success:function(){ 
 	                        var redirect = '/lwd/static/1.0.0.0/snowprofile.html'; 
 	                        window.location = redirect;

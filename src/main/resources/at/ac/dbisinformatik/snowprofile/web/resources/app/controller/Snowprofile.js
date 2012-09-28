@@ -56,18 +56,25 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.snowtemperature',
         'snowprofile.stabilitytest',
         'graph.Graph',
-        'menuleiste.Menu'
+        'menuleiste.Menu',
+        'menuleiste.SelectProfile'
     ],
 
     init: function() {
         console.log('Snowprofile loaded!');
         this.control({
-	    	'toolbar #dataSave': {
-				click: this.onClick
+        	'toolbar #newData': {
+        		click: this.newData
+        	},
+	    	'toolbar #saveData': {
+				click: this.saveData
 			},
-			'toolbar #dataLoad': {
-				click: this.onClick
-			}
+			'toolbar #loadData': {
+				click: this.loadData
+			},
+			'selectprofile button[action=save]': {
+                click: this.loadSnowProfile
+            }
 		});
         
         this.getSnowprofileStore().on('load', function(store, records, success, operations) {
@@ -78,7 +85,7 @@ Ext.define('LWD.controller.Snowprofile', {
         			var schichtProfileStore = this.getSchichtprofilStore();
         			schichtProfileStore.getProxy().clear();
         			schichtProfileStore.add(originalStratProfiles.data.items);
-        			
+
         			var originalTempProfiles = snowProfileMeassurements.tempProfile(); 
         			var tempProfileStore = this.getSnowtemperatureStore();
         			tempProfileStore.getProxy().clear();
@@ -90,19 +97,19 @@ Ext.define('LWD.controller.Snowprofile', {
         	}, this);
 //        	this.getSchichtprofilStore().loadRawData(store.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
         }, this);
-        this.getSchichtprofilStore().on('datachanged', function(schichtprofileStore, eOpts) {
-        	var snowProfileStore = this.getSnowprofileStore();
-        	snowProfileStore.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
-        		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
-        			var originalStratProfiles = snowProfileMeassurements.stratProfiles(); 
-        			var schichtProfileStore = this.getSchichtprofilStore();
-        			originalStratProfiles.removeAll(true);
-        			originalStratProfiles.add(schichtProfileStore.data.items);
-        			snowProfileStore.fireEvent("datachanged", snowProfileStore);
-        		}, this);
-        	}, this);
-//        	this.getSchichtprofilStore().loadRawData(snowProfileStore.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
-        }, this);
+//        this.getSchichtprofilStore().on('datachanged', function(schichtprofileStore, eOpts) {
+//        	var snowProfileStore = this.getSnowprofileStore();
+//        	snowProfileStore.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
+//        		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
+//        			var originalStratProfiles = snowProfileMeassurements.stratProfiles(); 
+//        			var schichtProfileStore = this.getSchichtprofilStore();
+//        			originalStratProfiles.removeAll(true);
+//        			originalStratProfiles.add(schichtProfileStore.data.items);
+//        			snowProfileStore.fireEvent("datachanged", snowProfileStore);
+//        		}, this);
+//        	}, this);
+////        	this.getSchichtprofilStore().loadRawData(snowProfileStore.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
+//        }, this);
         this.getSnowtemperatureStore().on('datachanged', function(snowtemperatureStore, eOpts) {
         	var snowProfileStore = this.getSnowprofileStore();
         	snowProfileStore.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
@@ -117,30 +124,34 @@ Ext.define('LWD.controller.Snowprofile', {
         }, this);
     },
 
-	onClick: function(item) {
+    newData: function(item) {
+    	var store = Ext.data.StoreManager.lookup('Snowprofile');
+    	store.removeAll();
+    	store.fireEvent("datachanged", store);
+    },
+    
+    saveData: function(item) {
+    },
+    
+	loadData: function(item) {
     	var itemId = item.getItemId();
+		var view = Ext.widget('selectprofile');
+    },
+    
+    loadSnowProfile: function(button) {
+    	var win = button.up('window'),
+    	    form   = win.down('form'),
+    	    values = form.getValues();
+    	win.close();
+    	
     	var store = Ext.data.StoreManager.lookup('Snowprofile');
     	var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
-    	if(itemId == "dataLoad") {
-    		storeModel.load(123, {
-    		    success: function(snowprofile) {
-    				store.removeAll();
-    				store.add(snowprofile);
-    		    }
-    		});
-    		this.getSchichtprofilStore().on('datachanged', function(schichtprofileStore, eOpts) {
-            	var snowProfileStore = this.getSnowprofileStore();
-            	snowProfileStore.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
-            		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
-            			var originalStratProfiles = snowProfileMeassurements.stratProfiles(); 
-            			var schichtProfileStore = this.getSchichtprofilStore();
-            			originalStratProfiles.removeAll(true);
-            			originalStratProfiles.add(schichtProfileStore.data.items);
-            			snowProfileStore.fireEvent("datachanged", snowProfileStore);
-            		}, this);
-            	}, this);
-//            	this.getSchichtprofilStore().loadRawData(snowProfileStore.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
-            }, this);
-    	}
+		storeModel.load(values.profile_id, {
+		    success: function(snowprofile) {
+				store.removeAll();
+				store.add(snowprofile);
+				store.fireEvent("datachanged", store);
+		    }
+		});
     }
 });

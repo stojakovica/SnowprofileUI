@@ -15,25 +15,26 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 	  	  text: 'Datei',
 	  	  iconCls: 'add16',
 	  	  menu: [{
+	  		  text: 'Neu',
+	  		  itemId: 'newData'
+	  	  },{
 	  		  text: 'Datei laden',
-	  		  itemId: 'dataLoad'
-	  	  },
-	  	  {
+	  		  itemId: 'loadData'
+	  	  },{
 	  		  text: 'Datei speichern',
-	  		  itemId: 'dataSave'
+	  		  itemId: 'saveData'
 	  	  }],
 	      reorderable: false,
 	    },
 	    {
-	  	  text: 'Optionen',
-	  	  iconCls: 'add16',
-	  	  menu: [{text: 'Eigenschaften'}],
-		  reorderable: false
-	    },
-	    {
-	    	text: 'Login',
+	    	text: 'Logout',
+	    	itemId: 'logout',
 	    	iconCls: 'add16',
-	    	reorderable: false
+	    	reorderable: false,
+	    	handler: function() {
+	    		// TODO: destroy Session
+	    		window.location.href="/lwd/static/1.0.0.0/login.html";
+	    	}
 	    }
 	],
 	

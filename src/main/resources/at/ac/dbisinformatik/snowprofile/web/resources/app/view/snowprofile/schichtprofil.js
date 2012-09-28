@@ -16,16 +16,17 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
         text: 'Neues Schichtprofil',
         iconCls: 'icon-add',
         handler: function(){
-    		this.store.insert(store.getCount(), new LWD.model.snowprofile.stratLayer());
+    		var store = Ext.data.StoreManager.lookup('Schichtprofil');
+    		store.insert(store.getCount(), new LWD.model.snowprofile.stratLayer());
             rowEditing.startEdit(0, 0);
         }
     }, '-', {
         itemId: 'delete',
         text: 'Löschen',
         iconCls: 'icon-delete',
-        disabled: true,
+        disabled: false,
         handler: function(){
-            var selection = grid.getView().getSelectionModel().getSelection()[0];
+            var selection = this.getView().getSelectionModel().getSelection()[0];
             if (selection) {
                 store.remove(selection);
             }
@@ -81,17 +82,29 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 	],
 	
     initComponent: function() {
-        /*this.getSelectionModel().on('selectionchange', function(selModel, selections){
-        	//this.down('#delete').setDisabled(selections.length === 0);
-        });*/
 		var store = Ext.data.StoreManager.lookup('Snowprofile');
 		store.on('load', this.refresh, this);
 		store.on('datachanged', this.refresh, this);
+
+//		this.getSelectionModel().on('selectionchange', function(selModel, selections){
+//			this.down('#delete').setDisabled(selections.length === 0);
+//		});
         
         this.callParent(arguments);
     },
 
     refresh: function(store) {
-    	var schichtProfileStore = this.getStore();
+    	var schichtprofilStore = this.getStore();
+    	if(Ext.isObject(store.getAt(0))) {
+    		var stratprofiles = store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().stratProfiles().data.items;
+    		schichtprofilStore.getProxy().clear();
+    		schichtprofilStore.removeAll();
+    		schichtprofilStore.add(stratprofiles);
+    	}
+    	else {
+    		var schichtprofilStore = Ext.data.StoreManager.lookup('Schichtprofil');
+    		schichtprofilStore.getProxy().clear();
+    		schichtprofilStore.removeAll();
+    	}
     }
 });

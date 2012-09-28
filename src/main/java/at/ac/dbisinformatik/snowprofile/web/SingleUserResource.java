@@ -17,9 +17,6 @@ public class SingleUserResource extends ServerResource {
 	//einzelobjekt zurückgeben
 	@Get
 	protected Representation get(Variant variant) throws ResourceException {
-		/*if(variant.getMediaType().equals(MediaType.APPLICATION_ALL_XML)) {
-			
-		} */
 		if(getRequestAttributes().get("usrn").equals("admin") && getRequestAttributes().get("pwd").equals("lawine"))
 			return new StringRepresentation("{ success : true }");
 		else

@@ -36,6 +36,8 @@ public class SnowProfileApplikation extends Application {
 		router.attach("/snowprofile", ListSnowProfileResource.class);
 		router.attach("/snowprofile/{id}", SingleSnowProfileResource.class);
 		
+		router.attach("/printsnowprofile/{id}", PrintSnowProfileResource.class);
+		
 		return router;
 	}
 	

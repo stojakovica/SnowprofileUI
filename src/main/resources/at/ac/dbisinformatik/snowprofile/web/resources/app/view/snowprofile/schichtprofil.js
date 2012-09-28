@@ -1,7 +1,3 @@
-var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
-    clicksToEdit: 1
-})
-
 Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.schichtprofil',
@@ -16,9 +12,11 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
         text: 'Neues Schichtprofil',
         iconCls: 'icon-add',
         handler: function(){
-    		var store = Ext.data.StoreManager.lookup('Schichtprofil');
-    		store.insert(store.getCount(), new LWD.model.snowprofile.stratLayer());
-            rowEditing.startEdit(0, 0);
+    		var grid = this.up("grid");
+    		var rowEditing = grid.getPlugin("rowplugin");
+    		grid.getStore().insert(0, new LWD.model.snowprofile.stratLayer());
+    		rowEditing.startEdit(0, 0);
+    		grid.getStore().fireEvent("dataupdate", grid.getStore());
         }
     }, '-', {
         itemId: 'delete',
@@ -26,85 +24,81 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
         iconCls: 'icon-delete',
         disabled: false,
         handler: function(){
-            var selection = this.getView().getSelectionModel().getSelection()[0];
+    		var grid = this.up("grid");
+            var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {
-                store.remove(selection);
+            	grid.getStore().remove(selection);
+            	grid.getStore().fireEvent("dataupdate", grid.getStore());
             }
         }
     }],
-    plugins: [Ext.create('Ext.grid.plugin.RowEditing', {
-        clicksToEdit: 1
+    plugins:[Ext.create('Ext.grid.plugin.RowEditing', {
+        clicksToEdit: 2,
+        pluginId:'rowplugin'
     })],
     
     columns: [
 		{
 			header: 'Von Höhe[cm]',
-			dataIndex: 'depthTop',
+			dataIndex: 'depthTop_content',
 			flex: 1,
 			editor: {
 			    xtype: 'numberfield',
-             allowBlank: false,
-             minValue: 0,
+	            allowBlank: false,
+	            minValue: 0,
 			}
 		},
 		{
-            header: 'Kornform',
-            dataIndex: 'kornform',
+            header: 'Kornform 1',
+            dataIndex: 'grainFormPrimary',
             flex: 1,
             editor: {
                 allowBlank: false
             }
 		},
 		{
-			header: 'Grösse[D][mm]',
-			dataIndex: 'groesse',
+			header: 'Kornform 2',
+			dataIndex: 'grainFormSecondary',
 			flex: 1,
 			editor: {
-			allowBlank: false
-		}
+				allowBlank: false
+			}
+		},
+		{
+			header: 'Grösse[D][mm] avg',
+			dataIndex: 'grainSize_Components_avg',
+			flex: 1,
+			editor: {
+				allowBlank: false
+			}
+		},
+		{
+			header: 'Grösse[D][mm] avg max',
+			dataIndex: 'grainSize_Components_avgMax',
+			flex: 1,
+			editor: {
+				allowBlank: false
+			}
 		},
 		{
 			header: 'Härte[K]',
 			dataIndex: 'hardness',
 			flex: 1,
 			editor: {
-			allowBlank: false
-		}
+				allowBlank: false
+			}
 		},
 		{
 			header: 'Feuchte',
-			dataIndex: 'lwc',
+			dataIndex: 'lwc_content',
 			flex: 1,
 			editor: {
-			allowBlank: false
-		}
+				allowBlank: false
+			}
 		}
 	],
 	
     initComponent: function() {
-		var store = Ext.data.StoreManager.lookup('Snowprofile');
-		store.on('load', this.refresh, this);
-		store.on('datachanged', this.refresh, this);
-
-//		this.getSelectionModel().on('selectionchange', function(selModel, selections){
-//			this.down('#delete').setDisabled(selections.length === 0);
-//		});
-        
         this.callParent(arguments);
-    },
-
-    refresh: function(store) {
-    	var schichtprofilStore = this.getStore();
-    	if(Ext.isObject(store.getAt(0))) {
-    		var stratprofiles = store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().stratProfiles().data.items;
-    		schichtprofilStore.getProxy().clear();
-    		schichtprofilStore.removeAll();
-    		schichtprofilStore.add(stratprofiles);
-    	}
-    	else {
-    		var schichtprofilStore = Ext.data.StoreManager.lookup('Schichtprofil');
-    		schichtprofilStore.getProxy().clear();
-    		schichtprofilStore.removeAll();
-    	}
     }
 });

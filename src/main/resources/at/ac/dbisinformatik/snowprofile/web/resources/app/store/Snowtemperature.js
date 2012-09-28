@@ -7,7 +7,8 @@ Ext.define('LWD.store.Snowtemperature', {
     proxy: {
     	type: 'memory',
     	reader: {
-            type: 'json'
+            type: 'json',
+            root: 'Obs'
         }
     }
 });

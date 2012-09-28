@@ -7,7 +7,8 @@ Ext.define('LWD.store.Schichtprofil', {
     proxy: {
     	type: 'memory',
     	reader: {
-            type: 'json'
+            type: 'json',
+            root: 'Layer'
         }
     },
     listeners: {

@@ -1,7 +1,3 @@
-var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
-    clicksToEdit: 1
-})
-
 Ext.define('LWD.view.snowprofile.snowtemperature' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.snowtemperature',
@@ -32,7 +28,7 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
         }
     }],
     plugins: [Ext.create('Ext.grid.plugin.RowEditing', {
-        clicksToEdit: 1
+        clicksToEdit: 2
     })],
     
     columns: [
@@ -50,7 +46,7 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 			header: 'Temperatur[°C]',
 			dataIndex: 'snowTemp',
 			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-				if(value != 0) return "-"+value;
+				if(value != 0) return "-"+(value/10);
 				else return value;
 			},
 			flex: 1,
@@ -63,6 +59,8 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 	],
 	
     initComponent: function() {
+		var store = Ext.data.StoreManager.lookup('Snowprofile');
+		
         this.callParent(arguments);
     }
 });

@@ -1,15 +1,13 @@
 Ext.define('LWD.model.snowprofile.stratLayer', {
 	extend: 'Ext.data.Model',
 	fields: [
+       'depthTop_content',
 	   'grainFormPrimary',
 	   'grainFormSecondary',
-	   'hardness'
+	   'grainSize_Components_avg',
+	   'grainSize_Components_avgMax',
+	   'hardness',
+	   'lwc_content'
 	],
-    associations: [
-       {type: 'hasMany', model: 'LWD.model.snowprofile.depthTop', name: 'depthTop', associationKey:'depthTop'},
-       {type: 'hasMany', model: 'LWD.model.snowprofile.grainSize', name: 'grainSize', associationKey:'grainSize'},
-       {type: 'hasMany', model: 'LWD.model.snowprofile.contentUomModel', name: 'lwc', associationKey:'lwc'},
-       {type: 'hasMany', model: 'LWD.model.snowprofile.contentUomModel', name: 'thickness', associationKey:'thickness'}
-    ],
     belongsTo: 'LWD.model.snowprofile.stratProfile'
 });

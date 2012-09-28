@@ -14,9 +14,8 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
         handler: function(){
     		var grid = this.up("grid");
     		var rowEditing = grid.getPlugin("rowplugin");
-    		grid.getStore().insert(0, new LWD.model.snowprofile.stratLayer());
+    		grid.getStore().insert(0, new LWD.model.LayerProfile());
     		rowEditing.startEdit(0, 0);
-    		grid.getStore().fireEvent("dataupdate", grid.getStore());
         }
     }, '-', {
         itemId: 'delete',
@@ -99,6 +98,11 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 	],
 	
     initComponent: function() {
+		this.on('edit', this.commit);
         this.callParent(arguments);
+    },
+    
+    commit: function(edit, e) {
+    	this.getStore().fireEvent("dataupdate", this.getStore());
     }
 });

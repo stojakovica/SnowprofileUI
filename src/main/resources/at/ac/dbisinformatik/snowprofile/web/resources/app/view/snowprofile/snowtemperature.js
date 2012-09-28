@@ -12,20 +12,23 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
         text: 'Neue Schneetemperatur',
         iconCls: 'icon-add',
         handler: function(){
-    		this.store.insert(store.getCount(), new LWD.model.snowprofile.stratLayer());
-            rowEditing.startEdit(0, 0);
-        }
+			var grid = this.up("grid");
+			var rowEditing = grid.getPlugin("rowplugin");
+			grid.getStore().insert(0, new LWD.model.TempProfile());
+			rowEditing.startEdit(0, 0);
+	    }
     }, '-', {
         itemId: 'delete',
         text: 'Löschen',
         iconCls: 'icon-delete',
-        disabled: true,
         handler: function(){
-            var selection = grid.getView().getSelectionModel().getSelection()[0];
-            if (selection) {
-                store.remove(selection);
-            }
-        }
+			var grid = this.up("grid");
+	        var selection = grid.getView().getSelectionModel().getSelection()[0];
+	        if (selection) {
+	        	grid.getStore().remove(selection);
+	        	grid.getStore().fireEvent("dataupdate", grid.getStore());
+	        }
+	    }
     }],
     plugins: [Ext.create('Ext.grid.plugin.RowEditing', {
         clicksToEdit: 2
@@ -59,8 +62,11 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 	],
 	
     initComponent: function() {
-		var store = Ext.data.StoreManager.lookup('Snowprofile');
-		
+		this.on('edit', this.commit);
         this.callParent(arguments);
+    },
+    
+    commit: function(edit, e) {
+    	this.getStore().fireEvent("dataupdate", this.getStore());
     }
 });

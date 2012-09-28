@@ -129,17 +129,18 @@ Ext.define('LWD.controller.Snowprofile', {
         			}, this);
         		}, this);
         	}, this);
-//        	this.getSchichtprofilStore().loadRawData(snowProfileStore.proxy.reader.jsonData.SnowProfile.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer);
         }, this);
         this.getSnowtemperatureStore().on('dataupdate', function(snowtemperatureStore, eOpts) {
         	var snowProfileStore = this.getSnowprofileStore();
         	snowProfileStore.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
         		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
-        			var originalTempProfile = snowProfileMeassurements.tempProfile(); 
-        			var snowtemperatureStore = this.getSnowtemperatureStore();
-        			originalTempProfile.removeAll(true);
-        			originalTempProfile.add(snowtemperatureStore.data.items);
-        			snowProfileStore.fireEvent("datachanged", snowProfileStore);
+        			snowProfileMeassurements.getTempProfile(function(originalTempProfile) {
+        				var snowtemperatureStore = this.getSnowtemperatureStore();
+        				var layerStore = originalTempProfile.ObsStore;
+        				layerStore.removeAll();
+        				layerStore.add(snowtemperatureStore.data.items);
+        				snowProfileStore.fireEvent("datachanged", snowProfileStore);
+        			}, this);
         		}, this);
         	}, this);
         }, this);

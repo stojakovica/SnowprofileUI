@@ -1,7 +1,7 @@
 Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.schichtprofil',
-		
+	itemId: 'schichtprofilGrid',
     store: 'Schichtprofil',
 	
 	border: false,
@@ -21,7 +21,6 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
         itemId: 'delete',
         text: 'Löschen',
         iconCls: 'icon-delete',
-        disabled: false,
         handler: function(){
     		var grid = this.up("grid");
             var selection = grid.getView().getSelectionModel().getSelection()[0];

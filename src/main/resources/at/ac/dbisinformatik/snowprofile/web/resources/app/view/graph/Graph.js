@@ -8,7 +8,6 @@ Ext.define('LWD.view.graph.Graph', {
 	initComponent : function() {
 		var store = Ext.data.StoreManager.lookup('Snowprofile');
 
-		this.items = [];
 		store.on('load', this.refresh, this);
 		store.on('datachanged', this.refresh, this);
 

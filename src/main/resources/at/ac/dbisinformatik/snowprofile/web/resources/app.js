@@ -42,7 +42,7 @@ Ext.application({
                         		autoScroll: true,
                         		items: [
                     		        {
-                    		        	xtype: 'kopf',
+                    		        	xtype: 'metadata',
                     		        	border: false
                     		        }
                         		]
@@ -63,7 +63,7 @@ Ext.application({
     	            {
     	            	xtype: 'panel',
     	            	layout: 'fit',
-//    	            	height: 319,
+    	            	height: '100%',
     	            	autoScroll: true,
     	            	border: false,
                     	items: [
@@ -71,13 +71,16 @@ Ext.application({
                 	        	xtype: 'tabpanel',
                 	        	activeTab: 0,
                 	        	border: false,
+                	        	height: '100%',
                 	        	items: [
             	        	        {
             	        	        	title: 'Schichtprofil',
             	        	        	border: false,
+            	        	        	height: '100%',
             	        	        	items: [
         	        	        	        {
         	        	        	        	xtype: 'schichtprofil',
+        	        	        	        	height: '100%',
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }

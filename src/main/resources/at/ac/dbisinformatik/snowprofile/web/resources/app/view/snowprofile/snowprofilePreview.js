@@ -1,12 +1,11 @@
-Ext.define('LWD.view.snowprofile.schichtprofil' ,{
+Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
     extend: 'Ext.grid.Panel',
-    alias : 'widget.schichtprofil',
-	itemId: 'schichtprofilGrid',
-    store: 'Schichtprofil',
+    alias : 'widget.snowprofilepreview',
+	itemId: 'snowprofilePreviewGrid',
+    store: 'Snowprofile',
 	
 	border: false,
 	height: '100%',
-	selType: 'rowmodel',
 
     tbar: [{
         text: 'Neues Schichtprofil',
@@ -30,11 +29,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
             }
         }
     }],
-    plugins:[Ext.create('Ext.grid.plugin.RowEditing', {
-        clicksToEdit: 2,
-        pluginId:'rowplugin'
-    })],
-    
+
     columns: [
 		{
 			header: 'Von Höhe[cm]',

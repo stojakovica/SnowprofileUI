@@ -1,7 +1,13 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.XML;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.Put;
@@ -18,20 +24,23 @@ public class ListSnowProfileResource extends ServerResource {
 	
 	@Get()
 	public String getJson() throws JSONException, IOException {
-//		String content = IOUtils.toString(new FileInputStream("C:/test.xml"));
-//
-//		JSONObject snowprofile = XML.toJSONObject(content);
-//		
-//		snowprofile = new JSONObject(JSONHelpers.flatten("stratProfile", snowprofile));
-//		
-//		String returnProfile = snowprofile.toString();
-//		returnProfile = returnProfile.replace("caaml:", "");
-//		returnProfile = returnProfile.replace("gml:", "");
-//		returnProfile = returnProfile.replace("xmlns:", "xmlns_");
-//		returnProfile = returnProfile.replace("xsi:", "xsi_");
-//		
-//		return returnProfile;
-		return "{}";
+		JSONObject snowprofile1 = XML.toJSONObject(IOUtils.toString(new FileInputStream("C:/test.xml")));
+		JSONObject snowprofile2 = XML.toJSONObject(IOUtils.toString(new FileInputStream("C:/test2.xml")));
+		
+		snowprofile1 = new JSONObject(JSONHelpers.flatten("stratProfile", snowprofile1));
+		snowprofile2 = new JSONObject(JSONHelpers.flatten("stratProfile", snowprofile2));
+		
+		JSONArray returnList = new JSONArray();
+		returnList.put(snowprofile1);
+		returnList.put(snowprofile2);
+		
+		String returnProfiles = returnList.toString();
+		returnProfiles = returnProfiles.replace("caaml:", "");
+		returnProfiles = returnProfiles.replace("gml:", "");
+		returnProfiles = returnProfiles.replace("xmlns:", "xmlns_");
+		returnProfiles = returnProfiles.replace("xsi:", "xsi_");
+		
+		return returnProfiles;
 	}
 
 	@Put

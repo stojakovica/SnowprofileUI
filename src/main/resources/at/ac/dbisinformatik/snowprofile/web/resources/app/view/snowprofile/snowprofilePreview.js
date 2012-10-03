@@ -8,8 +8,8 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
 	height: '100%',
 
     tbar: [{
-        text: 'Neues Schichtprofil',
-        iconCls: 'icon-add',
+        text: 'Neues Schneeprofil',
+//        iconCls: 'icon-add',
         handler: function(){
     		var grid = this.up("grid");
     		var rowEditing = grid.getPlugin("rowplugin");
@@ -17,23 +17,31 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
     		rowEditing.startEdit(0, 0);
         }
     }, '-', {
+        itemId: 'edit',
+        text: 'Bearbeiten',
+//        iconCls: 'icon-delete',
+        handler: function(){
+    		alert("Link to snowprofileDetail with ID");
+        }
+    }, '-', {
         itemId: 'delete',
         text: 'Löschen',
-        iconCls: 'icon-delete',
+//        iconCls: 'icon-delete',
         handler: function(){
     		var grid = this.up("grid");
             var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {
             	grid.getStore().remove(selection);
             	grid.getStore().fireEvent("dataupdate", grid.getStore());
+            	alert("");
             }
         }
     }],
 
     columns: [
 		{
-			header: 'Von Höhe[cm]',
-			dataIndex: 'depthTop_content',
+			header: 'Name',
+			dataIndex: 'name',
 			flex: 1,
 			editor: {
 			    xtype: 'numberfield',
@@ -42,48 +50,16 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
 			}
 		},
 		{
-            header: 'Kornform 1',
-            dataIndex: 'grainFormPrimary',
+            header: 'Ort',
+            dataIndex: 'ort',
             flex: 1,
             editor: {
                 allowBlank: false
             }
 		},
 		{
-			header: 'Kornform 2',
-			dataIndex: 'grainFormSecondary',
-			flex: 1,
-			editor: {
-				allowBlank: false
-			}
-		},
-		{
-			header: 'Grösse[D][mm] avg',
-			dataIndex: 'grainSize_Components_avg',
-			flex: 1,
-			editor: {
-				allowBlank: false
-			}
-		},
-		{
-			header: 'Grösse[D][mm] avg max',
-			dataIndex: 'grainSize_Components_avgMax',
-			flex: 1,
-			editor: {
-				allowBlank: false
-			}
-		},
-		{
-			header: 'Härte[K]',
-			dataIndex: 'hardness',
-			flex: 1,
-			editor: {
-				allowBlank: false
-			}
-		},
-		{
-			header: 'Feuchte',
-			dataIndex: 'lwc_content',
+			header: 'Datum',
+			dataIndex: 'datum',
 			flex: 1,
 			editor: {
 				allowBlank: false

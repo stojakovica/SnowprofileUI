@@ -17,15 +17,17 @@ Ext.application({
         	defaults: {
         	    title: false
         	},
-        	items: [{
-        	    region: 'north',
-        	    items: [
-    	            {
-    	            	xtype: 'menuleiste',
-    	            	border: false
-    	            }
-        	    ]
-        	},{
+        	items: [
+//        	{
+//        	    region: 'north',
+//        	    items: [
+//    	            {
+//    	            	xtype: 'menuleiste',
+//    	            	border: false
+//    	            }
+//        	    ]
+//        	},
+        	{
         	    region:'center',
         	    items: [
     	            {

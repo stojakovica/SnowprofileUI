@@ -25,15 +25,15 @@ Ext.define('LWD.view.snowprofile.metadata', {
         if(edit) {
         	disabled = false;
         }
-        
-        this.dockedItems = [{
-            xtype: 'toolbar',
-            dock: 'top',
-            items: [{ 
-            	xtype: 'button', 
-            	text: 'Speichern' 
-            }]
-        }],
+//        
+//        this.dockedItems = [{
+//            xtype: 'toolbar',
+//            dock: 'top',
+//            items: [{ 
+//            	xtype: 'button', 
+//            	text: 'Speichern' 
+//            }]
+//        }],
 
         this.items = [
             {
@@ -109,6 +109,15 @@ Ext.define('LWD.view.snowprofile.metadata', {
     	        		labelSeparator: '',
     	        		hideEmptyLabel: false,
     	        		boxLabel: 'flach',
+    	        		anchor:'95%',
+    	        	},
+    	        	{
+    	        		xtype: 'checkboxfield',
+    	        		name: 'setOnline',
+    	        		fieldLabel: '',
+    	        		labelSeparator: '',
+    	        		hideEmptyLabel: false,
+    	        		boxLabel: 'Online schalten',
     	        		anchor:'95%',
     	        	}
 	        	]

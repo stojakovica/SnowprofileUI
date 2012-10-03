@@ -9,27 +9,22 @@ Ext.require([
 Ext.define('LWD.view.menuleiste.Menu' ,{
 	extend: 'Ext.Panel',
 	alias : 'widget.menuleiste',
-	
+	border: false,
 	tbar: [
 	    {
-	  	  text: 'Datei',
-	  	  iconCls: 'add16',
-	  	  menu: [{
-	  		  text: 'Neu',
-	  		  itemId: 'newData'
-	  	  },{
-	  		  text: 'Datei laden',
-	  		  itemId: 'loadData'
-	  	  },{
-	  		  text: 'Datei speichern',
-	  		  itemId: 'saveData'
-	  	  }],
-	      reorderable: false,
-	    },
-	    {
+	    	text: 'Zurück',
+	    	reorderable: false,
+	    	handler: function() {
+		    	// TODO: destroy Session
+		    	window.location.href="/lwd/static/1.0.0.0/snowprofile.html";
+		    }
+	    },"-",{
+	    	text: 'Speichern',
+	    	itemId: 'saveData',
+	    	reorderable: false
+	    },"-",{
 	    	text: 'Logout',
 	    	itemId: 'logout',
-	    	iconCls: 'add16',
 	    	reorderable: false,
 	    	handler: function() {
 	    		// TODO: destroy Session

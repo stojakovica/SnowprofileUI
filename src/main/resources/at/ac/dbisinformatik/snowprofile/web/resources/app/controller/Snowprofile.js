@@ -4,7 +4,8 @@ Ext.define('LWD.controller.Snowprofile', {
         'Snowtemperature',
 	    'Schichtprofil',
 	    'Metadata',
-	    'Snowprofile'
+	    'Snowprofile',
+	    'SnowprofilePreview'
 	],
 	models: [
         'Snowprofile',
@@ -63,19 +64,24 @@ Ext.define('LWD.controller.Snowprofile', {
 
     init: function() {
         console.log('Snowprofile loaded!');
+
+        var hashString = location.hash;
+        var nvPair = hashString.split("=");
+        
+        var store = Ext.data.StoreManager.lookup('Snowprofile');
+    	var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
+		storeModel.load(nvPair[1], {
+		    success: function(snowprofile) {
+				store.removeAll();
+				store.add(snowprofile);
+				store.fireEvent("datachanged", store);
+		    }
+		});
+        
         this.control({
-        	'toolbar #newData': {
-        		click: this.newData
-        	},
 	    	'toolbar #saveData': {
 				click: this.saveData
 			},
-			'toolbar #loadData': {
-				click: this.loadData
-			},
-			'selectprofile button[action=save]': {
-                click: this.loadSnowProfile
-            }
 		});
         
         this.getSnowprofileStore().on('load', function(store, records, success, operations) {
@@ -99,7 +105,6 @@ Ext.define('LWD.controller.Snowprofile', {
         
         this.getSnowprofileStore().on('datachanged', function(store, records, success, operations) {
         	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
-        		console.log(store);
         		var metaDataStore = this.getMetadataStore();
         		var datumZeit = store.getAt(0).raw.validTime.TimeInstant.timePosition.split("T");
         		var metadata = {
@@ -169,37 +174,8 @@ Ext.define('LWD.controller.Snowprofile', {
         }, this);
     },
     
-    
-
-    newData: function(item) {
-    	var store = Ext.data.StoreManager.lookup('Snowprofile');
-    	store.removeAll();
-    	store.fireEvent("datachanged", store);
-    },
-    
     saveData: function(item) {
-    	console.log(item);
-    },
-    
-	loadData: function(item) {
-    	var itemId = item.getItemId();
-		var view = Ext.widget('selectprofile');
-    },
-    
-    loadSnowProfile: function(button) {
-    	var win = button.up('window'),
-    	    form   = win.down('form'),
-    	    values = form.getValues();
-    	win.close();
-    	
-    	var store = Ext.data.StoreManager.lookup('Snowprofile');
-    	var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
-		storeModel.load(values.profile_id, {
-		    success: function(snowprofile) {
-				store.removeAll();
-				store.add(snowprofile);
-				store.fireEvent("datachanged", store);
-		    }
-		});
+    	// TODO: save Data in OrientDB
+    	alert("save Data");
     }
 });

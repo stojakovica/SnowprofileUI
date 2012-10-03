@@ -2,6 +2,7 @@ package at.ac.dbisinformatik.snowprofile.web;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -31,8 +32,8 @@ public class ListSnowProfileResource extends ServerResource {
 		snowprofile2 = new JSONObject(JSONHelpers.flatten("stratProfile", snowprofile2));
 		
 		JSONArray returnList = new JSONArray();
-		returnList.put(snowprofile1);
-		returnList.put(snowprofile2);
+		returnList.put(snowprofile1.get("SnowProfile"));
+		returnList.put(snowprofile2.get("SnowProfile"));
 		
 		String returnProfiles = returnList.toString();
 		returnProfiles = returnProfiles.replace("caaml:", "");
@@ -40,7 +41,7 @@ public class ListSnowProfileResource extends ServerResource {
 		returnProfiles = returnProfiles.replace("xmlns:", "xmlns_");
 		returnProfiles = returnProfiles.replace("xsi:", "xsi_");
 		
-		return returnProfiles;
+		return "{SnowprofileList: "+returnProfiles+"}";
 	}
 
 	@Put

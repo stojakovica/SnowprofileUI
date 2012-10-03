@@ -2,40 +2,46 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.snowprofilepreview',
 	itemId: 'snowprofilePreviewGrid',
-    store: 'Snowprofile',
+    store: 'SnowprofilePreview',
 	
 	border: false,
 	height: '100%',
 
     tbar: [{
         text: 'Neues Schneeprofil',
-//        iconCls: 'icon-add',
         handler: function(){
-    		var grid = this.up("grid");
-    		var rowEditing = grid.getPlugin("rowplugin");
-    		grid.getStore().insert(0, new LWD.model.LayerProfile());
-    		rowEditing.startEdit(0, 0);
+    		var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html';
+    		window.location = redirect;
         }
     }, '-', {
         itemId: 'edit',
         text: 'Bearbeiten',
-//        iconCls: 'icon-delete',
         handler: function(){
-    		alert("Link to snowprofileDetail with ID");
+	    	var grid = this.up("grid");
+	        var selection = grid.getView().getSelectionModel().getSelection()[0];
+	        if (selection) {
+	        	var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#id='+selection.data.id; 
+                window.location = redirect;
+	        }
         }
     }, '-', {
         itemId: 'delete',
         text: 'Löschen',
-//        iconCls: 'icon-delete',
         handler: function(){
     		var grid = this.up("grid");
             var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {
             	grid.getStore().remove(selection);
             	grid.getStore().fireEvent("dataupdate", grid.getStore());
-            	alert("");
+            	alert("Delete Selection from Store in OrientDB");
             }
         }
+    }, "-", {
+    	itemId: 'logout',
+    	text: 'Logout',
+    	handler: function() {
+    		window.location.href="/lwd/static/1.0.0.0/login.html";
+    	}
     }],
 
     columns: [
@@ -47,6 +53,9 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
 			    xtype: 'numberfield',
 	            allowBlank: false,
 	            minValue: 0,
+			},
+			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+				return store.getAt(rowIndex).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name;
 			}
 		},
 		{
@@ -55,7 +64,10 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
             flex: 1,
             editor: {
                 allowBlank: false
-            }
+            },
+			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+				return store.getAt(rowIndex).raw.locRef.ObsPoint.name;
+			}
 		},
 		{
 			header: 'Datum',
@@ -63,11 +75,20 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
 			flex: 1,
 			editor: {
 				allowBlank: false
+			},
+			format: "d.m.Y",
+			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+				date = new Date(store.getAt(rowIndex).raw.metaDataProperty.MetaData.dateTimeReport);
+				return date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear();
 			}
 		}
 	],
 	
     initComponent: function() {
+		
+		var store = Ext.data.StoreManager.lookup('SnowprofilePreview');
+		console.log(store);
+	
 		this.on('edit', this.commit);
         this.callParent(arguments);
     },

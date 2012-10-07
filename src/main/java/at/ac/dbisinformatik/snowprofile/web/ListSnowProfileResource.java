@@ -1,14 +1,11 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.XML;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.Put;
@@ -16,6 +13,7 @@ import org.restlet.resource.ServerResource;
 
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.record.impl.ODocument;
+import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 
 public class ListSnowProfileResource extends ServerResource {
 
@@ -25,23 +23,17 @@ public class ListSnowProfileResource extends ServerResource {
 	
 	@Get()
 	public String getJson() throws JSONException, IOException {
-		JSONObject snowprofile1 = XML.toJSONObject(IOUtils.toString(new FileInputStream("C:/test.xml")));
-		JSONObject snowprofile2 = XML.toJSONObject(IOUtils.toString(new FileInputStream("C:/test2.xml")));
-		
-		snowprofile1 = new JSONObject(JSONHelpers.flatten("stratProfile", snowprofile1));
-		snowprofile2 = new JSONObject(JSONHelpers.flatten("stratProfile", snowprofile2));
-		
 		JSONArray returnList = new JSONArray();
-		returnList.put(snowprofile1.get("SnowProfile"));
-		returnList.put(snowprofile2.get("SnowProfile"));
+		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
 		
-		String returnProfiles = returnList.toString();
-		returnProfiles = returnProfiles.replace("caaml:", "");
-		returnProfiles = returnProfiles.replace("gml:", "");
-		returnProfiles = returnProfiles.replace("xmlns:", "xmlns_");
-		returnProfiles = returnProfiles.replace("xsi:", "xsi_");
+		List<ODocument> result = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile"));
 		
-		return "{SnowprofileList: "+returnProfiles+"}";
+		for (ODocument oDocument : result) {
+			Map<?,?> sub = oDocument.field("SnowProfile");
+			returnList.put(sub);
+		}
+		
+		return "{SnowprofileList: "+returnList.toString()+"}";
 	}
 
 	@Put
@@ -51,17 +43,6 @@ public class ListSnowProfileResource extends ServerResource {
 	
 	@Post
 	public void storeJson(String value) {
-		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/databases/test/test").open("admin", "admin");
-
-		// CREATE A NEW DOCUMENT AND FILL IT
-		ODocument doc = new ODocument(db, "Person");
-		doc.field( "name", "Aleks" );
-		doc.field( "surname", "Stocheck" );
-		doc.field( "city", new ODocument(db, "City").field("name","Rome").field("country", "Italy") );
-		              
-		// SAVE THE DOCUMENT
-		doc.save();
-
-		db.close();
+		
 	}
 }

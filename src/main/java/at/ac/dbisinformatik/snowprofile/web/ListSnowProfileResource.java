@@ -1,11 +1,13 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.Put;
@@ -21,6 +23,7 @@ public class ListSnowProfileResource extends ServerResource {
 		setNegotiated(true);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Get()
 	public String getJson() throws JSONException, IOException {
 		JSONArray returnList = new JSONArray();
@@ -29,8 +32,13 @@ public class ListSnowProfileResource extends ServerResource {
 		List<ODocument> result = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile"));
 		
 		for (ODocument oDocument : result) {
-			Map<?,?> sub = oDocument.field("SnowProfile");
-			returnList.put(sub);
+//			Map<?,?> sub = oDocument.field("SnowProfile");
+			JSONObject temp = new JSONObject(oDocument.toJSON());
+			
+			Map<String, Object> idMap = (Map<String, Object>) JSONHelpers.jsonToMap("SnowProfile", temp).get("SnowProfile");
+			idMap.put("rid", (String) temp.get("@rid").toString().substring(1));
+
+			returnList.put(idMap);
 		}
 		
 		return "{SnowprofileList: "+returnList.toString()+"}";

@@ -20,7 +20,7 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
 	    	var grid = this.up("grid");
 	        var selection = grid.getView().getSelectionModel().getSelection()[0];
 	        if (selection) {
-	        	var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#id='+selection.data.id; 
+	        	var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#id='+selection.data.rid; 
                 window.location = redirect;
 	        }
         }

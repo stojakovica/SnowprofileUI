@@ -17,7 +17,8 @@ Ext.define('LWD.model.Snowprofile', {
 	    'xmlns_gml',
 	    'xmlns_xlink',
 	    'xmlns_xsi',
-	    'xsi_schemaLocation'
+	    'xsi_schemaLocation',
+	    'rid'
 	],
 	associations: [
         {type: 'hasMany', model: 'LWD.model.snowprofile.locRef',    name: 'locRef', associationKey:'locRef'},

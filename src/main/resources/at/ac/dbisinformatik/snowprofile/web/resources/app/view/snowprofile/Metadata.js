@@ -25,15 +25,24 @@ Ext.define('LWD.view.snowprofile.metadata', {
         if(edit) {
         	disabled = false;
         }
-//        
-//        this.dockedItems = [{
-//            xtype: 'toolbar',
-//            dock: 'top',
-//            items: [{ 
-//            	xtype: 'button', 
-//            	text: 'Speichern' 
-//            }]
-//        }],
+        
+        this.dockedItems = [{
+            xtype: 'toolbar',
+            dock: 'top',
+            items: [{ 
+            	xtype: 'button', 
+            	text: 'Speichern',
+            	handler: function() {
+            		var panel = this.up('form');
+                    var form = panel.getForm();
+                    var store = Ext.data.StoreManager.lookup(panel.store);
+                    if (form.isValid()) {
+                    	store.loadRawData(form.getValues())
+                    	store.fireEvent("dataupdate", store);
+                    }
+                }
+            }]
+        }],
 
         this.items = [
             {

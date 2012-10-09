@@ -8,6 +8,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.Put;
@@ -46,11 +47,12 @@ public class ListSnowProfileResource extends ServerResource {
 
 	@Put
 	public String updateJson(String value) {
+		System.out.println("put json");
 		return value;
 	}
 	
 	@Post
-	public void storeJson(String value) {
-		
+	public void storeJson(Representation value) {
+		System.out.println(value.toString());
 	}
 }

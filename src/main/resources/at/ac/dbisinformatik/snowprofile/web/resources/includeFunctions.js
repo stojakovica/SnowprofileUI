@@ -128,225 +128,231 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	
 	if(store) {
 		var snowprofileData = store;
-		var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
-		var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir;
 		
-		var width = 0;
-		var vonHoehe0 = snowTopValue;
-		if(schichtprofilData[0].depthTop_content > snowTopValue)
-			var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
-		
-		var hoechstWert = schichtprofilData[0].depthTop_content;
-		
-		for(var i = 0; i < schichtprofilData.length; i++) {
-			var vonHoehe = schichtprofilData[i].depthTop_content;
-			if(typeof schichtprofilData[i].thickness_content != 'undefined') {
-				var thickness = schichtprofilData[i].thickness_content;
-				var bisHoehe = vonHoehe - thickness;
-			}
-			else {
-				if(i < (schichtprofilData.length - 1))
-					var bisHoehe = schichtprofilData[i+1].depthTop_content;
-				else 
-					var bisHoehe = 0;
-			}
+		// DRAWING LAYER-PROFILE/SCHICHTPROFIL
+		if(snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.length >= 1) {
+			var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
+			var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir;
 			
-			if(direction != "top down") {
-				var temp = vonHoehe;
-				vonHoehe = hoechstWert - bisHoehe;
-				bisHoehe = hoechstWert - temp;
-			}
-			var kornform1 = schichtprofilData[i].grainFormPrimary;
-			var kornform2 = schichtprofilData[i].grainFormSecondary;
-			var haerte = schichtprofilData[i].hardness;
-			var groesse = schichtprofilData[i].grainSize_Components_avg+"-"+schichtprofilData[i].grainSize_Components_avgMax;
-			var feuchte = schichtprofilData[i].lwc_content;
+			var width = 0;
+			var vonHoehe0 = snowTopValue;
+			if(schichtprofilData[0].depthTop_content > snowTopValue)
+				var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
 			
-			if(direction == "top down") {
-				var height = (heightMainArea * (vonHoehe / vonHoehe0)) - (heightMainArea * (bisHoehe / vonHoehe0));
-				var y = 10 + (heightMainArea * (bisHoehe / vonHoehe0));
-			}
-			else {
-				var height = (heightMainArea * (vonHoehe / vonHoehe0)) - (heightMainArea * (bisHoehe / vonHoehe0));
-				var y = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
-			}
+			var hoechstWert = schichtprofilData[0].depthTop_content;
 			
-			
-			switch (haerte) {
-			case 'F': width = 1; break; 
-			case 'F-4F': width = 2.05; break; 
-			case '4F': width = 3; break; 
-			case '4F-1F': width = 6.5; break; 
-			case '1F': width = 10; break; 
-			case '1F-P': width = 15; break; 
-			case 'P': width = 20; break; 
-			case 'P-K': width = 25; break; 
-			case 'K': width = 31.05; break; 
-			case 'I': width = 40; break; 
+			for(var i = 0; i < schichtprofilData.length; i++) {
+				var vonHoehe = schichtprofilData[i].depthTop_content;
+				if(typeof schichtprofilData[i].thickness_content != 'undefined') {
+					var thickness = schichtprofilData[i].thickness_content;
+					var bisHoehe = vonHoehe - thickness;
+				}
+				else {
+					if(i < (schichtprofilData.length - 1))
+						var bisHoehe = schichtprofilData[i+1].depthTop_content;
+					else 
+						var bisHoehe = 0;
+				}
+				
+				if(direction != "top down") {
+					var temp = vonHoehe;
+					vonHoehe = hoechstWert - bisHoehe;
+					bisHoehe = hoechstWert - temp;
+				}
+				var kornform1 = schichtprofilData[i].grainFormPrimary;
+				var kornform2 = schichtprofilData[i].grainFormSecondary;
+				var haerte = schichtprofilData[i].hardness;
+				var groesse = schichtprofilData[i].grainSize_Components_avg+"-"+schichtprofilData[i].grainSize_Components_avgMax;
+				var feuchte = schichtprofilData[i].lwc_content;
+				
+				if(direction == "top down") {
+					var height = (heightMainArea * (vonHoehe / vonHoehe0)) - (heightMainArea * (bisHoehe / vonHoehe0));
+					var y = 10 + (heightMainArea * (bisHoehe / vonHoehe0));
+				}
+				else {
+					var height = (heightMainArea * (vonHoehe / vonHoehe0)) - (heightMainArea * (bisHoehe / vonHoehe0));
+					var y = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
+				}
+				
+				
+				switch (haerte) {
+				case 'F': width = 1; break; 
+				case 'F-4F': width = 2.05; break; 
+				case '4F': width = 3; break; 
+				case '4F-1F': width = 6.5; break; 
+				case '1F': width = 10; break; 
+				case '1F-P': width = 15; break; 
+				case 'P': width = 20; break; 
+				case 'P-K': width = 25; break; 
+				case 'K': width = 31.05; break; 
+				case 'I': width = 40; break; 
+				}
+				
+				x = 55 - width;
+				if(pdfFlag) {
+					y = y + pdfMarginY;
+					x = x - pdfMarginX;
+				}
+				items.push(drawRectangle(width+"%", height+"%", x+"%", y+"%", 2, "#1C86EE", "#1C86EE", 0.2));
+				
+				// Details Rechteck für Form, Durchmesser und Feuchte
+				items.push(drawRectangle("12%", height+"%", (58 - pdfMarginX)+"%", y+"%", 1, "#000000", "#FFFFFF", 0.2));
+				
+				// Vorbereitung für Kornformen
+				var widthImageKF = componentWidth * 0.009;
+				var heightImageKF = widthImageKF;
+				
+				x_image = 60.3;
+				y = ((y + (y + height)) / 2) + 0.2;
+				y_image = y - 0.8;
+				if(pdfFlag) {
+					x_image = x_image - pdfMarginX;
+				}
+				var text = "";
+				switch (kornform1) { 
+				case 'PP': 
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/neuschnee.jpg", pdfFlag));
+					break;
+				case 'DF':  
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/filziger_schnee.jpg", pdfFlag));
+					break;
+				case 'RG': 
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/rundkoerniger_schnee.jpg", pdfFlag));
+					break;
+				case 'FC': 
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantigfoermiger_schnee.jpg", pdfFlag));
+					break;
+				case 'FCxr':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantig_abgerundet.jpg", pdfFlag));
+					break;
+				case 'DH': 
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schwimmschnee.jpg", pdfFlag));
+					break;
+				case 'MF':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schmelzform.jpg", pdfFlag));
+					break;
+				case 'MFcr':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schneekruste.jpg", pdfFlag));
+					break;
+				case 'IF':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/eislamelle.jpg", pdfFlag));
+					break;
+				case 'SH':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/oberflaechenreif.jpg", pdfFlag));
+					break;
+				case 'PPgp':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/graupel.jpg", pdfFlag));
+					break;
+				}
+				
+				x_image = 61.6;
+				if(pdfFlag) {
+					x_image = x_image - pdfMarginX;
+				}
+				switch (kornform2) { 
+				case 'PP': 
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/neuschnee.jpg", pdfFlag));
+					break;
+				case 'DF':  
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/filziger_schnee.jpg", pdfFlag));
+					break;
+				case 'RG': 
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/rundkoerniger_schnee.jpg", pdfFlag));
+					break;
+				case 'FC': 
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantigfoermiger_schnee.jpg", pdfFlag));
+					break;
+				case 'FCxr':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantig_abgerundet.jpg", pdfFlag));
+					break;
+				case 'DH': 
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schwimmschnee.jpg", pdfFlag));
+					break;
+				case 'MF':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schmelzform.jpg", pdfFlag));
+					break;
+				case 'MFcr':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schneekruste.jpg", pdfFlag));
+					break;
+				case 'IF':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/eislamelle.jpg", pdfFlag));
+					break;
+				case 'SH':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/oberflaechenreif.jpg", pdfFlag));
+					break;
+				case 'PPgp':
+					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/graupel.jpg", pdfFlag));
+					break;
+				}
+				
+				
+				// Text zu Durchmesser
+				x = 64.5;
+				if(pdfFlag) {
+					x = x - pdfMarginX;
+				}
+				items.push(drawText(groesse, x+"%", y+"%", 0, "#000000", fontSize));
+				
+				// Feuchte
+				x = 58.7;
+				switch (feuchte) {
+				case 'D': text = "-"; break;
+				case 'M': text = "|"; break;
+				case 'W': text = "||"; x = 58.6; break;
+				case 'V': text = "|||"; x = 58.5; break;
+				case 'S': text = "||||"; x = 58.4; break;
+				}
+				if(pdfFlag) {
+					x = x - pdfMarginX;
+				}
+				items.push(drawText(text, x+"%", y+"%", 0, "#000000", fontSize));
 			}
-			
-			x = 55 - width;
-			if(pdfFlag) {
-				y = y + pdfMarginY;
-				x = x - pdfMarginX;
-			}
-			items.push(drawRectangle(width+"%", height+"%", x+"%", y+"%", 2, "#1C86EE", "#1C86EE", 0.2));
-			
-			// Details Rechteck für Form, Durchmesser und Feuchte
-			items.push(drawRectangle("12%", height+"%", (58 - pdfMarginX)+"%", y+"%", 1, "#000000", "#FFFFFF", 0.2));
-			
-			// Vorbereitung für Kornformen
-			var widthImageKF = componentWidth * 0.009;
-			var heightImageKF = widthImageKF;
-			
-			x_image = 60.3;
-			y = ((y + (y + height)) / 2) + 0.2;
-			y_image = y - 0.8;
-			if(pdfFlag) {
-				x_image = x_image - pdfMarginX;
-			}
-			var text = "";
-			switch (kornform1) { 
-			case 'PP': 
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/neuschnee.jpg", pdfFlag));
-				break;
-			case 'DF':  
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/filziger_schnee.jpg", pdfFlag));
-				break;
-			case 'RG': 
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/rundkoerniger_schnee.jpg", pdfFlag));
-				break;
-			case 'FC': 
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantigfoermiger_schnee.jpg", pdfFlag));
-				break;
-			case 'FCxr':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantig_abgerundet.jpg", pdfFlag));
-				break;
-			case 'DH': 
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schwimmschnee.jpg", pdfFlag));
-				break;
-			case 'MF':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schmelzform.jpg", pdfFlag));
-				break;
-			case 'MFcr':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schneekruste.jpg", pdfFlag));
-				break;
-			case 'IF':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/eislamelle.jpg", pdfFlag));
-				break;
-			case 'SH':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/oberflaechenreif.jpg", pdfFlag));
-				break;
-			case 'PPgp':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/graupel.jpg", pdfFlag));
-				break;
-			}
-			
-			x_image = 61.6;
-			if(pdfFlag) {
-				x_image = x_image - pdfMarginX;
-			}
-			switch (kornform2) { 
-			case 'PP': 
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/neuschnee.jpg", pdfFlag));
-				break;
-			case 'DF':  
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/filziger_schnee.jpg", pdfFlag));
-				break;
-			case 'RG': 
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/rundkoerniger_schnee.jpg", pdfFlag));
-				break;
-			case 'FC': 
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantigfoermiger_schnee.jpg", pdfFlag));
-				break;
-			case 'FCxr':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantig_abgerundet.jpg", pdfFlag));
-				break;
-			case 'DH': 
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schwimmschnee.jpg", pdfFlag));
-				break;
-			case 'MF':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schmelzform.jpg", pdfFlag));
-				break;
-			case 'MFcr':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schneekruste.jpg", pdfFlag));
-				break;
-			case 'IF':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/eislamelle.jpg", pdfFlag));
-				break;
-			case 'SH':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/oberflaechenreif.jpg", pdfFlag));
-				break;
-			case 'PPgp':
-				items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/graupel.jpg", pdfFlag));
-				break;
-			}
-			
-			
-			// Text zu Durchmesser
-			x = 64.5;
-			if(pdfFlag) {
-				x = x - pdfMarginX;
-			}
-			items.push(drawText(groesse, x+"%", y+"%", 0, "#000000", fontSize));
-			
-			// Feuchte
-			x = 58.7;
-			switch (feuchte) {
-			case 'D': text = "-"; break;
-			case 'M': text = "|"; break;
-			case 'W': text = "||"; x = 58.6; break;
-			case 'V': text = "|||"; x = 58.5; break;
-			case 'S': text = "||||"; x = 58.4; break;
-			}
-			if(pdfFlag) {
-				x = x - pdfMarginX;
-			}
-			items.push(drawText(text, x+"%", y+"%", 0, "#000000", fontSize));
 		}
 		
 		// ZEICHNEN DER SCHNEETEMPERATUR
-		var schneetemperaturData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs;
-		
-		var h100 = componentHeight;
-		var w100 = componentWidth;
-		var h84 = h100 * (heightMainArea / 100);
-		var h16 = h100 * 0.1;
-		var w55 = w100 * 0.55;
-		var w40 = w100 * 0.4;
-		var hoechstWertTemp = schneetemperaturData[0].depth;
-		for(var i = 0; i < schneetemperaturData.length; i++) {
-			vonHoehe = schneetemperaturData[i].depth;
-			var temp = (schneetemperaturData[i].snowTemp/10);
-			if(typeof schneetemperaturData[i+1] != 'undefined') {
-				bisHoehe = schneetemperaturData[i+1].depth;
-				var tempNext = (schneetemperaturData[i+1].snowTemp/10);
-			}
-			else {
-				var tempNext = 0;
-				bisHoehe = 0;
-			}
+		if(snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs.length >= 1) {
+			var schneetemperaturData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs;
 			
-			var startx = w55 - (w40 * temp/tempMax);
-			var endx = w55 - (w40 * tempNext/tempMax);
-			
-			if(direction == "top down") {
-				var starty = h16 + (h84 * vonHoehe / vonHoehe0);
-				var endy = h16 + (h84 * bisHoehe / vonHoehe0);
+			var h100 = componentHeight;
+			var w100 = componentWidth;
+			var h84 = h100 * (heightMainArea / 100);
+			var h16 = h100 * 0.1;
+			var w55 = w100 * 0.55;
+			var w40 = w100 * 0.4;
+			var hoechstWertTemp = schneetemperaturData[0].depth;
+			for(var i = 0; i < schneetemperaturData.length; i++) {
+				vonHoehe = schneetemperaturData[i].depth;
+				var temp = (schneetemperaturData[i].snowTemp/10);
+				if(typeof schneetemperaturData[i+1] != 'undefined') {
+					bisHoehe = schneetemperaturData[i+1].depth;
+					var tempNext = (schneetemperaturData[i+1].snowTemp/10);
+				}
+				else {
+					var tempNext = 0;
+					bisHoehe = 0;
+				}
+				
+				var startx = w55 - (w40 * temp/tempMax);
+				var endx = w55 - (w40 * tempNext/tempMax);
+				
+				if(direction == "top down") {
+					var starty = h16 + (h84 * vonHoehe / vonHoehe0);
+					var endy = h16 + (h84 * bisHoehe / vonHoehe0);
+				}
+				else {
+					var starty = h100 - (h84 * vonHoehe / vonHoehe0);
+					var endy = h100 - (h84 * bisHoehe / vonHoehe0);
+				}
+				
+				if(pdfFlag) {
+					startx = startx - (componentWidth * (pdfMarginX / 100));
+					endx = endx - (componentWidth * (pdfMarginX / 100));
+					starty = starty + (componentHeight * (pdfMarginY / 100));
+					endy = endy + (componentHeight * (pdfMarginY / 100));
+				}
+				
+				items.push(drawPath(startx, starty, endx, endy, "1", "#F00", "fff"));
 			}
-			else {
-				var starty = h100 - (h84 * vonHoehe / vonHoehe0);
-				var endy = h100 - (h84 * bisHoehe / vonHoehe0);
-			}
-			
-			if(pdfFlag) {
-				startx = startx - (componentWidth * (pdfMarginX / 100));
-				endx = endx - (componentWidth * (pdfMarginX / 100));
-				starty = starty + (componentHeight * (pdfMarginY / 100));
-				endy = endy + (componentHeight * (pdfMarginY / 100));
-			}
-			
-			items.push(drawPath(startx, starty, endx, endy, "1", "#F00", "fff"));
 		}
 		
 		// SCHICHTPROFIL-MASSSTABS

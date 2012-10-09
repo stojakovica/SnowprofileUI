@@ -1,3 +1,16 @@
+function getLocationHash() {
+	var hashString = location.hash;
+    var nvPairs = hashString.split("#");
+    var nvPair = new Array();
+    for(var i=1; i<=nvPairs.length; i++) {
+    	if(nvPairs[i] != null) {
+    		temp = nvPairs[i].split("=");
+    		nvPair.push(temp);
+    	}
+    }
+    return nvPair
+}
+
 Ext.define('LWD.controller.Snowprofile', {
     extend: 'Ext.app.Controller',
 	stores: [
@@ -11,6 +24,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'Snowprofile',
         'snowprofile.AspectPosition',
         'snowprofile.Components',
+        'snowprofile.contactPerson',
         'snowprofile.contentUomModel',
         'snowprofile.densityLayer',
         'snowprofile.densityMeasurement',
@@ -29,15 +43,20 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.MeasurementComponents',
         'snowprofile.Measurements',
         'snowprofile.MetaData',
+        'snowprofile.MetaDataMetaProperty',
+        'snowprofile.metaProperty',
         'snowprofile.microPenResProfile',
         'snowprofile.Obs',
         'snowprofile.ObsPoint',
+        'snowprofile.Operation',
+        'snowprofile.Person',
         'snowprofile.Point',
         'snowprofile.pointLocation',
         'snowprofile.ProfMetaData',
         'snowprofile.SnowProfileMeasurements',
         'snowprofile.snowProfileResultsOf',
         'snowprofile.specSurfAreaProfile',
+        'snowprofile.srcRef',
         'snowprofile.stratLayer',
         'snowprofile.stratProfile',
         'snowprofile.tempProfile',
@@ -65,18 +84,101 @@ Ext.define('LWD.controller.Snowprofile', {
     init: function() {
         console.log('Snowprofile loaded!');
 
-        var hashString = location.hash;
-        var nvPair = hashString.split("=");
+        if(getLocationHash()[0] != null) {
+        	var nvPair = getLocationHash();
+        	var action = nvPair[0][1];
+        }
+        if(getLocationHash()[1] != null) {
+        	var nvPair = getLocationHash();
+        	var id = nvPair[1][1];
+        }
         
         var store = Ext.data.StoreManager.lookup('Snowprofile');
-    	var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
-		storeModel.load(nvPair[1], {
-		    success: function(snowprofile) {
-				store.removeAll();
-				store.add(snowprofile);
-				store.fireEvent("datachanged", store);
-		    }
-		});
+        switch(action) {
+        	case "create":
+        		var snowProfileTemplateJson = { "SnowProfile" : { "id" : "",
+			        	      "locRef" : { "ObsPoint" : { "id" : "",
+			                "name" : "",
+			                "obsPointSubType" : "",
+			                "validAspect" : { "AspectPosition" : { "position" : "" } },
+			                "validElevation" : { "ElevationPosition" : { "position" : "",
+			                        "uom" : ""
+			                      } },
+			                "validSlopeAngle" : { "SlopeAnglePosition" : { "position" : "",
+			                        "uom" : ""
+			                      } }
+			              } },
+			        "metaDataProperty" : { "MetaData" : { "dateTimeReport" : "",
+			                "srcRef" : { "Operation" : { "contactPerson" : { "Person" : { "id" : "",
+			                                "name" : ""
+			                              } },
+			                        "id" : "",
+			                        "name" : {  }
+			                      } }
+			              } },
+			        "snowProfileResultsOf" : { "SnowProfileMeasurements" : { "airTempPres" : { "content" : "",
+			                    "uom" : "degC"
+			                  },
+			                "comment" : "",
+			                "densityProfile" : { "uomDensity" : "kgm-3",
+			                    "uomDepthTop" : "cm",
+			                    "uomThickness" : "cm"
+			                  },
+			                "dir" : "down top",
+			                "hS" : { "Components" : { "snowHeight" : { "content" : "",
+			                            "uom" : "cm"
+			                          } } },
+			                "hardnessProfile" : { "uomDepthTop" : "cm",
+			                    "uomDropHeight" : "cm",
+			                    "uomHardness" : "N",
+			                    "uomThickness" : "cm",
+			                    "uomWeightHammer" : "kg",
+			                    "uomWeightTube" : "kg"
+			                  },
+			                "precipTI" : "",
+			                "profileDepth" : { "content" : "",
+			                    "uom" : "cm"
+			                  },
+			                "skyCond" : {  },
+			                "stbTests" : { "ComprTest" : { "failedOn" : { "Layer" : { "depthTop" : { "content" : "",
+			                                    "uom" : "cm"
+			                                  } },
+			                            "Results" : { "fractureCharacter" : {  },
+			                                "testScore" : ""
+			                              }
+			                          } },
+			                    "RBlockTest" : { "noFailure" : {  } }
+			                  },
+			                "stratProfile" : { "Layer" : [] },
+			                "tempProfile" : { "Obs" : [],
+			                    "uomDepth" : "cm",
+			                    "uomTemp" : "degC"
+			                  },
+			                "windDir" : { "AspectPosition" : { "position" : "" } },
+			                "windSpd" : { "content" : "",
+			                    "uom" : "ms-1"
+			                  }
+			              } },
+			        "validTime" : { "TimeInstant" : { "timePosition" : "" } },
+			        "xmlns_app" : "http://www.snowprofileapplication.com",
+			        "xmlns_caaml" : "http://www.caaml.org/v5.0/Snowprofile/IACS",
+			        "xmlns_gml" : "http://www.opengis.net/gml",
+			        "xmlns_xsi" : "http://www.w3.org/2001/XMLSchema-instance",
+			        "xsi_schemaLocation" : "http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS  http://caaml.avisualanche.ca/Schemas/V5.0/Profiles/SnowprofileIACS/CAAMLv5_SnowProfileIACS.xsd"
+			      } }
+        		store.loadRawData(snowProfileTemplateJson);
+        		break;
+        	case "edit":
+        		var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
+        		storeModel.load(id, {
+        			success: function(snowprofile) {
+	        			store.removeAll();
+	        			store.add(snowprofile);
+	        			store.fireEvent("datachanged", store);
+	        		}
+        		});
+        		break;
+        }
         
         this.control({
 	    	'toolbar #saveData': {
@@ -172,10 +274,57 @@ Ext.define('LWD.controller.Snowprofile', {
         		}, this);
         	}, this);
         }, this);
+        this.getMetadataStore().on('dataupdate', function() {
+        	var snowProfileStore = this.getSnowprofileStore();
+        	var metaDataStore = this.getMetadataStore();
+        	
+        	var metaData = metaDataStore.getAt(0).data;
+        	
+        	console.log(snowProfileStore);
+        	
+//        	"name": store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name,
+//			"profildatum": datumZeit[0],
+//			"zeit": datumZeit[1],
+//			"region": "",
+//			"hoehe": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content,
+//			"profilort": store.getAt(0).raw.locRef.ObsPoint.name,
+//			"utmKoordinaten": "",
+//			"hangneigung": store.getAt(0).raw.locRef.ObsPoint.validSlopeAngle.SlopeAnglePosition.position,
+//			"hangneigungCheck": "",
+//			"exposition": store.getAt(0).raw.locRef.ObsPoint.validAspect.AspectPosition.position,
+//			"windgeschwindigkeit": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content,
+//			"windrichtung": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position,
+//			"lufttemperatur": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content,
+//			"niederschlag": "",
+//			"intensitaetDesNS": "",
+//			"bewoelkung": "",
+//			"sonstiges": ""
+        }, this);
     },
     
     saveData: function(item) {
     	// TODO: save Data in OrientDB
-    	alert("save Data");
+    	switch(getLocationHash()[0][1]) {
+    		case "create":
+    			var form = item.up('form');
+    			console.log(item.getView());
+    			var store = Ext.data.StoreManager.lookup('Snowprofile');
+    			var data = {};
+    			var snowprofile = store.getAt(0);
+    			console.log(store);
+    	        Ext.apply(data, snowprofile.getAssociatedData());
+    			var snowProfileNew = Ext.create('LWD.model.Snowprofile', data);
+    			snowProfileNew.save();
+    			console.log("save button pressed");
+    			break;
+    		case "edit":
+    			var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
+    			storeModel.save({
+    				success: function(record, operation) {
+    					console.log("test");
+    			    }
+    			});
+    			break;
+    	}
     }
 });

@@ -15,6 +15,7 @@ import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
+import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 
@@ -41,7 +42,7 @@ public class ListSnowProfileResource extends ServerResource {
 
 			returnList.put(idMap);
 		}
-		
+//		db.close();
 		return "{SnowprofileList: "+returnList.toString()+"}";
 	}
 
@@ -52,7 +53,14 @@ public class ListSnowProfileResource extends ServerResource {
 	}
 	
 	@Post
-	public void storeJson(Representation value) {
-		System.out.println(value.toString());
+	public String storeJson(Representation value) throws IOException, JSONException {
+		JSONObject newSnowprofile = new JSONObject(value.getText());
+		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+		ODocument doc = new ODocument("SnowProfile");
+		doc.fromJSON(newSnowprofile.toString());
+		doc.save();
+		ORID rid = doc.getIdentity();
+		db.close();
+		return rid.toString().substring(1);
 	}
 }

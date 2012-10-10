@@ -22,10 +22,10 @@ Ext.define('LWD.model.Snowprofile', {
 	    'rid'
 	],
 	associations: [
-        {type: 'hasMany', model: 'LWD.model.snowprofile.locRef',    name: 'locRef', associationKey:'locRef'},
-        {type: 'hasOne', model: 'LWD.model.snowprofile.metaDataProperty',    name: 'metaDataProperty', associationKey:'metaDataProperty'},
+        {type: 'hasOne', model: 'LWD.model.snowprofile.locRef',    name: 'locRef', associationKey:'locRef'},
+        {type: 'hasOne', model: 'LWD.model.snowprofile.metaDataProperty',    name: 'metaDataProperty', associationKey:'metaDataProperty', getterName: 'getMetaDataProperty'},
         {type: 'hasOne', model: 'LWD.model.snowprofile.snowProfileResultsOf', name: 'snowProfileResultsOf', associationKey:'snowProfileResultsOf', 
         	getterName: 'getSnowProfileData'},
-        {type: 'hasMany', model: 'LWD.model.snowprofile.validTime', name: 'validTime', associationKey:'validTime'}
+        {type: 'hasOne', model: 'LWD.model.snowprofile.validTime', name: 'validTime', associationKey:'validTime'}
     ]
 });

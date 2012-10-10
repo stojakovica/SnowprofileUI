@@ -44,7 +44,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.Measurements',
         'snowprofile.MetaData',
         'snowprofile.MetaDataMetaProperty',
-        'snowprofile.metaProperty',
+        'snowprofile.metaDataProperty',
         'snowprofile.microPenResProfile',
         'snowprofile.Obs',
         'snowprofile.ObsPoint',
@@ -280,8 +280,8 @@ Ext.define('LWD.controller.Snowprofile', {
         	
         	var metaData = metaDataStore.getAt(0).data;
         	
-        	console.log(snowProfileStore);
-        	
+        	snowProfileStore.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name = metaData.name;
+        	this.saveData();
 //        	"name": store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name,
 //			"profildatum": datumZeit[0],
 //			"zeit": datumZeit[1],
@@ -306,15 +306,23 @@ Ext.define('LWD.controller.Snowprofile', {
     	// TODO: save Data in OrientDB
     	switch(getLocationHash()[0][1]) {
     		case "create":
-    			var form = item.up('form');
-    			console.log(item.getView());
     			var store = Ext.data.StoreManager.lookup('Snowprofile');
     			var data = {};
     			var snowprofile = store.getAt(0);
-    			console.log(store);
-    	        Ext.apply(data, snowprofile.getAssociatedData());
-    			var snowProfileNew = Ext.create('LWD.model.Snowprofile', data);
-    			snowProfileNew.save();
+    			Ext.apply(data, snowprofile.getData(true));
+    			
+    			Ext.Ajax.request({
+    				url: '/lwd/snowprofile',
+    				success: function(returnObject) { 
+	    				var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+returnObject.responseText; 
+	                    window.location = redirect;
+    				},
+    				failure: function() { 
+    					alert("Speichern konnte nicht durchgeführt werden!");
+    				},
+    				jsonData: data
+    			});
+    			
     			console.log("save button pressed");
     			break;
     		case "edit":

@@ -8,9 +8,9 @@ Ext.define('LWD.model.snowprofile.ObsPoint', {
         'gml_id'
     ],
     associations: [
-       {type: 'hasMany', model: 'LWD.model.snowprofile.pointLocation',    name: 'pointLocation', associationKey:'pointLocation'},
-       {type: 'hasMany', model: 'LWD.model.snowprofile.validAspect', name: 'validAspect', associationKey:'validAspect'},
-       {type: 'hasMany', model: 'LWD.model.snowprofile.validElevation', name: 'validElevation', associationKey:'validElevation'}
+       {type: 'hasOne', model: 'LWD.model.snowprofile.pointLocation',    name: 'pointLocation', associationKey:'pointLocation'},
+       {type: 'hasOne', model: 'LWD.model.snowprofile.validAspect', name: 'validAspect', associationKey:'validAspect'},
+       {type: 'hasOne', model: 'LWD.model.snowprofile.validElevation', name: 'validElevation', associationKey:'validElevation'}
     ],
     belongsTo: 'LWD.model.snowprofile.locRef'
 });

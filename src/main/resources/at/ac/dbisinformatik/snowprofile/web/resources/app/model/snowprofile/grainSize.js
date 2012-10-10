@@ -6,6 +6,6 @@ Ext.define('LWD.model.snowprofile.grainSize', {
     associations: [
        {type: 'belongsTo', model: 'LWD.model.snowprofile.SnowProfileMeasurements', name: 'SnowProfileMeasurements', associationKey:'SnowProfileMeasurements'},
        {type: 'belongsTo', model: 'LWD.model.snowprofile.Layer', name: 'Layer', associationKey:'Layer'},
-       {type: 'hasMany', model: 'LWD.model.snowprofile.Components', name: 'Components', associationKey:'Components'}
+       {type: 'hasOne', model: 'LWD.model.snowprofile.Components', name: 'Components', associationKey:'Components'}
     ]
 });

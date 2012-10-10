@@ -7,7 +7,7 @@ Ext.define('LWD.model.snowprofile.SnowProfileMeasurements', {
 	   'skyCond'
 	],
     associations: [
-       {type: 'hasOne', model: 'LWD.model.snowprofile.contentUomModel', name: 'airTempPres', associationKey:'airTempPres' getterName: 'getAirTempPres'},
+       {type: 'hasOne', model: 'LWD.model.snowprofile.contentUomModel', name: 'airTempPres', associationKey:'airTempPres', getterName: 'getAirTempPres'},
        {type: 'hasOne', model: 'LWD.model.snowprofile.densityProfile', name: 'densityProfile', associationKey:'densityProfile'},
        {type: 'hasOne', model: 'LWD.model.snowprofile.hS', name: 'hS', associationKey:'hS'},
        {type: 'hasOne', model: 'LWD.model.snowprofile.hardnessProfile', name: 'hardnessProfile', associationKey:'hardnessProfile'},

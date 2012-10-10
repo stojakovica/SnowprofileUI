@@ -32,12 +32,6 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
             var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {
             	grid.getStore().remove(selection);
-            	console.log(selection);
-            	new Ext.data.proxy.Rest({
-            	    url: '/lwd/snowprofile/'+selection.data.rid,
-            	    appendId: false
-            	});
-//            	grid.getStore().fireEvent("dataupdate", grid.getStore());
             }
         }
     }, "-", {
@@ -82,7 +76,7 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
 			},
 			format: "d.m.Y",
 			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-				date = new Date(store.getAt(rowIndex).raw.metaDataProperty.MetaData.dateTimeReport);
+				date = new Date(store.getAt(rowIndex).raw.validTime.TimeInstant.timePosition);
 				return date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear();
 			}
 		}

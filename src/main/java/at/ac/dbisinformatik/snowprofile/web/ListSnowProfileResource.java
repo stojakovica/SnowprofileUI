@@ -68,9 +68,9 @@ public class ListSnowProfileResource extends ServerResource {
 	}
 	
 	@Delete
-	protected Representation delete(Representation value) throws IOException {
+	protected Representation delete() {
 		// TODO Auto-generated method stub
-		System.out.println(value.getText());
+		System.out.println(getRequestAttributes().get("id"));
 		return null;
 	}
 }

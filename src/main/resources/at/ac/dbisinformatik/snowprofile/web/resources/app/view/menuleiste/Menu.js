@@ -18,11 +18,13 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 		    	// TODO: destroy Session
 		    	window.location.href="/lwd/static/1.0.0.0/snowprofile.html";
 		    }
-	    },"-",{
-	    	text: 'Speichern',
-	    	itemId: 'saveData',
-	    	reorderable: false
-	    },"-",{
+	    }
+//	    ,"-",{
+//	    	text: 'Speichern',
+//	    	itemId: 'saveData',
+//	    	reorderable: false
+//	    }
+	    ,"-",{
 	    	text: 'Logout',
 	    	itemId: 'logout',
 	    	reorderable: false,

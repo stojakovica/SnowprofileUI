@@ -17,6 +17,7 @@ Ext.define('LWD.model.Metadata', {
 	    { mapping: "niederschlag", name:"niederschlag" },
 	    { mapping: "intensitaetDesNS", name:"intensitaetDesNS" },
 	    { mapping: "bewoelkung", name:"bewoelkung" },
-	    { mapping: "sonstiges", name:"sonstiges" }
+	    { mapping: "sonstiges", name:"sonstiges" },
+	    { mapping: "onlineCheck", name:"onlineCheck" }
 	]
 });

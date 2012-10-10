@@ -32,8 +32,12 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
             var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {
             	grid.getStore().remove(selection);
-            	grid.getStore().fireEvent("dataupdate", grid.getStore());
-            	alert("Delete Selection from Store in OrientDB");
+            	console.log(selection);
+            	new Ext.data.proxy.Rest({
+            	    url: '/lwd/snowprofile/'+selection.data.rid,
+            	    appendId: false
+            	});
+//            	grid.getStore().fireEvent("dataupdate", grid.getStore());
             }
         }
     }, "-", {

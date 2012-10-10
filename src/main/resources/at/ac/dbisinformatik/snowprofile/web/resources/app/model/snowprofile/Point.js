@@ -3,7 +3,7 @@ Ext.define('LWD.model.snowprofile.Point', {
 	fields: [
        'description',
        'id',
-       'pos',
+       'gml_pos',
        'srsName'
     ],
     belongsTo: 'LWD.model.snowprofile.pointLocation'

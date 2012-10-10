@@ -53,6 +53,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.Point',
         'snowprofile.pointLocation',
         'snowprofile.ProfMetaData',
+        'snowprofile.SlopeAnglePosition',
         'snowprofile.SnowProfileMeasurements',
         'snowprofile.snowProfileResultsOf',
         'snowprofile.specSurfAreaProfile',
@@ -63,8 +64,10 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.ThinknessPosition',
         'snowprofile.TimeInstant',
         'snowprofile.TimePeriod',
+        'snowprofile.validAspect',
         'snowprofile.validDepositionTime',
         'snowprofile.validElevation',
+        'snowprofile.validSlopeAngle',
         'snowprofile.validThickness',
         'snowprofile.validTime',
         'snowprofile.windDir'
@@ -98,6 +101,7 @@ Ext.define('LWD.controller.Snowprofile', {
         	case "create":
         		var snowProfileTemplateJson = { "SnowProfile" : { "id" : "",
 			        	      "locRef" : { "ObsPoint" : { "id" : "",
+			                "description" : "",
 			                "name" : "",
 			                "obsPointSubType" : "",
 			                "validAspect" : { "AspectPosition" : { "position" : "" } },
@@ -106,7 +110,12 @@ Ext.define('LWD.controller.Snowprofile', {
 			                      } },
 			                "validSlopeAngle" : { "SlopeAnglePosition" : { "position" : "",
 			                        "uom" : ""
-			                      } }
+			                      } },
+		                    "pointLocation" : { "gml_Point" : { "gml_pos" : "",
+		                    	  "gml_id" : "",
+		                    	  "srsName" : "",
+		                    	  "srsDimension" : ""
+		                      } }
 			              } },
 			        "metaDataProperty" : { "MetaData" : { "dateTimeReport" : "",
 			                "srcRef" : { "Operation" : { "contactPerson" : { "Person" : { "id" : "",
@@ -139,7 +148,7 @@ Ext.define('LWD.controller.Snowprofile', {
 			                "profileDepth" : { "content" : "",
 			                    "uom" : "cm"
 			                  },
-			                "skyCond" : {  },
+			                "skyCond" : "",
 			                "stbTests" : { "ComprTest" : { "failedOn" : { "Layer" : { "depthTop" : { "content" : "",
 			                                    "uom" : "cm"
 			                                  } },
@@ -213,20 +222,20 @@ Ext.define('LWD.controller.Snowprofile', {
         				"name": store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name,
         				"profildatum": datumZeit[0],
         				"zeit": datumZeit[1],
-        				"region": "",
+        				"region": store.getAt(0).raw.locRef.ObsPoint.description,
         				"hoehe": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content,
         				"profilort": store.getAt(0).raw.locRef.ObsPoint.name,
-        				"utmKoordinaten": "",
+        				"utmKoordinaten": store.getAt(0).raw.locRef.ObsPoint.pointLocation.gml_Point.gml_pos,
         				"hangneigung": store.getAt(0).raw.locRef.ObsPoint.validSlopeAngle.SlopeAnglePosition.position,
         				"hangneigungCheck": "",
         				"exposition": store.getAt(0).raw.locRef.ObsPoint.validAspect.AspectPosition.position,
         				"windgeschwindigkeit": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content,
         				"windrichtung": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position,
         				"lufttemperatur": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content,
-        				"niederschlag": "",
-        				"intensitaetDesNS": "",
-        				"bewoelkung": "",
-        				"sonstiges": ""
+        				"niederschlag": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.precipTI,
+        				"intensitaetDesNS": "", // TODO: regeln, kann mit Information von Matthias nichts anfangen
+        				"bewoelkung": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.skyCond,
+        				"sonstiges": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.comment
         		};
         		metaDataStore.loadRawData(metadata);
         		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
@@ -277,28 +286,22 @@ Ext.define('LWD.controller.Snowprofile', {
         this.getMetadataStore().on('dataupdate', function() {
         	var snowProfileStore = this.getSnowprofileStore();
         	var metaDataStore = this.getMetadataStore();
-        	
         	var metaData = metaDataStore.getAt(0).data;
-        	
         	snowProfileStore.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name = metaData.name;
+        	snowProfileStore.getAt(0).getValidTime().getTimeInstant().timePosition = metaData.profildatum+"T"+metaData.zeit;
+        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().description = metaData.region;
+        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().name = metaData.profilort;
+        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getProfileDepth().content = metaData.hoehe;
+        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().getPointLocation().getPoint().gml_pos = metaData.utmKoordinaten;
+        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidSlopeAngle().getSlopeAnglePosition().position = metaData.hangneigung;
+        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidAspect().getAspectPosition().position = metaData.exposition;
+        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindSpd().content = metaData.windgeschwindigkeit;
+        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindDir().getAspectPosition().position = metaData.windrichtung;
+        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getAirTempPres().content = metaData.lufttemperatur;
+        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().precipTI = metaData.niederschlag;
+        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().skyCond = metaData.bewoelkung;
+        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().comment = metaData.sonstiges;
         	this.saveData();
-//        	"name": store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name,
-//			"profildatum": datumZeit[0],
-//			"zeit": datumZeit[1],
-//			"region": "",
-//			"hoehe": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content,
-//			"profilort": store.getAt(0).raw.locRef.ObsPoint.name,
-//			"utmKoordinaten": "",
-//			"hangneigung": store.getAt(0).raw.locRef.ObsPoint.validSlopeAngle.SlopeAnglePosition.position,
-//			"hangneigungCheck": "",
-//			"exposition": store.getAt(0).raw.locRef.ObsPoint.validAspect.AspectPosition.position,
-//			"windgeschwindigkeit": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content,
-//			"windrichtung": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position,
-//			"lufttemperatur": store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content,
-//			"niederschlag": "",
-//			"intensitaetDesNS": "",
-//			"bewoelkung": "",
-//			"sonstiges": ""
         }, this);
     },
     
@@ -314,8 +317,8 @@ Ext.define('LWD.controller.Snowprofile', {
     			Ext.Ajax.request({
     				url: '/lwd/snowprofile',
     				success: function(returnObject) { 
-	    				var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+returnObject.responseText; 
-	                    window.location = redirect;
+//	    				var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+returnObject.responseText; 
+//	                    window.location = redirect;
     				},
     				failure: function() { 
     					alert("Speichern konnte nicht durchgeführt werden!");

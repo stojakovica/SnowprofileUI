@@ -47,12 +47,6 @@ public class ListSnowProfileResource extends ServerResource {
 		return "{SnowprofileList: "+returnList.toString()+"}";
 	}
 
-	@Put
-	public String updateJson(String value) {
-		System.out.println("put json");
-		return value;
-	}
-	
 	@Post
 	public String storeJson(Representation value) throws IOException, JSONException {
 		JSONObject newSnowprofile = new JSONObject(value.getText());

@@ -337,8 +337,16 @@ Ext.define('LWD.controller.Snowprofile', {
     			});
     			break;
     		case "edit":
-    			// TODO: update in Orient
-    			console.log(data);
+    			Ext.Ajax.request({
+    				method: 'PUT',
+    				url: '/lwd/snowprofile/'+getLocationHash()[1][1],
+    				success: function(returnObject) {
+    				},
+    				failure: function() { 
+    					alert("Speichern konnte nicht durchgeführt werden!");
+    				},
+    				jsonData: data
+    			});
     			break;
     	}
     }

@@ -69,8 +69,6 @@ public class ListSnowProfileResource extends ServerResource {
 	
 	@Delete
 	protected Representation delete() {
-		// TODO Auto-generated method stub
-		System.out.println(getRequestAttributes().get("id"));
-		return null;
+		return new StringRepresentation("{\"success\": \"true\"}");
 	}
 }

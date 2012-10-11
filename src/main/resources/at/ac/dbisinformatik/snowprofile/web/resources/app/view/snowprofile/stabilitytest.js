@@ -1,23 +1,21 @@
-var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
-    clicksToEdit: 1
-})
-
 Ext.define('LWD.view.snowprofile.stabilitytest' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.stabilitytest',
 		
-    store: 'Snowtemperature',
+    store: 'Stabilitytest',
 	
 	border: false,
 	
 	selType: 'rowmodel',
 
     tbar: [{
-        text: 'Neue Schneetemperatur',
+        text: 'Neuer Stabilitätstest',
         iconCls: 'icon-add',
         handler: function(){
-    		this.store.insert(store.getCount(), new LWD.model.snowprofile.stratLayer());
-            rowEditing.startEdit(0, 0);
+	    	var grid = this.up("grid");
+			var rowEditing = grid.getPlugin("rowplugin");
+			grid.getStore().insert(0, new LWD.model.stabilityProfile());
+			rowEditing.startEdit(0, 0);
         }
     }, '-', {
         itemId: 'delete',
@@ -25,19 +23,22 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
         iconCls: 'icon-delete',
         disabled: true,
         handler: function(){
-            var selection = grid.getView().getSelectionModel().getSelection()[0];
-            if (selection) {
-                store.remove(selection);
-            }
+	    	var grid = this.up("grid");
+	        var selection = grid.getView().getSelectionModel().getSelection()[0];
+	        if (selection) {
+	        	grid.getStore().remove(selection);
+	        	grid.getStore().fireEvent("dataupdate", grid.getStore());
+	        }
         }
     }],
-    plugins: [Ext.create('Ext.grid.plugin.RowEditing', {
-        clicksToEdit: 1
+    plugins:[Ext.create('Ext.grid.plugin.RowEditing', {
+        clicksToEdit: 2,
+        pluginId:'rowplugin'
     })],
     
     columns: [
 		{
-			header: 'Von Höhe[cm]',
+			header: 'Höhe[cm]',
 			dataIndex: 'depth',
 			flex: 1,
 			editor: {
@@ -47,119 +48,45 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			}
 		},
 		{
-			header: 'Temperatur[°C]',
-			dataIndex: 'snowTemp',
+			header: 'Test (RB,CT,ECT)',
+			dataIndex: 'test',
 			flex: 1,
 			editor: {
-				xtype: 'numberfield',
 				allowBlank: false,
-				minValue: 0,
+			}
+		},
+		{
+			header: 'Belastungsstufe',
+			dataIndex: 'belastungsstufe',
+			flex: 1,
+			editor: {
+				allowBlank: false,
+			}
+		},
+		{
+			header: 'Bruchart',
+			dataIndex: 'bruchart',
+			flex: 1,
+			editor: {
+				allowBlank: false,
+			}
+		},
+		{
+			header: 'Bruchfläche',
+			dataIndex: 'bruchflaeche',
+			flex: 1,
+			editor: {
+				allowBlank: false,
 			}
 		}
 	],
 	
     initComponent: function() {
-    	/*this.columns = [
-			{
-				header: 'Von Höhe[cm]',
-				dataIndex: 'depthTop',
-				flex: 1,
-				editor: {
-				    xtype: 'numberfield',
-	                allowBlank: false,
-	                minValue: 0,
-	                maxValue: 700
-				}
-			},
-			{
-				header: 'Bis Höhe[cm]',
-				dataIndex: 'depthTop',
-				flex: 1,
-				editor: {
-					xtype: 'numberfield',
-	                allowBlank: false,
-	                minValue: 0,
-	                maxValue: 700
-				}
-			},
-			{
-				header: 'Kornform[F]',
-				dataIndex: 'kornform',
-		        width: 130,
-	            editor: new Ext.form.field.ComboBox({
-	                typeAhead: true,
-	                triggerAction: 'all',
-	                selectOnTab: true,
-	                store: [
-	                    ['1-1-1','1-1-1'],
-	                    ['2-2-2','2-2-2'],
-	                    ['3-3-3','3-3-3'],
-	                    ['4-4-4','4-4-4'],
-	                    ['6-4-4','6-4-4'],
-	                    ['6-6-6','6-6-6']
-	                ],
-	                lazyRender: true,
-	                listClass: 'x-combo-list-small'
-	            })
-			},
-			{
-	            header: 'Grösse[D][mm]',
-	            dataIndex: 'groesse',
-	            flex: 1,
-	            editor: {
-	                allowBlank: false
-	            }
-			},
-			{
-				header: 'Härte[K]',
-				dataIndex: 'haerte',
-		        width: 130,
-	            editor: new Ext.form.field.ComboBox({
-	                typeAhead: true,
-	                triggerAction: 'all',
-	                selectOnTab: true,
-	                store: [
-	                    ['1','1 (FA - sehr schwach)'],
-	                    ['1-2','1-2'],
-	                    ['2','2 (4F - weich)'],
-	                    ['2-3','2-3'],
-	                    ['3','3 (1F - mittelhart)'],
-	                    ['3-4','3-4'],
-	                    ['4','4 (B - hart)'],
-	                    ['4-5','4-5'],
-	                    ['5','5 (M - sehr hart)'],
-	                    ['6','6 (Eis - kompakt)']
-	                ],
-	                lazyRender: true,
-	                listClass: 'x-combo-list-small'
-	            })
-			},
-			{
-				header: 'Feuchte',
-				dataIndex: 'feuchte',
-				width: 130,
-				editor: new Ext.form.field.ComboBox({
-					typeAhead: true,
-					triggerAction: 'all',
-					selectOnTab: true,
-					store: [
-				        ['1','(1) trocken'],
-				        ['2','(2) schwach feucht'],
-				        ['3','(3) feucht'],
-				        ['4','(4) nass'],
-				        ['5','(5) sehr nass']
-	        		],
-	        		lazyRender: true,
-	        		listClass: 'x-combo-list-small'
-				})
-			}
-			
-        ];*/
-    	
-        /*this.getSelectionModel().on('selectionchange', function(selModel, selections){
-        	//this.down('#delete').setDisabled(selections.length === 0);
-        });*/
-        
+		this.on('edit', this.commit);
         this.callParent(arguments);
+    },
+    
+    commit: function(edit, e) {
+    	this.getStore().fireEvent("dataupdate", this.getStore());
     }
 });

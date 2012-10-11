@@ -122,11 +122,11 @@ Ext.define('LWD.view.snowprofile.metadata', {
     	        	},
     	        	{
     	        		xtype: 'checkboxfield',
-    	        		name: 'setOnline',
+    	        		name: 'onlineCheck',
     	        		fieldLabel: '',
     	        		labelSeparator: '',
     	        		hideEmptyLabel: false,
-    	        		boxLabel: 'Online schalten',
+    	        		boxLabel: 'Allg. Zugang aktivieren',
     	        		anchor:'95%',
     	        	}
 	        	]

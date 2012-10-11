@@ -25,7 +25,8 @@ Ext.define('LWD.controller.Snowprofile', {
 	    'Schichtprofil',
 	    'Metadata',
 	    'Snowprofile',
-	    'SnowprofilePreview'
+	    'SnowprofilePreview',
+	    'Stabilitytest'
 	],
 	models: [
         'Snowprofile',
@@ -189,7 +190,6 @@ Ext.define('LWD.controller.Snowprofile', {
         		var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
         		storeModel.load(id, {
         			success: function(snowprofile) {
-        				console.log(snowprofile);
 	        			store.removeAll();
 	        			store.add(snowprofile);
 	        		}
@@ -329,8 +329,8 @@ Ext.define('LWD.controller.Snowprofile', {
     			Ext.Ajax.request({
     				url: '/lwd/snowprofile',
     				success: function(returnObject) { 
-//	    				var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+returnObject.responseText; 
-//	                    window.location = redirect;
+	    				var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+returnObject.responseText; 
+	                    window.location = redirect;
     				},
     				failure: function() { 
     					alert("Speichern konnte nicht durchgeführt werden!");

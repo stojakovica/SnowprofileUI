@@ -36,6 +36,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var yGraphMainArea = 10;
 	var heightMainArea = 90;
 	if(pdfFlag) {
+//		var beobachter = store.SnowProfile.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name;
+		
 		yLegendFirstRow = yLegendFirstRow + pdfMarginY;
 		yLegendSecondRow = yLegendSecondRow + pdfMarginY;
 		yLegendFirstRowImage = yLegendFirstRowImage + pdfMarginY;
@@ -50,7 +52,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		var yMetaDataFirstColumn = 1;
 		var yMetaDataSecondColumn = 26;
 		var yMetaDataThirdColumn = 51;
-		items.push(drawText("Schneeprofil:", yMetaDataFirstColumn+"%", "3%", 0, "#000000", fontSize));
+		items.push(drawText("Schneeprofil: ", yMetaDataFirstColumn+"%", "3%", 0, "#000000", fontSize));
 		items.push(drawText("Beobachter:", yMetaDataFirstColumn+"%", "4.5%", 0, "#000000", fontSize));
 		items.push(drawText("Profilnr:", yMetaDataFirstColumn+"%", "6%", 0, "#000000", fontSize));
 		items.push(drawText("LKNr:", yMetaDataFirstColumn+"%", "7.5%", 0, "#000000", fontSize));

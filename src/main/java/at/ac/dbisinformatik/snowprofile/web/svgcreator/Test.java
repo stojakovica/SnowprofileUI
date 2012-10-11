@@ -8,6 +8,8 @@ import java.io.Reader;
 import javax.xml.transform.TransformerException;
 
 import org.apache.commons.io.FileUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.JavaScriptException;
@@ -28,23 +30,23 @@ public class Test {
 
 	/**
 	 * @param args
+	 * @throws JSONException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JSONException {
 		try {
 			boolean pdfFlag = true;
             Context cx = Context.enter();
             Scriptable scope = cx.initStandardObjects();  
             Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
-//            Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/test.js"));
             cx.evaluateReader(scope, script,"<cmd>", 1, null);
             Object func = scope.get("getJSON", scope);
             
-            String jsonRawString = FileUtils.readFileToString(new File("c:\\json.json"));
+            JSONObject jsObject = new JSONObject(FileUtils.readFileToString(new File("c:\\json.json")));
+            String jsonRawString = jsObject.get("SnowProfile").toString();
             
             Object stringify = ((Scriptable) scope.get("JSON", scope)).get("stringify", scope);
             Object jsonParse = ((Scriptable) scope.get("JSON", scope)).get("parse", scope);
             Object jsonRawObject = ((Function)jsonParse).call(cx, scope, scope, new Object[] { jsonRawString });
-            
             if (func instanceof Function) {
                 Object funcArgs[] = new Object[] { jsonRawObject, pdfFlag };
                 Object result = ((Function)func).call(cx, scope, scope, funcArgs);

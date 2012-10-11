@@ -318,14 +318,12 @@ Ext.define('LWD.controller.Snowprofile', {
     },
     
     saveData: function(item) {
-    	// TODO: save Data in OrientDB
+    	var store = Ext.data.StoreManager.lookup('Snowprofile');
+    	var data = {};
+    	var snowprofile = store.getAt(0);
+    	Ext.apply(data, snowprofile.getData(true));
     	switch(getLocationHash()[0][1]) {
     		case "create":
-    			var store = Ext.data.StoreManager.lookup('Snowprofile');
-    			var data = {};
-    			var snowprofile = store.getAt(0);
-    			Ext.apply(data, snowprofile.getData(true));
-    			
     			Ext.Ajax.request({
     				url: '/lwd/snowprofile',
     				success: function(returnObject) { 
@@ -337,16 +335,10 @@ Ext.define('LWD.controller.Snowprofile', {
     				},
     				jsonData: data
     			});
-    			
-    			console.log("save button pressed");
     			break;
     		case "edit":
-    			var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
-    			storeModel.save({
-    				success: function(record, operation) {
-    					console.log("test");
-    			    }
-    			});
+    			// TODO: update in Orient
+    			console.log(data);
     			break;
     	}
     }

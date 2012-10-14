@@ -10,5 +10,9 @@ Ext.define('LWD.store.Snowtemperature', {
             type: 'json',
             root: 'Obs'
         }
-    }
+    },
+    sorters: [{
+        property: 'depth',
+        direction: 'DESC'
+    }]
 });

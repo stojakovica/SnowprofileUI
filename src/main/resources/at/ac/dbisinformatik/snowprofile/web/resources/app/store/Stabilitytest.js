@@ -9,5 +9,12 @@ Ext.define('LWD.store.Stabilitytest', {
     	reader: {
             type: 'json'
         }
-    }
+    },
+    sorters: [{
+        property: 'test',
+        direction: 'ASC'
+    },{
+    	property: 'depth',
+    	direction: 'DESC'
+    }]
 });

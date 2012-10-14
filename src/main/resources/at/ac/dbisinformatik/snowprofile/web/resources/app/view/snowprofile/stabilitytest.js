@@ -88,5 +88,6 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
     
     commit: function(edit, e) {
     	this.getStore().fireEvent("dataupdate", this.getStore());
+    	
     }
 });

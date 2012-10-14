@@ -51,6 +51,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		var bewoelkung = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.skyCond);
 		var windrichtung = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position);
 		var windgeschw = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content);
+		var sonstiges = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.comment);
 		
 		yLegendFirstRow = yLegendFirstRow + pdfMarginY;
 		yLegendSecondRow = yLegendSecondRow + pdfMarginY;
@@ -68,21 +69,20 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		var yMetaDataThirdColumn = 51;
 		items.push(drawText("Schneeprofil: ", yMetaDataFirstColumn+"%", "3%", 0, "#000000", fontSize));
 		items.push(drawText("Beobachter: "+beobachter, yMetaDataFirstColumn+"%", "4.5%", 0, "#000000", fontSize));
-		items.push(drawText("Profilnr:", yMetaDataFirstColumn+"%", "6%", 0, "#000000", fontSize));
-		items.push(drawText("LKNr:", yMetaDataFirstColumn+"%", "7.5%", 0, "#000000", fontSize));
-		items.push(drawText("Gesamtwasserwert: --- mm (HS: --- cm)", yMetaDataFirstColumn+"%", "9%", 0, "#000000", fontSize));
-		items.push(drawText("Wetter/Niederschlag: "+niederschlag, yMetaDataFirstColumn+"%", "10.5%", 0, "#000000", fontSize));
-		items.push(drawText("Bemerkungen:", yMetaDataFirstColumn+"%", "12%", 0, "#000000", fontSize));
+		items.push(drawText("Wetter/Niederschlag: "+niederschlag, yMetaDataFirstColumn+"%", "6%", 0, "#000000", fontSize));
+		items.push(drawText("Koordinaten: "+koordinaten, yMetaDataFirstColumn+"%", "7.5%", 0, "#000000", fontSize));
 		
 		items.push(drawText("Ort: "+ort+" - "+region, yMetaDataSecondColumn+"%", "3%", 0, "#000000", fontSize));
 		items.push(drawText("Höhe ü. M.: "+hoeheUM, yMetaDataSecondColumn+"%", "4.5%", 0, "#000000", fontSize));
 		items.push(drawText("Exposition: "+exposition, yMetaDataSecondColumn+"%", "6%", 0, "#000000", fontSize));
-		items.push(drawText("Koordinaten: "+koordinaten, yMetaDataSecondColumn+"%", "7.5%", 0, "#000000", fontSize));
+		items.push(drawText("Wind: "+windrichtung+" / "+windgeschw, yMetaDataSecondColumn+"%", "7.5%", 0, "#000000", fontSize));
 		
 		items.push(drawText("Datum/Zeit: "+datum+" "+zeit, yMetaDataThirdColumn+"%", "3%", 0, "#000000", fontSize));
 		items.push(drawText("Lufttemp.: "+lufttemperatur, yMetaDataThirdColumn+"%", "4.5%", 0, "#000000", fontSize));
 		items.push(drawText("Bewölkung: "+bewoelkung, yMetaDataThirdColumn+"%", "6%", 0, "#000000", fontSize));
-		items.push(drawText("Wind: "+windrichtung+" / "+windgeschw, yMetaDataThirdColumn+"%", "7.5%", 0, "#000000", fontSize));
+		
+		items.push(drawText("Sonstiges: "+sonstiges, yMetaDataFirstColumn+"%", "10.5%", 0, "#000000", fontSize));
+		
 	}
 	
 

@@ -32,6 +32,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'Snowprofile',
         'snowprofile.AspectPosition',
         'snowprofile.Components',
+        'snowprofile.ComprTest',
         'snowprofile.contactPerson',
         'snowprofile.contentUomModel',
         'snowprofile.densityLayer',
@@ -39,6 +40,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.densityProfile',
         'snowprofile.depthTop',
         'snowprofile.ElevationPosition',
+        'snowprofile.ExtColumnTest',
         'snowprofile.grainSize',
         'snowprofile.hardnessLayer',
         'snowprofile.hardnessProfile',
@@ -61,11 +63,13 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.Point',
         'snowprofile.pointLocation',
         'snowprofile.ProfMetaData',
+        'snowprofile.RBlockTest',
         'snowprofile.SlopeAnglePosition',
         'snowprofile.SnowProfileMeasurements',
         'snowprofile.snowProfileResultsOf',
         'snowprofile.specSurfAreaProfile',
         'snowprofile.srcRef',
+        'snowprofile.stbTests',
         'snowprofile.stratLayer',
         'snowprofile.stratProfile',
         'snowprofile.tempProfile',
@@ -157,14 +161,9 @@ Ext.define('LWD.controller.Snowprofile', {
 			                    "uom" : "cm"
 			                  },
 			                "skyCond" : "",
-			                "stbTests" : { "ComprTest" : { "failedOn" : { "Layer" : { "depthTop" : { "content" : "",
-			                                    "uom" : "cm"
-			                                  } },
-			                            "Results" : { "fractureCharacter" : {  },
-			                                "testScore" : ""
-			                              }
-			                          } },
-			                    "RBlockTest" : { "noFailure" : {  } }
+			                "stbTests" : { "ComprTest" : { "failedOn" : []},
+			                	"ExtColumnTest" : { "failedOn" : []},
+			                    "RBlockTest" : { "failedOn" : []}
 			                  },
 			                "stratProfile" : { "Layer" : [] },
 			                "tempProfile" : { "Obs" : [],
@@ -315,6 +314,30 @@ Ext.define('LWD.controller.Snowprofile', {
         	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.precipTI = metaData.niederschlag;
         	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond = metaData.bewoelkung;
         	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment = metaData.sonstiges;
+        	this.saveData();
+        }, this);
+        this.getStabilitytestStore().on('dataupdate', function() {
+        	var snowProfileStore = this.getSnowprofileStore();
+        }, this);
+        this.getStabilitytestStore().on('dataupdate', function(stabilitytestStore, eOpts) {
+        	var snowProfileStore = this.getSnowprofileStore();
+        	snowProfileStore.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
+        		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
+        			snowProfileMeassurements.getStbTests(function(originalStbTests)) {
+        				var stabilitytestStore = this.getStabilitytestStore();
+        				//TODO: CT-Array removeAll, ECT-Array removeAll, RB-Array removeAll
+        				
+        			}, this);
+        			
+        			snowProfileMeassurements.getStratProfile(function(originalStratProfiles) {
+        				var schichtprofileStore = this.getSchichtprofilStore();
+        				var layerStore = originalStratProfiles.LayerStore;
+        				layerStore.removeAll();
+        				layerStore.add(schichtprofileStore.data.items);
+        				snowProfileStore.fireEvent("datachanged", snowProfileStore);
+        			}, this);
+        		}, this);
+        	}, this);
         	this.saveData();
         }, this);
     },

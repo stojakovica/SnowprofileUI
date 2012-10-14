@@ -17,6 +17,8 @@ Ext.define('LWD.model.snowprofile.SnowProfileMeasurements', {
        	getterName: 'getStratProfile'},
        {type: 'hasOne', model: 'LWD.model.snowprofile.tempProfile', name: 'tempProfile', associationKey:'tempProfile', 
        	getterName: 'getTempProfile'},
+       {type: 'hasOne', model: 'LWD.model.snowprofile.stbTests', name: 'stbTests', associationKey:'stbTests', 
+       	getterName: 'getStbTests'},
        {type: 'hasOne', model: 'LWD.model.snowprofile.windDir', name: 'windDir', associationKey:'windDir', getterName: 'getWindDir'},
        {type: 'hasOne', model: 'LWD.model.snowprofile.contentUomModel', name: 'windSpd', associationKey:'windSpd', getterName: 'getWindSpd'}
     ],

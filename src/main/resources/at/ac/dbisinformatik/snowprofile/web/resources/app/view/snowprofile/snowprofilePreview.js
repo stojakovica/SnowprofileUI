@@ -70,6 +70,7 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
                 allowBlank: false
             },
 			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+            	console.log(store);
 				return store.getAt(rowIndex).raw.locRef.ObsPoint.name;
 			}
 		},

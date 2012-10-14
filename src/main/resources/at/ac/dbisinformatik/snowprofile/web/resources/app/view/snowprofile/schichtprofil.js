@@ -51,17 +51,54 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
             header: 'Kornform 1',
             dataIndex: 'grainFormPrimary',
             flex: 1,
-            editor: {
-                allowBlank: false
+            typeAhead: true,
+            field: {
+                xtype: 'combobox',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnTab: true,
+                store: [
+					['PP','Neuschnee'],
+					['DF','filziger Schnee'],
+					['RG','rundkörniger Schnee'],
+					['FC','kantigförmiger Schnee'],
+					['FCxr','kantig abgerundet'],
+					['DH','Schwimmschnee'],
+					['MF','Schmelzform'],
+					['MFcr','Schneekruste'],
+					['IF','Eislamelle'],
+					['SH','Oberflaechenreif'],
+					['PPgp','Graupel']
+                ],
+                lazyRender: true,
+                listClass: 'x-combo-list-small'
             }
 		},
 		{
 			header: 'Kornform 2',
 			dataIndex: 'grainFormSecondary',
 			flex: 1,
-			editor: {
-				allowBlank: false
-			}
+			field: {
+                xtype: 'combobox',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnTab: true,
+                store: [
+					['PP','Neuschnee'],
+					['DF','filziger Schnee'],
+					['RG','rundkörniger Schnee'],
+					['FC','kantigförmiger Schnee'],
+					['FCxr','kantig abgerundet'],
+					['DH','Schwimmschnee'],
+					['MF','Schmelzform'],
+					['MFcr','Schneekruste'],
+					['IF','Eislamelle'],
+					['SH','Oberflaechenreif'],
+					['PPgp','Graupel']
+                ],
+                lazyRender: true,
+                listClass: 'x-combo-list-small'
+            }
 		},
 		{
 			header: 'Grösse[D][mm] avg',
@@ -83,17 +120,46 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			header: 'Härte[K]',
 			dataIndex: 'hardness',
 			flex: 1,
-			editor: {
-				allowBlank: false
-			}
+			field: {
+                xtype: 'combobox',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnTab: true,
+                store: [
+					['F','FA - sehr weich'],
+					['F-4F','F-4F'],
+					['4F','4F - weich'],
+					['4F-1F','4F-1F'],
+					['1F','1F - mittelhart'],
+					['1F-P','1F-P'],
+					['P','B - hart'],
+					['P-K','P-K'],
+					['K','M - sehr hart'],
+					['I','Eis - kompakt']
+                ],
+                lazyRender: true,
+                listClass: 'x-combo-list-small'
+            }
 		},
 		{
 			header: 'Feuchte',
 			dataIndex: 'lwc_content',
 			flex: 1,
-			editor: {
-				allowBlank: false
-			}
+			field: {
+                xtype: 'combobox',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnTab: true,
+                store: [
+					['D','trocken'],
+					['M','schwach feucht'],
+					['W','feucht'],
+					['V','nass'],
+					['S','sehr nass']
+                ],
+                lazyRender: true,
+                listClass: 'x-combo-list-small'
+            }
 		}
 	],
 	

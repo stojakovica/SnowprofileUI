@@ -43,41 +43,86 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			flex: 1,
 			editor: {
 			    xtype: 'numberfield',
-	             allowBlank: false,
-	             minValue: 0,
+	            allowBlank: false,
+	            minValue: 0,
 			}
 		},
 		{
 			header: 'Test (RB,CT,ECT)',
 			dataIndex: 'test',
+			id: 'test',
 			flex: 1,
-			editor: {
-				allowBlank: false,
-			}
+			field: {
+                xtype: 'combobox',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnTab: true,
+                store: [
+					['CT','CT'],
+					['ECT','ECT'],
+					['RB','RB']
+                ],
+                lazyRender: true,
+                listClass: 'x-combo-list-small'
+            },
+            handler: function() {
+            	console.log(this);
+            }
 		},
 		{
 			header: 'Belastungsstufe',
 			dataIndex: 'belastungsstufe',
+			id: 'belastungsstufe',
 			flex: 1,
-			editor: {
-				allowBlank: false,
-			}
+			field: {
+                xtype: 'combobox',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnTab: true,
+                store: [
+					['CT 0-30','CT 0-30'],
+					['ECTN 0-30','ECTN 0-30'],
+					['RB 1-6','RB 1-6']
+                ],
+                lazyRender: true,
+                listClass: 'x-combo-list-small'
+            }
 		},
 		{
 			header: 'Bruchart',
 			dataIndex: 'bruchart',
 			flex: 1,
-			editor: {
-				allowBlank: false,
-			}
+			field: {
+                xtype: 'combobox',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnTab: true,
+                store: [
+					['WB','ganzer Block'],
+					['MB','Teilbruch'],
+					['EB','nur Eck']
+                ],
+                lazyRender: true,
+                listClass: 'x-combo-list-small'
+            }
 		},
 		{
 			header: 'Bruchfläche',
 			dataIndex: 'bruchflaeche',
 			flex: 1,
-			editor: {
-				allowBlank: false,
-			}
+			field: {
+                xtype: 'combobox',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnTab: true,
+                store: [
+					['Clean','glatt'],
+					['Rough','rau'],
+					['Irregular','unregelmäßig']
+                ],
+                lazyRender: true,
+                listClass: 'x-combo-list-small'
+            }
 		}
 	],
 	

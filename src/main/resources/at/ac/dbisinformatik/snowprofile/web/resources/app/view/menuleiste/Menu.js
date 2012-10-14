@@ -19,11 +19,27 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 		    	window.location.href="/lwd/static/1.0.0.0/snowprofile.html";
 		    }
 	    }
-//	    ,"-",{
-//	    	text: 'Speichern',
-//	    	itemId: 'saveData',
-//	    	reorderable: false
-//	    }
+	    ,"-",{
+	    	text: 'PDF drucken',
+	    	reorderable: false,
+	    	handler: function() {
+		    	// TODO: druck PDF
+		    }
+	    }
+	    ,"-",{
+	    	text: 'XML Export',
+	    	reorderable: false,
+	    	handler: function() {
+		    	// TODO: Export XML
+		    }
+	    }
+	    ,"-",{
+	    	text: 'XML Import',
+	    	reorderable: false,
+	    	handler: function() {
+		    	// TODO: Export XML
+		    }
+	    }
 	    ,"-",{
 	    	text: 'Logout',
 	    	itemId: 'logout',

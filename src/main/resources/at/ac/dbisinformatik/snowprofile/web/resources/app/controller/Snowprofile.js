@@ -167,7 +167,10 @@ Ext.define('LWD.controller.Snowprofile', {
 			                    "RBlockTest" : { "noFailure" : {  } }
 			                  },
 			                "stratProfile" : { "Layer" : [] },
-			                "tempProfile" : { "Obs" : [] },
+			                "tempProfile" : { "Obs" : [],
+			                    "uomDepth" : "cm",
+			                    "uomTemp" : "degC"
+			                  },
 			                "windDir" : { "AspectPosition" : { "position" : "" } },
 			                "windSpd" : { "content" : "",
 			                    "uom" : "ms-1"

@@ -36,7 +36,21 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var yGraphMainArea = 10;
 	var heightMainArea = 90;
 	if(pdfFlag) {
-//		var beobachter = store.SnowProfile.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name;
+		var beobachter = checkObject(store.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name);
+		var niederschlag = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.precipTI);
+		var ort = checkObject(store.locRef.ObsPoint.name);
+		var region = checkObject(store.locRef.ObsPoint.description);
+		var hoeheUM = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content);
+		var exposition = checkObject(store.locRef.ObsPoint.validAspect.AspectPosition.position);
+		var koordinaten = checkObject(store.locRef.ObsPoint.pointLocation.gml_Point.gml_pos);
+		var datumZeit = checkObject(store.validTime.TimeInstant.timePosition.split("T"));
+		var date = new Date(datumZeit[0]);
+		var datum = date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear()
+		var zeit = datumZeit[1].substring(0, 5);
+		var lufttemperatur = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content);
+		var bewoelkung = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.skyCond);
+		var windrichtung = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position);
+		var windgeschw = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content);
 		
 		yLegendFirstRow = yLegendFirstRow + pdfMarginY;
 		yLegendSecondRow = yLegendSecondRow + pdfMarginY;
@@ -53,22 +67,22 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		var yMetaDataSecondColumn = 26;
 		var yMetaDataThirdColumn = 51;
 		items.push(drawText("Schneeprofil: ", yMetaDataFirstColumn+"%", "3%", 0, "#000000", fontSize));
-		items.push(drawText("Beobachter:", yMetaDataFirstColumn+"%", "4.5%", 0, "#000000", fontSize));
+		items.push(drawText("Beobachter: "+beobachter, yMetaDataFirstColumn+"%", "4.5%", 0, "#000000", fontSize));
 		items.push(drawText("Profilnr:", yMetaDataFirstColumn+"%", "6%", 0, "#000000", fontSize));
 		items.push(drawText("LKNr:", yMetaDataFirstColumn+"%", "7.5%", 0, "#000000", fontSize));
-		items.push(drawText("Gesamtwasserwert:", yMetaDataFirstColumn+"%", "9%", 0, "#000000", fontSize));
-		items.push(drawText("Wetter/Niederschlag:", yMetaDataFirstColumn+"%", "10.5%", 0, "#000000", fontSize));
+		items.push(drawText("Gesamtwasserwert: --- mm (HS: --- cm)", yMetaDataFirstColumn+"%", "9%", 0, "#000000", fontSize));
+		items.push(drawText("Wetter/Niederschlag: "+niederschlag, yMetaDataFirstColumn+"%", "10.5%", 0, "#000000", fontSize));
 		items.push(drawText("Bemerkungen:", yMetaDataFirstColumn+"%", "12%", 0, "#000000", fontSize));
 		
-		items.push(drawText("Ort:", yMetaDataSecondColumn+"%", "3%", 0, "#000000", fontSize));
-		items.push(drawText("Höhe ü. M.:", yMetaDataSecondColumn+"%", "4.5%", 0, "#000000", fontSize));
-		items.push(drawText("Exposition:", yMetaDataSecondColumn+"%", "6%", 0, "#000000", fontSize));
-		items.push(drawText("Koordinaten:", yMetaDataSecondColumn+"%", "7.5%", 0, "#000000", fontSize));
+		items.push(drawText("Ort: "+ort+" - "+region, yMetaDataSecondColumn+"%", "3%", 0, "#000000", fontSize));
+		items.push(drawText("Höhe ü. M.: "+hoeheUM, yMetaDataSecondColumn+"%", "4.5%", 0, "#000000", fontSize));
+		items.push(drawText("Exposition: "+exposition, yMetaDataSecondColumn+"%", "6%", 0, "#000000", fontSize));
+		items.push(drawText("Koordinaten: "+koordinaten, yMetaDataSecondColumn+"%", "7.5%", 0, "#000000", fontSize));
 		
-		items.push(drawText("Datum/Zeit:", yMetaDataThirdColumn+"%", "3%", 0, "#000000", fontSize));
-		items.push(drawText("Lufttemp.:", yMetaDataThirdColumn+"%", "4.5%", 0, "#000000", fontSize));
-		items.push(drawText("Bewölkung:", yMetaDataThirdColumn+"%", "6%", 0, "#000000", fontSize));
-		items.push(drawText("Wind:", yMetaDataThirdColumn+"%", "7.5%", 0, "#000000", fontSize));
+		items.push(drawText("Datum/Zeit: "+datum+" "+zeit, yMetaDataThirdColumn+"%", "3%", 0, "#000000", fontSize));
+		items.push(drawText("Lufttemp.: "+lufttemperatur, yMetaDataThirdColumn+"%", "4.5%", 0, "#000000", fontSize));
+		items.push(drawText("Bewölkung: "+bewoelkung, yMetaDataThirdColumn+"%", "6%", 0, "#000000", fontSize));
+		items.push(drawText("Wind: "+windrichtung+" / "+windgeschw, yMetaDataThirdColumn+"%", "7.5%", 0, "#000000", fontSize));
 	}
 	
 
@@ -494,4 +508,11 @@ function drawImage(width, height, x, y, src, pdfFlag) {
 			group: 'snowprofile'
 		});
 	}
+}
+
+function checkObject(object) {
+	if(Object.prototype.toString.call( object ) === '[object Object]' )
+		return "";
+	else
+		return object;
 }

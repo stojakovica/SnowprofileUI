@@ -161,9 +161,9 @@ Ext.define('LWD.controller.Snowprofile', {
 			                    "uom" : "cm"
 			                  },
 			                "skyCond" : "",
-			                "stbTests" : { "ComprTest" : { "failedOn" : []},
-			                	"ExtColumnTest" : { "failedOn" : []},
-			                    "RBlockTest" : { "failedOn" : []}
+			                "stbTests" : { "ComprTest" : [],
+			                	"ExtColumnTest" : [] ,
+			                    "RBlockTest" : []
 			                  },
 			                "stratProfile" : { "Layer" : [] },
 			                "tempProfile" : { "Obs" : [],
@@ -259,6 +259,45 @@ Ext.define('LWD.controller.Snowprofile', {
         				tempProfileStore.removeAll();
         				tempProfileStore.loadRawData(originalTempProfile.getAssociatedData());
         			}, this);
+        			snowProfileMeassurements.getStbTests(function(originalStbTests) {
+        				var stabilitytestArray = new Array();
+        				
+        				for(var i=0; i<originalStbTests.ComprTestStore.data.items.length; i++) {
+        					var temp = {
+        						"depth": originalStbTests.ComprTestStore.getAt(i).data.Layer_depthTop_content,
+        						"test": "CT",
+        						"belastungsstufe": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_testScore,
+        						"bruchart": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_releaseType,
+        						"bruchflaeche": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_fractureCharacter
+        					};
+        					stabilitytestArray.push(temp);
+        				}
+        				for(var i=0; i<originalStbTests.ExtColumnTestStore.data.items.length; i++) {
+        					var temp = {
+    							"depth": originalStbTests.ExtColumnTestStore.getAt(i).data.Layer_depthTop_content,
+    							"test": "ECT",
+    							"belastungsstufe": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_testScore,
+    							"bruchart": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_releaseType,
+    							"bruchflaeche": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_fractureCharacter
+        					};
+        					stabilitytestArray.push(temp);
+        				}
+        				for(var i=0; i<originalStbTests.RBlockTestStore.data.items.length; i++) {
+        					var temp = {
+    							"depth": originalStbTests.RBlockTestStore.getAt(i).data.Layer_depthTop_content,
+    							"test": "RB",
+    							"belastungsstufe": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_testScore,
+    							"bruchart": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_releaseType,
+    							"bruchflaeche": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_fractureCharacter
+        					};
+        					stabilitytestArray.push(temp);
+        				}
+        				
+        				var stabilitytestStore = this.getStabilitytestStore();
+        				stabilitytestStore.getProxy().clear();
+        				stabilitytestStore.removeAll();
+        				stabilitytestStore.loadRawData(stabilitytestArray);
+        			}, this);
         		}, this);
         	}, this);
         }, this);
@@ -285,8 +324,16 @@ Ext.define('LWD.controller.Snowprofile', {
         			snowProfileMeassurements.getTempProfile(function(originalTempProfile) {
         				var snowtemperatureStore = this.getSnowtemperatureStore();
         				var obsStore = originalTempProfile.ObsStore;
+        				var stArray = new Array();
+        				for(var i=0; i<snowtemperatureStore.data.items.length; i++) {
+        					var temp = {
+    							"depth": ""+snowtemperatureStore.getAt(i).data.depth,
+        						"snowTemp": ""+snowtemperatureStore.getAt(i).data.snowTemp
+        					};
+        					stArray.push(temp);
+        				}
         				obsStore.removeAll();
-        				obsStore.add(snowtemperatureStore.data.items);
+        				obsStore.add(stArray);
         				snowProfileStore.fireEvent("datachanged", snowProfileStore);
         			}, this);
         		}, this);
@@ -316,24 +363,46 @@ Ext.define('LWD.controller.Snowprofile', {
         	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment = metaData.sonstiges;
         	this.saveData();
         }, this);
-        this.getStabilitytestStore().on('dataupdate', function() {
-        	var snowProfileStore = this.getSnowprofileStore();
-        }, this);
         this.getStabilitytestStore().on('dataupdate', function(stabilitytestStore, eOpts) {
         	var snowProfileStore = this.getSnowprofileStore();
         	snowProfileStore.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
         		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
-        			snowProfileMeassurements.getStbTests(function(originalStbTests)) {
+        			snowProfileMeassurements.getStbTests(function(originalStbTests) {
         				var stabilitytestStore = this.getStabilitytestStore();
-        				//TODO: CT-Array removeAll, ECT-Array removeAll, RB-Array removeAll
+        				var comprTestArray = new Array();
+        				var extColumnTestArray = new Array();
+        				var rBlockArray = new Array();
+        				for(var i=0; i<stabilitytestStore.data.items.length; i++) {
+        					var temp = {
+    							"Layer_depthTop_content": ""+stabilitytestStore.getAt(i).data.depth,
+        						"Layer_depthTop_uom": "cm",
+    							"failedOn_Results_fractureCharacter": stabilitytestStore.getAt(i).data.bruchflaeche,
+    							"failedOn_Results_releaseType": stabilitytestStore.getAt(i).data.bruchart,
+    							"failedOn_Results_testScore": stabilitytestStore.getAt(i).data.belastungsstufe,
+        					};
+        					switch(stabilitytestStore.getAt(i).data.test) {
+        						case "CT":
+        								comprTestArray.push(temp);
+        							break;
+        						case "ECT":
+        								extColumnTestArray.push(temp);
+        							break;
+        						case "RB":
+        								rBlockArray.push(temp);
+        							break;
+        					}
+        				}
+        				comprTestStore = originalStbTests.ComprTestStore;
+        				extColumnTestStore = originalStbTests.ExtColumnTestStore;
+        				rBlockStore = originalStbTests.RBlockTestStore;
         				
-        			}, this);
-        			
-        			snowProfileMeassurements.getStratProfile(function(originalStratProfiles) {
-        				var schichtprofileStore = this.getSchichtprofilStore();
-        				var layerStore = originalStratProfiles.LayerStore;
-        				layerStore.removeAll();
-        				layerStore.add(schichtprofileStore.data.items);
+        				comprTestStore.removeAll();
+        				extColumnTestStore.removeAll();
+        				rBlockStore.removeAll();
+        				
+        				comprTestStore.add(comprTestArray);
+        				extColumnTestStore.add(extColumnTestArray);
+        				rBlockStore.add(rBlockArray);
         				snowProfileStore.fireEvent("datachanged", snowProfileStore);
         			}, this);
         		}, this);
@@ -354,6 +423,7 @@ Ext.define('LWD.controller.Snowprofile', {
     				success: function(returnObject) { 
 	    				var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+returnObject.responseText; 
 	                    window.location = redirect;
+	                    window.location.reload(true);
     				},
     				failure: function() { 
     					alert("Speichern konnte nicht durchgeführt werden!");

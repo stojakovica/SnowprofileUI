@@ -77,7 +77,7 @@ Ext.application({
             	        	        	items: [
         	        	        	        {
         	        	        	        	xtype: 'schichtprofil',
-        	        	        	        	height: 400,
+        	        	        	        	height: 300,
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }
@@ -89,7 +89,7 @@ Ext.application({
             	        	        	items: [
         	        	        	        {
         	        	        	        	xtype: 'snowtemperature',
-        	        	        	        	height: 400,
+        	        	        	        	height: 300,
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }
@@ -101,7 +101,7 @@ Ext.application({
             	        	        	items: [
         	        	        	        {
         	        	        	        	xtype: 'stabilitytest',
-        	        	        	        	height: 400,
+        	        	        	        	height: 300,
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }

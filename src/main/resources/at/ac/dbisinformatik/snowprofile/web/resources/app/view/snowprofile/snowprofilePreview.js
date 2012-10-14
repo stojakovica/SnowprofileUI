@@ -31,12 +31,13 @@ Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
     		var grid = this.up("grid");
             var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {
+            	selection.data.id = selection.data.rid
             	grid.getStore().remove(selection);
-            	var operation = new Ext.data.Operation({
-            	    action: 'destroy',
-            	    url: '/lwd/snowprofile/'+selection.data.rid
-            	});
-            	selection.destroy(operation);
+//            	var operation = new Ext.data.Operation({
+//            	    action: 'destroy',
+//            	    url: '/lwd/snowprofile/'+selection.data.rid
+//            	});
+//            	selection.destroy(operation);
             }
         }
     }, "-", {

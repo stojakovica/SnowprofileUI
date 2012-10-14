@@ -193,7 +193,6 @@ function getJSON(store, pdfFlag, drawComponent)  {
 					var y = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
 				}
 				
-				
 				switch (haerte) {
 				case 'F': width = 1; break; 
 				case 'F-4F': width = 2.05; break; 
@@ -330,11 +329,10 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		
 		// ZEICHNEN DER SCHNEETEMPERATUR
 		var schneetemperaturData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs;
-		if(schneetemperaturData >= 1) {
+		if(schneetemperaturData.length >= 1) {
 			schneetemperaturData.sort(function(a,b) {
 				return parseFloat(b.depth) - parseFloat(a.depth); 
 			});
-			
 			var h100 = componentHeight;
 			var w100 = componentWidth;
 			var h84 = h100 * (heightMainArea / 100);

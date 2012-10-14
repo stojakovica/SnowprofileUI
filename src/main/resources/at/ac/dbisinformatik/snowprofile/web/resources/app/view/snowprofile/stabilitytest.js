@@ -14,7 +14,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
         handler: function(){
 	    	var grid = this.up("grid");
 			var rowEditing = grid.getPlugin("rowplugin");
-			grid.getStore().insert(0, new LWD.model.stabilityProfile());
+			grid.getStore().insert(0, new LWD.model.StabilityProfile());
 			rowEditing.startEdit(0, 0);
         }
     }, '-', {
@@ -88,6 +88,5 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
     
     commit: function(edit, e) {
     	this.getStore().fireEvent("dataupdate", this.getStore());
-    	
     }
 });

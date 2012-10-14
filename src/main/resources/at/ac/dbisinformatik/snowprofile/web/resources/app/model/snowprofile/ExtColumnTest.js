@@ -11,6 +11,7 @@ Ext.define('LWD.model.snowprofile.ExtColumnTest', {
        'Layer_grainSize_uom',
        'Layer_validFormationTime_TimeInstant_timePosition',
        'failedOn_Results_fractureCharacter',
+       'failedOn_Results_releaseType',
        'failedOn_Results_testScore',
     ],
     belongsTo: 'LWD.model.snowprofile.stbTests'

@@ -63,7 +63,6 @@ Ext.application({
     	            {
     	            	xtype: 'panel',
     	            	layout: 'fit',
-    	            	height: '100%',
     	            	autoScroll: true,
     	            	border: false,
                     	items: [
@@ -71,16 +70,14 @@ Ext.application({
                 	        	xtype: 'tabpanel',
                 	        	activeTab: 0,
                 	        	border: false,
-                	        	height: '100%',
                 	        	items: [
             	        	        {
             	        	        	title: 'Schichtprofil',
             	        	        	border: false,
-            	        	        	height: '100%',
             	        	        	items: [
         	        	        	        {
         	        	        	        	xtype: 'schichtprofil',
-        	        	        	        	height: '100%',
+        	        	        	        	height: 400,
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }
@@ -92,6 +89,7 @@ Ext.application({
             	        	        	items: [
         	        	        	        {
         	        	        	        	xtype: 'snowtemperature',
+        	        	        	        	height: 400,
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }
@@ -103,6 +101,7 @@ Ext.application({
             	        	        	items: [
         	        	        	        {
         	        	        	        	xtype: 'stabilitytest',
+        	        	        	        	height: 400,
         	        	        	        	autoScroll: true,
         	        	        	        	border: false
         	        	        	        }

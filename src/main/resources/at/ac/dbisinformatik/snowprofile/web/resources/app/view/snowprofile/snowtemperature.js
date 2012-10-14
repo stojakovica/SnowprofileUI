@@ -1,7 +1,7 @@
 Ext.define('LWD.view.snowprofile.snowtemperature' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.snowtemperature',
-		
+    itemId: 'snowtemperatureGrid',
     store: 'Snowtemperature',
 	
 	border: false,
@@ -31,7 +31,8 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 	    }
     }],
     plugins: [Ext.create('Ext.grid.plugin.RowEditing', {
-        clicksToEdit: 2
+        clicksToEdit: 2,
+        pluginId:'rowplugin'
     })],
     
     columns: [

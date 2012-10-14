@@ -167,17 +167,14 @@ Ext.define('LWD.controller.Snowprofile', {
 			                    "RBlockTest" : { "noFailure" : {  } }
 			                  },
 			                "stratProfile" : { "Layer" : [] },
-			                "tempProfile" : { "Obs" : [],
-			                    "uomDepth" : "cm",
-			                    "uomTemp" : "degC"
-			                  },
+			                "tempProfile" : { "Obs" : [] },
 			                "windDir" : { "AspectPosition" : { "position" : "" } },
 			                "windSpd" : { "content" : "",
 			                    "uom" : "ms-1"
 			                  }
 			              } },
 			        "validTime" : { "TimeInstant" : { "timePosition" : "" } },
-			        "online" : "false",
+			        "online" : "",
 			        "xmlns_app" : "http://www.snowprofileapplication.com",
 			        "xmlns_caaml" : "http://www.caaml.org/v5.0/Snowprofile/IACS",
 			        "xmlns_gml" : "http://www.opengis.net/gml",
@@ -229,7 +226,7 @@ Ext.define('LWD.controller.Snowprofile', {
         		var metadata = {
         				"name": checkObject(store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name),
         				"profildatum": datumZeit[0],
-        				"zeit": datumZeit[1],
+        				"zeit": datumZeit[1].substring(0, 5),
         				"region": checkObject(store.getAt(0).raw.locRef.ObsPoint.description),
         				"hoehe": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content),
         				"profilort": checkObject(store.getAt(0).raw.locRef.ObsPoint.name),
@@ -277,6 +274,7 @@ Ext.define('LWD.controller.Snowprofile', {
         			}, this);
         		}, this);
         	}, this);
+        	this.saveData();
         }, this);
         this.getSnowtemperatureStore().on('dataupdate', function(snowtemperatureStore, eOpts) {
         	var snowProfileStore = this.getSnowprofileStore();
@@ -284,13 +282,14 @@ Ext.define('LWD.controller.Snowprofile', {
         		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
         			snowProfileMeassurements.getTempProfile(function(originalTempProfile) {
         				var snowtemperatureStore = this.getSnowtemperatureStore();
-        				var layerStore = originalTempProfile.ObsStore;
-        				layerStore.removeAll();
-        				layerStore.add(snowtemperatureStore.data.items);
+        				var obsStore = originalTempProfile.ObsStore;
+        				obsStore.removeAll();
+        				obsStore.add(snowtemperatureStore.data.items);
         				snowProfileStore.fireEvent("datachanged", snowProfileStore);
         			}, this);
         		}, this);
         	}, this);
+        	this.saveData();
         }, this);
         this.getMetadataStore().on('dataupdate', function() {
         	var snowProfileStore = this.getSnowprofileStore();
@@ -298,7 +297,7 @@ Ext.define('LWD.controller.Snowprofile', {
         	var metaData = metaDataStore.getAt(0).data;
         	var datum = metaData.profildatum.split(".");
 			var zeit = metaData.zeit.split(":");
-        	snowProfileStore.getAt(0).online = metaData.onlineCheck;
+        	snowProfileStore.getAt(0).data.online = metaData.onlineCheck;
         	snowProfileStore.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name = metaData.name;
         	snowProfileStore.getAt(0).getValidTime().getTimeInstant().data.timePosition = datum[2]+"-"+datum[1]+"-"+datum[0]+"T"+zeit[0]+":"+zeit[1]+":00";
         	snowProfileStore.getAt(0).getLocRefData().getObsPoint().data.description = metaData.region;

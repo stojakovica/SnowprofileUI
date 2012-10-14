@@ -37,6 +37,7 @@ Ext.define('LWD.view.snowprofile.metadata', {
                     var form = panel.getForm();
                     var store = Ext.data.StoreManager.lookup(panel.store);
                     if (form.isValid()) {
+                    	console.log(form.getValues());
                     	store.loadRawData(form.getValues())
                     	store.fireEvent("dataupdate", store);
                     }

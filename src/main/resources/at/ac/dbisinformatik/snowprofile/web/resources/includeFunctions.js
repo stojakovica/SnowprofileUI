@@ -132,8 +132,11 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		var snowprofileData = store;
 		
 		// DRAWING LAYER-PROFILE/SCHICHTPROFIL
-		if(snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer.length >= 1) {
-			var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
+		var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
+		if(schichtprofilData.length >= 1) {
+			schichtprofilData.sort(function(a,b) {
+				return parseFloat(b.depthTop_content) - parseFloat(a.depthTop_content); 
+			});
 			var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir;
 			
 			var width = 0;
@@ -312,8 +315,11 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		}
 		
 		// ZEICHNEN DER SCHNEETEMPERATUR
-		if(snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs.length >= 1) {
-			var schneetemperaturData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs;
+		var schneetemperaturData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.tempProfile.Obs;
+		if(schneetemperaturData >= 1) {
+			schneetemperaturData.sort(function(a,b) {
+				return parseFloat(b.depth) - parseFloat(a.depth); 
+			});
 			
 			var h100 = componentHeight;
 			var w100 = componentWidth;

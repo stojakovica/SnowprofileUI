@@ -5,7 +5,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     store: 'Schichtprofil',
 	
 	border: false,
-	height: '100%',
+	
 	selType: 'rowmodel',
 
     tbar: [{

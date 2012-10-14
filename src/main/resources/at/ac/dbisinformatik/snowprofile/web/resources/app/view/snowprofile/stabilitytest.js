@@ -128,10 +128,19 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 	
     initComponent: function() {
 		this.on('edit', this.commit);
+		this.on('selectionchange', this.sChange);
         this.callParent(arguments);
     },
     
     commit: function(edit, e) {
     	this.getStore().fireEvent("dataupdate", this.getStore());
+    },
+    
+    sChange: function(view, records) {
+    	this.down("#belastungsstufe").store = [
+			['Clean','glatt'],
+			['Rough','rau'],
+			['Irregular','unregelmäßig']
+    	];
     }
 });

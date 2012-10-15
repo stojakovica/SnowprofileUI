@@ -155,6 +155,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			
 			var width = 0;
 			var vonHoehe0 = snowTopValue;
+			var nietenText = "";
 			if(schichtprofilData[0].depthTop_content > snowTopValue)
 				var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
 			
@@ -182,6 +183,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				var kornform2 = schichtprofilData[i].grainFormSecondary;
 				var haerte = schichtprofilData[i].hardness;
 				var groesse = schichtprofilData[i].grainSize_Components_avg+"-"+schichtprofilData[i].grainSize_Components_avgMax;
+				if(schichtprofilData[i].grainSize_Components_avg > 1)
+					nietenText = nietenText+"*";
 				var feuchte = schichtprofilData[i].lwc_content;
 				
 				if(direction == "top down") {
@@ -194,8 +197,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				}
 				
 				switch (haerte) {
-				case 'F': width = 1; break; 
-				case 'F-4F': width = 2.05; break; 
+				case 'F': width = 1; nietenText = nietenText+"*"; break; 
+				case 'F-4F': width = 2.05; nietenText = nietenText+"*"; break; 
 				case '4F': width = 3; break; 
 				case '4F-1F': width = 6.5; break; 
 				case '1F': width = 10; break; 
@@ -239,12 +242,14 @@ function getJSON(store, pdfFlag, drawComponent)  {
 					break;
 				case 'FC': 
 					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantigfoermiger_schnee.jpg", pdfFlag));
+					nietenText = nietenText+"*";
 					break;
 				case 'FCxr':
 					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/kantig_abgerundet.jpg", pdfFlag));
 					break;
 				case 'DH': 
 					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schwimmschnee.jpg", pdfFlag));
+					nietenText = nietenText+"*";
 					break;
 				case 'MF':
 					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/schmelzform.jpg", pdfFlag));
@@ -257,6 +262,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 					break;
 				case 'SH':
 					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/oberflaechenreif.jpg", pdfFlag));
+					nietenText = nietenText+"*";
 					break;
 				case 'PPgp':
 					items.push(drawImage(widthImageKF, heightImageKF, x_image+"%", y_image+"%", "data/img/graupel.jpg", pdfFlag));
@@ -324,6 +330,51 @@ function getJSON(store, pdfFlag, drawComponent)  {
 					x = x - pdfMarginX;
 				}
 				items.push(drawText(text, x+"%", y+"%", 0, "#000000", fontSize));
+				
+				// Nieten Schichtgrenzen
+				if(schichtprofilData[i-1] != null) {
+					var groessePreSchicht = schichtprofilData[i-1].grainSize_Components_avg;
+					var groesse = schichtprofilData[i].grainSize_Components_avg;
+					if(groessePreSchicht - groesse > 0.75) {
+						nietenText = nietenText+"*";
+					}
+					var haertePreSchicht = schichtprofilData[i-1].hardness;
+					var haerte = schichtprofilData[i].hardness;
+					switch(haertePreSchicht) {
+						case 'F': haerteSchichtOben = 1; break; 
+						case 'F-4F': haerteSchichtOben = 2; break;  
+						case '4F': haerteSchichtOben = 3; break;  
+						case '4F-1F': haerteSchichtOben = 4; break;  
+						case '1F': haerteSchichtOben = 5; break;  
+						case '1F-P': haerteSchichtOben = 6; break;  
+						case 'P': haerteSchichtOben = 7; break;  
+						case 'P-K': haerteSchichtOben = 8; break;  
+						case 'K': haerteSchichtOben = 9; break;  
+						case 'I': haerteSchichtOben = 10; break; 
+					}
+					switch(haerte) {
+						case 'F': haerteSchichtUnten = 1; break; 
+						case 'F-4F': haerteSchichtUnten = 2; break;  
+						case '4F': haerteSchichtUnten = 3; break;  
+						case '4F-1F': haerteSchichtUnten = 4; break;  
+						case '1F': haerteSchichtUnten = 5; break;  
+						case '1F-P': haerteSchichtUnten = 6; break;  
+						case 'P': haerteSchichtUnten = 7; break;  
+						case 'P-K': haerteSchichtUnten = 8; break;  
+						case 'K': haerteSchichtUnten = 9; break;  
+						case 'I': haerteSchichtUnten = 10; break; 
+					}
+					if(haerteSchichtOben - haerteSchichtUnten > 2) {
+						nietenText = nietenText+"*";
+					}
+				}
+				
+				// Nieten
+				x = 70.4;
+				if(pdfFlag) {
+					x = x - pdfMarginX;
+				}
+				items.push(drawText(nietenText, x+"%", y+"%", 0, "#000000", fontSize));
 			}
 		}
 		
@@ -372,6 +423,42 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				}
 				
 				items.push(drawPath(startx, starty, endx, endy, "1", "#F00", "fff"));
+			}
+		}
+
+		// ZEICHNEN DER STABILITÄTSTESTS
+		var stabilitaetstests = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stbTests;
+		var comprTest = stabilitaetstests.ComprTest;
+		if(comprTest.length >= 1) {
+			comprTest.sort(function(a,b) {
+				return parseFloat(b.depth) - parseFloat(a.depth); 
+			});
+			for(var i = 0; i < comprTest.length; i++) {
+				var vonHoehe = comprTest[i].Layer_depthTop_content;
+				var yrblock = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
+				items.push(drawText(comprTest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock+pdfMarginY)+"%", 0, "#000000", fontSize));
+			}
+		}
+		var extColumntest = stabilitaetstests.ExtColumnTest;
+		if(extColumntest.length >= 1) {
+			extColumntest.sort(function(a,b) {
+				return parseFloat(b.depth) - parseFloat(a.depth); 
+			});
+			for(var i = 0; i < extColumntest.length; i++) {
+				var vonHoehe = extColumntest[i].Layer_depthTop_content;
+				var yrblock = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
+				items.push(drawText(extColumntest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock+pdfMarginY)+"%", 0, "#000000", fontSize));
+			}
+		}
+		var rblocktest = stabilitaetstests.RBlockTest;
+		if(rblocktest.length >= 1) {
+			rblocktest.sort(function(a,b) {
+				return parseFloat(b.depth) - parseFloat(a.depth); 
+			});
+			for(var i = 0; i < rblocktest.length; i++) {
+				var vonHoehe = rblocktest[i].Layer_depthTop_content;
+				var yrblock = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
+				items.push(drawText(rblocktest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock+pdfMarginY)+"%", 0, "#000000", fontSize));
 			}
 		}
 		

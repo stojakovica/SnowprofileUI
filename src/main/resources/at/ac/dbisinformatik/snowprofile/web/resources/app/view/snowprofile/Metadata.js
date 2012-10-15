@@ -37,8 +37,7 @@ Ext.define('LWD.view.snowprofile.metadata', {
                     var form = panel.getForm();
                     var store = Ext.data.StoreManager.lookup(panel.store);
                     if (form.isValid()) {
-                    	console.log(form.getValues());
-                    	store.loadRawData(form.getValues())
+                    	store.loadRawData(form.getValues());
                     	store.fireEvent("dataupdate", store);
                     }
                 }
@@ -128,6 +127,15 @@ Ext.define('LWD.view.snowprofile.metadata', {
     	        		labelSeparator: '',
     	        		hideEmptyLabel: false,
     	        		boxLabel: 'Allg. Zugang aktivieren',
+    	        		anchor:'95%',
+    	        	},
+    	        	{
+    	        		xtype: 'checkboxfield',
+    	        		name: 'direction',
+    	        		fieldLabel: '',
+    	        		labelSeparator: '',
+    	        		hideEmptyLabel: false,
+    	        		boxLabel: 'von oben',
     	        		anchor:'95%',
     	        	}
 	        	]

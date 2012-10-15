@@ -21,7 +21,6 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
         itemId: 'delete',
         text: 'Löschen',
         iconCls: 'icon-delete',
-        disabled: true,
         handler: function(){
 	    	var grid = this.up("grid");
 	        var selection = grid.getView().getSelectionModel().getSelection()[0];
@@ -80,9 +79,75 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
                 triggerAction: 'all',
                 selectOnTab: true,
                 store: [
-					['CT 0-30','CT 0-30'],
-					['ECTN 0-30','ECTN 0-30'],
-					['RB 1-6','RB 1-6']
+					['CT 0','CT 0'],
+					['CT 1','CT 1'],
+					['CT 2','CT 2'],
+					['CT 3','CT 3'],
+					['CT 4','CT 4'],
+					['CT 5','CT 5'],
+					['CT 6','CT 6'],
+					['CT 7','CT 7'],
+					['CT 8','CT 8'],
+					['CT 9','CT 9'],
+					['CT 10','CT 10'],
+					['CT 11','CT 11'],
+					['CT 12','CT 12'],
+					['CT 13','CT 13'],
+					['CT 14','CT 14'],
+					['CT 15','CT 15'],
+					['CT 16','CT 16'],
+					['CT 17','CT 17'],
+					['CT 18','CT 18'],
+					['CT 19','CT 19'],
+					['CT 20','CT 20'],
+					['CT 21','CT 21'],
+					['CT 22','CT 22'],
+					['CT 23','CT 23'],
+					['CT 24','CT 24'],
+					['CT 25','CT 25'],
+					['CT 26','CT 26'],
+					['CT 27','CT 27'],
+					['CT 28','CT 28'],
+					['CT 29','CT 29'],
+					['CT 30','CT 30'],
+					['ECTN 0','ECTN 0'],
+					['ECTN 1','ECTN 1'],
+					['ECTN 2','ECTN 2'],
+					['ECTN 3','ECTN 3'],
+					['ECTN 4','ECTN 4'],
+					['ECTN 5','ECTN 5'],
+					['ECTN 6','ECTN 6'],
+					['ECTN 7','ECTN 7'],
+					['ECTN 8','ECTN 8'],
+					['ECTN 9','ECTN 9'],
+					['ECTN 10','ECTN 10'],
+					['ECTN 11','ECTN 11'],
+					['ECTN 12','ECTN 12'],
+					['ECTN 13','ECTN 13'],
+					['ECTN 14','ECTN 14'],
+					['ECTN 15','ECTN 15'],
+					['ECTN 16','ECTN 16'],
+					['ECTN 17','ECTN 17'],
+					['ECTN 18','ECTN 18'],
+					['ECTN 19','ECTN 19'],
+					['ECTN 20','ECTN 20'],
+					['ECTN 21','ECTN 21'],
+					['ECTN 22','ECTN 22'],
+					['ECTN 23','ECTN 23'],
+					['ECTN 24','ECTN 24'],
+					['ECTN 25','ECTN 25'],
+					['ECTN 26','ECTN 26'],
+					['ECTN 27','ECTN 27'],
+					['ECTN 28','ECTN 28'],
+					['ECTN 29','ECTN 29'],
+					['ECTN 30','ECTN 30'],
+					['RB 1','RB 1'],
+					['RB 2','RB 2'],
+					['RB 3','RB 3'],
+					['RB 4','RB 4'],
+					['RB 5','RB 5'],
+					['RB 6','RB 6'],
+					['RB 7','RB 7']
                 ],
                 lazyRender: true,
                 listClass: 'x-combo-list-small'
@@ -128,19 +193,10 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 	
     initComponent: function() {
 		this.on('edit', this.commit);
-		this.on('selectionchange', this.sChange);
         this.callParent(arguments);
     },
     
     commit: function(edit, e) {
     	this.getStore().fireEvent("dataupdate", this.getStore());
-    },
-    
-    sChange: function(view, records) {
-    	this.down("#belastungsstufe").store = [
-			['Clean','glatt'],
-			['Rough','rau'],
-			['Irregular','unregelmäßig']
-    	];
     }
 });

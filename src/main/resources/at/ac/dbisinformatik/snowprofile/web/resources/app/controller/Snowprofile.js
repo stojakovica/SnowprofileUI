@@ -18,6 +18,13 @@ function checkObject(object) {
 		return object;
 }
 
+function checkDir(object) {
+	if(object == "top down")
+		return "on";
+	else
+		return "";
+}
+
 Ext.define('LWD.controller.Snowprofile', {
     extend: 'Ext.app.Controller',
 	stores: [
@@ -145,7 +152,7 @@ Ext.define('LWD.controller.Snowprofile', {
 			                    "uomDepthTop" : "cm",
 			                    "uomThickness" : "cm"
 			                  },
-			                "dir" : "down top",
+			                "dir" : "bottom up",
 			                "hS" : { "Components" : { "snowHeight" : { "content" : "",
 			                            "uom" : "cm"
 			                          } } },
@@ -204,6 +211,30 @@ Ext.define('LWD.controller.Snowprofile', {
         
         this.getSnowprofileStore().on('load', function(store, records, success, operations) {
         	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
+        		var metaDataStore = this.getMetadataStore();
+        		var datumZeit = store.getAt(0).raw.validTime.TimeInstant.timePosition.split("T");
+        		var metadata = {
+        				"name": checkObject(store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name),
+        				"profildatum": datumZeit[0],
+        				"zeit": datumZeit[1].substring(0, 5),
+        				"region": checkObject(store.getAt(0).raw.locRef.ObsPoint.description),
+        				"hoehe": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content),
+        				"profilort": checkObject(store.getAt(0).raw.locRef.ObsPoint.name),
+        				"utmKoordinaten": checkObject(store.getAt(0).raw.locRef.ObsPoint.pointLocation.gml_Point.gml_pos),
+        				"hangneigung": checkObject(store.getAt(0).raw.locRef.ObsPoint.validSlopeAngle.SlopeAnglePosition.position),
+        				"hangneigungCheck": "",
+        				"exposition": checkObject(store.getAt(0).raw.locRef.ObsPoint.validAspect.AspectPosition.position),
+        				"windgeschwindigkeit": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content),
+        				"windrichtung": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position),
+        				"lufttemperatur": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content),
+        				"niederschlag": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.precipTI),
+        				"intensitaetDesNS": "", // TODO: regeln, kann mit Information von Matthias nichts anfangen
+        				"bewoelkung": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.skyCond),
+        				"sonstiges": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.comment),
+        				"onlineCheck": checkObject(store.getAt(0).raw.online),
+        				"direction": checkDir(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.dir),
+        		};
+        		metaDataStore.loadRawData(metadata);
         		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
         			snowProfileMeassurements.getStratProfile(function(originalStratProfile) {
         				var schichtProfileStore = this.getSchichtprofilStore();
@@ -216,6 +247,45 @@ Ext.define('LWD.controller.Snowprofile', {
         				tempProfileStore.getProxy().clear();
         				tempProfileStore.removeAll();
         				tempProfileStore.loadRawData(originalTempProfile.getAssociatedData());
+        			}, this);
+        			snowProfileMeassurements.getStbTests(function(originalStbTests) {
+        				var stabilitytestArray = new Array();
+        				
+        				for(var i=0; i<originalStbTests.ComprTestStore.data.items.length; i++) {
+        					var temp = {
+        						"depth": originalStbTests.ComprTestStore.getAt(i).data.Layer_depthTop_content,
+        						"test": "CT",
+        						"belastungsstufe": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_testScore,
+        						"bruchart": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_releaseType,
+        						"bruchflaeche": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_fractureCharacter
+        					};
+        					stabilitytestArray.push(temp);
+        				}
+        				for(var i=0; i<originalStbTests.ExtColumnTestStore.data.items.length; i++) {
+        					var temp = {
+    							"depth": originalStbTests.ExtColumnTestStore.getAt(i).data.Layer_depthTop_content,
+    							"test": "ECT",
+    							"belastungsstufe": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_testScore,
+    							"bruchart": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_releaseType,
+    							"bruchflaeche": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_fractureCharacter
+        					};
+        					stabilitytestArray.push(temp);
+        				}
+        				for(var i=0; i<originalStbTests.RBlockTestStore.data.items.length; i++) {
+        					var temp = {
+    							"depth": originalStbTests.RBlockTestStore.getAt(i).data.Layer_depthTop_content,
+    							"test": "RB",
+    							"belastungsstufe": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_testScore,
+    							"bruchart": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_releaseType,
+    							"bruchflaeche": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_fractureCharacter
+        					};
+        					stabilitytestArray.push(temp);
+        				}
+        				
+        				var stabilitytestStore = this.getStabilitytestStore();
+        				stabilitytestStore.getProxy().clear();
+        				stabilitytestStore.removeAll();
+        				stabilitytestStore.loadRawData(stabilitytestArray);
         			}, this);
         		}, this);
         	}, this);
@@ -244,6 +314,7 @@ Ext.define('LWD.controller.Snowprofile', {
         				"bewoelkung": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.skyCond),
         				"sonstiges": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.comment),
         				"onlineCheck": checkObject(store.getAt(0).raw.online),
+        				"direction": checkDir(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.dir),
         		};
         		metaDataStore.loadRawData(metadata);
         		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
@@ -346,6 +417,10 @@ Ext.define('LWD.controller.Snowprofile', {
         	var metaData = metaDataStore.getAt(0).data;
         	var datum = metaData.profildatum.split(".");
 			var zeit = metaData.zeit.split(":");
+			if(metaData.direction == "on")
+				snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "top down";
+			else
+				snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "bottom up";
         	snowProfileStore.getAt(0).data.online = metaData.onlineCheck;
         	snowProfileStore.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name = metaData.name;
         	snowProfileStore.getAt(0).getValidTime().getTimeInstant().data.timePosition = datum[2]+"-"+datum[1]+"-"+datum[0]+"T"+zeit[0]+":"+zeit[1]+":00";
@@ -361,6 +436,7 @@ Ext.define('LWD.controller.Snowprofile', {
         	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.precipTI = metaData.niederschlag;
         	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond = metaData.bewoelkung;
         	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment = metaData.sonstiges;
+        	snowProfileStore.fireEvent("datachanged", snowProfileStore);
         	this.saveData();
         }, this);
         this.getStabilitytestStore().on('dataupdate', function(stabilitytestStore, eOpts) {

@@ -8,8 +8,8 @@ Ext.application({
     appFolder: 'app',
     
     controllers: [
-        'Snowprofile',
-        'GoogleMaps'
+        'Snowprofile'
+//        'GoogleMaps'
     ],
     
     launch: function() {

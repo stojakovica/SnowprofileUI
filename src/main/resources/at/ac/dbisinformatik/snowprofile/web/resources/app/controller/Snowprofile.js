@@ -293,29 +293,31 @@ Ext.define('LWD.controller.Snowprofile', {
         
         this.getSnowprofileStore().on('datachanged', function(store, records, success, operations) {
         	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
+        		console.log(store);
         		var metaDataStore = this.getMetadataStore();
-        		var datumZeit = store.getAt(0).raw.validTime.TimeInstant.timePosition.split("T");
+        		var datumZeit = store.getAt(0).getValidTime().getTimeInstant().data.timePosition.split("T");
         		var metadata = {
-        				"name": checkObject(store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name),
+        				"name": checkObject(store.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name),
         				"profildatum": datumZeit[0],
         				"zeit": datumZeit[1].substring(0, 5),
-        				"region": checkObject(store.getAt(0).raw.locRef.ObsPoint.description),
-        				"hoehe": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content),
-        				"profilort": checkObject(store.getAt(0).raw.locRef.ObsPoint.name),
-        				"utmKoordinaten": checkObject(store.getAt(0).raw.locRef.ObsPoint.pointLocation.gml_Point.gml_pos),
-        				"hangneigung": checkObject(store.getAt(0).raw.locRef.ObsPoint.validSlopeAngle.SlopeAnglePosition.position),
+        				"region": checkObject(store.getAt(0).getLocRefData().getObsPoint().data.description),
+        				"hoehe": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getProfileDepth().data.content),
+        				"profilort": checkObject(store.getAt(0).getLocRefData().getObsPoint().data.name),
+        				"utmKoordinaten": checkObject(store.getAt(0).getLocRefData().getObsPoint().getPointLocation().getPoint().data.gml_pos),
+        				"hangneigung": checkObject(store.getAt(0).getLocRefData().getObsPoint().getValidSlopeAngle().getSlopeAnglePosition().data.position),
         				"hangneigungCheck": "",
-        				"exposition": checkObject(store.getAt(0).raw.locRef.ObsPoint.validAspect.AspectPosition.position),
-        				"windgeschwindigkeit": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content),
-        				"windrichtung": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position),
-        				"lufttemperatur": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content),
-        				"niederschlag": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.precipTI),
+        				"exposition": checkObject(store.getAt(0).getLocRefData().getObsPoint().getValidAspect().getAspectPosition().data.position),
+        				"windgeschwindigkeit": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindSpd().data.content),
+        				"windrichtung": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindDir().getAspectPosition().data.position),
+        				"lufttemperatur": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getAirTempPres().data.content),
+        				"niederschlag": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.precipTI),
         				"intensitaetDesNS": "", // TODO: regeln, kann mit Information von Matthias nichts anfangen
-        				"bewoelkung": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.skyCond),
-        				"sonstiges": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.comment),
-        				"onlineCheck": checkObject(store.getAt(0).raw.online),
-        				"direction": checkDir(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.dir),
+        				"bewoelkung": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond),
+        				"sonstiges": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment),
+        				"onlineCheck": checkObject(store.getAt(0).data.online),
+        				"direction": checkDir(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir),
         		};
+        		
         		metaDataStore.loadRawData(metadata);
         		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
         			snowProfileMeassurements.getStratProfile(function(originalStratProfile) {

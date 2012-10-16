@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 
 import javax.xml.transform.TransformerException;
 
@@ -17,6 +18,9 @@ import org.mozilla.javascript.Scriptable;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
+import com.orientechnologies.orient.core.record.impl.ODocument;
+import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 
 /**
  * 
@@ -41,7 +45,13 @@ public class Test {
             cx.evaluateReader(scope, script,"<cmd>", 1, null);
             Object func = scope.get("getJSON", scope);
             
-            JSONObject jsObject = new JSONObject(FileUtils.readFileToString(new File("c:\\json.json")));
+            JSONObject jsObject = null;
+            ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+Test.class.getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
+            List<ODocument> resultDB = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #8:0"));
+    		for (ODocument oDocument : resultDB) {
+    			jsObject = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
+    		}
+    		db.close();
             String jsonRawString = jsObject.get("SnowProfile").toString();
             
             Object stringify = ((Scriptable) scope.get("JSON", scope)).get("stringify", scope);

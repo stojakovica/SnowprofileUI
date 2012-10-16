@@ -18,6 +18,7 @@ import org.restlet.resource.Put;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import com.orientechnologies.orient.core.db.document.ODatabaseDocumentPool;
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.record.impl.ODocument;
@@ -29,11 +30,11 @@ public class ListSnowProfileResource extends ServerResource {
 		setNegotiated(true);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Get()
 	public String getJson() throws JSONException, IOException {
 		JSONArray returnList = new JSONArray();
-		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+//		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+getClass().getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
 		
 		List<ODocument> result = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile"));
 		
@@ -52,7 +53,8 @@ public class ListSnowProfileResource extends ServerResource {
 		JSONObject newSnowprofile = new JSONObject(value.getText());
 		String newSnowprofileString = newSnowprofile.toString();
 		newSnowprofileString = newSnowprofileString.replace("null", "\"\"");
-		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+//		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+getClass().getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
 		ODocument doc = new ODocument("SnowProfile");
 		doc.fromJSON(newSnowprofile.toString());
 		doc.save();

@@ -29,7 +29,8 @@ public class SingleSnowProfileResource extends ServerResource {
 	@Get()
 	public String getJson() throws JSONException, IOException {
 		JSONObject returnProfile = null;
-		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+getClass().getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
+//		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
 		List<ODocument> result = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #"+getRequestAttributes().get("id")));
 		for (ODocument oDocument : result) {
 			returnProfile = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
@@ -42,15 +43,14 @@ public class SingleSnowProfileResource extends ServerResource {
 		returnProfileString = returnProfileString.replace("null", "\"\"");
 		returnProfileString = returnProfileString.replace("\"id\":\"\",", "");
 		returnProfileString = returnProfileString.replace("\"id\":{\"id\":\"\"},", "");
-		JSONObject test = new JSONObject(returnProfileString);
-		System.out.println(test.toString(4));
 		
 		return returnProfileString;
 	}
 	
 	@Delete
 	protected Representation delete() {
-		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+//		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+getClass().getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
 		List<ODocument> result = db.query(new OSQLSynchQuery<ODocument>("select from SnowProfile where @rid = #"+getRequestAttributes().get("id")));
 		for (ODocument oDocument : result) {
 			db.delete(oDocument);
@@ -61,7 +61,8 @@ public class SingleSnowProfileResource extends ServerResource {
 	
 	@Put
 	public String updateJson(Representation value) throws IOException, JSONException {
-		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+//		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
+		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+getClass().getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
 		ORID rid = new ORecordId(getRequestAttributes().get("id").toString());
 		ODocument doc = new ODocument(rid);
 		doc.fromJSON(new JSONObject(value.getText()).toString());

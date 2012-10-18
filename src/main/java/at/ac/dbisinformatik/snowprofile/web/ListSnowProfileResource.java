@@ -15,7 +15,6 @@ import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 import at.ac.dbisinformatik.snowprofile.data.DB;
-import at.ac.dbisinformatik.snowprofile.data.DBResultCallback;
 
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
@@ -27,37 +26,29 @@ public class ListSnowProfileResource extends ServerResource {
 		setNegotiated(true);
 		this.db = db;
 	}
-	
+
 	@Get()
 	public String getJson() throws JSONException, IOException {
 		final JSONArray returnList = new JSONArray();
-	
-		db.querySQL("select * from SnowProfile", new DBResultCallback() {
-			
-			@Override
-			public void process(List<ODocument> results) {
-				try {
-					for (ODocument oDocument : results) {
-						JSONObject temp = new JSONObject(oDocument.toJSON());
-						Map<String, Object> idMap = (Map<String, Object>) JSONHelpers.jsonToMap("SnowProfile", temp);
-						idMap.put("rid", (String) temp.get("@rid").toString().substring(1));
-						returnList.put(idMap);
-					}
-				} catch(JSONException e) {
-					//TODO add errorHandling into db code
-				}
-			}
-		});
-		
-		
-		return "{SnowprofileList: "+returnList.toString()+"}";
+
+		List<ODocument> results = db.querySQL("select * from SnowProfile");
+		for (ODocument oDocument : results) {
+			JSONObject temp = new JSONObject(oDocument.toJSON());
+			Map<String, Object> idMap = (Map<String, Object>) JSONHelpers
+					.jsonToMap("SnowProfile", temp);
+			idMap.put("rid", (String) temp.get("@rid").toString().substring(1));
+			returnList.put(idMap);
+		}
+
+		return "{SnowprofileList: " + returnList.toString() + "}";
 	}
 
 	@Post
-	public String storeJson(Representation value) throws IOException, JSONException {
+	public String storeJson(Representation value) throws IOException,
+			JSONException {
 		return db.store("SnowProfile", new JSONObject(value.getText()));
 	}
-	
+
 	@Delete
 	protected Representation delete() {
 		return new StringRepresentation("{\"success\": \"true\"}");

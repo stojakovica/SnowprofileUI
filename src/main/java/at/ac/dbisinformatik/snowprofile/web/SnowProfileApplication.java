@@ -9,10 +9,12 @@ public class SnowProfileApplication extends Application {
 	
 	private SnowProfileRouter router;
 	private CacheFilter cacheFilter;
-
-	public SnowProfileApplication(SnowProfileRouter router, CacheFilter cacheFilter) {
+	private DBFilter dbFilter;
+	
+	public SnowProfileApplication(SnowProfileRouter router, CacheFilter cacheFilter, DBFilter dbFilter) {
 		this.router = router;
 		this.cacheFilter = cacheFilter;
+		this.dbFilter = dbFilter;
 	}
 
 	/**
@@ -20,6 +22,8 @@ public class SnowProfileApplication extends Application {
 	 */
 	@Override
 	public synchronized Restlet createInboundRoot() {
+		dbFilter.setNext(router);
+		
 		router.setContext(this.getContext());
 		
 		final Directory dir = new Directory(getContext(),
@@ -42,7 +46,7 @@ public class SnowProfileApplication extends Application {
 		
 		router.attach("/printsnowprofile/{id}", PrintSnowProfileResource.class);
 		
-		return router;
+		return dbFilter;
 	}
 	
 }

@@ -18,6 +18,7 @@ import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 public class DB {
 
 	private Configuration configuration;
+	private ThreadLocal<ODatabaseDocumentTx> currentTransaction = new ThreadLocal<ODatabaseDocumentTx>();
 
 	public DB(Configuration configuration) {
 		this.configuration = configuration;
@@ -43,48 +44,53 @@ public class DB {
 		return db;
 	}
 	
+	public ODatabaseDocumentTx getDB() {
+		if(currentTransaction.get() == null) {
+			currentTransaction.set(getTransaction());
+		}
+		return currentTransaction.get();
+	}
+	
+	public void close() {
+		if(currentTransaction.get() != null) {
+			currentTransaction.get().close();
+			currentTransaction.set(null);
+		}
+	}
+	
 	public void command(OCommandRequest command) {
-		ODatabaseDocumentTx transaction = getTransaction();
-		transaction.command(command).execute();
-		transaction.close(); //TODO add clean error handling
+		getDB().command(command).execute();
 	}
 
-	public List<ODocument> querySQL(String query, DBResultCallback dbResultCallback) {
-		ODatabaseDocumentTx db = getTransaction();
-		List<ODocument> results = db.query(new OSQLSynchQuery<ODocument>(query));
-		dbResultCallback.process(results);
-		db.close();
-		return results;
+	public List<ODocument> querySQL(String query) {
+		return getDB().query(new OSQLSynchQuery<ODocument>(query));
 	}
 	
 	public String store(String dbClass, JSONObject object) {
 		String jsonString = object.toString();
 		jsonString = jsonString.replace("null", "\"\"");
-		ODatabaseDocumentTx db = getTransaction();
+		getDB();
 		ODocument doc = new ODocument("SnowProfile");
 		doc.fromJSON(jsonString);
 		doc.save();
 		ORID rid = doc.getIdentity();
-		db.close();
 		return rid.toString().substring(1);
 	}
 
 	public void delete(String className, String id) {
-		ODatabaseDocumentTx db = getTransaction();
+		ODatabaseDocumentTx db = getDB();
 		List<ODocument> result = db.query(new OSQLSynchQuery<ODocument>("select from " + className + " where @rid = #"+id));
 		for (ODocument oDocument : result) {
 			db.delete(oDocument);
 		}
-		db.close();
 		
 	}
 
 	public void update(String id, JSONObject jsonObject) {
-		ODatabaseDocumentTx db = getTransaction();
+		ODatabaseDocumentTx db = getDB();
 		ORID rid = new ORecordId(id);
 		ODocument doc = new ODocument(rid);
 		doc.fromJSON(jsonObject.toString());
 		doc.save();
-		db.close();
 	}
 }

@@ -30,15 +30,12 @@ public class SingleSnowProfileResource extends ServerResource {
 	public String getJson() throws JSONException, IOException {
 		JSONObject returnProfile = null;
 		//TODO move to ScichtprofilDAO...
-		ODatabaseDocumentTx transaction = db.getTransaction();
-		List<ODocument> result = transaction.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #"+getRequestAttributes().get("id")));
+		List<ODocument> result = db.querySQL("select * from SnowProfile where @rid = #"+getRequestAttributes().get("id"));
 			
 		for (ODocument oDocument : result) {
 			returnProfile = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
 		}
-		//TODO add error handling here what happens if connection was not close -> ev. transaction handling mittles filter
-		//thread local transactions
-		transaction.close();
+		
 		returnProfile = new JSONObject(JSONHelpers.flatten("stratProfile", returnProfile));
 		String returnProfileString = returnProfile.toString();
 		returnProfileString = returnProfileString.replace("\"rid\"", "\"rid_old\"");

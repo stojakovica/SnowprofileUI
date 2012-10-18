@@ -33,7 +33,8 @@ public class ServerMain {
 		pico.addComponent(CacheFilter.class);
 		pico.addComponent(DBFilter.class);	
 		pico.addComponent(SnowProfileRouter.class);
-		// Create Database
+
+		//starting application
 		pico.getComponent(Component.class).start();
 	}
 }

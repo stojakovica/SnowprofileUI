@@ -30,7 +30,6 @@ public class SingleSnowProfileResource extends ServerResource {
 	public String getJson() throws JSONException, IOException {
 		JSONObject returnProfile = null;
 		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+getClass().getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
-//		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:C:/Users/Administrator/Uni/Bachelor/OrientDB/orientdb110/databases/test/snowprofile").open("admin", "admin");
 		List<ODocument> result = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #"+getRequestAttributes().get("id")));
 		for (ODocument oDocument : result) {
 			returnProfile = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");

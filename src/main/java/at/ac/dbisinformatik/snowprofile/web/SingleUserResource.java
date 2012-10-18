@@ -7,20 +7,25 @@ import org.restlet.resource.Get;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import at.ac.dbisinformatik.snowprofile.data.DAORegistry;
 import at.ac.dbisinformatik.snowprofile.data.UserDAO;
 
 public class SingleUserResource extends ServerResource {
 	
-	private UserDAO userDao = DAORegistry.USER_DAO;
+	private UserDAO dao;
+
+	public SingleUserResource(UserDAO dao) {
+		this.dao = dao;
+	}
 
 	//einzelobjekt zurückgeben
 	@Get
 	protected Representation get(Variant variant) throws ResourceException {
-		if(getRequestAttributes().get("usrn").equals("admin") && getRequestAttributes().get("pwd").equals("lawine"))
+		
+		if(dao.authenticate(getRequestAttributes().get("usrn").toString(),  getRequestAttributes().get("pwd").toString())) {
 			return new StringRepresentation("{ success : true }");
-		else
+		} else {
 			return new StringRepresentation("{ success: false, errors: { reason: 'Login failed. Try again.' }}");
+		}
 	}
 	
 	//einzelobjekt updaten
@@ -36,9 +41,5 @@ public class SingleUserResource extends ServerResource {
 	protected Representation delete() throws ResourceException {
 		// TODO Auto-generated method stub
 		return super.delete();
-	}
-	
-	public void setUserDao(UserDAO userDao) {
-		this.userDao = userDao;
 	}
 }

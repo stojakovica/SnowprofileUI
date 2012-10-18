@@ -11,7 +11,7 @@ import org.apache.commons.io.IOUtils;
 
 public class Configuration {
 
-	private static final String TEMPLATE_LOCATION="/at/ac/dbisinformatik/snowprofile/app/config.tpl";
+	private static final String TEMPLATE_LOCATION="/at/ac/dbisinformatik/snowprofile/app/snowprofile.conf";
 	private Properties properties; 
 	
 	public Configuration() {

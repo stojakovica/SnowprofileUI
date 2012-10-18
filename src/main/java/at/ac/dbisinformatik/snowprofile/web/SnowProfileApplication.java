@@ -3,27 +3,31 @@ package at.ac.dbisinformatik.snowprofile.web;
 import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.resource.Directory;
-import org.restlet.routing.Filter;
 import org.restlet.routing.Redirector;
-import org.restlet.routing.Router;
 
-public class SnowProfileApplikation extends Application {
+public class SnowProfileApplication extends Application {
+	
+	private SnowProfileRouter router;
+	private CacheFilter cacheFilter;
+
+	public SnowProfileApplication(SnowProfileRouter router, CacheFilter cacheFilter) {
+		this.router = router;
+		this.cacheFilter = cacheFilter;
+	}
 
 	/**
 	 * Creates a root Restlet that will receive all incoming calls.
 	 */
 	@Override
 	public synchronized Restlet createInboundRoot() {
-		Router router = new Router(this.getContext());
-
+		router.setContext(this.getContext());
+		
 		final Directory dir = new Directory(getContext(),
 				"clap://system/at/ac/dbisinformatik/snowprofile/web/resources/");
 		dir.setDeeplyAccessible(true);
 		dir.setListingAllowed(true);
 		dir.setNegotiatingContent(false);
-		
-		//Set Filter so ext-Files are cached
-		final Filter cacheFilter = new CacheFilter();
+
 		cacheFilter.setNext(dir);
 		
 		//Attach Directory with Filter for caching

@@ -1,6 +1,5 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
-import org.json.JSONObject;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
@@ -8,13 +7,16 @@ import org.restlet.resource.Get;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import at.ac.dbisinformatik.snowprofile.data.DAORegistry;
 import at.ac.dbisinformatik.snowprofile.data.UserDAO;
 
 public class ListUserResource extends ServerResource {
 
-	private UserDAO userDao = DAORegistry.USER_DAO;
+	private UserDAO userDAO;
 
+	public ListUserResource(UserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+	
 	public ListUserResource() {
 		setNegotiated(true);
 	}
@@ -22,6 +24,7 @@ public class ListUserResource extends ServerResource {
 	// search
 	@Get
 	protected Representation get(Variant variant) throws ResourceException {
+		//TODO::implementMethod userDAO.listUsers
 		return new StringRepresentation("{ hallo : welt }");
 	}
 

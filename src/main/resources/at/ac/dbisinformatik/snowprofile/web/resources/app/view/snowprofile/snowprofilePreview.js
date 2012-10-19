@@ -1,4 +1,4 @@
-Ext.define('LWD.view.snowprofile.snowprofilepreview' ,{
+Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.snowprofilepreview',
 	itemId: 'snowprofilePreviewGrid',

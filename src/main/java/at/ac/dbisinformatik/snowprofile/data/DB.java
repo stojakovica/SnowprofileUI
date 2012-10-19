@@ -37,8 +37,9 @@ public class DB {
 	
 	public ODatabaseDocumentTx getTransaction() {
 		ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+ ApplicationVariables.DB_LOCATION.getAbsolutePath());
-		if(!ApplicationVariables.DB_LOCATION.isDirectory()) {
+		if(!ApplicationVariables.DB_LOCATION.isDirectory() || ApplicationVariables.DB_LOCATION.list().length == 0) {
 			db.create();
+			db.close();
 		} 
 		db.open(configuration.getValue("db.username"), configuration.getValue("db.password"));
 		return db;

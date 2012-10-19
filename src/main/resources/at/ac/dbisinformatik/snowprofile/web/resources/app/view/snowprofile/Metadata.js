@@ -3,7 +3,7 @@ Ext.require([
     'Ext.data.*'
 ]);
 
-Ext.define('LWD.view.snowprofile.metadata', {
+Ext.define('LWD.view.snowprofile.Metadata', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.metadata',
 	

@@ -93,11 +93,11 @@ Ext.define('LWD.controller.Snowprofile', {
 	],
 	
 	views: [
-        'snowprofile.metadata',
+        'snowprofile.Metadata',
         'snowprofile.schichtprofil',
         'snowprofile.snowtemperature',
         'snowprofile.stabilitytest',
-        'snowprofile.snowprofilepreview',
+        'snowprofile.snowprofilePreview',
         'graph.Graph',
         'menuleiste.Menu',
         'menuleiste.SelectProfile'

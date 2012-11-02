@@ -22,9 +22,7 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 	    ,"-",{
 	    	text: 'PDF drucken',
 	    	reorderable: false,
-	    	handler: function() {
-		    	// TODO: druck PDF
-		    }
+	    	id: 'printPDF'
 	    }
 	    ,"-",{
 	    	text: 'XML Export',

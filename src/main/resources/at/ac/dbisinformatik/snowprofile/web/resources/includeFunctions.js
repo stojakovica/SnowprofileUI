@@ -45,7 +45,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		var koordinaten = checkObject(store.locRef.ObsPoint.pointLocation.gml_Point.gml_pos);
 		var datumZeit = checkObject(store.validTime.TimeInstant.timePosition.split("T"));
 		var date = new Date(datumZeit[0]);
-		var datum = date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear()
+		var datum = date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear();
+		datum = datumZeit[0].substring(8)+"."+datumZeit[0].substring(5, 7)+"."+datumZeit[0].substring(0, 4);
 		var zeit = datumZeit[1].substring(0, 5);
 		var lufttemperatur = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content);
 		var bewoelkung = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.skyCond);
@@ -155,13 +156,13 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			
 			var width = 0;
 			var vonHoehe0 = snowTopValue;
-			var nietenText = "";
 			if(schichtprofilData[0].depthTop_content > snowTopValue)
 				var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
 			
 			var hoechstWert = schichtprofilData[0].depthTop_content;
 			
 			for(var i = 0; i < schichtprofilData.length; i++) {
+				var nietenText = "";
 				var vonHoehe = schichtprofilData[i].depthTop_content;
 				if(typeof schichtprofilData[i].thickness_content != 'undefined') {
 					var thickness = schichtprofilData[i].thickness_content;

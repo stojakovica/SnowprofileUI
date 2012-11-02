@@ -94,7 +94,7 @@ public class SVGCreator {
 				y = items.get(i).getAsJsonObject().get("y").getAsString();
 				width = items.get(i).getAsJsonObject().get("width").getAsString();
 				height = items.get(i).getAsJsonObject().get("height").getAsString();
-				src = items.get(i).getAsJsonObject().get("src").getAsString();
+				src = System.class.getResource("/at/ac/dbisinformatik/snowprofile/web/resources/"+items.get(i).getAsJsonObject().get("src").getAsString()).toString();
 				
 				// Create the path.
 				element = doc.createElementNS(svgNS, "image");

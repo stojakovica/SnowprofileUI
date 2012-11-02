@@ -207,6 +207,9 @@ Ext.define('LWD.controller.Snowprofile', {
 	    	'toolbar #saveData': {
 				click: this.saveData
 			},
+			'toolbar #printPDF': {
+				click: this.printPDF
+			},
 		});
         
         this.getSnowprofileStore().on('load', function(store, records, success, operations) {
@@ -522,5 +525,18 @@ Ext.define('LWD.controller.Snowprofile', {
     			});
     			break;
     	}
+    },
+    
+    printPDF: function() {
+    	Ext.Ajax.request({
+			method: 'GET',
+			url: '/lwd/printsnowprofile/'+getLocationHash()[1][1],
+			success: function(returnObject) {
+    			window.open("/lwd/static/1.0.0.0/data/svgcreator/tmp/test.svg");
+			},
+			failure: function() { 
+				alert("Speichern konnte nicht durchgeführt werden!");
+			}
+		});
     }
 });

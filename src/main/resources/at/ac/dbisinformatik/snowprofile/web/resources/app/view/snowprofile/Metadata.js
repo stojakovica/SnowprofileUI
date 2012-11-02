@@ -113,20 +113,11 @@ Ext.define('LWD.view.snowprofile.Metadata', {
     	        	},
     	        	{
     	        		xtype: 'checkboxfield',
-    	        		name: 'hangneigungCheck',
-    	        		fieldLabel: '',
-    	        		labelSeparator: '',
-    	        		hideEmptyLabel: false,
-    	        		boxLabel: 'flach',
-    	        		anchor:'95%',
-    	        	},
-    	        	{
-    	        		xtype: 'checkboxfield',
     	        		name: 'onlineCheck',
     	        		fieldLabel: '',
     	        		labelSeparator: '',
     	        		hideEmptyLabel: false,
-    	        		boxLabel: 'Allg. Zugang aktivieren',
+    	        		boxLabel: 'Schneeprofil freigeben',
     	        		anchor:'95%',
     	        	},
     	        	{

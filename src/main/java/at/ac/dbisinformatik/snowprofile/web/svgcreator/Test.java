@@ -35,8 +35,12 @@ public class Test {
 	/**
 	 * @param args
 	 * @throws JSONException 
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws JSONException {
+	public static void main(String[] args) throws JSONException, IOException {
+		JSONObject jsObject = new JSONObject(FileUtils.readFileToString(new File("c:\\snowprofileTemplate.json")));
+        System.out.println(jsObject.toString(2).replace("\"id\": \"\",\n", ""));
+		
 		try {
 			boolean pdfFlag = true;
             Context cx = Context.enter();
@@ -45,14 +49,16 @@ public class Test {
             cx.evaluateReader(scope, script,"<cmd>", 1, null);
             Object func = scope.get("getJSON", scope);
             
-            JSONObject jsObject = null;
-            ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+Test.class.getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
-            List<ODocument> resultDB = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #8:0"));
-    		for (ODocument oDocument : resultDB) {
-    			jsObject = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
-    		}
-    		db.close();
-            String jsonRawString = jsObject.get("SnowProfile").toString();
+//            JSONObject jsObject = null;
+//            ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+Test.class.getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
+//            List<ODocument> resultDB = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #8:0"));
+//    		for (ODocument oDocument : resultDB) {
+//    			jsObject = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
+//    		}
+//    		db.close();
+//            String jsonRawString = jsObject.get("SnowProfile").toString();
+            
+            String jsonRawString = new JSONObject(FileUtils.readFileToString(new File("c:\\json.json"))).get("SnowProfile").toString();
             
             Object stringify = ((Scriptable) scope.get("JSON", scope)).get("stringify", scope);
             Object jsonParse = ((Scriptable) scope.get("JSON", scope)).get("parse", scope);

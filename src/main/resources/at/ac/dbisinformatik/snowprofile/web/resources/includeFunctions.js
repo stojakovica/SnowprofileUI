@@ -419,8 +419,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				if(pdfFlag) {
 					startx = startx - (componentWidth * (pdfMarginX / 100));
 					endx = endx - (componentWidth * (pdfMarginX / 100));
-					starty = starty + (componentHeight * (pdfMarginY / 100));
-					endy = endy + (componentHeight * (pdfMarginY / 100));
+//					starty = starty + (componentHeight * (pdfMarginY / 100));
+//					endy = endy + (componentHeight * (pdfMarginY / 100));
 				}
 				
 				items.push(drawPath(startx, starty, endx, endy, "1", "#F00", "fff"));
@@ -437,7 +437,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			for(var i = 0; i < comprTest.length; i++) {
 				var vonHoehe = comprTest[i].Layer_depthTop_content;
 				var yrblock = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
-				items.push(drawText(comprTest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock+pdfMarginY)+"%", 0, "#000000", fontSize));
+				items.push(drawText(comprTest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock)+"%", 0, "#000000", fontSize));
 			}
 		}
 		var extColumntest = stabilitaetstests.ExtColumnTest;
@@ -448,7 +448,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			for(var i = 0; i < extColumntest.length; i++) {
 				var vonHoehe = extColumntest[i].Layer_depthTop_content;
 				var yrblock = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
-				items.push(drawText(extColumntest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock+pdfMarginY)+"%", 0, "#000000", fontSize));
+				items.push(drawText(extColumntest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock)+"%", 0, "#000000", fontSize));
 			}
 		}
 		var rblocktest = stabilitaetstests.RBlockTest;
@@ -459,7 +459,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			for(var i = 0; i < rblocktest.length; i++) {
 				var vonHoehe = rblocktest[i].Layer_depthTop_content;
 				var yrblock = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
-				items.push(drawText(rblocktest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock+pdfMarginY)+"%", 0, "#000000", fontSize));
+				items.push(drawText(rblocktest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock)+"%", 0, "#000000", fontSize));
 			}
 		}
 		

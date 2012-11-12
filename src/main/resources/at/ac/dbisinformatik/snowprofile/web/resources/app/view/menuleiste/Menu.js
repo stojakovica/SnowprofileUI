@@ -12,7 +12,7 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 	border: false,
 	tbar: [
 	    {
-	    	text: 'Zur√ºck',
+	    	text: '‹bersicht',
 	    	reorderable: false,
 	    	handler: function() {
 		    	// TODO: destroy Session
@@ -27,16 +27,12 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 	    ,"-",{
 	    	text: 'XML Export',
 	    	reorderable: false,
-	    	handler: function() {
-		    	// TODO: Export XML
-		    }
+	    	id: 'exportXML'
 	    }
 	    ,"-",{
 	    	text: 'XML Import',
 	    	reorderable: false,
-	    	handler: function() {
-		    	// TODO: Export XML
-		    }
+	    	id: 'importXML'
 	    }
 	    ,"-",{
 	    	text: 'Logout',

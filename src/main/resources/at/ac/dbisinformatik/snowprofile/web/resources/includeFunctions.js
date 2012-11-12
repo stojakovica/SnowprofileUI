@@ -118,13 +118,13 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	items.push(drawText("Graupel", (80.5 - pdfMarginX)+"%", yLegendFirstRow+"%", 0, "#000000", fontSize));
 	
 	items.push(drawText("H[cm] Höhe", (15.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
-	items.push(drawText("Θ Feuchte", (22.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("θ Feuchte", (22.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
 	items.push(drawText("F Kornformen", (28.8 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
 	items.push(drawText("D[mm] Größe", (36.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
 	items.push(drawText("K Härte", (44.3 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
 	
 	items.push(drawText("H", (56 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
-	items.push(drawText("Θ", (58.7 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
+	items.push(drawText("θ", (58.7 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("F", (61 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("D", (65 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("K", (68.7 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
@@ -217,10 +217,10 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				}
 				items.push(drawRectangle(width+"%", height+"%", x+"%", y+"%", 2, "#1C86EE", "#1C86EE", 0.2));
 				
-				// Details Rechteck für Form, Durchmesser und Feuchte
+				// Details Rechteck fÃ¼r Form, Durchmesser und Feuchte
 				items.push(drawRectangle("12%", height+"%", (58 - pdfMarginX)+"%", y+"%", 1, "#000000", "#FFFFFF", 0.2));
 				
-				// Vorbereitung für Kornformen
+				// Vorbereitung fÃ¼r Kornformen
 				var widthImageKF = componentWidth * 0.009;
 				var heightImageKF = widthImageKF;
 				

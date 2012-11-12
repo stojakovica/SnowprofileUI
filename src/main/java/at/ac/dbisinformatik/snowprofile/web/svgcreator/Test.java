@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.xml.transform.TransformerException;
@@ -15,6 +16,9 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.Scriptable;
+
+import at.ac.dbisinformatik.snowprofile.app.Configuration;
+import at.ac.dbisinformatik.snowprofile.data.DB;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -36,10 +40,11 @@ public class Test {
 	 * @param args
 	 * @throws JSONException 
 	 * @throws IOException 
+	 * @throws URISyntaxException 
 	 */
-	public static void main(String[] args) throws JSONException, IOException {
-		JSONObject jsObject = new JSONObject(FileUtils.readFileToString(new File("c:\\snowprofileTemplate.json")));
-        System.out.println(jsObject.toString(2).replace("\"id\": \"\",\n", ""));
+	public static void main(String[] args) throws JSONException, IOException, URISyntaxException {
+//		JSONObject jsObject = new JSONObject(FileUtils.readFileToString(new File("c:\\snowprofileTemplate.json")));
+//        System.out.println(jsObject.toString(2).replace("\"id\": \"\",\n", ""));
 		
 		try {
 			boolean pdfFlag = true;
@@ -49,16 +54,17 @@ public class Test {
             cx.evaluateReader(scope, script,"<cmd>", 1, null);
             Object func = scope.get("getJSON", scope);
             
-//            JSONObject jsObject = null;
-//            ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:"+Test.class.getResource("/at/ac/dbisinformatik/snowprofile/web/db/").toString().substring(6)).open("admin", "admin");
-//            List<ODocument> resultDB = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #8:0"));
-//    		for (ODocument oDocument : resultDB) {
-//    			jsObject = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
-//    		}
-//    		db.close();
-//            String jsonRawString = jsObject.get("SnowProfile").toString();
+            JSONObject jsObject = null;
+            DB tempDB = new DB(new Configuration());
+            ODatabaseDocumentTx db = tempDB.getTransaction();
+            List<ODocument> resultDB = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #8:1"));
+    		for (ODocument oDocument : resultDB) {
+    			jsObject = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
+    		}
+    		db.close();
+            String jsonRawString = jsObject.get("SnowProfile").toString();
             
-            String jsonRawString = new JSONObject(FileUtils.readFileToString(new File("c:\\json.json"))).get("SnowProfile").toString();
+//            String jsonRawString = new JSONObject(FileUtils.readFileToString(new File("c:\\json.json"))).get("SnowProfile").toString();
             
             Object stringify = ((Scriptable) scope.get("JSON", scope)).get("stringify", scope);
             Object jsonParse = ((Scriptable) scope.get("JSON", scope)).get("parse", scope);

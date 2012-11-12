@@ -99,8 +99,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.stabilitytest',
         'snowprofile.snowprofilePreview',
         'graph.Graph',
-        'menuleiste.Menu',
-        'menuleiste.SelectProfile'
+        'menuleiste.Menu'
     ],
 
     init: function() {

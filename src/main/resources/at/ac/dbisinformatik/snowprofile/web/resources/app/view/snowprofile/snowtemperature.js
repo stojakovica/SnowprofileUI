@@ -19,7 +19,7 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 	    }
     }, '-', {
         itemId: 'delete',
-        text: 'LÃ¶schen',
+        text: 'Löschen',
         iconCls: 'icon-delete',
         handler: function(){
 			var grid = this.up("grid");
@@ -37,7 +37,7 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
     
     columns: [
 		{
-			header: 'Von HÃ¶he[cm]',
+			header: 'Von Höhe[cm]',
 			dataIndex: 'depth',
 			flex: 1,
 			editor: {
@@ -47,7 +47,7 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 			}
 		},
 		{
-			header: 'Temperatur[Â°C]',
+			header: 'Temperatur[°C]',
 			dataIndex: 'snowTemp',
 			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
 				if(value != 0) return "-"+(value/10);

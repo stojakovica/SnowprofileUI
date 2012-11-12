@@ -3,6 +3,8 @@ package at.ac.dbisinformatik.snowprofile.web.svgcreator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -17,6 +19,7 @@ import org.w3c.dom.Element;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.orientechnologies.orient.core.serialization.OBase64Utils.OutputStream;
 
 /**
  * @author Robert Binna
@@ -24,8 +27,7 @@ import com.google.gson.JsonObject;
  */
 public class SVGCreator {
 
-	public static void svgDocument(JsonArray jsonDocument)	throws TransformerException, FileNotFoundException {
-		System.out.println(jsonDocument);
+	public static void svgDocument(JsonArray jsonDocument)	throws TransformerException, FileNotFoundException, URISyntaxException {
 		DOMImplementation impl = SVGDOMImplementation.getDOMImplementation();
 		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
 		Document doc = impl.createDocument(svgNS, "svg", null);
@@ -148,7 +150,10 @@ public class SVGCreator {
 		Transformer transformer = tFactory.newTransformer();
 
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new FileOutputStream(new File("C:/vcs/snowprofile/trunk/code/src/main/resources/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/test.svg")));
+//		StreamResult result = new StreamResult(new FileOutputStream(new File("C:/vcs/snowprofile/trunk/code/src/main/resources/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/test.svg")));
+		URL url = SVGCreator.class.getResource("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/");
+		File file = new File(url.toURI()+"test.svg");
+		StreamResult result = new StreamResult(new FileOutputStream(file));
 		transformer.transform(source, result);
 	}
 }

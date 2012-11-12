@@ -95,7 +95,7 @@ Ext.application({
         	        	        	    ]
             	        	        },
             	        	        {
-            	        	        	title: 'StabilitÃ¤tstests',
+            	        	        	title: 'Stabilitätstests',
             	        	        	border: false,
             	        	        	items: [
         	        	        	        {

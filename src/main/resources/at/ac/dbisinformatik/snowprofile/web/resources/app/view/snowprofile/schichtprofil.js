@@ -19,7 +19,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
         }
     }, '-', {
         itemId: 'delete',
-        text: 'LÃ¶schen',
+        text: 'Löschen',
         iconCls: 'icon-delete',
         handler: function(){
     		var grid = this.up("grid");
@@ -37,7 +37,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     
     columns: [
 		{
-			header: 'Von HÃ¶he[cm]',
+			header: 'Von Höhe[cm]',
 			id: 'depthTop_content',
 			dataIndex: 'depthTop_content',
 			flex: 1,
@@ -60,8 +60,8 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
                 store: [
 					['PP','Neuschnee'],
 					['DF','filziger Schnee'],
-					['RG','rundkÃ¶rniger Schnee'],
-					['FC','kantigfÃ¶rmiger Schnee'],
+					['RG','rundkörniger Schnee'],
+					['FC','kantigförmiger Schnee'],
 					['FCxr','kantig abgerundet'],
 					['DH','Schwimmschnee'],
 					['MF','Schmelzform'],
@@ -86,8 +86,8 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
                 store: [
 					['PP','Neuschnee'],
 					['DF','filziger Schnee'],
-					['RG','rundkÃ¶rniger Schnee'],
-					['FC','kantigfÃ¶rmiger Schnee'],
+					['RG','rundkörniger Schnee'],
+					['FC','kantigförmiger Schnee'],
 					['FCxr','kantig abgerundet'],
 					['DH','Schwimmschnee'],
 					['MF','Schmelzform'],
@@ -101,7 +101,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
             }
 		},
 		{
-			header: 'GrÃ¶sse[D][mm] avg',
+			header: 'Grösse[D][mm] avg',
 			dataIndex: 'grainSize_Components_avg',
 			flex: 1,
 			editor: {
@@ -109,7 +109,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			}
 		},
 		{
-			header: 'GrÃ¶sse[D][mm] avg max',
+			header: 'Grösse[D][mm] avg max',
 			dataIndex: 'grainSize_Components_avgMax',
 			flex: 1,
 			editor: {
@@ -117,7 +117,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			}
 		},
 		{
-			header: 'HÃ¤rte[K]',
+			header: 'Härte[K]',
 			dataIndex: 'hardness',
 			flex: 1,
 			field: {

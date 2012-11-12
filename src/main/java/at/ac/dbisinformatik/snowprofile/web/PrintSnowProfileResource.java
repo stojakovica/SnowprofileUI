@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.xml.transform.TransformerException;
@@ -39,7 +40,7 @@ public class PrintSnowProfileResource extends ServerResource {
 	}
 
 	@Get()
-	public String getJson() throws JSONException, IOException {
+	public String getJson() throws JSONException, IOException, URISyntaxException {
 		try {
 			boolean pdfFlag = true;
 			Context cx = Context.enter();
@@ -53,15 +54,7 @@ public class PrintSnowProfileResource extends ServerResource {
 			for (ODocument oDocument : resultDB) {
 				jsObject = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
 			}
-//			jsObject = new JSONObject(JSONHelpers.flatten("stratProfile", jsObject));
 			String jsonRawString = jsObject.get("SnowProfile").toString();
-//			jsonRawString = jsonRawString.replace("\"rid\"", "\"rid_old\"");
-//			jsonRawString = jsonRawString.replace("@", "");
-//			jsonRawString = jsonRawString.replace("null", "\"\"");
-//			jsonRawString = jsonRawString.replace("\"id\":\"\",", "");
-//			jsonRawString = jsonRawString.replace("\"id\":{\"id\":\"\"},", "");
-
-			System.out.println(jsonRawString);
 			
 			Object stringify = ((Scriptable) scope.get("JSON", scope)).get("stringify", scope);
 			Object jsonParse = ((Scriptable) scope.get("JSON", scope)).get("parse", scope);

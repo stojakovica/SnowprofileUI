@@ -529,7 +529,7 @@ Ext.define('LWD.controller.Snowprofile', {
     printPDF: function() {
     	Ext.Ajax.request({
 			method: 'GET',
-			url: '/lwd/printsnowprofile/'+getLocationHash()[1][1],
+			url: '/lwd/printsnowprofile/'+getLocationHash()[1][1]+'/pdf',
 			success: function(returnObject) {
     			window.open("/lwd/static/1.0.0.0/data/svgcreator/tmp/test.svg");
 			},

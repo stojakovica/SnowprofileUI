@@ -48,6 +48,7 @@ public class Test {
 		
 		try {
 			boolean pdfFlag = true;
+			String exportType = "pdf";
             Context cx = Context.enter();
             Scriptable scope = cx.initStandardObjects();  
             Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
@@ -64,8 +65,6 @@ public class Test {
     		db.close();
             String jsonRawString = jsObject.get("SnowProfile").toString();
             
-//            String jsonRawString = new JSONObject(FileUtils.readFileToString(new File("c:\\json.json"))).get("SnowProfile").toString();
-            
             Object stringify = ((Scriptable) scope.get("JSON", scope)).get("stringify", scope);
             Object jsonParse = ((Scriptable) scope.get("JSON", scope)).get("parse", scope);
             Object jsonRawObject = ((Function)jsonParse).call(cx, scope, scope, new Object[] { jsonRawString });
@@ -74,7 +73,7 @@ public class Test {
                 Object result = ((Function)func).call(cx, scope, scope, funcArgs);
                 String jsonString = (String) ((Function)stringify).call(cx, scope, scope, new Object[] { result });
                 JsonArray jsonObject = (JsonArray) new JsonParser().parse(jsonString);
-                SVGCreator.svgDocument(jsonObject);
+                SVGCreator.svgDocument(jsonObject, exportType);
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();

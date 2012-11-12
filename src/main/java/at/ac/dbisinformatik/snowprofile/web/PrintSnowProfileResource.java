@@ -67,7 +67,7 @@ public class PrintSnowProfileResource extends ServerResource {
 						scope, scope, new Object[] { result });
 				JsonArray jsonObject = (JsonArray) new JsonParser()
 						.parse(jsonString);
-				SVGCreator.svgDocument(jsonObject);
+				SVGCreator.svgDocument(jsonObject, getRequestAttributes().get("type").toString());
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();

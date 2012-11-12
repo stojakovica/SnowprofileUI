@@ -27,7 +27,7 @@ import com.orientechnologies.orient.core.serialization.OBase64Utils.OutputStream
  */
 public class SVGCreator {
 
-	public static void svgDocument(JsonArray jsonDocument)	throws TransformerException, FileNotFoundException, URISyntaxException {
+	public static void svgDocument(JsonArray jsonDocument, String exportType)	throws TransformerException, FileNotFoundException, URISyntaxException {
 		DOMImplementation impl = SVGDOMImplementation.getDOMImplementation();
 		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
 		Document doc = impl.createDocument(svgNS, "svg", null);
@@ -148,12 +148,20 @@ public class SVGCreator {
 
 		TransformerFactory tFactory = TransformerFactory.newInstance();
 		Transformer transformer = tFactory.newTransformer();
-
+		
 		DOMSource source = new DOMSource(doc);
-//		StreamResult result = new StreamResult(new FileOutputStream(new File("C:/vcs/snowprofile/trunk/code/src/main/resources/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/test.svg")));
-		URL url = SVGCreator.class.getResource("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/");
-		File file = new File(url.toString().substring(6)+"test.svg");
-		StreamResult result = new StreamResult(new FileOutputStream(file));
+		StreamResult result = null;
+		switch (exportType) {
+			case "pdf":
+				URL url = SVGCreator.class.getResource("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/");
+				File file = new File(url.toString().substring(6)+"test.svg");
+				result = new StreamResult(new FileOutputStream(file));
+				break;
+	
+			default:
+				break;
+		}
+		
 		transformer.transform(source, result);
 	}
 }

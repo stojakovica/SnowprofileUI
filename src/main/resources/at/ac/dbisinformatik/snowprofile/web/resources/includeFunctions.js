@@ -117,11 +117,11 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	items.push(drawImage(widthImage, heightImage, (79 - pdfMarginX)+"%", yLegendFirstRowImage+"%", "data/img/graupel.jpg", pdfFlag));
 	items.push(drawText("Graupel", (80.5 - pdfMarginX)+"%", yLegendFirstRow+"%", 0, "#000000", fontSize));
 	
-	items.push(drawText("H[cm] HÃ¶he", (15.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
-	items.push(drawText("Î¸ Feuchte", (22.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("H[cm] Höhe", (15.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("¸ Feuchte", (22.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
 	items.push(drawText("F Kornformen", (28.8 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
-	items.push(drawText("D[mm] GrÃ¶ÃŸe", (36.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
-	items.push(drawText("K HÃ¤rte", (44.3 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("D[mm] GrößŸe", (36.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("K Härte", (44.3 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
 	
 	items.push(drawText("H", (56 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("Î¸", (58.7 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));

@@ -152,7 +152,7 @@ public class SVGCreator {
 		DOMSource source = new DOMSource(doc);
 //		StreamResult result = new StreamResult(new FileOutputStream(new File("C:/vcs/snowprofile/trunk/code/src/main/resources/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/test.svg")));
 		URL url = SVGCreator.class.getResource("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/");
-		File file = new File(url.toURI()+"test.svg");
+		File file = new File(url.toString().substring(6)+"test.svg");
 		StreamResult result = new StreamResult(new FileOutputStream(file));
 		transformer.transform(source, result);
 	}

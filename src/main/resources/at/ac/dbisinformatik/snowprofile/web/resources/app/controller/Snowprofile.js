@@ -506,7 +506,7 @@ Ext.define('LWD.controller.Snowprofile', {
 	                    window.location.reload(true);
     				},
     				failure: function() { 
-    					alert("Speichern konnte nicht durchgefÃ¼hrt werden!");
+    					alert("Speichern konnte nicht durchgeführt werden!");
     				},
     				jsonData: data
     			});
@@ -518,7 +518,7 @@ Ext.define('LWD.controller.Snowprofile', {
     				success: function(returnObject) {
     				},
     				failure: function() { 
-    					alert("Speichern konnte nicht durchgefÃ¼hrt werden!");
+    					alert("Speichern konnte nicht durchgeführt werden!");
     				},
     				jsonData: data
     			});
@@ -534,7 +534,7 @@ Ext.define('LWD.controller.Snowprofile', {
     			window.open("/lwd/static/1.0.0.0/data/svgcreator/tmp/test.svg");
 			},
 			failure: function() { 
-				alert("Speichern konnte nicht durchgefÃ¼hrt werden!");
+				alert("Speichern konnte nicht durchgeführt werden!");
 			}
 		});
     }

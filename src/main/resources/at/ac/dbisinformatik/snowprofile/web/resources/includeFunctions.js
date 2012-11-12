@@ -212,7 +212,6 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				
 				x = 55 - width;
 				if(pdfFlag) {
-					y = y + pdfMarginY;
 					x = x - pdfMarginX;
 				}
 				items.push(drawRectangle(width+"%", height+"%", x+"%", y+"%", 2, "#1C86EE", "#1C86EE", 0.2));

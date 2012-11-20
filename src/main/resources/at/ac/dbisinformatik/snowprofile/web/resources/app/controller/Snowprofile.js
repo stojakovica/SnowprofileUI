@@ -37,6 +37,7 @@ Ext.define('LWD.controller.Snowprofile', {
 	],
 	models: [
         'Snowprofile',
+        'snowprofile.airTempPres',
         'snowprofile.AspectPosition',
         'snowprofile.Components',
         'snowprofile.ComprTest',
@@ -69,6 +70,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.Person',
         'snowprofile.Point',
         'snowprofile.pointLocation',
+        'snowprofile.profileDepth',
         'snowprofile.ProfMetaData',
         'snowprofile.RBlockTest',
         'snowprofile.SlopeAnglePosition',
@@ -89,7 +91,8 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.validSlopeAngle',
         'snowprofile.validThickness',
         'snowprofile.validTime',
-        'snowprofile.windDir'
+        'snowprofile.windDir',
+        'snowprofile.windSpd'
 	],
 	
 	views: [
@@ -99,7 +102,8 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.stabilitytest',
         'snowprofile.snowprofilePreview',
         'graph.Graph',
-        'menuleiste.Menu'
+        'menuleiste.Menu',
+        'snowprofile.import'
     ],
 
     init: function() {
@@ -113,6 +117,8 @@ Ext.define('LWD.controller.Snowprofile', {
         	var nvPair = getLocationHash();
         	var id = nvPair[1][1];
         }
+        
+        id = id+".json";
         
         var store = Ext.data.StoreManager.lookup('Snowprofile');
         switch(action) {
@@ -209,12 +215,19 @@ Ext.define('LWD.controller.Snowprofile', {
 			'toolbar #printPDF': {
 				click: this.printPDF
 			},
+			'toolbar #exportXML': {
+				click: this.exportXML
+			},
+			'toolbar #importXML': {
+				click: this.importXML
+			}
 		});
         
         this.getSnowprofileStore().on('load', function(store, records, success, operations) {
         	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
         		var metaDataStore = this.getMetadataStore();
         		var datumZeit = store.getAt(0).raw.validTime.TimeInstant.timePosition.split("T");
+        		console.log(store);
         		var metadata = {
         				"name": checkObject(store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name),
         				"profildatum": datumZeit[0],
@@ -224,7 +237,6 @@ Ext.define('LWD.controller.Snowprofile', {
         				"profilort": checkObject(store.getAt(0).raw.locRef.ObsPoint.name),
         				"utmKoordinaten": checkObject(store.getAt(0).raw.locRef.ObsPoint.pointLocation.gml_Point.gml_pos),
         				"hangneigung": checkObject(store.getAt(0).raw.locRef.ObsPoint.validSlopeAngle.SlopeAnglePosition.position),
-        				"hangneigungCheck": "",
         				"exposition": checkObject(store.getAt(0).raw.locRef.ObsPoint.validAspect.AspectPosition.position),
         				"windgeschwindigkeit": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content),
         				"windrichtung": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position),
@@ -295,8 +307,8 @@ Ext.define('LWD.controller.Snowprofile', {
         
         this.getSnowprofileStore().on('datachanged', function(store, records, success, operations) {
         	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
-        		console.log(store);
         		var metaDataStore = this.getMetadataStore();
+        		console.log(store);
         		var datumZeit = store.getAt(0).getValidTime().getTimeInstant().data.timePosition.split("T");
         		var metadata = {
         				"name": checkObject(store.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name),
@@ -307,7 +319,6 @@ Ext.define('LWD.controller.Snowprofile', {
         				"profilort": checkObject(store.getAt(0).getLocRefData().getObsPoint().data.name),
         				"utmKoordinaten": checkObject(store.getAt(0).getLocRefData().getObsPoint().getPointLocation().getPoint().data.gml_pos),
         				"hangneigung": checkObject(store.getAt(0).getLocRefData().getObsPoint().getValidSlopeAngle().getSlopeAnglePosition().data.position),
-        				"hangneigungCheck": "",
         				"exposition": checkObject(store.getAt(0).getLocRefData().getObsPoint().getValidAspect().getAspectPosition().data.position),
         				"windgeschwindigkeit": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindSpd().data.content),
         				"windrichtung": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindDir().getAspectPosition().data.position),
@@ -506,7 +517,7 @@ Ext.define('LWD.controller.Snowprofile', {
 	                    window.location.reload(true);
     				},
     				failure: function() { 
-    					alert("Speichern konnte nicht durchgeführt werden!");
+    					alert("Speichern konnte nicht durchgefÃ¼hrt werden!");
     				},
     				jsonData: data
     			});
@@ -518,7 +529,7 @@ Ext.define('LWD.controller.Snowprofile', {
     				success: function(returnObject) {
     				},
     				failure: function() { 
-    					alert("Speichern konnte nicht durchgeführt werden!");
+    					alert("Speichern konnte nicht durchgefÃ¼hrt werden!");
     				},
     				jsonData: data
     			});
@@ -527,15 +538,26 @@ Ext.define('LWD.controller.Snowprofile', {
     },
     
     printPDF: function() {
-    	Ext.Ajax.request({
-			method: 'GET',
-			url: '/lwd/printsnowprofile/'+getLocationHash()[1][1]+'/pdf',
-			success: function(returnObject) {
-    			window.open("/lwd/static/1.0.0.0/data/svgcreator/tmp/test.svg");
-			},
-			failure: function() { 
-				alert("Speichern konnte nicht durchgeführt werden!");
-			}
-		});
+//    	window.open('/lwd/printsnowprofile/'+getLocationHash()[1][1]+'/pdf');
+    	window.open('/lwd/snowprofile/'+getLocationHash()[1][1]+'.pdf', '_newtab2','_newtab' + Math.floor(Math.random()*999999));
+//    	Ext.Ajax.request({
+//			method: 'GET',
+//			url: '/lwd/printsnowprofile/'+getLocationHash()[1][1]+'/pdf',
+//			success: function(returnObject) {
+//				var obj = Ext.decode(returnObject.responseText);
+//    			window.open("/lwd/static/1.0.0.0/data/svgcreator/tmp/pdf/snowprofile"+obj.profileId+".pdf");
+//			},
+//			failure: function() { 
+//				alert("PDF konnte nicht erstellt werden!");
+//			}
+//		});
+    },
+    
+    exportXML: function() {
+    	window.open('/lwd/snowprofile/'+getLocationHash()[1][1]+'.xml', '_newtab2','_newtab' + Math.floor(Math.random()*999999));
+    },
+    
+    importXML: function() {
+    	var view = Ext.widget('import');
     }
 });

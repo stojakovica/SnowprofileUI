@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.xml.transform.TransformerException;
 
+import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -40,7 +41,8 @@ public class PrintSnowProfileResource extends ServerResource {
 	}
 
 	@Get()
-	public String getJson() throws JSONException, IOException, URISyntaxException {
+	public String getJson() throws JSONException, IOException, URISyntaxException, TranscoderException {
+		String profileID = "";
 		try {
 			boolean pdfFlag = true;
 			Context cx = Context.enter();
@@ -55,19 +57,18 @@ public class PrintSnowProfileResource extends ServerResource {
 				jsObject = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
 			}
 			String jsonRawString = jsObject.get("SnowProfile").toString();
-			
+			profileID = new JSONObject(jsonRawString).get("rid").toString();
+			profileID = profileID.replace("#", "_");
+			profileID = profileID.replace(":", "_");
 			Object stringify = ((Scriptable) scope.get("JSON", scope)).get("stringify", scope);
 			Object jsonParse = ((Scriptable) scope.get("JSON", scope)).get("parse", scope);
 			Object jsonRawObject = ((Function) jsonParse).call(cx, scope, scope, new Object[] { jsonRawString });
 			if (func instanceof Function) {
 				Object funcArgs[] = new Object[] { jsonRawObject, pdfFlag };
-				Object result = ((Function) func).call(cx, scope, scope,
-						funcArgs);
-				String jsonString = (String) ((Function) stringify).call(cx,
-						scope, scope, new Object[] { result });
-				JsonArray jsonObject = (JsonArray) new JsonParser()
-						.parse(jsonString);
-				SVGCreator.svgDocument(jsonObject, getRequestAttributes().get("type").toString());
+				Object result = ((Function) func).call(cx, scope, scope, funcArgs);
+				String jsonString = (String) ((Function) stringify).call(cx, scope, scope, new Object[] { result });
+				JsonArray jsonObject = (JsonArray) new JsonParser().parse(jsonString);
+				SVGCreator.svgDocument(jsonObject, getRequestAttributes().get("type").toString(), new JSONObject(jsonRawString).get("rid").toString());
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -80,6 +81,6 @@ public class PrintSnowProfileResource extends ServerResource {
 			Context.exit();
 		}
 
-		return "{\"success\": \"true\"}";
+		return "{success: \"true\", profileId: \""+profileID+"\"}";
 	}
 }

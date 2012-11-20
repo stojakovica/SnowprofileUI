@@ -19,7 +19,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
         }
     }, '-', {
         itemId: 'delete',
-        text: 'L�schen',
+        text: 'Löschen',
         iconCls: 'icon-delete',
         handler: function(){
     		var grid = this.up("grid");
@@ -37,7 +37,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     
     columns: [
 		{
-			header: 'Von H�he[cm]',
+			header: 'Von Höhe[cm]',
 			id: 'depthTop_content',
 			dataIndex: 'depthTop_content',
 			flex: 1,
@@ -50,6 +50,43 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 		{
             header: 'Kornform 1',
             dataIndex: 'grainFormPrimary',
+            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+				switch(value) {
+					case "PP":
+						return "Neuschnee";
+						break;
+					case "DF":
+						return "filziger Schnee";
+						break;
+					case "RG":
+						return "rundkörniger Schnee";
+						break;
+					case "FC":
+						return "kantigförmiger Schnee";
+						break;
+					case "FCxr":
+						return "kantig abgerundet";
+						break;
+					case "DH":
+						return "Schwimmschnee";
+						break;
+					case "MF":
+						return "Schmelzform";
+						break;
+					case "MFcr":
+						return "Schneekruste";
+						break;
+					case "IF":
+						return "Eislamelle";
+						break;
+					case "SH":
+						return "Oberflächenreif";
+						break;
+					case "PPgp":
+						return "Graupel";
+						break;
+				}
+			},
             flex: 1,
             typeAhead: true,
             field: {
@@ -60,14 +97,14 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
                 store: [
 					['PP','Neuschnee'],
 					['DF','filziger Schnee'],
-					['RG','rundk�rniger Schnee'],
-					['FC','kantigf�rmiger Schnee'],
+					['RG','rundkörniger Schnee'],
+					['FC','kantigförmiger Schnee'],
 					['FCxr','kantig abgerundet'],
 					['DH','Schwimmschnee'],
 					['MF','Schmelzform'],
 					['MFcr','Schneekruste'],
 					['IF','Eislamelle'],
-					['SH','Oberflaechenreif'],
+					['SH','Oberflächenreif'],
 					['PPgp','Graupel']
                 ],
                 lazyRender: true,
@@ -77,6 +114,43 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 		{
 			header: 'Kornform 2',
 			dataIndex: 'grainFormSecondary',
+			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+				switch(value) {
+					case "PP":
+						return "Neuschnee";
+						break;
+					case "DF":
+						return "filziger Schnee";
+						break;
+					case "RG":
+						return "rundkörniger Schnee";
+						break;
+					case "FC":
+						return "kantigförmiger Schnee";
+						break;
+					case "FCxr":
+						return "kantig abgerundet";
+						break;
+					case "DH":
+						return "Schwimmschnee";
+						break;
+					case "MF":
+						return "Schmelzform";
+						break;
+					case "MFcr":
+						return "Schneekruste";
+						break;
+					case "IF":
+						return "Eislamelle";
+						break;
+					case "SH":
+						return "Oberflächenreif";
+						break;
+					case "PPgp":
+						return "Graupel";
+						break;
+				}
+			},
 			flex: 1,
 			field: {
                 xtype: 'combobox',
@@ -86,14 +160,14 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
                 store: [
 					['PP','Neuschnee'],
 					['DF','filziger Schnee'],
-					['RG','rundk�rniger Schnee'],
-					['FC','kantigf�rmiger Schnee'],
+					['RG','rundkörniger Schnee'],
+					['FC','kantigförmiger Schnee'],
 					['FCxr','kantig abgerundet'],
 					['DH','Schwimmschnee'],
 					['MF','Schmelzform'],
 					['MFcr','Schneekruste'],
 					['IF','Eislamelle'],
-					['SH','Oberflaechenreif'],
+					['SH','Oberflächenreif'],
 					['PPgp','Graupel']
                 ],
                 lazyRender: true,
@@ -101,7 +175,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
             }
 		},
 		{
-			header: 'Gr�sse[D][mm] avg',
+			header: 'Größe[D][mm] avg',
 			dataIndex: 'grainSize_Components_avg',
 			flex: 1,
 			editor: {
@@ -109,7 +183,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			}
 		},
 		{
-			header: 'Gr�sse[D][mm] avg max',
+			header: 'Größe[D][mm] avg max',
 			dataIndex: 'grainSize_Components_avgMax',
 			flex: 1,
 			editor: {
@@ -117,8 +191,42 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			}
 		},
 		{
-			header: 'H�rte[K]',
+			header: 'Härte[K]',
 			dataIndex: 'hardness',
+			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+				switch(value) {
+					case "F":
+						return "FA - sehr weich";
+						break;
+					case "F-4F":
+						return "F-4F";
+						break;
+					case "4F":
+						return "4F - weich";
+						break;
+					case "4F-1F":
+						return "4F-1F";
+						break;
+					case "1F":
+						return "1F - mittelhart";
+						break;
+					case "1F-P":
+						return "1F-P";
+						break;
+					case "P":
+						return "B - hart";
+						break;
+					case "P-K":
+						return "P-K";
+						break;
+					case "K":
+						return "M - sehr hart";
+						break;
+					case "I":
+						return "Eis - kompakt";
+						break;
+				}
+			},
 			flex: 1,
 			field: {
                 xtype: 'combobox',
@@ -144,6 +252,25 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 		{
 			header: 'Feuchte',
 			dataIndex: 'lwc_content',
+			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+				switch(value) {
+					case "D":
+						return "trocken";
+						break;
+					case "M":
+						return "schwach feucht";
+						break;
+					case "W":
+						return "feucht";
+						break;
+					case "V":
+						return "nass";
+						break;
+					case "S":
+						return "sehr nass";
+						break;
+				}
+			},
 			flex: 1,
 			field: {
                 xtype: 'combobox',

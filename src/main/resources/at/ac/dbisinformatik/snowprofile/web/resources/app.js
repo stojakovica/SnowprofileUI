@@ -30,34 +30,14 @@ Ext.application({
         	    width: 650,
         	    border: false,
         	    items: [
-//    	            {
-//    	            	xtype: 'tabpanel',
-//    	            	activeTab: 0, // index or id
-//                    	height: 305,
-//                    	width: '100%',
-//                    	items:[
-                    	    {
-//                        		title: 'Kopf',
-                        		autoScroll: true,
-                        		items: [
-                    		        {
-                    		        	xtype: 'metadata',
-                    		        	border: false
-                    		        }
-                        		]
-//                        	},
-//                        	{
-//                        	    title: 'Karte',
-//                        	    items: [
-//                    	            {
-//                    	            	xtype: 'googlemaps',
-//                    	            	width: '100%',
-//                    	            	height: '100%',
-//                    	            	border: false
-//                    	            }
-//                   	            ]
-//                        	}
-//                    	]
+            	    {
+                		autoScroll: true,
+                		items: [
+            		        {
+            		        	xtype: 'metadata',
+            		        	border: false
+            		        }
+                		]
     	            },
     	            {
     	            	xtype: 'panel',
@@ -95,7 +75,7 @@ Ext.application({
         	        	        	    ]
             	        	        },
             	        	        {
-            	        	        	title: 'Stabilit‰tstests',
+            	        	        	title: 'Stabilit√§tstests',
             	        	        	border: false,
             	        	        	items: [
         	        	        	        {

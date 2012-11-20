@@ -12,7 +12,7 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 	border: false,
 	tbar: [
 	    {
-	    	text: 'Übersicht',
+	    	text: 'Ãœbersicht',
 	    	reorderable: false,
 	    	handler: function() {
 		    	// TODO: destroy Session

@@ -54,6 +54,63 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		var windgeschw = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content);
 		var sonstiges = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.comment);
 		
+		switch(bewoelkung) {
+			case "CLR":
+				bewoelkung = "wolkenlos (0/8)";
+				break;
+			case "FEW":
+				bewoelkung = "leicht bewölkt (1/8 - 2/8)";
+				break;
+			case "SCT":
+				bewoelkung = "bewölkt (3/8 - 4-8)";
+				break;
+			case "BKN":
+				bewoelkung = "stark bewölkt (5/8 - 7/8)";
+				break;
+			case "OVC":
+				bewoelkung = "bedeckt (8/8)";
+				break;
+			case "X":
+				bewoelkung = "Nebel";
+				break;
+		}
+		
+		switch(niederschlag) {
+			case "Nil":
+				niederschlag = "kein Niederschlag";
+				break;
+			case "SN":
+				niederschlag = "Schnee";
+				break;
+			case "GS":
+				niederschlag = "Graupel";
+				break;
+			case "RA":
+				niederschlag = "Regen";
+				break;
+		}
+		
+		switch(windgeschw) {
+			case "0":
+				windgeschw = "kein Wind (0 km/h)";
+				break;
+			case "1_20":
+				windgeschw = "schwacher Wind (1-20 km/h)";
+				break;
+			case "20_40":
+				windgeschw = "mäßiger Wind (20-40 km/h)";
+				break;
+			case "40_60":
+				windgeschw = "starker Wind (40-60 km/h)";
+				break;
+			case "60_100":
+				windgeschw = "stürmischer Wind (60-100 km/h)";
+				break;
+			case "100":
+				windgeschw = "schwerer Wind/Orkan (>100 km/h)";
+				break;
+		}
+		
 		yLegendFirstRow = yLegendFirstRow + pdfMarginY;
 		yLegendSecondRow = yLegendSecondRow + pdfMarginY;
 		yLegendFirstRowImage = yLegendFirstRowImage + pdfMarginY;
@@ -79,7 +136,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		items.push(drawText("Wind: "+windrichtung+" / "+windgeschw, yMetaDataSecondColumn+"%", "7.5%", 0, "#000000", fontSize));
 		
 		items.push(drawText("Datum/Zeit: "+datum+" "+zeit, yMetaDataThirdColumn+"%", "3%", 0, "#000000", fontSize));
-		items.push(drawText("Lufttemp.: "+lufttemperatur, yMetaDataThirdColumn+"%", "4.5%", 0, "#000000", fontSize));
+		items.push(drawText("Lufttemp.: "+lufttemperatur+" °C", yMetaDataThirdColumn+"%", "4.5%", 0, "#000000", fontSize));
 		items.push(drawText("Bewölkung: "+bewoelkung, yMetaDataThirdColumn+"%", "6%", 0, "#000000", fontSize));
 		
 		items.push(drawText("Sonstiges: "+sonstiges, yMetaDataFirstColumn+"%", "10.5%", 0, "#000000", fontSize));
@@ -117,14 +174,14 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	items.push(drawImage(widthImage, heightImage, (79 - pdfMarginX)+"%", yLegendFirstRowImage+"%", "data/img/graupel.jpg", pdfFlag));
 	items.push(drawText("Graupel", (80.5 - pdfMarginX)+"%", yLegendFirstRow+"%", 0, "#000000", fontSize));
 	
-	items.push(drawText("H[cm] H�he", (15.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
-	items.push(drawText("� Feuchte", (22.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("H[cm] Höhe", (15.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("Θ Feuchte", (22.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
 	items.push(drawText("F Kornformen", (28.8 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
-	items.push(drawText("D[mm] Gr�ߟe", (36.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
-	items.push(drawText("K H�rte", (44.3 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("D[mm] Größe", (36.5 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("K Härte", (44.3 - pdfMarginX)+"%", yLegendSecondRow+"%", 0, "#000000", fontSize));
 	
 	items.push(drawText("H", (56 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
-	items.push(drawText("θ", (58.7 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
+	items.push(drawText("Θ", (58.7 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("F", (61 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("D", (65 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("K", (68.7 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
@@ -213,6 +270,9 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				x = 55 - width;
 				if(pdfFlag) {
 					x = x - pdfMarginX;
+					if(direction == "top down") {
+						y = y + pdfMarginY;
+					}
 				}
 				items.push(drawRectangle(width+"%", height+"%", x+"%", y+"%", 2, "#1C86EE", "#1C86EE", 0.2));
 				
@@ -393,10 +453,10 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			var hoechstWertTemp = schneetemperaturData[0].depth;
 			for(var i = 0; i < schneetemperaturData.length; i++) {
 				vonHoehe = schneetemperaturData[i].depth;
-				var temp = (schneetemperaturData[i].snowTemp/10);
+				var temp = (schneetemperaturData[i].snowTemp);
 				if(typeof schneetemperaturData[i+1] != 'undefined') {
 					bisHoehe = schneetemperaturData[i+1].depth;
-					var tempNext = (schneetemperaturData[i+1].snowTemp/10);
+					var tempNext = (schneetemperaturData[i+1].snowTemp);
 				}
 				else {
 					var tempNext = 0;
@@ -418,8 +478,10 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				if(pdfFlag) {
 					startx = startx - (componentWidth * (pdfMarginX / 100));
 					endx = endx - (componentWidth * (pdfMarginX / 100));
-//					starty = starty + (componentHeight * (pdfMarginY / 100));
-//					endy = endy + (componentHeight * (pdfMarginY / 100));
+					if(direction == "top down") {
+						starty = starty + (componentHeight * (pdfMarginY / 100));
+						endy = endy + (componentHeight * (pdfMarginY / 100));
+					}
 				}
 				
 				items.push(drawPath(startx, starty, endx, endy, "1", "#F00", "fff"));
@@ -436,6 +498,10 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			for(var i = 0; i < comprTest.length; i++) {
 				var vonHoehe = comprTest[i].Layer_depthTop_content;
 				var yrblock = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
+				if(direction == "top down") {
+					var yrblock = 10 + (heightMainArea * (vonHoehe / vonHoehe0));
+					if(pdfFlag) yrblock += pdfMarginY;
+				}
 				items.push(drawText(comprTest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock)+"%", 0, "#000000", fontSize));
 			}
 		}
@@ -447,6 +513,10 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			for(var i = 0; i < extColumntest.length; i++) {
 				var vonHoehe = extColumntest[i].Layer_depthTop_content;
 				var yrblock = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
+				if(direction == "top down") {
+					var yrblock = 10 + (heightMainArea * (vonHoehe / vonHoehe0));
+					if(pdfFlag) yrblock += pdfMarginY;
+				}
 				items.push(drawText(extColumntest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock)+"%", 0, "#000000", fontSize));
 			}
 		}
@@ -458,6 +528,10 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			for(var i = 0; i < rblocktest.length; i++) {
 				var vonHoehe = rblocktest[i].Layer_depthTop_content;
 				var yrblock = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
+				if(direction == "top down") {
+					var yrblock = 10 + (heightMainArea * (vonHoehe / vonHoehe0));
+					if(pdfFlag) yrblock += pdfMarginY;
+				}
 				items.push(drawText(rblocktest[i].failedOn_Results_testScore, (77 - pdfMarginX)+"%", (yrblock)+"%", 0, "#000000", fontSize));
 			}
 		}

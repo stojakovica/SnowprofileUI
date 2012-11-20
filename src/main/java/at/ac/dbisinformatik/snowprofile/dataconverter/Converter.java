@@ -62,7 +62,7 @@ public class Converter {
 		this.tFactory = TransformerFactory.newInstance();
 	}
 	
-	public void convert(InputStream input, OutputStream out) throws TransformerException, TransformerConfigurationException,	SAXException, IOException {
+	public void convert(InputStream input, OutputStream out, String converterFile) throws TransformerException, TransformerConfigurationException,	SAXException, IOException {
 		// Determine whether the TransformerFactory supports The use of SAXSource and SAXResult
 		if (tFactory.getFeature(SAXSource.FEATURE) && tFactory.getFeature(SAXResult.FEATURE)) {
 			// Cast the TransformerFactory.
@@ -73,7 +73,7 @@ public class Converter {
 			// Create an XMLReader and set its ContentHandler and parse the stylesheet.
 			XMLReader reader = XMLReaderFactory.createXMLReader();
 			reader.setContentHandler(templatesHandler);
-			reader.parse(new InputSource(getClass().getResourceAsStream("/at/ac/dbisinformatik/snowprofile/dataconverter/converter.xsl")));
+			reader.parse(new InputSource(getClass().getResourceAsStream("/at/ac/dbisinformatik/snowprofile/dataconverter/"+converterFile)));
 		
 			// Get the Templates object from the ContentHandler.
 			// Create a ContentHandler to handle parsing of the XML source.
@@ -102,30 +102,11 @@ public class Converter {
 			System.out.println("The TransformerFactory does not support SAX input and SAX output");
 	}
 	
-	/*
-	public String convert(String in) throws SAXException, IOException, TransformerException {
-		FileInputStream inStream = new FileInputStream(in);
-		OutputStream outStream = new OutputStream() {
-			private StringBuilder string = new StringBuilder();
-			
-			@Override
-			public void write(int b) throws IOException {
-				this.string.append((char) b);
-			}
-			
-			public String toString() {
-				return this.string.toString();
-			}
-		};
-		
-		convert(inStream, outStream);
-		inStream.close();
-		
-		return outStream.toString();
+	public void convert(InputStream input, OutputStream out) throws TransformerException, TransformerConfigurationException,	SAXException, IOException {
+		convert(input, out, "converter.xsl");
 	}
-	 */
-
-	public String convert(String in) throws SAXException, IOException, TransformerException {
+	
+	public String convert(String in, String converterType) throws SAXException, IOException, TransformerException {
 		InputStream inStream = new ByteArrayInputStream(in.getBytes("UTF-8"));
 		OutputStream outStream = new OutputStream() {
 			private StringBuilder string = new StringBuilder();
@@ -140,10 +121,14 @@ public class Converter {
 			}
 		};
 		
-		convert(inStream, outStream);
+		convert(inStream, outStream, converterType);
 		inStream.close();
 
 		return outStream.toString();
+	}
+	
+	public String convert(String in) throws SAXException, IOException, TransformerException {
+		return convert(in, "converter.xsl");
 	}
 	
 	public void convert(File input, File output) throws TransformerException, FileNotFoundException, SAXException, IOException {

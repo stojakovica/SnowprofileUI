@@ -243,13 +243,11 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
-            
-        <dependency>
-			<groupId>batik</groupId>
-			<artifactId>batik-1.5-fop</artifactId>
-			<version>0.20-5</version>
+		
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>fop</artifactId>
 		</dependency>
-            
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -337,10 +335,11 @@
 				<version>${gson-version}</version>
 			</dependency>
 			
+			
 			<dependency>
-				<groupId>batik</groupId>
-				<artifactId>batik-1.5-fop</artifactId>
-				<version>${batik-version}</version>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>fop</artifactId>
+				<version>${xmlgraphics-version}</version>
 			</dependency>
 		
 		</dependencies>
@@ -360,6 +359,7 @@
 		<json-version>20080701</json-version>
 		<gson-version>2.1</gson-version>
 		<batik-version>0.20-5</batik-version>
+		<xmlgraphics-version>0.93</xmlgraphics-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8
 		</project.reporting.outputEncoding>

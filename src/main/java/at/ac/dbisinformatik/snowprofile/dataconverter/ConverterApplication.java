@@ -42,7 +42,7 @@ public class ConverterApplication {
 		// TODO Auto-generated method stub
 		
 		if(args.length < 2) {
-			System.out.println("Das Programm benÃ¶tigt 2 Argumente:");
+			System.out.println("Das Programm benötigt 2 Argumente:");
 			System.out.println("1: Quell-Pfad der zu konvertierenden XML-Datei.");
 			System.out.println("2: Ziel-Pfad, wo die konvertierte CAAML-Datei gespeicehrt werden soll.");
 		}

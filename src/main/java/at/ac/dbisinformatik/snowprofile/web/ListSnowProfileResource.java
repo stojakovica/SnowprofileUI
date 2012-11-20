@@ -44,8 +44,8 @@ public class ListSnowProfileResource extends ServerResource {
 	}
 
 	@Post
-	public String storeJson(Representation value) throws IOException,
-			JSONException {
+	public String storeJson(Representation value) throws IOException, JSONException {
+		System.out.println(value);
 		return db.store("SnowProfile", new JSONObject(value.getText()));
 	}
 

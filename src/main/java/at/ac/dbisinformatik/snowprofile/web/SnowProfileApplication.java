@@ -44,6 +44,7 @@ public class SnowProfileApplication extends Application {
 		router.attach("/snowprofile", ListSnowProfileResource.class);
 		router.attach("/snowprofile/{id}", SingleSnowProfileResource.class);
 		
+		router.attach("/caamlhandlersnowprofile/{id}", CAAMLHandlerSnowProfileResource.class);
 		router.attach("/printsnowprofile/{id}/{type}", PrintSnowProfileResource.class);
 		
 		return dbFilter;

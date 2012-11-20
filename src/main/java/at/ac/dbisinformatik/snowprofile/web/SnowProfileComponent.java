@@ -22,6 +22,6 @@ public class SnowProfileComponent extends Component {
 		// "true");
 
 		// Start the component.
-		
+		application.getTunnelService().setExtensionsTunnel(true);
 	}
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.xml.transform.TransformerException;
 
+import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,14 +42,13 @@ public class Test {
 	 * @throws JSONException 
 	 * @throws IOException 
 	 * @throws URISyntaxException 
+	 * @throws TranscoderException 
 	 */
-	public static void main(String[] args) throws JSONException, IOException, URISyntaxException {
-//		JSONObject jsObject = new JSONObject(FileUtils.readFileToString(new File("c:\\snowprofileTemplate.json")));
-//        System.out.println(jsObject.toString(2).replace("\"id\": \"\",\n", ""));
+	public static void main(String[] args) throws JSONException, IOException, URISyntaxException, TranscoderException {
 		
 		try {
 			boolean pdfFlag = true;
-			String exportType = "pdf";
+			String exportType = "png";
             Context cx = Context.enter();
             Scriptable scope = cx.initStandardObjects();  
             Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
@@ -73,7 +73,7 @@ public class Test {
                 Object result = ((Function)func).call(cx, scope, scope, funcArgs);
                 String jsonString = (String) ((Function)stringify).call(cx, scope, scope, new Object[] { result });
                 JsonArray jsonObject = (JsonArray) new JsonParser().parse(jsonString);
-                SVGCreator.svgDocument(jsonObject, exportType);
+                SVGCreator.svgDocument(jsonObject, exportType, new JSONObject(jsonRawString).get("rid").toString());
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();

@@ -84,7 +84,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 					    displayField: 'val',
 					    typeAhead: true,
 					    queryMode: 'local',
-					    emptyText: 'Bitte w‰hlen Sie...',
+					    emptyText: 'Bitte w√§hlen Sie...',
 					    anchor:'95%',
         	        },
         	        {
@@ -147,7 +147,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
                     	displayField: 'val',
                     	typeAhead: true,
                     	queryMode: 'local',
-                    	emptyText: 'Bitte w‰hlen Sie...',
+                    	emptyText: 'Bitte w√§hlen Sie...',
                     	anchor:'100%',
                     },
                     {
@@ -162,7 +162,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
                     	displayField: 'val',
                     	typeAhead: true,
                     	queryMode: 'local',
-                    	emptyText: 'Bitte w‰hlen Sie...',
+                    	emptyText: 'Bitte w√§hlen Sie...',
                     	anchor:'100%',
                     },
                     {
@@ -177,7 +177,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
                     	displayField: 'val',
                     	typeAhead: true,
                     	queryMode: 'local',
-                    	emptyText: 'Bitte w‰hlen Sie...',
+                    	emptyText: 'Bitte w√§hlen Sie...',
                     	anchor:'100%',
                     },
                     {
@@ -198,7 +198,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
                     	displayField: 'val',
                     	typeAhead: true,
                     	queryMode: 'local',
-                    	emptyText: 'Bitte w‰hlen Sie...',
+                    	emptyText: 'Bitte w√§hlen Sie...',
                     	anchor:'100%',
                     },
                     {
@@ -213,7 +213,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
                     	displayField: 'val',
                     	typeAhead: true,
                     	queryMode: 'local',
-                    	emptyText: 'Bitte w‰hlen Sie...',
+                    	emptyText: 'Bitte w√§hlen Sie...',
                     	anchor:'100%',
                     },
                     {
@@ -228,7 +228,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
                     	displayField: 'val',
                     	typeAhead: true,
                     	queryMode: 'local',
-                    	emptyText: 'Bitte w‰hlen Sie...',
+                    	emptyText: 'Bitte w√§hlen Sie...',
                     	anchor:'100%',
                     },
                     {

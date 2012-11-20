@@ -9,7 +9,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 	selType: 'rowmodel',
 
     tbar: [{
-        text: 'Neuer Stabilitätstest',
+        text: 'Neuer StabilitÃ¤tstest',
         iconCls: 'icon-add',
         handler: function(){
 	    	var grid = this.up("grid");
@@ -19,7 +19,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
         }
     }, '-', {
         itemId: 'delete',
-        text: 'Löschen',
+        text: 'LÃ¶schen',
         iconCls: 'icon-delete',
         handler: function(){
 	    	var grid = this.up("grid");
@@ -37,7 +37,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
     
     columns: [
 		{
-			header: 'Höhe[cm]',
+			header: 'HÃ¶he[cm]',
 			dataIndex: 'depth',
 			flex: 1,
 			editor: {
@@ -172,7 +172,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
             }
 		},
 		{
-			header: 'Bruchfläche',
+			header: 'BruchflÃ¤che',
 			dataIndex: 'bruchflaeche',
 			flex: 1,
 			field: {
@@ -183,7 +183,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
                 store: [
 					['Clean','glatt'],
 					['Rough','rau'],
-					['Irregular','unregelmäßig']
+					['Irregular','unregelmï¿½ï¿½ig']
                 ],
                 lazyRender: true,
                 listClass: 'x-combo-list-small'

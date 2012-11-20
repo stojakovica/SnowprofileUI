@@ -69,8 +69,9 @@ public class SVGCreator {
 		ostream.close();
 	}
 
-	public static ByteArrayOutputStream createPDF(String svgURI, String fileName) throws IOException {
+	public static void createPDF(String svgURI, String fileName) throws IOException {
 		// TODO: create ByteArrayOutputStream PDF
+		ByteArrayOutputStream returnDocument = null;
 		URL url = SVGCreator.class.getResource("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/pdf/");
 		File file = new File(url.toString().substring(6) + ""+fileName+".pdf");
 		FileOutputStream out = new FileOutputStream(file);
@@ -84,13 +85,12 @@ public class SVGCreator {
 		} catch (Exception ex) {
 			throw new IOException(ex.getMessage());
 		} finally {
-//			out.flush();
-//			out.close();
+			out.flush();
+			out.close();
 		}
-		return null;
 	}
 
-	public static ByteArrayOutputStream svgDocument(JsonArray jsonDocument, String exportType, String profileID)
+	public static void svgDocument(JsonArray jsonDocument, String exportType, String profileID)
 			throws TransformerException, URISyntaxException,
 			TranscoderException, IOException {
 		
@@ -232,26 +232,21 @@ public class SVGCreator {
 		StreamResult result = new StreamResult(new FileOutputStream(file));
 		transformer.transform(source, result);
 		
-		ByteArrayOutputStream returnDocument = null;
-
 		switch (exportType) {
 		case "png":
-//			returnDocument = savePNG(file.toPath().toString(), fileName);
+//			savePNG(file.toPath().toString(), fileName);
 			break;
 			
 		case "jpg":
-//			returnDocument = saveJPG(file.toPath().toString(), fileName);
+//			saveJPG(file.toPath().toString(), fileName);
 			break;
 			
 		case "pdf":
-			returnDocument = createPDF(file.toPath().toString(), fileName);
+			createPDF(file.toPath().toString(), fileName);
 			break;
 
 		default:
 			break;
 		}
-		
-		return returnDocument;
-
 	}
 }

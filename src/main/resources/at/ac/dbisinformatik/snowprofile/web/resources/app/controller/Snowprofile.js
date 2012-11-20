@@ -308,7 +308,6 @@ Ext.define('LWD.controller.Snowprofile', {
         this.getSnowprofileStore().on('datachanged', function(store, records, success, operations) {
         	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
         		var metaDataStore = this.getMetadataStore();
-        		console.log(store);
         		var datumZeit = store.getAt(0).getValidTime().getTimeInstant().data.timePosition.split("T");
         		var metadata = {
         				"name": checkObject(store.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name),
@@ -538,19 +537,17 @@ Ext.define('LWD.controller.Snowprofile', {
     },
     
     printPDF: function() {
-//    	window.open('/lwd/printsnowprofile/'+getLocationHash()[1][1]+'/pdf');
-    	window.open('/lwd/snowprofile/'+getLocationHash()[1][1]+'.pdf', '_newtab2','_newtab' + Math.floor(Math.random()*999999));
-//    	Ext.Ajax.request({
-//			method: 'GET',
-//			url: '/lwd/printsnowprofile/'+getLocationHash()[1][1]+'/pdf',
-//			success: function(returnObject) {
-//				var obj = Ext.decode(returnObject.responseText);
-//    			window.open("/lwd/static/1.0.0.0/data/svgcreator/tmp/pdf/snowprofile"+obj.profileId+".pdf");
-//			},
-//			failure: function() { 
-//				alert("PDF konnte nicht erstellt werden!");
-//			}
-//		});
+    	Ext.Ajax.request({
+			method: 'GET',
+			url: '/lwd/printsnowprofile/'+getLocationHash()[1][1]+'/pdf',
+			success: function(returnObject) {
+				var obj = Ext.decode(returnObject.responseText);
+    			window.open("/lwd/static/1.0.0.0/data/svgcreator/tmp/pdf/snowprofile"+obj.profileId+".pdf");
+			},
+			failure: function() { 
+				alert("PDF konnte nicht erstellt werden!");
+			}
+		});
     },
     
     exportXML: function() {

@@ -47,9 +47,8 @@ public class SingleSnowProfileResource extends ServerResource {
 	}
 	
 	@Get("pdf")
-	public ByteArrayOutputStream getPDF() throws JSONException, SAXException, IOException, TransformerException, URISyntaxException, TranscoderException {
+	public void getPDF() throws JSONException, SAXException, IOException, TransformerException, URISyntaxException, TranscoderException {
 		String profileID = "";
-		ByteArrayOutputStream returnDocument = null;
 		try {
 			boolean pdfFlag = true;
 			Context cx = Context.enter();
@@ -75,7 +74,7 @@ public class SingleSnowProfileResource extends ServerResource {
 				Object result = ((Function) func).call(cx, scope, scope, funcArgs);
 				String jsonString = (String) ((Function) stringify).call(cx, scope, scope, new Object[] { result });
 				JsonArray jsonObject = (JsonArray) new JsonParser().parse(jsonString);
-				returnDocument = SVGCreator.svgDocument(jsonObject, "pdf", new JSONObject(jsonRawString).get("rid").toString());
+				SVGCreator.svgDocument(jsonObject, "pdf", new JSONObject(jsonRawString).get("rid").toString());
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -87,7 +86,6 @@ public class SingleSnowProfileResource extends ServerResource {
 		} finally {
 			Context.exit();
 		}
-		return returnDocument;
 	}
 	
 	@Get("xml")

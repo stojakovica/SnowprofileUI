@@ -33,6 +33,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
             	xtype: 'button', 
             	text: 'Speichern',
             	handler: function() {
+            		showLoadingMask("Speichern...");
             		var panel = this.up('form');
                     var form = panel.getForm();
                     var store = Ext.data.StoreManager.lookup(panel.store);

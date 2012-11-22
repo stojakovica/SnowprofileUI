@@ -18,15 +18,15 @@ Ext.application({
         	    title: false
         	},
         	items: [
-//        	{
-//        	    region: 'north',
-//        	    items: [
-//    	            {
-//    	            	xtype: 'menuleiste',
-//    	            	border: false
-//    	            }
-//        	    ]
-//        	},
+        	{
+        	    region: 'north',
+        	    items: [
+    	            {
+    	            	xtype: 'searchfield',
+    	            	border: false
+    	            }
+        	    ]
+        	},
         	{
         	    region:'center',
         	    items: [

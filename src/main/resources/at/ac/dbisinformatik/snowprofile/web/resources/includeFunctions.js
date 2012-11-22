@@ -675,3 +675,42 @@ function checkObject(object) {
 	else
 		return object;
 }
+
+function showLoadingMask(loadingMessage) {
+	if (Ext.isEmpty(loadingMessage))
+		loadText = 'Loading... Please wait';
+	else 
+		loadText = loadingMessage;
+	Ext.Ajax.on('beforerequest', function() {
+		Ext.getBody().mask(loadText, 'loading')
+	}, Ext.getBody());
+	Ext.Ajax.on('requestcomplete', Ext.getBody().unmask, Ext.getBody());
+	Ext.Ajax.on('requestexception', Ext.getBody().unmask, Ext.getBody());
+}
+
+function getLocationHash() {
+	var hashString = location.hash;
+    var nvPairs = hashString.split("#");
+    var nvPair = new Array();
+    for(var i=1; i<=nvPairs.length; i++) {
+    	if(nvPairs[i] != null) {
+    		temp = nvPairs[i].split("=");
+    		nvPair.push(temp);
+    	}
+    }
+    return nvPair
+}
+
+function checkObject(object) {
+	if(Ext.isObject(object))
+		return "";
+	else
+		return object;
+}
+
+function checkDir(object) {
+	if(object == "top down")
+		return "on";
+	else
+		return "";
+}

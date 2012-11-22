@@ -15,6 +15,7 @@ import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 import at.ac.dbisinformatik.snowprofile.data.DB;
+import at.ac.dbisinformatik.snowprofile.data.SchichtprofilDAO;
 
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
@@ -29,24 +30,22 @@ public class ListSnowProfileResource extends ServerResource {
 
 	@Get()
 	public String getJson() throws JSONException, IOException {
-		final JSONArray returnList = new JSONArray();
-
-		List<ODocument> results = db.querySQL("select * from SnowProfile");
-		for (ODocument oDocument : results) {
-			JSONObject temp = new JSONObject(oDocument.toJSON());
-			Map<String, Object> idMap = (Map<String, Object>) JSONHelpers
-					.jsonToMap("SnowProfile", temp);
-			idMap.put("rid", (String) temp.get("@rid").toString().substring(1));
-			returnList.put(idMap);
-		}
-
-		return "{SnowprofileList: " + returnList.toString() + "}";
+		return "{SnowprofileList: " + SchichtprofilDAO.getAllSnowprofiles(db).toString() + "}";
 	}
 
 	@Post
 	public String storeJson(Representation value) throws IOException, JSONException {
-		System.out.println(value);
-		return db.store("SnowProfile", new JSONObject(value.getText()));
+//		UploadFileTO uploadFileTO = (UploadFileTO) command;
+//	    List<XmlTO> al=new ArrayList<XmlTO>();
+//	    Map<String,String> model = new HashMap<String,String>();
+//
+//	    MultipartFile file = uploadFileTO.getFile();
+		if(value.toString().substring(0,1).equals("<")) {
+			return "{ok: true}";
+		}
+		else {
+			return db.store("SnowProfile", new JSONObject(value.getText()));
+		}
 	}
 
 	@Delete

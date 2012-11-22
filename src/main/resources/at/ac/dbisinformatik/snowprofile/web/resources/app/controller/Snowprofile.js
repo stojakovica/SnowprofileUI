@@ -1,30 +1,3 @@
-function getLocationHash() {
-	var hashString = location.hash;
-    var nvPairs = hashString.split("#");
-    var nvPair = new Array();
-    for(var i=1; i<=nvPairs.length; i++) {
-    	if(nvPairs[i] != null) {
-    		temp = nvPairs[i].split("=");
-    		nvPair.push(temp);
-    	}
-    }
-    return nvPair
-}
-
-function checkObject(object) {
-	if(Ext.isObject(object))
-		return "";
-	else
-		return object;
-}
-
-function checkDir(object) {
-	if(object == "top down")
-		return "on";
-	else
-		return "";
-}
-
 Ext.define('LWD.controller.Snowprofile', {
     extend: 'Ext.app.Controller',
 	stores: [
@@ -101,6 +74,7 @@ Ext.define('LWD.controller.Snowprofile', {
         'snowprofile.snowtemperature',
         'snowprofile.stabilitytest',
         'snowprofile.snowprofilePreview',
+        'snowprofile.SearchField',
         'graph.Graph',
         'menuleiste.Menu',
         'snowprofile.import'
@@ -227,7 +201,6 @@ Ext.define('LWD.controller.Snowprofile', {
         	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
         		var metaDataStore = this.getMetadataStore();
         		var datumZeit = store.getAt(0).raw.validTime.TimeInstant.timePosition.split("T");
-        		console.log(store);
         		var metadata = {
         				"name": checkObject(store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name),
         				"profildatum": datumZeit[0],
@@ -537,6 +510,7 @@ Ext.define('LWD.controller.Snowprofile', {
     },
     
     printPDF: function() {
+    	showLoadingMask("Generiere PDF...");
     	Ext.Ajax.request({
 			method: 'GET',
 			url: '/lwd/printsnowprofile/'+getLocationHash()[1][1]+'/pdf',
@@ -544,7 +518,7 @@ Ext.define('LWD.controller.Snowprofile', {
 				var obj = Ext.decode(returnObject.responseText);
     			window.open("/lwd/static/1.0.0.0/data/svgcreator/tmp/pdf/snowprofile"+obj.profileId+".pdf");
 			},
-			failure: function() { 
+			failure: function() {
 				alert("PDF konnte nicht erstellt werden!");
 			}
 		});

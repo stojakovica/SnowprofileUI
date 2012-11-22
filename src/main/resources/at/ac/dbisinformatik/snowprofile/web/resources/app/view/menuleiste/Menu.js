@@ -25,6 +25,11 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 	    	id: 'printPDF'
 	    }
 	    ,"-",{
+	    	text: 'PNG drucken',
+	    	reorderable: false,
+	    	id: 'printPNG'
+	    }
+	    ,"-",{
 	    	text: 'XML Export',
 	    	reorderable: false,
 	    	id: 'exportXML'

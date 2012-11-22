@@ -27,6 +27,7 @@ import org.restlet.resource.ServerResource;
 import org.xml.sax.SAXException;
 
 import at.ac.dbisinformatik.snowprofile.data.DB;
+import at.ac.dbisinformatik.snowprofile.data.SchichtprofilDAO;
 import at.ac.dbisinformatik.snowprofile.dataconverter.Converter;
 import at.ac.dbisinformatik.snowprofile.web.svgcreator.SVGCreator;
 import at.ac.dbisinformatik.snowprofile.web.svgcreator.Test;
@@ -90,49 +91,16 @@ public class SingleSnowProfileResource extends ServerResource {
 	
 	@Get("xml")
 	public String getXML() throws JSONException, SAXException, IOException, TransformerException {
-		JSONObject returnProfile = null;
 		String fileName = getRequestAttributes().get("id").toString();
 		fileName = "_"+fileName.replace(":", "_");
-		// TODO move to ScichtprofilDAO...
-		List<ODocument> result = db.querySQL("select * from SnowProfile where @rid = #"+ getRequestAttributes().get("id"));
-
-		for (ODocument oDocument : result) {
-			returnProfile = new JSONObject("{\"SnowProfile\": "
-					+ oDocument.toJSON().toString() + "}");
-		}
-
-		returnProfile = new JSONObject(JSONHelpers.flatten("stratProfile",
-				returnProfile));
-		String returnProfileString = returnProfile.toString();
-		returnProfileString = returnProfileString.replace("\"rid\"","\"rid_old\"");
-		returnProfileString = returnProfileString.replace("@", "");
-		returnProfileString = returnProfileString.replace("null", "\"\"");
-		returnProfileString = returnProfileString.replace("\"id\":\"\",", "");
-		returnProfileString = returnProfileString.replace("\"id\":{\"id\":\"\"},", "");
 		
 		Converter con = new Converter();
-		return con.convert(XML.toString(new JSONObject(returnProfileString)), "internConverter.xsl");
+		return con.convert(XML.toString(SchichtprofilDAO.getSingleSnowProfile(db, getRequestAttributes().get("id").toString())), "internConverter.xsl");
 	}
 	
 	@Get("json")
 	public String getJson() throws JSONException, IOException {
-		JSONObject returnProfile = null;
-		//TODO move to ScichtprofilDAO...
-		List<ODocument> result = db.querySQL("select * from SnowProfile where @rid = #"+getRequestAttributes().get("id"));
-			
-		for (ODocument oDocument : result) {
-			returnProfile = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
-		}
-		
-		returnProfile = new JSONObject(JSONHelpers.flatten("stratProfile", returnProfile));
-		String returnProfileString = returnProfile.toString();
-		returnProfileString = returnProfileString.replace("\"rid\"", "\"rid_old\"");
-		returnProfileString = returnProfileString.replace("@", "");
-		returnProfileString = returnProfileString.replace("null", "\"\"");
-		returnProfileString = returnProfileString.replace("\"id\":\"\",", "");
-		returnProfileString = returnProfileString.replace("\"id\":{\"id\":\"\"},", "");
-		
-		return returnProfileString;
+		return SchichtprofilDAO.getSingleSnowProfile(db, getRequestAttributes().get("id").toString()).toString();
 	}
 	
 	@Delete

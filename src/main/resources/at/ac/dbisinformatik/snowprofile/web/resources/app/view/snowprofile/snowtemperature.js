@@ -10,7 +10,6 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 
     tbar: [{
         text: 'Neue Schneetemperatur',
-        iconCls: 'icon-add',
         handler: function(){
 			var grid = this.up("grid");
 			var rowEditing = grid.getPlugin("rowplugin");
@@ -20,7 +19,6 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
     }, '-', {
         itemId: 'delete',
         text: 'Löschen',
-        iconCls: 'icon-delete',
         handler: function(){
 			var grid = this.up("grid");
 	        var selection = grid.getView().getSelectionModel().getSelection()[0];

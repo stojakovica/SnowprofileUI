@@ -19,6 +19,14 @@ import com.orientechnologies.orient.core.record.impl.ODocument;
 
 public class SchichtprofilDAO {
 	
+	/**
+	 * compares the given search-name with the name of the person in the snow profile document
+	 * 
+	 * @param oDocument
+	 * @param name
+	 * @return
+	 * @throws JSONException
+	 */
 	public static boolean checkName(ODocument oDocument, String name) throws JSONException {
 		if(name.equals(""))
 			return true;
@@ -30,6 +38,14 @@ public class SchichtprofilDAO {
 		}
 	}
 	
+	/**
+	 * compares the given search-date with the date of the date the snow profile was taken
+	 * 
+	 * @param oDocument
+	 * @param date
+	 * @return
+	 * @throws ParseException
+	 */
 	public static boolean checkDate(ODocument oDocument, String date) throws ParseException {
 		if(date.equals(""))
 			return true;
@@ -44,6 +60,14 @@ public class SchichtprofilDAO {
 		}
 	}
 	
+	/**
+	 * compares the given search-time with the time the snow profile was taken
+	 * 
+	 * @param oDocument
+	 * @param time
+	 * @return
+	 * @throws ParseException
+	 */
 	public static boolean checkTime(ODocument oDocument, String time) throws ParseException {
 		if(time.equals(""))
 			return true;
@@ -58,6 +82,13 @@ public class SchichtprofilDAO {
 		}
 	}
 	
+	/**
+	 * compares the given search-region with the region where the snow profile was taken
+	 * 
+	 * @param oDocument
+	 * @param region
+	 * @return
+	 */
 	public static boolean checkRegion(ODocument oDocument, String region) {
 		if(region.equals(""))
 			return true;
@@ -69,6 +100,13 @@ public class SchichtprofilDAO {
 		}
 	}
 	
+	/**
+	 * compares the given search-place with the place the snow profile was taken
+	 * 
+	 * @param oDocument
+	 * @param ort
+	 * @return
+	 */
 	public static boolean checkOrt(ODocument oDocument, String ort) {
 		if(ort.equals(""))
 			return true;
@@ -80,6 +118,13 @@ public class SchichtprofilDAO {
 		}
 	}
 	
+	/**
+	 * compares the given search-coordinate with the coordinate where the snow profile was taken
+	 * 
+	 * @param oDocument
+	 * @param koordinaten
+	 * @return
+	 */
 	public static boolean checkKoordinaten(ODocument oDocument, String koordinaten) {
 		if(koordinaten.equals(""))
 			return true;
@@ -91,6 +136,13 @@ public class SchichtprofilDAO {
 		}
 	}
 
+	/**
+	 * returns all Snow Profiles from the Orient DataBase
+	 * 
+	 * @param db
+	 * @return
+	 * @throws JSONException
+	 */
 	public static JSONArray getAllSnowprofiles(DB db) throws JSONException {
 		final JSONArray returnList = new JSONArray();
 
@@ -106,6 +158,14 @@ public class SchichtprofilDAO {
 		return returnList;
 	}
 	
+	/**
+	 * returns one Snow Profile with the given id
+	 * 
+	 * @param db
+	 * @param id
+	 * @return
+	 * @throws JSONException
+	 */
 	public static JSONObject getSingleSnowProfile(DB db, String id) throws JSONException {
 		JSONObject returnProfile = null;
 		List<ODocument> result = db.querySQL("select * from SnowProfile where @rid = #"+id);
@@ -125,6 +185,15 @@ public class SchichtprofilDAO {
 		return new JSONObject(returnProfileString);
 	}
 
+	/**
+	 * returns all Snow Profiles where the search-fields are matched with the Snow Profile data
+	 * 
+	 * @param db
+	 * @param searchObject
+	 * @return
+	 * @throws JSONException
+	 * @throws ParseException
+	 */
 	public static JSONArray getSnowProfilesBySearch(DB db, JSONObject searchObject) throws JSONException, ParseException {
 		final JSONArray returnList = new JSONArray();
 

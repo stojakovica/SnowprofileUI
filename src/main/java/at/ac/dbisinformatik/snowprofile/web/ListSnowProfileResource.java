@@ -1,12 +1,21 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.json.JSONArray;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.XML;
+import org.restlet.data.MediaType;
+import org.restlet.data.Status;
+import org.restlet.ext.fileupload.RestletFileUpload;
+import org.restlet.representation.FileRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Delete;
@@ -16,8 +25,6 @@ import org.restlet.resource.ServerResource;
 
 import at.ac.dbisinformatik.snowprofile.data.DB;
 import at.ac.dbisinformatik.snowprofile.data.SchichtprofilDAO;
-
-import com.orientechnologies.orient.core.record.impl.ODocument;
 
 public class ListSnowProfileResource extends ServerResource {
 
@@ -34,18 +41,47 @@ public class ListSnowProfileResource extends ServerResource {
 	}
 
 	@Post
-	public String storeJson(Representation value) throws IOException, JSONException {
-//		UploadFileTO uploadFileTO = (UploadFileTO) command;
-//	    List<XmlTO> al=new ArrayList<XmlTO>();
-//	    Map<String,String> model = new HashMap<String,String>();
-//
-//	    MultipartFile file = uploadFileTO.getFile();
-		if(value.toString().substring(0,1).equals("<")) {
-			return "{ok: true}";
-		}
-		else {
-			return db.store("SnowProfile", new JSONObject(value.getText()));
-		}
+	public String storeJson(Representation entity) throws Exception {
+		String rep = "";
+        if (entity != null) {
+            if (MediaType.MULTIPART_FORM_DATA.equals(entity.getMediaType(), true)) {
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                factory.setSizeThreshold(1000240);
+
+                RestletFileUpload upload = new RestletFileUpload(factory);
+                List<FileItem> items;
+
+                items = upload.parseRequest(getRequest());
+
+                boolean found = false;
+                for (final Iterator<FileItem> it = items.iterator(); it
+                        .hasNext()
+                        && !found;) {
+                    FileItem fi = it.next();
+                    String snowprofile = "";
+                    if (fi.getFieldName().equals("import")) {
+                    	snowprofile = IOUtils.toString(fi.getInputStream());
+                    	JSONObject snowprofileJSON = XML.toJSONObject(snowprofile);
+                    	
+                    	snowprofile = snowprofileJSON.toString().replace("caaml:", "");
+                    	snowprofile = snowprofile.replace("gml:", "gml_");
+                    	snowprofile = snowprofile.replace("xmlns:", "xmlns_");
+                    	snowprofile = snowprofile.replace("xsi:", "xsi_");
+                    	
+                    	snowprofileJSON = new JSONObject(snowprofile);
+                    	
+                    	snowprofile = db.store("SnowProfile", new JSONObject(snowprofileJSON.get("SnowProfile").toString()));
+                    	rep = "{\"success\": \"true\", \"id\": \""+snowprofile+"\"}";
+                    } else {
+                        rep = new StringRepresentation("no file uploaded", MediaType.TEXT_PLAIN).toString();
+                    }
+                }
+            } else {
+            	rep = db.store("SnowProfile", new JSONObject(entity.getText()));
+    		}
+        }
+
+        return rep;
 	}
 
 	@Delete

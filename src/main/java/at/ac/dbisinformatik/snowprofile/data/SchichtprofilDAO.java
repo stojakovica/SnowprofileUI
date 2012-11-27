@@ -202,7 +202,6 @@ public class SchichtprofilDAO {
 			JSONObject temp = new JSONObject(oDocument.toJSON());
 			Map<String, Object> idMap = (Map<String, Object>) JSONHelpers.jsonToMap("SnowProfile", temp);
 			idMap.put("rid", (String) temp.get("@rid").toString().substring(1));
-			System.out.println(checkName(oDocument, searchObject.get("name").toString()));
 			if(checkName(oDocument, searchObject.get("name").toString()) && checkDate(oDocument, searchObject.get("profildatum").toString()) && checkTime(oDocument, searchObject.get("zeit").toString()) && checkOrt(oDocument, searchObject.get("profilort").toString()) && checkRegion(oDocument, searchObject.get("region").toString()) && checkKoordinaten(oDocument, searchObject.get("utmKoordinaten").toString())) {
 				returnList.put(idMap);
 			}

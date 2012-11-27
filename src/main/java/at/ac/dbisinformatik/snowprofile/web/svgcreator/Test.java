@@ -45,7 +45,11 @@ public class Test {
 	 * @throws TranscoderException 
 	 */
 	public static void main(String[] args) throws JSONException, IOException, URISyntaxException, TranscoderException {
-		
+//		DB tempDB = new DB(new Configuration());
+//		List<ODocument> results = tempDB.querySQL("select * from SnowProfile");
+//		for (ODocument oDocument : results) {
+//			oDocument.delete();
+//		}
 		try {
 			boolean pdfFlag = true;
 			String exportType = "png";
@@ -58,7 +62,7 @@ public class Test {
             JSONObject jsObject = null;
             DB tempDB = new DB(new Configuration());
             ODatabaseDocumentTx db = tempDB.getTransaction();
-            List<ODocument> resultDB = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #8:1"));
+            List<ODocument> resultDB = db.query(new OSQLSynchQuery<ODocument>("select * from SnowProfile where @rid = #8:0"));
     		for (ODocument oDocument : resultDB) {
     			jsObject = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
     		}

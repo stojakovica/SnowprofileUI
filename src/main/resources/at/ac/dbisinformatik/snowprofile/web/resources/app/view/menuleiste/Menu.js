@@ -35,11 +35,6 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 	    	id: 'exportXML'
 	    }
 	    ,"-",{
-	    	text: 'XML Import',
-	    	reorderable: false,
-	    	id: 'importXML'
-	    }
-	    ,"-",{
 	    	text: 'Logout',
 	    	itemId: 'logout',
 	    	reorderable: false,

@@ -41,7 +41,7 @@ public class PrintSnowProfileResource extends ServerResource {
 	}
 
 	@Get()
-	public String getJson() throws JSONException, IOException, URISyntaxException, TranscoderException {
+	public String getPDF() throws JSONException, IOException, URISyntaxException, TranscoderException {
 		String profileID = "";
 		try {
 			boolean pdfFlag = true;
@@ -83,4 +83,5 @@ public class PrintSnowProfileResource extends ServerResource {
 
 		return "{success: \"true\", profileId: \""+profileID+"\"}";
 	}
+	
 }

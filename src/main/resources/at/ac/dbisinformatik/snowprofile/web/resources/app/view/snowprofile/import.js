@@ -29,11 +29,11 @@ Ext.define('LWD.view.snowprofile.import', {
 	                       if(form.isValid()){
 	                           form.submit({
 	                               url: '/lwd/snowprofile',
-	                               data: '<test></test>',
 	                               waitMsg: 'Upload XML...',
 	                               success: function(fp, o) {
-	                            	   console.log(o);
-	//			                    Ext.Msg.alert('Success', 'Your photo "' + o.result.file + '" has been uploaded.');
+	                            	   var obj = Ext.decode(o.response.responseText);
+	                            	   var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+obj.id; 
+		           	                   window.location = redirect;
 	                               }
 	                           });
 	                       }

@@ -1,3 +1,4 @@
+
 package at.ac.dbisinformatik.snowprofile.web.svgcreator;
 
 import java.io.File;
@@ -38,61 +39,49 @@ import com.orientechnologies.orient.core.serialization.OBase64Utils.OutputStream
  */
 public class SVGCreator {
 	
-	public static void savePNG(String svgURI, String fileName) throws TranscoderException, IOException {
-		URL url = SVGCreator.class.getResource("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/png/");
-		File file = new File(url.toString().substring(6) + ""+fileName+".png");
-		FileOutputStream ostream = new FileOutputStream(file);
-		
+	public static ByteArrayOutputStream createPNG(String svgURI, String fileName) throws TranscoderException, IOException {
+		ByteArrayOutputStream ret = new ByteArrayOutputStream();
 		PNGTranscoder t = new PNGTranscoder();
 		TranscoderInput input = new TranscoderInput(new FileInputStream(svgURI));
-		TranscoderOutput output = new TranscoderOutput(ostream);
+		TranscoderOutput output = new TranscoderOutput(ret);
 		
 		t.transcode(input, output);
 		
-		ostream.flush();
-		ostream.close();
+		return ret;
 	}
 
-	public static void saveJPG(String svgURI, String fileName) throws TranscoderException, IOException {
-		URL url = SVGCreator.class.getResource("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/jpg/");
-		File file = new File(url.toString().substring(6) + ""+fileName+".jpg");
-		FileOutputStream ostream = new FileOutputStream(file);
-
+	public static ByteArrayOutputStream createJPG(String svgURI, String fileName) throws TranscoderException, IOException {
+		ByteArrayOutputStream ret = new ByteArrayOutputStream();
 		JPEGTranscoder t = new JPEGTranscoder();
 		t.addTranscodingHint(JPEGTranscoder.KEY_QUALITY, new Float(.8));
 		TranscoderInput input = new TranscoderInput(new FileInputStream(svgURI));
-		TranscoderOutput output = new TranscoderOutput(ostream);
+		TranscoderOutput output = new TranscoderOutput(ret);
 
 		t.transcode(input, output);
 
-		ostream.flush();
-		ostream.close();
+		return ret;
 	}
 
-	public static void createPDF(String svgURI, String fileName) throws IOException {
-		// TODO: create ByteArrayOutputStream PDF
-		ByteArrayOutputStream returnDocument = null;
-		URL url = SVGCreator.class.getResource("/at/ac/dbisinformatik/snowprofile/web/resources/data/svgcreator/tmp/pdf/");
-		File file = new File(url.toString().substring(6) + ""+fileName+".pdf");
-		FileOutputStream out = new FileOutputStream(file);
-		
+	public static ByteArrayOutputStream createPDF(String svgURI, String fileName) throws IOException {
+		ByteArrayOutputStream ret = new ByteArrayOutputStream();
 		PDFTranscoder t = new PDFTranscoder();
 		TranscoderInput input = new TranscoderInput(new FileInputStream(svgURI));
-		TranscoderOutput output = new TranscoderOutput(out);
+		TranscoderOutput output = new TranscoderOutput(ret);
 		
 		try {
 			t.transcode(input, output);
 		} catch (Exception ex) {
 			throw new IOException(ex.getMessage());
 		} finally {
-			out.flush();
-			out.close();
 		}
+		return ret;
 	}
 
-	public static void svgDocument(JsonArray jsonDocument, String exportType, String profileID)
+	public static ByteArrayOutputStream svgDocument(JsonArray jsonDocument, String exportType, String profileID)
 			throws TransformerException, URISyntaxException,
 			TranscoderException, IOException {
+		
+		ByteArrayOutputStream ret = null;
 		
 		DOMImplementation impl = SVGDOMImplementation.getDOMImplementation();
 		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
@@ -234,19 +223,20 @@ public class SVGCreator {
 		
 		switch (exportType) {
 		case "png":
-//			savePNG(file.toPath().toString(), fileName);
+			ret = createPNG(file.toPath().toString(), fileName);
 			break;
 			
 		case "jpg":
-//			saveJPG(file.toPath().toString(), fileName);
+			ret = createJPG(file.toPath().toString(), fileName);
 			break;
 			
 		case "pdf":
-			createPDF(file.toPath().toString(), fileName);
+			ret = createPDF(file.toPath().toString(), fileName);
 			break;
 
 		default:
 			break;
 		}
+		return ret;
 	}
 }

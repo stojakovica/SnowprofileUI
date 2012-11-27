@@ -1,5 +1,6 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +19,9 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.Scriptable;
+import org.restlet.data.MediaType;
+import org.restlet.representation.FileRepresentation;
+import org.restlet.representation.OutputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Delete;
@@ -47,26 +51,21 @@ public class SingleSnowProfileResource extends ServerResource {
 		this.db = db;
 	}
 	
-	@Get("pdf")
-	public void getPDF() throws JSONException, SAXException, IOException, TransformerException, URISyntaxException, TranscoderException {
-		String profileID = "";
+	@SuppressWarnings("resource")
+	public ByteArrayOutputStream generateSnowProfileDiagramm(String type) {
+		ByteArrayOutputStream ret = new ByteArrayOutputStream();
+		String jsonRawString = "";
 		try {
 			boolean pdfFlag = true;
 			Context cx = Context.enter();
 			Scriptable scope = cx.initStandardObjects();
-			Reader script = new InputStreamReader(Test.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
+			Reader script = new InputStreamReader(SingleSnowProfileResource.class.getResourceAsStream("/at/ac/dbisinformatik/snowprofile/web/resources/includeFunctions.js"));
 			cx.evaluateReader(scope, script, "<cmd>", 1, null);
 			Object func = scope.get("getJSON", scope);
 
-			JSONObject jsObject = null;
-			List<ODocument> resultDB = db.querySQL("select * from SnowProfile where @rid = #"+getRequestAttributes().get("id"));
-			for (ODocument oDocument : resultDB) {
-				jsObject = new JSONObject("{\"SnowProfile\": "+oDocument.toJSON().toString()+"}");
-			}
-			String jsonRawString = jsObject.get("SnowProfile").toString();
-			profileID = new JSONObject(jsonRawString).get("rid").toString();
-			profileID = profileID.replace("#", "_");
-			profileID = profileID.replace(":", "_");
+			JSONObject jsObject = SchichtprofilDAO.getSingleSnowProfile(db, getRequestAttributes().get("id").toString());
+			jsonRawString = jsObject.get("SnowProfile").toString();
+			
 			Object stringify = ((Scriptable) scope.get("JSON", scope)).get("stringify", scope);
 			Object jsonParse = ((Scriptable) scope.get("JSON", scope)).get("parse", scope);
 			Object jsonRawObject = ((Function) jsonParse).call(cx, scope, scope, new Object[] { jsonRawString });
@@ -75,7 +74,7 @@ public class SingleSnowProfileResource extends ServerResource {
 				Object result = ((Function) func).call(cx, scope, scope, funcArgs);
 				String jsonString = (String) ((Function) stringify).call(cx, scope, scope, new Object[] { result });
 				JsonArray jsonObject = (JsonArray) new JsonParser().parse(jsonString);
-				SVGCreator.svgDocument(jsonObject, "pdf", new JSONObject(jsonRawString).get("rid").toString());
+				ret = SVGCreator.svgDocument(jsonObject, type, new JSONObject(jsonRawString).get("rid").toString());
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -84,9 +83,39 @@ public class SingleSnowProfileResource extends ServerResource {
 		} catch (TransformerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TranscoderException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			Context.exit();
 		}
+		return ret;
+	}
+	
+	@Get("pdf")
+	public OutputRepresentation getPDF() throws JSONException, SAXException, IOException, TransformerException, URISyntaxException, TranscoderException {
+		return new OutputRepresentation(MediaType.APPLICATION_PDF) {
+			@Override
+			public void write(java.io.OutputStream outputStream) throws IOException {
+				generateSnowProfileDiagramm("pdf").writeTo(outputStream);
+			}
+		};
+	}
+	
+	@Get("png")
+	public OutputRepresentation getPNG() throws JSONException, SAXException, IOException, TransformerException, URISyntaxException, TranscoderException {
+		return new OutputRepresentation(MediaType.IMAGE_PNG) {
+			@Override
+			public void write(java.io.OutputStream outputStream) throws IOException {
+				generateSnowProfileDiagramm("png").writeTo(outputStream);
+			}
+		};
 	}
 	
 	@Get("xml")

@@ -13,7 +13,12 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
     		var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=create';
     		window.location = redirect;
         }
-    }, '-', {
+    }, "-" ,{
+    	text: 'XML Import',
+    	reorderable: false,
+    	id: 'importXML'
+    }
+    , '-', {
         itemId: 'edit',
         text: 'Bearbeiten',
         handler: function(){

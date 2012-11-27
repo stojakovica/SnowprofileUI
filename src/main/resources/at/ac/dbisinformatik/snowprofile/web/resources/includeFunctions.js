@@ -36,23 +36,23 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var yGraphMainArea = 10;
 	var heightMainArea = 90;
 	if(pdfFlag) {
-		var beobachter = checkObject(store.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name);
-		var niederschlag = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.precipTI);
-		var ort = checkObject(store.locRef.ObsPoint.name);
-		var region = checkObject(store.locRef.ObsPoint.description);
-		var hoeheUM = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content);
-		var exposition = checkObject(store.locRef.ObsPoint.validAspect.AspectPosition.position);
-		var koordinaten = checkObject(store.locRef.ObsPoint.pointLocation.gml_Point.gml_pos);
-		var datumZeit = checkObject(store.validTime.TimeInstant.timePosition.split("T"));
+		var beobachter = checkObjectDraw(store.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name);
+		var niederschlag = checkObjectDraw(store.snowProfileResultsOf.SnowProfileMeasurements.precipTI);
+		var ort = checkObjectDraw(store.locRef.ObsPoint.name);
+		var region = checkObjectDraw(store.locRef.ObsPoint.description);
+		var hoeheUM = checkObjectDraw(store.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content);
+		var exposition = checkObjectDraw(store.locRef.ObsPoint.validAspect.AspectPosition.position);
+		var koordinaten = checkObjectDraw(store.locRef.ObsPoint.pointLocation.gml_Point.gml_pos);
+		var datumZeit = checkObjectDraw(store.validTime.TimeInstant.timePosition.split("T"));
 		var date = new Date(datumZeit[0]);
 		var datum = date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear();
 		datum = datumZeit[0].substring(8)+"."+datumZeit[0].substring(5, 7)+"."+datumZeit[0].substring(0, 4);
 		var zeit = datumZeit[1].substring(0, 5);
-		var lufttemperatur = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content);
-		var bewoelkung = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.skyCond);
-		var windrichtung = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position);
-		var windgeschw = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content);
-		var sonstiges = checkObject(store.snowProfileResultsOf.SnowProfileMeasurements.comment);
+		var lufttemperatur = checkObjectDraw(store.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content);
+		var bewoelkung = checkObjectDraw(store.snowProfileResultsOf.SnowProfileMeasurements.skyCond);
+		var windrichtung = checkObjectDraw(store.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position);
+		var windgeschw = checkObjectDraw(store.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content);
+		var sonstiges = checkObjectDraw(store.snowProfileResultsOf.SnowProfileMeasurements.comment);
 		
 		switch(bewoelkung) {
 			case "CLR":
@@ -669,7 +669,7 @@ function drawImage(width, height, x, y, src, pdfFlag) {
 	}
 }
 
-function checkObject(object) {
+function checkObjectDraw(object) {
 	if(Object.prototype.toString.call( object ) === '[object Object]' )
 		return "";
 	else

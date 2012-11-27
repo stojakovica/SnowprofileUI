@@ -171,30 +171,30 @@
 
 	<dependencies>
 		<dependency>
-				<groupId>org.picocontainer</groupId>
-				<artifactId>picocontainer</artifactId>
+			<groupId>org.picocontainer</groupId>
+			<artifactId>picocontainer</artifactId>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.restlet.jse</groupId>
 			<artifactId>org.restlet</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.orientechnologies</groupId>
 			<artifactId>orient-commons</artifactId>
@@ -210,43 +210,53 @@
 			<artifactId>easymock</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<scope>test</scope>
 			<version>${testng-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>xalan</groupId>
 			<artifactId>xalan</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-cli</groupId>
 			<artifactId>commons-cli</artifactId>
 			<version>20040117.000000</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.restlet.jse</groupId>
+			<artifactId>org.restlet.ext.fileupload</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>fop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -256,43 +266,49 @@
 				<artifactId>picocontainer</artifactId>
 				<version>2.14.1</version>
 			</dependency>
-		
+
 			<dependency>
 				<groupId>org.easymock</groupId>
 				<artifactId>easymock</artifactId>
 				<version>${easymock-version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>${commons-lang-version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-collections</groupId>
 				<artifactId>commons-collections</artifactId>
 				<version>${commons-collection-version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>${commons-io-version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j-version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.restlet.jse</groupId>
 				<artifactId>org.restlet</artifactId>
 				<version>${restlet-version}</version>
 			</dependency>
-			
+
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet.ext.fileupload</artifactId>
+				<version>${restlet-version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>com.orientechnologies</groupId>
 				<artifactId>orient-commons</artifactId>
@@ -328,20 +344,26 @@
 				<artifactId>json</artifactId>
 				<version>${json-version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.google.code.gson</groupId>
 				<artifactId>gson</artifactId>
 				<version>${gson-version}</version>
 			</dependency>
-			
-			
+
+
 			<dependency>
 				<groupId>org.apache.xmlgraphics</groupId>
 				<artifactId>fop</artifactId>
 				<version>${xmlgraphics-version}</version>
 			</dependency>
-		
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servlet-version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -358,7 +380,7 @@
 		<rhino-version>1.7R3</rhino-version>
 		<json-version>20080701</json-version>
 		<gson-version>2.1</gson-version>
-		<batik-version>0.20-5</batik-version>
+		<servlet-version>2.5</servlet-version>
 		<xmlgraphics-version>0.93</xmlgraphics-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8

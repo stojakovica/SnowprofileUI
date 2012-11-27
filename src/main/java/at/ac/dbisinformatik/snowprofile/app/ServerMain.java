@@ -10,6 +10,7 @@ import at.ac.dbisinformatik.snowprofile.data.DB;
 import at.ac.dbisinformatik.snowprofile.data.UserDAO;
 import at.ac.dbisinformatik.snowprofile.web.CacheFilter;
 import at.ac.dbisinformatik.snowprofile.web.DBFilter;
+import at.ac.dbisinformatik.snowprofile.web.PrintSnowProfileResource;
 import at.ac.dbisinformatik.snowprofile.web.SnowProfileApplication;
 import at.ac.dbisinformatik.snowprofile.web.SnowProfileComponent;
 import at.ac.dbisinformatik.snowprofile.web.SnowProfileRouter;

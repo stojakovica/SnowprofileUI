@@ -33,6 +33,7 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
         itemId: 'delete',
         text: 'Löschen',
         handler: function(){
+        	showLoadingMask("Löschen...");
     		var grid = this.up("grid");
             var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {

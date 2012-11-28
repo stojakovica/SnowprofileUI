@@ -39,8 +39,18 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<profileDepth uom="cm"><xsl:value-of select="SnowProfil/snowProfileResultsOfe/SnowProfileMeasurements/profileDepth"/></profileDepth>
 			<skyCond><xsl:value-of select="SnowProfile/snowProfileResultsOf/SnowProfileMeasurements/skyCond"/></skyCond>
 			<precipTI><xsl:value-of select="SnowProfile/snowProfileResultsOf/SnowProfileMeasurements/precipTI"/></precipTI>
-			<airTempPres uom="degC"><xsl:value-of select="SnowProfile/snowProfileResultsOf/SnowProfileMeasurements/airTempPres"/></airTempPres>
-			<windSpd uom="ms-1"><xsl:value-of select="SnowProfile/snowProfileResultsOf/SnowProfileMeasurements/windSpd"/></windSpd>
+			<airTempPres uom="degC">
+				<xsl:variable name="airtemppres">
+					<xsl:value-of select="SnowProfile/snowProfileResultsOf/SnowProfileMeasurements/airTempPres"/>
+				</xsl:variable>
+				<xsl:value-of select="substring-before($airtemppres,'degC')" />
+			</airTempPres>
+			<windSpd uom="ms-1">
+				<xsl:variable name="windSpd">
+					<xsl:value-of select="SnowProfile/snowProfileResultsOf/SnowProfileMeasurements/windSpd"/>
+				</xsl:variable>
+				<xsl:value-of select="substring-before($windSpd,'ms-1')" />
+			</windSpd>
 			<windDir>
 				<AspectPosition>
 					<position><xsl:value-of select="SnowProfile/snowProfileResultsOf/SnowProfileMeasurements/windDir/AspectPosition/position"/></position>

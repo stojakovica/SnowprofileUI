@@ -233,6 +233,11 @@ Ext.define('LWD.controller.Snowprofile', {
         				schichtProfileStore.loadRawData(originalStratProfile.getAssociatedData());
         			}, this);
         			snowProfileMeassurements.getTempProfile(function(originalTempProfile) {
+        				for(var i=0; i<originalTempProfile.ObsStore.data.items.length; i++) {
+    						if(originalTempProfile.ObsStore.data.items[i].data.snowTemp < 0) {
+    							originalTempProfile.ObsStore.data.items[i].data.snowTemp = originalTempProfile.ObsStore.data.items[i].data.snowTemp * (-1);
+    						}
+    					}
         				var tempProfileStore = this.getSnowtemperatureStore();
         				tempProfileStore.getProxy().clear();
         				tempProfileStore.removeAll();
@@ -240,7 +245,6 @@ Ext.define('LWD.controller.Snowprofile', {
         			}, this);
         			snowProfileMeassurements.getStbTests(function(originalStbTests) {
         				var stabilitytestArray = new Array();
-        				
         				if(Ext.isObject(originalStbTests.ComprTestStore)) {
 	        				for(var i=0; i<originalStbTests.ComprTestStore.data.items.length; i++) {
 	        					var temp = {
@@ -321,6 +325,11 @@ Ext.define('LWD.controller.Snowprofile', {
         				schichtProfileStore.loadRawData(originalStratProfile.getAssociatedData());
         			}, this);
         			snowProfileMeassurements.getTempProfile(function(originalTempProfile) {
+    					for(var i=0; i<originalTempProfile.ObsStore.data.items.length; i++) {
+    						if(originalTempProfile.ObsStore.data.items[i].data.snowTemp < 0) {
+    							originalTempProfile.ObsStore.data.items[i].data.snowTemp = originalTempProfile.ObsStore.data.items[i].data.snowTemp * (-1);
+    						}
+    					}
         				var tempProfileStore = this.getSnowtemperatureStore();
         				tempProfileStore.getProxy().clear();
         				tempProfileStore.removeAll();

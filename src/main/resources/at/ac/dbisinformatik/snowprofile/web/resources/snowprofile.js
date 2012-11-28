@@ -12,6 +12,8 @@ Ext.application({
     ],
     
     launch: function() {
+    	Ext.History.init();
+    	
         Ext.create('Ext.Viewport', {
         	layout:'border',
         	defaults: {

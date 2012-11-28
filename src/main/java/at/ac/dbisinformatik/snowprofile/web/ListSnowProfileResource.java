@@ -1,21 +1,17 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 import org.restlet.data.MediaType;
-import org.restlet.data.Status;
 import org.restlet.ext.fileupload.RestletFileUpload;
-import org.restlet.representation.FileRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Delete;

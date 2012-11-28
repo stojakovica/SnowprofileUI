@@ -484,7 +484,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 					}
 				}
 				
-				items.push(drawPath(startx, starty, endx, endy, "1", "#F00", "fff"));
+				items.push(drawPath(startx, starty, endx, endy, "1", "#F00", "#ffffff"));
 			}
 		}
 

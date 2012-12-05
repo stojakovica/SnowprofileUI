@@ -9,9 +9,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * 
+ * @author Aleksandar Stojakovic
+ * 
+ * JSONHelpers contains methods for parsing JSON, converting in Map and flatten hierarchical data of a JSON-Document
+ *
+ */
 public class JSONHelpers {
 	private static ArrayList<String> globalKeys = new ArrayList<String>();
 	
+	/**
+	 * converts a JSONObject to Map to a given key
+	 * 
+	 * @param key - will be written in front of the flattened JSON-Data - default: null
+	 * @param obj - JSONObject
+	 * @return a Map with JSON-Data
+	 * @throws JSONException
+	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> jsonToMap(final String key, final Object obj) throws JSONException {
 		if (obj instanceof JSONObject) {
@@ -44,6 +59,14 @@ public class JSONHelpers {
 		}
 	}
 	
+	/**
+	 * flats a Subnode (key) of a given JSON-Document
+	 * 
+	 * @param key - will be written in front of the flattened JSON-Data - default: null
+	 * @param obj - the JSONObject
+	 * @return Map with given JSON-Data
+	 * @throws JSONException
+	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> flatSubNode(final String key, final Object obj) throws JSONException {
 		if (obj instanceof JSONObject) {
@@ -74,6 +97,15 @@ public class JSONHelpers {
 		}
 	}
 	
+	/**
+	 * main method for flattening a JSON-Document with a key which will be written before the flattened Subnode
+	 * 
+	 * @param compareKey - name of the Subnode
+	 * @param key - will be written in front of the flattened JSON-Data - default: null
+	 * @param obj - the given JSON-Document
+	 * @return
+	 * @throws JSONException
+	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> flatten(final String compareKey, final String key, final Object obj) throws JSONException {
 		if (obj instanceof JSONObject) {
@@ -114,11 +146,27 @@ public class JSONHelpers {
 		}
 	}
 	
+	/**
+	 * main method for flattening a JSON-Document
+	 * 
+	 * @param compareKey
+	 * @param obj
+	 * @return
+	 * @throws JSONException
+	 */
 	public static Map<String, Object> flatten(final String compareKey, final Object obj) throws JSONException {
 		return flatten(compareKey, null, obj);
 	}
 	
-	
+	/**
+	 * helper-method for unflattening the JSON-Document
+	 * 
+	 * @param originalKey
+	 * @param string
+	 * @param obj
+	 * @return
+	 * @throws JSONException
+	 */
 	public static Map<String, Object> splitAndUnflat(final String originalKey, final String string, final Object obj) throws JSONException {
 		if(string != null)
 			globalKeys.add(string);
@@ -135,6 +183,14 @@ public class JSONHelpers {
 		return values;
 	}
 	
+	/**
+	 * main method to unflatten a JSON-Document to a given key (name of the Subnode)
+	 * 
+	 * @param key
+	 * @param obj
+	 * @return
+	 * @throws JSONException
+	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> unflatten(final String key, final Object obj) throws JSONException {
 		if (obj instanceof JSONObject) {
@@ -175,6 +231,13 @@ public class JSONHelpers {
 		}
 	}
 
+	/**
+	 * main method for unflattening all snow profile relevant JSON-Documents which are flattened before.
+	 * 
+	 * @param obj
+	 * @return
+	 * @throws JSONException
+	 */
 	public static Map<String, Object> unflatten(final Object obj) throws JSONException {
 		return unflatten(null, obj);
 	}

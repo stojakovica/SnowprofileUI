@@ -1,11 +1,6 @@
 Ext.define('LWD.store.Snowprofile', {
 	extend: 'Ext.data.Store',
-	autoDestroy: true,
-	autoLoad: false,
+	autoLoad: true,
     autoSync: true,
-    model: 'LWD.model.Snowprofile',
-    listeners: {    	
-    	load: function(store, records, successful) {
-        }
-    }
+    model: 'LWD.model.Snowprofile'
 });

@@ -10,8 +10,8 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
     tbar: [{
         text: 'Neues Schneeprofil',
         handler: function(){
-    		var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=create';
-    		window.location = redirect;
+        	var newToken = "action=create";
+            Ext.History.add(newToken);
         }
     }, "-" ,{
     	text: 'XML Import',
@@ -25,8 +25,8 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
 	    	var grid = this.up("grid");
 	        var selection = grid.getView().getSelectionModel().getSelection()[0];
 	        if (selection) {
-	        	var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+selection.data.rid; 
-                window.location = redirect;
+	        	var newToken = "action=edit#id="+selection.data.rid;
+	            Ext.History.add(newToken);
 	        }
         }
     }, '-', {

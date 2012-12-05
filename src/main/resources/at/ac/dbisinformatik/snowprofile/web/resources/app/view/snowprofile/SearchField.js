@@ -1,8 +1,3 @@
-Ext.require([
-    'Ext.form.*',
-    'Ext.data.*'
-]);
-
 Ext.define('LWD.view.snowprofile.SearchField', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.searchfield',
@@ -14,6 +9,8 @@ Ext.define('LWD.view.snowprofile.SearchField', {
     },
     layout: 'hbox',
     anchor: '100%',
+    
+    border: false,
 	
 	initComponent: function() {
         var date = new Date();
@@ -44,7 +41,6 @@ Ext.define('LWD.view.snowprofile.SearchField', {
                     		zeit: ""+values.zeit,
                     		region: ""+values.region
                     	}
-                    	console.log(data);
                     	showLoadingMask("Suchen...");
                     	Ext.Ajax.request({
                 			method: 'POST',
@@ -131,16 +127,7 @@ Ext.define('LWD.view.snowprofile.SearchField', {
                 ]
           	}
         ];
-        var store = Ext.data.StoreManager.lookup('Snowprofile');
-        
-        store.on('load', this.refresh, this);
-		store.on('datachanged', this.refresh, this);
-        
-        this.callParent(arguments);
-    },
 
-	refresh: function(store) {
-    	var store = Ext.data.StoreManager.lookup(this.store);
-    	this.getForm().setValues(store.getAt(0).data);
+        this.callParent(arguments);
     }
 });

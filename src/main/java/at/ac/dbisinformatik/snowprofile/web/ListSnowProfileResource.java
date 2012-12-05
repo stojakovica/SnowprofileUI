@@ -31,11 +31,25 @@ public class ListSnowProfileResource extends ServerResource {
 		this.db = db;
 	}
 
+	/**
+	 * gives a list of all Snowprofiles which are saved in the Database
+	 * 
+	 * @return
+	 * @throws JSONException
+	 * @throws IOException
+	 */
 	@Get()
 	public String getJson() throws JSONException, IOException {
 		return "{SnowprofileList: " + SchichtprofilDAO.getAllSnowprofiles(db).toString() + "}";
 	}
 
+	/**
+	 * store new Snowprofile in Database
+	 * 
+	 * @param entity
+	 * @return
+	 * @throws Exception
+	 */
 	@Post
 	public String storeJson(Representation entity) throws Exception {
 		String rep = "";
@@ -78,10 +92,5 @@ public class ListSnowProfileResource extends ServerResource {
         }
 
         return rep;
-	}
-
-	@Delete
-	protected Representation delete() {
-		return new StringRepresentation("{\"success\": \"true\"}");
 	}
 }

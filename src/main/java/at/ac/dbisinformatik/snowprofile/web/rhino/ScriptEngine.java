@@ -30,6 +30,11 @@ import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.NativeObject;
 import org.mozilla.javascript.Scriptable;
 
+/**
+ * 
+ * Creates a SVG-Document of given JavaScript-Data from the Snow Profile Web Application
+ *
+ */
 public class ScriptEngine {
 
 	private static void nativeObjectToJSONString(NativeObject nativeObject,

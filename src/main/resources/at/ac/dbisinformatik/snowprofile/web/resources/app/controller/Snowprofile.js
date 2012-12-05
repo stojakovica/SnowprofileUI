@@ -81,107 +81,6 @@ Ext.define('LWD.controller.Snowprofile', {
     ],
 
     init: function() {
-        console.log('Snowprofile loaded!');
-
-        if(getLocationHash()[0] != null) {
-        	var nvPair = getLocationHash();
-        	var action = nvPair[0][1];
-        }
-        if(getLocationHash()[1] != null) {
-        	var nvPair = getLocationHash();
-        	var id = nvPair[1][1];
-        }
-        
-        id = id+".json";
-        
-        var store = Ext.data.StoreManager.lookup('Snowprofile');
-        switch(action) {
-        	case "create":
-        		var snowProfileTemplateJson = { "SnowProfile" : { "id" : "",
-			        	      "locRef" : { "ObsPoint" : { "id" : "",
-			                "description" : "",
-			                "name" : "",
-			                "obsPointSubType" : "",
-			                "validAspect" : { "AspectPosition" : { "position" : "" } },
-			                "validElevation" : { "ElevationPosition" : { "position" : "",
-			                        "uom" : ""
-			                      } },
-			                "validSlopeAngle" : { "SlopeAnglePosition" : { "position" : "",
-			                        "uom" : ""
-			                      } },
-		                    "pointLocation" : { "gml_Point" : { "gml_pos" : "",
-		                    	  "gml_id" : "",
-		                    	  "srsName" : "",
-		                    	  "srsDimension" : ""
-		                      } }
-			              } },
-			        "metaDataProperty" : { "MetaData" : { "dateTimeReport" : "",
-			                "srcRef" : { "Operation" : { "contactPerson" : { "Person" : { "id" : "",
-			                                "name" : ""
-			                              } },
-			                        "id" : "",
-			                        "name" : {  }
-			                      } }
-			              } },
-			        "snowProfileResultsOf" : { "SnowProfileMeasurements" : { "airTempPres" : { "content" : "",
-			                    "uom" : "degC"
-			                  },
-			                "comment" : "",
-			                "densityProfile" : { "uomDensity" : "kgm-3",
-			                    "uomDepthTop" : "cm",
-			                    "uomThickness" : "cm"
-			                  },
-			                "dir" : "bottom up",
-			                "hS" : { "Components" : { "snowHeight" : { "content" : "",
-			                            "uom" : "cm"
-			                          } } },
-			                "hardnessProfile" : { "uomDepthTop" : "cm",
-			                    "uomDropHeight" : "cm",
-			                    "uomHardness" : "N",
-			                    "uomThickness" : "cm",
-			                    "uomWeightHammer" : "kg",
-			                    "uomWeightTube" : "kg"
-			                  },
-			                "precipTI" : "",
-			                "profileDepth" : { "content" : "",
-			                    "uom" : "cm"
-			                  },
-			                "skyCond" : "",
-			                "stbTests" : { "ComprTest" : [],
-			                	"ExtColumnTest" : [] ,
-			                    "RBlockTest" : []
-			                  },
-			                "stratProfile" : { "Layer" : [] },
-			                "tempProfile" : { "Obs" : [],
-			                    "uomDepth" : "cm",
-			                    "uomTemp" : "degC"
-			                  },
-			                "windDir" : { "AspectPosition" : { "position" : "" } },
-			                "windSpd" : { "content" : "",
-			                    "uom" : "ms-1"
-			                  }
-			              } },
-			        "validTime" : { "TimeInstant" : { "timePosition" : "" } },
-			        "online" : "",
-			        "xmlns_app" : "http://www.snowprofileapplication.com",
-			        "xmlns_caaml" : "http://www.caaml.org/v5.0/Snowprofile/IACS",
-			        "xmlns_gml" : "http://www.opengis.net/gml",
-			        "xmlns_xsi" : "http://www.w3.org/2001/XMLSchema-instance",
-			        "xsi_schemaLocation" : "http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS  http://caaml.avisualanche.ca/Schemas/V5.0/Profiles/SnowprofileIACS/CAAMLv5_SnowProfileIACS.xsd"
-			      } }
-        		store.loadRawData(snowProfileTemplateJson);
-        		break;
-        	case "edit":
-        		var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
-        		storeModel.load(id, {
-        			success: function(snowprofile) {
-	        			store.removeAll();
-	        			store.add(snowprofile);
-	        		}
-        		});
-        		break;
-        }
-        
         this.control({
 	    	'toolbar #saveData': {
 				click: this.saveData
@@ -200,187 +99,9 @@ Ext.define('LWD.controller.Snowprofile', {
 			}
 		});
         
-        this.getSnowprofileStore().on('load', function(store, records, success, operations) {
-        	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
-        		var metaDataStore = this.getMetadataStore();
-        		var datumZeit = store.getAt(0).raw.validTime.TimeInstant.timePosition.split("T");
-        		var metadata = {
-        				"name": checkObject(store.getAt(0).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name),
-        				"profildatum": datumZeit[0],
-        				"zeit": datumZeit[1].substring(0, 5),
-        				"region": checkObject(store.getAt(0).raw.locRef.ObsPoint.description),
-        				"hoehe": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.profileDepth.content),
-        				"profilort": checkObject(store.getAt(0).raw.locRef.ObsPoint.name),
-        				"utmKoordinaten": checkObject(store.getAt(0).raw.locRef.ObsPoint.pointLocation.gml_Point.gml_pos),
-        				"hangneigung": checkObject(store.getAt(0).raw.locRef.ObsPoint.validSlopeAngle.SlopeAnglePosition.position),
-        				"exposition": checkObject(store.getAt(0).raw.locRef.ObsPoint.validAspect.AspectPosition.position),
-        				"windgeschwindigkeit": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windSpd.content),
-        				"windrichtung": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.windDir.AspectPosition.position),
-        				"lufttemperatur": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.airTempPres.content),
-        				"niederschlag": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.precipTI),
-        				"intensitaetDesNS": "", // TODO: regeln, kann mit Information von Matthias nichts anfangen
-        				"bewoelkung": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.skyCond),
-        				"sonstiges": checkObject(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.comment),
-        				"onlineCheck": checkObject(store.getAt(0).raw.online),
-        				"direction": checkDir(store.getAt(0).raw.snowProfileResultsOf.SnowProfileMeasurements.dir),
-        		};
-        		metaDataStore.loadRawData(metadata);
-        		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
-        			snowProfileMeassurements.getStratProfile(function(originalStratProfile) {
-        				var schichtProfileStore = this.getSchichtprofilStore();
-        				schichtProfileStore.getProxy().clear();
-        				schichtProfileStore.removeAll();
-        				schichtProfileStore.loadRawData(originalStratProfile.getAssociatedData());
-        			}, this);
-        			snowProfileMeassurements.getTempProfile(function(originalTempProfile) {
-        				for(var i=0; i<originalTempProfile.ObsStore.data.items.length; i++) {
-    						if(originalTempProfile.ObsStore.data.items[i].data.snowTemp < 0) {
-    							originalTempProfile.ObsStore.data.items[i].data.snowTemp = originalTempProfile.ObsStore.data.items[i].data.snowTemp * (-1);
-    						}
-    					}
-        				var tempProfileStore = this.getSnowtemperatureStore();
-        				tempProfileStore.getProxy().clear();
-        				tempProfileStore.removeAll();
-        				tempProfileStore.loadRawData(originalTempProfile.getAssociatedData());
-        			}, this);
-        			snowProfileMeassurements.getStbTests(function(originalStbTests) {
-        				var stabilitytestArray = new Array();
-        				if(Ext.isObject(originalStbTests.ComprTestStore)) {
-	        				for(var i=0; i<originalStbTests.ComprTestStore.data.items.length; i++) {
-	        					var temp = {
-	        						"depth": originalStbTests.ComprTestStore.getAt(i).data.Layer_depthTop_content,
-	        						"test": "CT",
-	        						"belastungsstufe": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_testScore,
-	        						"bruchart": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_releaseType,
-	        						"bruchflaeche": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_fractureCharacter
-	        					};
-	        					stabilitytestArray.push(temp);
-	        				}
-        				}
-        				if(Ext.isObject(originalStbTests.ComprTestStore)) {
-	        				for(var i=0; i<originalStbTests.ExtColumnTestStore.data.items.length; i++) {
-	        					var temp = {
-	    							"depth": originalStbTests.ExtColumnTestStore.getAt(i).data.Layer_depthTop_content,
-	    							"test": "ECT",
-	    							"belastungsstufe": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_testScore,
-	    							"bruchart": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_releaseType,
-	    							"bruchflaeche": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_fractureCharacter
-	        					};
-	        					stabilitytestArray.push(temp);
-	        				}
-        				}
-        				if(Ext.isObject(originalStbTests.ComprTestStore)) {
-	        				for(var i=0; i<originalStbTests.RBlockTestStore.data.items.length; i++) {
-	        					var temp = {
-	    							"depth": originalStbTests.RBlockTestStore.getAt(i).data.Layer_depthTop_content,
-	    							"test": "RB",
-	    							"belastungsstufe": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_testScore,
-	    							"bruchart": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_releaseType,
-	    							"bruchflaeche": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_fractureCharacter
-	        					};
-	        					stabilitytestArray.push(temp);
-	        				}
-        				}
-        				
-        				var stabilitytestStore = this.getStabilitytestStore();
-        				stabilitytestStore.getProxy().clear();
-        				stabilitytestStore.removeAll();
-        				stabilitytestStore.loadRawData(stabilitytestArray);
-        			}, this);
-        		}, this);
-        	}, this);
-        }, this);
+        this.getSnowprofileStore().on('load', this.initiateStore, this);
         
-        this.getSnowprofileStore().on('datachanged', function(store, records, success, operations) {
-        	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
-        		var metaDataStore = this.getMetadataStore();
-        		var datumZeit = store.getAt(0).getValidTime().getTimeInstant().data.timePosition.split("T");
-        		var metadata = {
-        				"name": checkObject(store.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name),
-        				"profildatum": datumZeit[0],
-        				"zeit": datumZeit[1].substring(0, 5),
-        				"region": checkObject(store.getAt(0).getLocRefData().getObsPoint().data.description),
-        				"hoehe": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getProfileDepth().data.content),
-        				"profilort": checkObject(store.getAt(0).getLocRefData().getObsPoint().data.name),
-        				"utmKoordinaten": checkObject(store.getAt(0).getLocRefData().getObsPoint().getPointLocation().getPoint().data.gml_pos),
-        				"hangneigung": checkObject(store.getAt(0).getLocRefData().getObsPoint().getValidSlopeAngle().getSlopeAnglePosition().data.position),
-        				"exposition": checkObject(store.getAt(0).getLocRefData().getObsPoint().getValidAspect().getAspectPosition().data.position),
-        				"windgeschwindigkeit": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindSpd().data.content),
-        				"windrichtung": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindDir().getAspectPosition().data.position),
-        				"lufttemperatur": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getAirTempPres().data.content),
-        				"niederschlag": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.precipTI),
-        				"intensitaetDesNS": "", // TODO: regeln, kann mit Information von Matthias nichts anfangen
-        				"bewoelkung": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond),
-        				"sonstiges": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment),
-        				"onlineCheck": checkObject(store.getAt(0).data.online),
-        				"direction": checkDir(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir),
-        		};
-        		
-        		metaDataStore.loadRawData(metadata);
-        		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
-        			snowProfileMeassurements.getStratProfile(function(originalStratProfile) {
-        				var schichtProfileStore = this.getSchichtprofilStore();
-        				schichtProfileStore.getProxy().clear();
-        				schichtProfileStore.removeAll();
-        				schichtProfileStore.loadRawData(originalStratProfile.getAssociatedData());
-        			}, this);
-        			snowProfileMeassurements.getTempProfile(function(originalTempProfile) {
-    					for(var i=0; i<originalTempProfile.ObsStore.data.items.length; i++) {
-    						if(originalTempProfile.ObsStore.data.items[i].data.snowTemp < 0) {
-    							originalTempProfile.ObsStore.data.items[i].data.snowTemp = originalTempProfile.ObsStore.data.items[i].data.snowTemp * (-1);
-    						}
-    					}
-        				var tempProfileStore = this.getSnowtemperatureStore();
-        				tempProfileStore.getProxy().clear();
-        				tempProfileStore.removeAll();
-        				tempProfileStore.loadRawData(originalTempProfile.getAssociatedData());
-        			}, this);
-        			snowProfileMeassurements.getStbTests(function(originalStbTests) {
-        				var stabilitytestArray = new Array();
-        				if(Ext.isObject(originalStbTests.ComprTestStore)) {
-	        				for(var i=0; i<originalStbTests.ComprTestStore.data.items.length; i++) {
-	        					var temp = {
-	        						"depth": originalStbTests.ComprTestStore.getAt(i).data.Layer_depthTop_content,
-	        						"test": "CT",
-	        						"belastungsstufe": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_testScore,
-	        						"bruchart": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_releaseType,
-	        						"bruchflaeche": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_fractureCharacter
-	        					};
-	        					stabilitytestArray.push(temp);
-	        				}
-        				}
-        				if(Ext.isObject(originalStbTests.ExtColumnTestStore)) {
-	        				for(var i=0; i<originalStbTests.ExtColumnTestStore.data.items.length; i++) {
-	        					var temp = {
-	    							"depth": originalStbTests.ExtColumnTestStore.getAt(i).data.Layer_depthTop_content,
-	    							"test": "ECT",
-	    							"belastungsstufe": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_testScore,
-	    							"bruchart": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_releaseType,
-	    							"bruchflaeche": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_fractureCharacter
-	        					};
-	        					stabilitytestArray.push(temp);
-	        				}
-        				}
-        				if(Ext.isObject(originalStbTests.RBlockTestStore)) {
-	        				for(var i=0; i<originalStbTests.RBlockTestStore.data.items.length; i++) {
-	        					var temp = {
-	    							"depth": originalStbTests.RBlockTestStore.getAt(i).data.Layer_depthTop_content,
-	    							"test": "RB",
-	    							"belastungsstufe": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_testScore,
-	    							"bruchart": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_releaseType,
-	    							"bruchflaeche": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_fractureCharacter
-	        					};
-	        					stabilitytestArray.push(temp);
-	        				}
-        				}
-        				var stabilitytestStore = this.getStabilitytestStore();
-        				stabilitytestStore.getProxy().clear();
-        				stabilitytestStore.removeAll();
-        				stabilitytestStore.loadRawData(stabilitytestArray);
-        			}, this);
-        		}, this);
-        	}, this);
-        }, this);
+        this.getSnowprofileStore().on('datachanged', this.initiateStore, this);
         
         this.getSchichtprofilStore().on('dataupdate', function(schichtprofileStore, eOpts) {
         	var snowProfileStore = this.getSnowprofileStore();
@@ -494,6 +215,8 @@ Ext.define('LWD.controller.Snowprofile', {
         	}, this);
         	this.saveData();
         }, this);
+        
+        console.log('Snowprofile loaded!');
     },
     
     saveData: function(item) {
@@ -505,10 +228,9 @@ Ext.define('LWD.controller.Snowprofile', {
     		case "create":
     			Ext.Ajax.request({
     				url: '/lwd/snowprofile',
-    				success: function(returnObject) { 
-	    				var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+returnObject.responseText; 
-	                    window.location = redirect;
-	                    window.location.reload(true);
+    				success: function(returnObject) {
+    					var newToken = "action=edit#id="+returnObject.responseText;
+    		            Ext.History.add(newToken);
     				},
     				failure: function() { 
     					alert("Speichern konnte nicht durchgeführt werden!");
@@ -519,7 +241,7 @@ Ext.define('LWD.controller.Snowprofile', {
     		case "edit":
     			Ext.Ajax.request({
     				method: 'PUT',
-    				url: '/lwd/snowprofile/'+getLocationHash()[1][1],
+    				url: '/lwd/snowprofile/'+store.getAt(0).data.rid.substring(1),
     				success: function(returnObject) {
     				},
     				failure: function() { 
@@ -545,5 +267,110 @@ Ext.define('LWD.controller.Snowprofile', {
     
     importXML: function() {
     	var view = Ext.widget('import');
+    },
+    
+    initiateStore: function(store, records, success, operations) {
+    	if(Ext.isObject(store.getAt(0))) {
+        	store.getAt(0).getSnowProfileData(function(snowProfileResultOf) {
+        		var metaDataStore = this.getMetadataStore();
+        		var datumZeit = store.getAt(0).getValidTime().getTimeInstant().data.timePosition.split("T");
+        		var datum = "";
+        		if(datumZeit[1] != null)
+        			datum = datumZeit[1].substring(0, 5);
+        		var metadata = {
+        				"name": checkObject(store.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name),
+        				"profildatum": datumZeit[0],
+        				"zeit": datum,
+        				"region": checkObject(store.getAt(0).getLocRefData().getObsPoint().data.description),
+        				"hoehe": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getProfileDepth().data.content),
+        				"profilort": checkObject(store.getAt(0).getLocRefData().getObsPoint().data.name),
+        				"utmKoordinaten": checkObject(store.getAt(0).getLocRefData().getObsPoint().getPointLocation().getPoint().data.gml_pos),
+        				"hangneigung": checkObject(store.getAt(0).getLocRefData().getObsPoint().getValidSlopeAngle().getSlopeAnglePosition().data.position),
+        				"exposition": checkObject(store.getAt(0).getLocRefData().getObsPoint().getValidAspect().getAspectPosition().data.position),
+        				"windgeschwindigkeit": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindSpd().data.content),
+        				"windrichtung": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindDir().getAspectPosition().data.position),
+        				"lufttemperatur": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getAirTempPres().data.content),
+        				"niederschlag": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.precipTI),
+        				"intensitaetDesNS": "", // TODO: regeln, kann mit Information von Matthias nichts anfangen
+        				"bewoelkung": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond),
+        				"sonstiges": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment),
+        				"onlineCheck": checkObject(store.getAt(0).data.online),
+        				"direction": checkDir(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir),
+        		};
+        		
+        		metaDataStore.loadRawData(metadata);
+        		Ext.getCmp("metadata").getForm().setValues(metaDataStore.getAt(0).data);
+        		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
+        			snowProfileMeassurements.getStratProfile(function(originalStratProfile) {
+        				var schichtProfileStore = this.getSchichtprofilStore();
+        				schichtProfileStore.getProxy().clear();
+        				schichtProfileStore.removeAll();
+        				schichtProfileStore.loadRawData(originalStratProfile.getAssociatedData());
+        			}, this);
+        			snowProfileMeassurements.getTempProfile(function(originalTempProfile) {
+    					for(var i=0; i<originalTempProfile.ObsStore.data.items.length; i++) {
+    						if(originalTempProfile.ObsStore.data.items[i].data.snowTemp < 0) {
+    							originalTempProfile.ObsStore.data.items[i].data.snowTemp = originalTempProfile.ObsStore.data.items[i].data.snowTemp * (-1);
+    						}
+    					}
+        				var tempProfileStore = this.getSnowtemperatureStore();
+        				tempProfileStore.getProxy().clear();
+        				tempProfileStore.removeAll();
+        				tempProfileStore.loadRawData(originalTempProfile.getAssociatedData());
+        			}, this);
+        			snowProfileMeassurements.getStbTests(function(originalStbTests) {
+        				var stabilitytestArray = new Array();
+        				if(Ext.isObject(originalStbTests.ComprTestStore)) {
+	        				for(var i=0; i<originalStbTests.ComprTestStore.data.items.length; i++) {
+	        					var temp = {
+	        						"depth": originalStbTests.ComprTestStore.getAt(i).data.Layer_depthTop_content,
+	        						"test": "CT",
+	        						"belastungsstufe": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_testScore,
+	        						"bruchart": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_releaseType,
+	        						"bruchflaeche": originalStbTests.ComprTestStore.getAt(i).data.failedOn_Results_fractureCharacter
+	        					};
+	        					stabilitytestArray.push(temp);
+	        				}
+        				}
+        				if(Ext.isObject(originalStbTests.ExtColumnTestStore)) {
+	        				for(var i=0; i<originalStbTests.ExtColumnTestStore.data.items.length; i++) {
+	        					var temp = {
+	    							"depth": originalStbTests.ExtColumnTestStore.getAt(i).data.Layer_depthTop_content,
+	    							"test": "ECT",
+	    							"belastungsstufe": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_testScore,
+	    							"bruchart": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_releaseType,
+	    							"bruchflaeche": originalStbTests.ExtColumnTestStore.getAt(i).data.failedOn_Results_fractureCharacter
+	        					};
+	        					stabilitytestArray.push(temp);
+	        				}
+        				}
+        				if(Ext.isObject(originalStbTests.RBlockTestStore)) {
+	        				for(var i=0; i<originalStbTests.RBlockTestStore.data.items.length; i++) {
+	        					var temp = {
+	    							"depth": originalStbTests.RBlockTestStore.getAt(i).data.Layer_depthTop_content,
+	    							"test": "RB",
+	    							"belastungsstufe": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_testScore,
+	    							"bruchart": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_releaseType,
+	    							"bruchflaeche": originalStbTests.RBlockTestStore.getAt(i).data.failedOn_Results_fractureCharacter
+	        					};
+	        					stabilitytestArray.push(temp);
+	        				}
+        				}
+        				var stabilitytestStore = this.getStabilitytestStore();
+        				stabilitytestStore.getProxy().clear();
+        				stabilitytestStore.removeAll();
+        				stabilitytestStore.loadRawData(stabilitytestArray);
+        			}, this);
+        		}, this);
+        	}, this);
+        	var graph = Ext.getCmp("graph");
+	    	graph.surface.removeAll();
+			var data = {};
+			var snowprofileData = store.getAt(0);
+			Ext.apply(data, snowprofileData.getAssociatedData());
+			graph.surface.add(getJSON(data, false, graph));
+			var snowprofile = graph.surface.getGroup('snowprofile');
+			snowprofile.show(true);
+    	}
     }
 });

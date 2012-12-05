@@ -40,6 +40,14 @@ import com.orientechnologies.orient.core.serialization.OBase64Utils.OutputStream
  */
 public class SVGCreator {
 	
+	/**
+	 * returns a ByteArrayOutputStream which contains the converted SVG-Graph to PNG
+	 * 
+	 * @param inputStream
+	 * @return
+	 * @throws TranscoderException
+	 * @throws IOException
+	 */
 	public static ByteArrayOutputStream createPNG(InputStream inputStream) throws TranscoderException, IOException {
 		ByteArrayOutputStream ret = new ByteArrayOutputStream();
 		PNGTranscoder t = new PNGTranscoder();
@@ -51,6 +59,14 @@ public class SVGCreator {
 		return ret;
 	}
 
+	/**
+	 * returns a ByteArrayOutputStream which contains the converted SVG-Graph to JPG
+	 * 
+	 * @param inputStream
+	 * @return
+	 * @throws TranscoderException
+	 * @throws IOException
+	 */
 	public static ByteArrayOutputStream createJPG(InputStream inputStream) throws TranscoderException, IOException {
 		ByteArrayOutputStream ret = new ByteArrayOutputStream();
 		JPEGTranscoder t = new JPEGTranscoder();
@@ -63,6 +79,13 @@ public class SVGCreator {
 		return ret;
 	}
 
+	/**
+	 * returns a ByteArrayOutputStream which contains the converted SVG-Graph to PDF
+	 * 
+	 * @param inputStream
+	 * @return
+	 * @throws IOException
+	 */
 	public static ByteArrayOutputStream createPDF(InputStream inputStream) throws IOException {
 		ByteArrayOutputStream ret = new ByteArrayOutputStream();
 		PDFTranscoder t = new PDFTranscoder();
@@ -78,6 +101,18 @@ public class SVGCreator {
 		return ret;
 	}
 
+	/**
+	 * creates a SVG-Graph for given jsonDocument which includes ExtJS-SVG-Objects. The created SVG-Document will be converted in the given export type. 
+	 * 
+	 * @param jsonDocument
+	 * @param exportType
+	 * @param profileID
+	 * @return
+	 * @throws TransformerException
+	 * @throws URISyntaxException
+	 * @throws TranscoderException
+	 * @throws IOException
+	 */
 	public static ByteArrayOutputStream svgDocument(JsonArray jsonDocument, String exportType, String profileID)
 			throws TransformerException, URISyntaxException,
 			TranscoderException, IOException {

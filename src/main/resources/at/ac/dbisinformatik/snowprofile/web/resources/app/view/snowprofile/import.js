@@ -31,9 +31,9 @@ Ext.define('LWD.view.snowprofile.import', {
 	                               url: '/lwd/snowprofile',
 	                               waitMsg: 'Upload XML...',
 	                               success: function(fp, o) {
-	                            	   var obj = Ext.decode(o.response.responseText);
-	                            	   var redirect = '/lwd/static/1.0.0.0/snowprofileDetail.html#action=edit#id='+obj.id; 
-		           	                   window.location = redirect;
+	                            	   	var obj = Ext.decode(o.response.responseText);
+			           	                var newToken = "action=edit#id="+obj.id;
+			           		            Ext.History.add(newToken);
 	                               }
 	                           });
 	                       }

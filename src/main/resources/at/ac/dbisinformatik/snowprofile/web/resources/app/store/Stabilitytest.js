@@ -1,7 +1,6 @@
 Ext.define('LWD.store.Stabilitytest', {
 	extend: 'Ext.data.Store',
-	autoDestroy: true,
-	autoLoad: false,
+	autoLoad: true,
     autoSync: true,
     model: 'LWD.model.StabilityProfile',
     proxy: {

@@ -1,11 +1,3 @@
-Ext.require([
-    'Ext.panel.*',
-    'Ext.toolbar.*',
-    'Ext.button.*',
-    'Ext.container.ButtonGroup',
-    'Ext.layout.container.Table'
-]);
-
 Ext.define('LWD.view.menuleiste.Menu' ,{
 	extend: 'Ext.Panel',
 	alias : 'widget.menuleiste',
@@ -15,8 +7,8 @@ Ext.define('LWD.view.menuleiste.Menu' ,{
 	    	text: 'Übersicht',
 	    	reorderable: false,
 	    	handler: function() {
-		    	// TODO: destroy Session
-		    	window.location.href="/lwd/static/1.0.0.0/snowprofile.html";
+	    		var newToken = "";
+	            Ext.History.add(newToken);
 		    }
 	    }
 	    ,"-",{

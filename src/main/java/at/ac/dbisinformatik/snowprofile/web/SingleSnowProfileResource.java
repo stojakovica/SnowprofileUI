@@ -51,6 +51,12 @@ public class SingleSnowProfileResource extends ServerResource {
 		this.db = db;
 	}
 	
+	/**
+	 * generates a Snow Profile by type (pdf, png, jpg,...)
+	 * 
+	 * @param type
+	 * @return
+	 */
 	@SuppressWarnings("resource")
 	public ByteArrayOutputStream generateSnowProfileDiagramm(String type) {
 		ByteArrayOutputStream ret = new ByteArrayOutputStream();
@@ -98,6 +104,17 @@ public class SingleSnowProfileResource extends ServerResource {
 		return ret;
 	}
 	
+	/**
+	 * returns the PDF-Resource of Snow Profile Graph
+	 * 
+	 * @return
+	 * @throws JSONException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws TransformerException
+	 * @throws URISyntaxException
+	 * @throws TranscoderException
+	 */
 	@Get("pdf")
 	public OutputRepresentation getPDF() throws JSONException, SAXException, IOException, TransformerException, URISyntaxException, TranscoderException {
 		return new OutputRepresentation(MediaType.APPLICATION_PDF) {
@@ -108,6 +125,17 @@ public class SingleSnowProfileResource extends ServerResource {
 		};
 	}
 	
+	/**
+	 * returns the PNG-Resource of Snow Profile Graph
+	 * 
+	 * @return
+	 * @throws JSONException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws TransformerException
+	 * @throws URISyntaxException
+	 * @throws TranscoderException
+	 */
 	@Get("png")
 	public OutputRepresentation getPNG() throws JSONException, SAXException, IOException, TransformerException, URISyntaxException, TranscoderException {
 		return new OutputRepresentation(MediaType.IMAGE_PNG) {
@@ -118,6 +146,15 @@ public class SingleSnowProfileResource extends ServerResource {
 		};
 	}
 	
+	/**
+	 * returns the XML-Resource of Snow Profile in CAAML-Standard
+	 * 
+	 * @return
+	 * @throws JSONException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws TransformerException
+	 */
 	@Get("xml")
 	public String getXML() throws JSONException, SAXException, IOException, TransformerException {
 		String fileName = getRequestAttributes().get("id").toString();
@@ -127,17 +164,35 @@ public class SingleSnowProfileResource extends ServerResource {
 		return con.convert(XML.toString(SchichtprofilDAO.getSingleSnowProfile(db, getRequestAttributes().get("id").toString())), "internConverter.xsl");
 	}
 	
+	/**
+	 * returns the JSON-Resource of Snow Profile
+	 * 
+	 * @return
+	 * @throws JSONException
+	 * @throws IOException
+	 */
 	@Get("json")
 	public String getJson() throws JSONException, IOException {
 		return SchichtprofilDAO.getSingleSnowProfile(db, getRequestAttributes().get("id").toString()).toString();
 	}
 	
+	/**
+	 * deletes a single Snow Profile from Database
+	 */
 	@Delete
 	protected Representation delete() {
 		db.delete("SnowProfile", getRequestAttributes().get("id").toString());
 		return new StringRepresentation("{\"success\": \"true\"}");
 	}
 	
+	/**
+	 * updates a Snow Profile
+	 * 
+	 * @param value
+	 * @return
+	 * @throws IOException
+	 * @throws JSONException
+	 */
 	@Put
 	public String updateJson(Representation value) throws IOException, JSONException {
 		db.update(getRequestAttributes().get("id").toString(), new JSONObject(value.getText()));	

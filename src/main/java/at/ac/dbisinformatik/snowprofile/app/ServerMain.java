@@ -10,7 +10,6 @@ import at.ac.dbisinformatik.snowprofile.data.DB;
 import at.ac.dbisinformatik.snowprofile.data.UserDAO;
 import at.ac.dbisinformatik.snowprofile.web.CacheFilter;
 import at.ac.dbisinformatik.snowprofile.web.DBFilter;
-import at.ac.dbisinformatik.snowprofile.web.PrintSnowProfileResource;
 import at.ac.dbisinformatik.snowprofile.web.SnowProfileApplication;
 import at.ac.dbisinformatik.snowprofile.web.SnowProfileComponent;
 import at.ac.dbisinformatik.snowprofile.web.SnowProfileRouter;
@@ -19,6 +18,8 @@ public class ServerMain {
 
 	/**
 	 * @param args
+	 * ServerMain starts the Web Application.
+	 * Picocontainer loads all Classes in one container and regulates all connections between these classes.
 	 */
 	public static void main(String[] args) throws Exception {	
 		MutablePicoContainer pico = new DefaultPicoContainer();  

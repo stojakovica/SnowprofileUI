@@ -1,13 +1,8 @@
-Ext.require([
-    'Ext.form.*',
-    'Ext.data.*'
-]);
-
 Ext.define('LWD.view.snowprofile.Metadata', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.metadata',
 	
-	store: 'Metadata',
+	id: 'metadata',
 	
     bodyPadding: '5 5 0',
     fieldDefaults: {
@@ -36,7 +31,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
             		showLoadingMask("Speichern...");
             		var panel = this.up('form');
                     var form = panel.getForm();
-                    var store = Ext.data.StoreManager.lookup(panel.store);
+                    var store = Ext.data.StoreManager.lookup("Metadata");
                     if (form.isValid()) {
                     	store.loadRawData(form.getValues());
                     	store.fireEvent("dataupdate", store);
@@ -242,16 +237,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
                 ]
           	}
         ];
-        var store = Ext.data.StoreManager.lookup('Snowprofile');
-        
-        store.on('load', this.refresh, this);
-		store.on('datachanged', this.refresh, this);
         
         this.callParent(arguments);
-    },
-
-	refresh: function(store) {
-    	var store = Ext.data.StoreManager.lookup(this.store);
-    	this.getForm().setValues(store.getAt(0).data);
     }
 });

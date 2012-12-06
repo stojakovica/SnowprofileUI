@@ -142,32 +142,34 @@ Ext.define('LWD.controller.Snowprofile', {
         	this.saveData();
         }, this);
         this.getMetadataStore().on('dataupdate', function() {
-        	var snowProfileStore = this.getSnowprofileStore();
-        	var metaDataStore = this.getMetadataStore();
-        	var metaData = metaDataStore.getAt(0).data;
-        	var datum = metaData.profildatum.split(".");
-			var zeit = metaData.zeit.split(":");
-			if(metaData.direction == "on")
-				snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "top down";
-			else
-				snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "bottom up";
-        	snowProfileStore.getAt(0).data.online = metaData.onlineCheck;
-        	snowProfileStore.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name = metaData.name;
-        	snowProfileStore.getAt(0).getValidTime().getTimeInstant().data.timePosition = datum[2]+"-"+datum[1]+"-"+datum[0]+"T"+zeit[0]+":"+zeit[1]+":00";
-        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().data.description = metaData.region;
-        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().data.name = metaData.profilort;
-        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getProfileDepth().data.content = metaData.hoehe;
-        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().getPointLocation().getPoint().data.gml_pos = metaData.utmKoordinaten;
-        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidSlopeAngle().getSlopeAnglePosition().data.position = metaData.hangneigung;
-        	snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidAspect().getAspectPosition().data.position = metaData.exposition;
-        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindSpd().data.content = metaData.windgeschwindigkeit;
-        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindDir().getAspectPosition().data.position = metaData.windrichtung;
-        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getAirTempPres().data.content = metaData.lufttemperatur;
-        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.precipTI = metaData.niederschlag;
-        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond = metaData.bewoelkung;
-        	snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment = metaData.sonstiges;
-        	snowProfileStore.fireEvent("datachanged", snowProfileStore);
-        	this.saveData();
+        	if(Ext.isObject(this.getSnowprofileStore())) {
+        		var snowProfileStore = this.getSnowprofileStore();
+        		var metaDataStore = this.getMetadataStore();
+        		var metaData = metaDataStore.getAt(0).data;
+        		var datum = metaData.profildatum.split(".");
+        		var zeit = metaData.zeit.split(":");
+        		if(metaData.direction == "on")
+        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "top down";
+        		else
+        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "bottom up";
+        		snowProfileStore.getAt(0).data.online = metaData.onlineCheck;
+        		snowProfileStore.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name = metaData.name;
+        		snowProfileStore.getAt(0).getValidTime().getTimeInstant().data.timePosition = datum[2]+"-"+datum[1]+"-"+datum[0]+"T"+zeit[0]+":"+zeit[1]+":00";
+        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().data.description = metaData.region;
+        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().data.name = metaData.profilort;
+        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getProfileDepth().data.content = metaData.hoehe;
+        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().getPointLocation().getPoint().data.gml_pos = metaData.utmKoordinaten;
+        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidSlopeAngle().getSlopeAnglePosition().data.position = metaData.hangneigung;
+        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidAspect().getAspectPosition().data.position = metaData.exposition;
+        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindSpd().data.content = metaData.windgeschwindigkeit;
+        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindDir().getAspectPosition().data.position = metaData.windrichtung;
+        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getAirTempPres().data.content = metaData.lufttemperatur;
+        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.precipTI = metaData.niederschlag;
+        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond = metaData.bewoelkung;
+        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment = metaData.sonstiges;
+        		snowProfileStore.fireEvent("datachanged", snowProfileStore);
+        		this.saveData();
+        	}
         }, this);
         this.getStabilitytestStore().on('dataupdate', function(stabilitytestStore, eOpts) {
         	var snowProfileStore = this.getSnowprofileStore();
@@ -299,7 +301,8 @@ Ext.define('LWD.controller.Snowprofile', {
         		};
         		
         		metaDataStore.loadRawData(metadata);
-        		Ext.getCmp("metadata").getForm().setValues(metaDataStore.getAt(0).data);
+        		if(Ext.isObject(Ext.getCmp("metadata")))
+        			Ext.getCmp("metadata").getForm().setValues(metaDataStore.getAt(0).data);
         		snowProfileResultOf.getSnowProfileMeasurements(function(snowProfileMeassurements) {
         			snowProfileMeassurements.getStratProfile(function(originalStratProfile) {
         				var schichtProfileStore = this.getSchichtprofilStore();
@@ -363,14 +366,16 @@ Ext.define('LWD.controller.Snowprofile', {
         			}, this);
         		}, this);
         	}, this);
-        	var graph = Ext.getCmp("graph");
-	    	graph.surface.removeAll();
-			var data = {};
-			var snowprofileData = store.getAt(0);
-			Ext.apply(data, snowprofileData.getAssociatedData());
-			graph.surface.add(getJSON(data, false, graph));
-			var snowprofile = graph.surface.getGroup('snowprofile');
-			snowprofile.show(true);
+        	if(Ext.isObject(Ext.getCmp("graph"))) {
+        		var graph = Ext.getCmp("graph");
+        		graph.surface.removeAll();
+        		var data = {};
+        		var snowprofileData = store.getAt(0);
+        		Ext.apply(data, snowprofileData.getAssociatedData());
+        		graph.surface.add(getJSON(data, false, graph));
+        		var snowprofile = graph.surface.getGroup('snowprofile');
+        		snowprofile.show(true);
+        	}
     	}
     }
 });

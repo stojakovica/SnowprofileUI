@@ -36,7 +36,7 @@ Ext.onReady(function(){
                         waitMsg:'Sending data...',
  
                         success:function(){ 
-	                        var redirect = '/lwd/static/1.0.0.0/snowprofile.html'; 
+	                        var redirect = '/lwd/static/1.0.0.0/singlepage.html'; 
 	                        window.location = redirect;
                         },
  

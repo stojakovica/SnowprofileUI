@@ -51,6 +51,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
         	        	name : 'name',
         	        	fieldLabel: 'Name',
         	        	anchor:'95%',
+        	        	allowBlank: false
         	        },
         	        {
         	        	xtype: 'datefield',
@@ -58,6 +59,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
         	        	fieldLabel: 'Profildatum',
         	        	format: "d.m.Y",
         	        	anchor:'95%',
+        	        	allowBlank: false
         	        },
         	        {
         	        	xtype: 'timefield',
@@ -67,6 +69,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
         	            maxValue: Ext.Date.parse('08:00:00 PM', 'h:i:s A'),
         	            format: "H:i",
         	            anchor:'95%',
+        	            allowBlank: false
         	        },
         	        {
         	        	xtype: 'combobox',
@@ -86,7 +89,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
         	        {
         	        	xtype: 'textfield',
         	        	name : 'hoehe',
-        	        	fieldLabel: 'H&ouml;he (in m)',
+        	        	fieldLabel: 'H&ouml;he [m]',
         	        	anchor:'95%',
         	        },
         	        {
@@ -94,6 +97,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
         	        	name : 'profilort',
         	        	fieldLabel: 'Profilort',
         	        	anchor:'95%',
+        	        	allowBlank: false
         	        },
         	        {
     	        		xtype: 'textfield',
@@ -104,7 +108,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
     	        	{
     	        		xtype: 'textfield',
     	        		name : 'hangneigung',
-    	        		fieldLabel: 'Hangneigung',
+    	        		fieldLabel: 'Hangneigung [°]',
     	        		anchor:'95%',
     	        	},
     	        	{
@@ -122,7 +126,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
     	        		fieldLabel: '',
     	        		labelSeparator: '',
     	        		hideEmptyLabel: false,
-    	        		boxLabel: 'von oben',
+    	        		boxLabel: 'Schichtprofil von oben nach unten darstellen',
     	        		anchor:'95%',
     	        	}
 	        	]
@@ -179,7 +183,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
                     {
                     	xtype: 'textfield',
                     	name : 'lufttemperatur',
-                    	fieldLabel: 'Lufttemperatur',
+                    	fieldLabel: 'Lufttemperatur [°C]',
                     	anchor:'100%',
                     },
                     {

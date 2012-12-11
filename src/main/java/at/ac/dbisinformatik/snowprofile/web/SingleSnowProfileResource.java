@@ -1,12 +1,9 @@
 package at.ac.dbisinformatik.snowprofile.web;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import javax.xml.transform.TransformerException;
 
@@ -20,7 +17,6 @@ import org.mozilla.javascript.Function;
 import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.Scriptable;
 import org.restlet.data.MediaType;
-import org.restlet.representation.FileRepresentation;
 import org.restlet.representation.OutputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
@@ -34,14 +30,9 @@ import at.ac.dbisinformatik.snowprofile.data.DB;
 import at.ac.dbisinformatik.snowprofile.data.SchichtprofilDAO;
 import at.ac.dbisinformatik.snowprofile.dataconverter.Converter;
 import at.ac.dbisinformatik.snowprofile.web.svgcreator.SVGCreator;
-import at.ac.dbisinformatik.snowprofile.web.svgcreator.Test;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
-import com.orientechnologies.orient.core.record.impl.ODocument;
-import com.orientechnologies.orient.core.serialization.OBase64Utils.OutputStream;
-import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 
 public class SingleSnowProfileResource extends ServerResource {
 	

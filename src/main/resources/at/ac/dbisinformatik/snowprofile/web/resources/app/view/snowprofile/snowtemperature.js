@@ -9,7 +9,7 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 	selType: 'rowmodel',
 
     tbar: [{
-        text: 'Neue Schneetemperatur',
+        text: 'Neue Schicht',
         handler: function(){
 			var grid = this.up("grid");
 			var rowEditing = grid.getPlugin("rowplugin");

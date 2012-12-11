@@ -9,7 +9,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 	selType: 'rowmodel',
 
     tbar: [{
-        text: 'Neues Schichtprofil',
+        text: 'Neue Schicht',
         handler: function(){
     		var grid = this.up("grid");
     		var rowEditing = grid.getPlugin("rowplugin");
@@ -47,6 +47,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 		},
 		{
             header: 'Kornform 1',
+            sortable: false,
             dataIndex: 'grainFormPrimary',
             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
 				switch(value) {

@@ -1,31 +1,16 @@
 package at.ac.dbisinformatik.snowprofile.web.svgcreator;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import javax.xml.transform.TransformerException;
-
 import org.apache.batik.transcoder.TranscoderException;
-import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Function;
-import org.mozilla.javascript.JavaScriptException;
-import org.mozilla.javascript.Scriptable;
 
 import at.ac.dbisinformatik.snowprofile.app.Configuration;
 import at.ac.dbisinformatik.snowprofile.data.DB;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.record.impl.ODocument;
-import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 
 /**
  * 

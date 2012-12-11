@@ -2,15 +2,9 @@
 package at.ac.dbisinformatik.snowprofile.web.svgcreator;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -32,7 +26,6 @@ import org.w3c.dom.Element;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.orientechnologies.orient.core.serialization.OBase64Utils.OutputStream;
 
 /**
  * @author Robert Binna

@@ -653,7 +653,7 @@ function drawImage(width, height, x, y, src, pdfFlag) {
 			height: height+"px",
 			x: x,
 			y: y,
-			src: src,
+			src: src
 		};
 	}
 	else {

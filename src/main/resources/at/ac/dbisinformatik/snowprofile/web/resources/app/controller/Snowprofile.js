@@ -186,7 +186,7 @@ Ext.define('LWD.controller.Snowprofile', {
         						"Layer_depthTop_uom": "cm",
     							"failedOn_Results_fractureCharacter": stabilitytestStore.getAt(i).data.bruchflaeche,
     							"failedOn_Results_releaseType": stabilitytestStore.getAt(i).data.bruchart,
-    							"failedOn_Results_testScore": stabilitytestStore.getAt(i).data.belastungsstufe,
+    							"failedOn_Results_testScore": stabilitytestStore.getAt(i).data.belastungsstufe
         					};
         					switch(stabilitytestStore.getAt(i).data.test) {
         						case "CT":
@@ -297,7 +297,7 @@ Ext.define('LWD.controller.Snowprofile', {
         				"bewoelkung": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond),
         				"sonstiges": checkObject(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment),
         				"onlineCheck": checkObject(store.getAt(0).data.online),
-        				"direction": checkDir(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir),
+        				"direction": checkDir(store.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir)
         		};
         		
         		metaDataStore.loadRawData(metadata);

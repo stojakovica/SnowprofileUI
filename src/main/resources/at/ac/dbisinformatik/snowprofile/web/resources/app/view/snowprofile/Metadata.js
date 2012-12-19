@@ -71,12 +71,12 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				typeAhead : true,
 				queryMode : 'local',
 				emptyText : 'Bitte wählen Sie...',
-				anchor : '95%',
+				anchor : '95%'
 			}, {
 				xtype : 'textfield',
 				name : 'hoehe',
 				fieldLabel : 'H&ouml;he [m]',
-				anchor : '95%',
+				anchor : '95%'
 			}, {
 				xtype : 'textfield',
 				name : 'profilort',
@@ -87,12 +87,12 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				xtype : 'textfield',
 				name : 'utmKoordinaten',
 				fieldLabel : 'Koordinaten',
-				anchor : '95%',
+				anchor : '95%'
 			}, {
 				xtype : 'textfield',
 				name : 'hangneigung',
 				fieldLabel : 'Hangneigung [°]',
-				anchor : '95%',
+				anchor : '95%'
 			}, {
 				xtype : 'checkboxfield',
 				name : 'onlineCheck',
@@ -100,7 +100,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				labelSeparator : '',
 				hideEmptyLabel : false,
 				boxLabel : 'Schneeprofil freigeben',
-				anchor : '95%',
+				anchor : '95%'
 			}, {
 				xtype : 'checkboxfield',
 				name : 'direction',
@@ -108,7 +108,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				labelSeparator : '',
 				hideEmptyLabel : false,
 				boxLabel : 'Schichtprofil von oben nach unten darstellen',
-				anchor : '95%',
+				anchor : '95%'
 			} ]
 		}, {
 			xtype : 'container',

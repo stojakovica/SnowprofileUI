@@ -13,10 +13,6 @@ Ext.define('LWD.view.snowprofile.SearchField', {
     border: false,
 	
 	initComponent: function() {
-        var date = new Date();
-        
-        var edit = false;
-        
         this.dockedItems = [{
             xtype: 'toolbar',
             dock: 'top',
@@ -40,7 +36,7 @@ Ext.define('LWD.view.snowprofile.SearchField', {
                     		utmKoordinaten: ""+values.utmKoordinaten,
                     		zeit: ""+values.zeit,
                     		region: ""+values.region
-                    	}
+                    	};
                     	showLoadingMask("Suchen...");
                     	Ext.Ajax.request({
                 			method: 'POST',
@@ -98,12 +94,12 @@ Ext.define('LWD.view.snowprofile.SearchField', {
 	    	        	name : 'profildatum',
 	    	        	fieldLabel: 'Profildatum',
 	    	        	format: "d.m.Y",
-	    	        	anchor:'95%',
+	    	        	anchor:'95%'
 	    	        },{
         	        	xtype: 'textfield',
         	        	name : 'profilort',
         	        	fieldLabel: 'Profilort',
-        	        	anchor:'95%',
+        	        	anchor:'95%'
         	        }
                 ]
           	},{
@@ -117,12 +113,12 @@ Ext.define('LWD.view.snowprofile.SearchField', {
 	    	        	minValue: Ext.Date.parse('04:30:00 AM', 'h:i:s A'),
 	    	            maxValue: Ext.Date.parse('08:00:00 PM', 'h:i:s A'),
 	    	            format: "H:i",
-	    	            anchor:'95%',
+	    	            anchor:'95%'
 	    	        },{
     	        		xtype: 'textfield',
     	        		name : 'utmKoordinaten',
     	        		fieldLabel: 'Koordinaten',
-    	        		anchor:'95%',
+    	        		anchor:'95%'
     	        	}
                 ]
           	}

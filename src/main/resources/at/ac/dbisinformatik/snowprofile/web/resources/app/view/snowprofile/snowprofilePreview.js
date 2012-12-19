@@ -37,7 +37,7 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
     		var grid = this.up("grid");
             var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {
-            	selection.data.id = selection.data.rid
+            	selection.data.id = selection.data.rid;
             	grid.getStore().remove(selection);
             }
         }
@@ -57,7 +57,7 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
 			editor: {
 			    xtype: 'numberfield',
 	            allowBlank: false,
-	            minValue: 0,
+	            minValue: 0
 			},
 			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
 				return store.getAt(rowIndex).raw.metaDataProperty.MetaData.srcRef.Operation.contactPerson.Person.name;
@@ -90,7 +90,6 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
 	],
 	
     initComponent: function() {
-		
 		var store = Ext.data.StoreManager.lookup('SnowprofilePreview');
 		this.on('edit', this.commit);
         this.callParent(arguments);

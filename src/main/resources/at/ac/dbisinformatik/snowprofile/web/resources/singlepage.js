@@ -23,7 +23,6 @@ Ext.application({
 
 	historyChange : function(token) {
 		var store = this.getController('Snowprofile').getSnowprofileStore();
-//		store.reload();
 		store.removeAll();
 		
 		var comp = Ext.getCmp("mainview");

@@ -42,7 +42,7 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			editor: {
 			    xtype: 'numberfield',
 	            allowBlank: false,
-	            minValue: 0,
+	            minValue: 0
 			}
 		},
 		{

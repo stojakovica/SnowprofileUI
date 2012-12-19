@@ -41,7 +41,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			editor: {
 			    xtype: 'numberfield',
 	            allowBlank: false,
-	            minValue: 0,
+	            minValue: 0
 			}
 		},
 		{
@@ -181,7 +181,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
                 store: [
 					['Clean','glatt'],
 					['Rough','rau'],
-					['Irregular','unregelm��ig']
+					['Irregular','unregelmäßig']
                 ],
                 lazyRender: true,
                 listClass: 'x-combo-list-small'

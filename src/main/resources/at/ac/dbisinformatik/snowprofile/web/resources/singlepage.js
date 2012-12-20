@@ -110,7 +110,8 @@ Ext.application({
 			        "xmlns_gml" : "http://www.opengis.net/gml",
 			        "xmlns_xsi" : "http://www.w3.org/2001/XMLSchema-instance",
 			        "xsi_schemaLocation" : "http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS  http://caaml.avisualanche.ca/Schemas/V5.0/Profiles/SnowprofileIACS/CAAMLv5_SnowProfileIACS.xsd"
-			      } }
+			      } };
+        		
         		store.loadRawData(snowProfileTemplateJson);
         		break;
 	        case "edit":

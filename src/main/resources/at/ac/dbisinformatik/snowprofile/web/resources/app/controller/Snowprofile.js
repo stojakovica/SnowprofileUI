@@ -142,34 +142,125 @@ Ext.define('LWD.controller.Snowprofile', {
         	this.saveData();
         }, this);
         this.getMetadataStore().on('dataupdate', function() {
-        	if(Ext.isObject(this.getSnowprofileStore())) {
-        		var snowProfileStore = this.getSnowprofileStore();
-        		var metaDataStore = this.getMetadataStore();
-        		var metaData = metaDataStore.getAt(0).data;
-        		var datum = metaData.profildatum.split(".");
-        		var zeit = metaData.zeit.split(":");
-        		if(metaData.direction == "on")
-        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "top down";
-        		else
-        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "bottom up";
-        		snowProfileStore.getAt(0).data.online = metaData.onlineCheck;
-        		snowProfileStore.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name = metaData.name;
-        		snowProfileStore.getAt(0).getValidTime().getTimeInstant().data.timePosition = datum[2]+"-"+datum[1]+"-"+datum[0]+"T"+zeit[0]+":"+zeit[1]+":00";
-        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().data.description = metaData.region;
-        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().data.name = metaData.profilort;
-        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getProfileDepth().data.content = metaData.hoehe;
-        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().getPointLocation().getPoint().data.gml_pos = metaData.utmKoordinaten;
-        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidSlopeAngle().getSlopeAnglePosition().data.position = metaData.hangneigung;
-        		snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidAspect().getAspectPosition().data.position = metaData.exposition;
-        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindSpd().data.content = metaData.windgeschwindigkeit;
-        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindDir().getAspectPosition().data.position = metaData.windrichtung;
-        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getAirTempPres().data.content = metaData.lufttemperatur;
-        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.precipTI = metaData.niederschlag;
-        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond = metaData.bewoelkung;
-        		snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment = metaData.sonstiges;
-        		snowProfileStore.fireEvent("datachanged", snowProfileStore);
-        		this.saveData();
+        	var nvPair = getLocationHash();
+        	var action = nvPair[0][1];
+        	
+        	var metaDataStore = this.getMetadataStore();
+			var metaData = metaDataStore.getAt(0).data;
+			var datum = metaData.profildatum.split(".");
+			var zeit = metaData.zeit.split(":");
+        	
+        	switch(action) {
+        	case "create":
+        		if(Ext.isObject(this.getSnowprofileStore())) {
+        			if(metaData.direction == "on")
+        				var direction = "top down";
+        			else
+        				var direction = "bottom up";
+	        		var snowProfileStore = this.getSnowprofileStore();
+	        		var snowProfileTemplateJson = { "SnowProfile" : { "id" : "",
+				        	      "locRef" : { "ObsPoint" : { "id" : "",
+				                "description" : metaData.region,
+				                "name" : metaData.profilort,
+				                "obsPointSubType" : "",
+				                "validAspect" : { "AspectPosition" : { "position" : metaData.exposition } },
+				                "validElevation" : { "ElevationPosition" : { "position" : "",
+				                        "uom" : ""
+				                      } },
+				                "validSlopeAngle" : { "SlopeAnglePosition" : { "position" : metaData.hangneigung,
+				                        "uom" : ""
+				                      } },
+			                    "pointLocation" : { "gml_Point" : { "gml_pos" : metaData.utmKoordinaten,
+			                    	  "gml_id" : "",
+			                    	  "srsName" : "",
+			                    	  "srsDimension" : ""
+			                      } }
+				              } },
+				        "metaDataProperty" : { "MetaData" : { "dateTimeReport" : "",
+				                "srcRef" : { "Operation" : { "contactPerson" : { "Person" : { "id" : "",
+				                                "name" : metaData.name
+				                              } },
+				                        "id" : "",
+				                        "name" : {  }
+				                      } }
+				              } },
+				        "snowProfileResultsOf" : { "SnowProfileMeasurements" : { "airTempPres" : { "content" : metaData.lufttemperatur,
+				                    "uom" : "degC"
+				                  },
+				                "comment" : metaData.sonstiges,
+				                "densityProfile" : { "uomDensity" : "kgm-3",
+				                    "uomDepthTop" : "cm",
+				                    "uomThickness" : "cm"
+				                  },
+				                "dir" : direction,
+				                "hS" : { "Components" : { "snowHeight" : { "content" : "",
+				                            "uom" : "cm"
+				                          } } },
+				                "hardnessProfile" : { "uomDepthTop" : "cm",
+				                    "uomDropHeight" : "cm",
+				                    "uomHardness" : "N",
+				                    "uomThickness" : "cm",
+				                    "uomWeightHammer" : "kg",
+				                    "uomWeightTube" : "kg"
+				                  },
+				                "precipTI" : metaData.niederschlag,
+				                "profileDepth" : { "content" : metaData.hoehe,
+				                    "uom" : "cm"
+				                  },
+				                "skyCond" : metaData.bewoelkung,
+				                "stbTests" : { "ComprTest" : [],
+				                	"ExtColumnTest" : [] ,
+				                    "RBlockTest" : []
+				                  },
+				                "stratProfile" : { "Layer" : [] },
+				                "tempProfile" : { "Obs" : [],
+				                    "uomDepth" : "cm",
+				                    "uomTemp" : "degC"
+				                  },
+				                "windDir" : { "AspectPosition" : { "position" : metaData.windrichtung } },
+				                "windSpd" : { "content" : metaData.windgeschwindigkeit,
+				                    "uom" : "ms-1"
+				                  }
+				              } },
+				        "validTime" : { "TimeInstant" : { "timePosition" : datum[2]+"-"+datum[1]+"-"+datum[0]+"T"+zeit[0]+":"+zeit[1]+":00" } },
+				        "online" : "",
+				        "xmlns_app" : "http://www.snowprofileapplication.com",
+				        "xmlns_caaml" : "http://www.caaml.org/v5.0/Snowprofile/IACS",
+				        "xmlns_gml" : "http://www.opengis.net/gml",
+				        "xmlns_xsi" : "http://www.w3.org/2001/XMLSchema-instance",
+				        "xsi_schemaLocation" : "http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS  http://caaml.avisualanche.ca/Schemas/V5.0/Profiles/SnowprofileIACS/CAAMLv5_SnowProfileIACS.xsd"
+				      } };
+	        		snowProfileStore.loadRawData(snowProfileTemplateJson);
+	        	}
+        		break;
+        	case "edit": 
+        		if(Ext.isObject(this.getSnowprofileStore())) {
+        			var snowProfileStore = this.getSnowprofileStore();
+        			
+        			if(metaData.direction == "on")
+        				snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "top down";
+        			else
+        				snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.dir = "bottom up";
+        			snowProfileStore.getAt(0).data.online = metaData.onlineCheck;
+        			snowProfileStore.getAt(0).getMetaDataProperty().getMetaData().getSrcRef().getOperation().getContactPerson().getPerson().data.name = metaData.name;
+        			snowProfileStore.getAt(0).getValidTime().getTimeInstant().data.timePosition = datum[2]+"-"+datum[1]+"-"+datum[0]+"T"+zeit[0]+":"+zeit[1]+":00";
+        			snowProfileStore.getAt(0).getLocRefData().getObsPoint().data.description = metaData.region;
+        			snowProfileStore.getAt(0).getLocRefData().getObsPoint().data.name = metaData.profilort;
+        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getProfileDepth().data.content = metaData.hoehe;
+        			snowProfileStore.getAt(0).getLocRefData().getObsPoint().getPointLocation().getPoint().data.gml_pos = metaData.utmKoordinaten;
+        			snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidSlopeAngle().getSlopeAnglePosition().data.position = metaData.hangneigung;
+        			snowProfileStore.getAt(0).getLocRefData().getObsPoint().getValidAspect().getAspectPosition().data.position = metaData.exposition;
+        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindSpd().data.content = metaData.windgeschwindigkeit;
+        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getWindDir().getAspectPosition().data.position = metaData.windrichtung;
+        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().getAirTempPres().data.content = metaData.lufttemperatur;
+        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.precipTI = metaData.niederschlag;
+        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.skyCond = metaData.bewoelkung;
+        			snowProfileStore.getAt(0).getSnowProfileData().getSnowProfileMeasurements().data.comment = metaData.sonstiges;
+        			snowProfileStore.fireEvent("datachanged", snowProfileStore);
+        		}
+        		break;
         	}
+        	this.saveData();
         }, this);
         this.getStabilitytestStore().on('dataupdate', function(stabilitytestStore, eOpts) {
         	var snowProfileStore = this.getSnowprofileStore();

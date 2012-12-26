@@ -217,8 +217,11 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				var vonHoehe0 = roundUp(schichtprofilData[0].depthTop_content);
 			
 			var hoechstWert = schichtprofilData[0].depthTop_content;
-			
-			for(var i = 0; i < schichtprofilData.length; i++) {
+			var y_pre = 0;
+			var height_pre = 0;
+			var heightFlag = false;
+//			for(var i = 0; i < schichtprofilData.length; i++) {
+			for(var i = schichtprofilData.length - 1; i >= 0; i--) {
 				var nietenText = "";
 				var vonHoehe = schichtprofilData[i].depthTop_content;
 				if(typeof schichtprofilData[i].thickness_content != 'undefined') {
@@ -233,9 +236,9 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				}
 				
 				if(direction != "top down") {
-					var temp = vonHoehe;
-					vonHoehe = hoechstWert - bisHoehe;
-					bisHoehe = hoechstWert - temp;
+//					var temp = vonHoehe;
+//					vonHoehe = hoechstWert - bisHoehe;
+//					bisHoehe = hoechstWert - temp;
 				}
 				var kornform1 = schichtprofilData[i].grainFormPrimary;
 				var kornform2 = schichtprofilData[i].grainFormSecondary;
@@ -253,6 +256,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 					var height = (heightMainArea * (vonHoehe / vonHoehe0)) - (heightMainArea * (bisHoehe / vonHoehe0));
 					var y = 100 - (heightMainArea * (vonHoehe / vonHoehe0));
 				}
+				
 				
 				switch (haerte) {
 				case 'F': width = 1; nietenText = nietenText+"*"; break; 
@@ -275,6 +279,18 @@ function getJSON(store, pdfFlag, drawComponent)  {
 					}
 				}
 				items.push(drawRectangle(width+"%", height+"%", x+"%", y+"%", 2, "#1C86EE", "#1C86EE", 0.2));
+				
+//				if(heightFlag) {
+//					y = y + 2.5;
+//				}
+//				if(height < 2) {
+//					height = 2.5;
+//					height_pre = height;
+//					heightFlag = true;
+//				}
+//				else {
+//					heightFlag = false;
+//				}
 				
 				// Details Rechteck fÃ¼r Form, Durchmesser und Feuchte
 				items.push(drawRectangle("12%", height+"%", (58 - pdfMarginX)+"%", y+"%", 1, "#000000", "#FFFFFF", 0.2));

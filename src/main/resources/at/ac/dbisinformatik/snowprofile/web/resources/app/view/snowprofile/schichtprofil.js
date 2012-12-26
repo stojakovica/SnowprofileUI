@@ -46,6 +46,45 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 			}
 		},
 		{
+			header: 'Feuchte',
+			dataIndex: 'lwc_content',
+			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+				switch(value) {
+					case "D":
+						return "trocken";
+						break;
+					case "M":
+						return "schwach feucht";
+						break;
+					case "W":
+						return "feucht";
+						break;
+					case "V":
+						return "nass";
+						break;
+					case "S":
+						return "sehr nass";
+						break;
+				}
+			},
+			flex: 1,
+			field: {
+                xtype: 'combobox',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnTab: true,
+                store: [
+					['D','trocken'],
+					['M','schwach feucht'],
+					['W','feucht'],
+					['V','nass'],
+					['S','sehr nass']
+                ],
+                lazyRender: true,
+                listClass: 'x-combo-list-small'
+            }
+		},
+		{
             header: 'Kornform 1',
             sortable: false,
             dataIndex: 'grainFormPrimary',
@@ -243,45 +282,6 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
 					['P-K','P-K'],
 					['K','M - sehr hart'],
 					['I','Eis - kompakt']
-                ],
-                lazyRender: true,
-                listClass: 'x-combo-list-small'
-            }
-		},
-		{
-			header: 'Feuchte',
-			dataIndex: 'lwc_content',
-			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-				switch(value) {
-					case "D":
-						return "trocken";
-						break;
-					case "M":
-						return "schwach feucht";
-						break;
-					case "W":
-						return "feucht";
-						break;
-					case "V":
-						return "nass";
-						break;
-					case "S":
-						return "sehr nass";
-						break;
-				}
-			},
-			flex: 1,
-			field: {
-                xtype: 'combobox',
-                typeAhead: true,
-                triggerAction: 'all',
-                selectOnTab: true,
-                store: [
-					['D','trocken'],
-					['M','schwach feucht'],
-					['W','feucht'],
-					['V','nass'],
-					['S','sehr nass']
                 ],
                 lazyRender: true,
                 listClass: 'x-combo-list-small'

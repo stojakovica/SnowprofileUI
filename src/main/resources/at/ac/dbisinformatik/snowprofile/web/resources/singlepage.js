@@ -39,80 +39,11 @@ Ext.application({
         	}
 	        switch(action) {
 	        case "create":
-        		var snowProfileTemplateJson = { "SnowProfile" : { "id" : "",
-			        	      "locRef" : { "ObsPoint" : { "id" : "",
-			                "description" : "",
-			                "name" : "",
-			                "obsPointSubType" : "",
-			                "validAspect" : { "AspectPosition" : { "position" : "" } },
-			                "validElevation" : { "ElevationPosition" : { "position" : "",
-			                        "uom" : ""
-			                      } },
-			                "validSlopeAngle" : { "SlopeAnglePosition" : { "position" : "",
-			                        "uom" : ""
-			                      } },
-		                    "pointLocation" : { "gml_Point" : { "gml_pos" : "",
-		                    	  "gml_id" : "",
-		                    	  "srsName" : "",
-		                    	  "srsDimension" : ""
-		                      } }
-			              } },
-			        "metaDataProperty" : { "MetaData" : { "dateTimeReport" : "",
-			                "srcRef" : { "Operation" : { "contactPerson" : { "Person" : { "id" : "",
-			                                "name" : ""
-			                              } },
-			                        "id" : "",
-			                        "name" : {  }
-			                      } }
-			              } },
-			        "snowProfileResultsOf" : { "SnowProfileMeasurements" : { "airTempPres" : { "content" : "",
-			                    "uom" : "degC"
-			                  },
-			                "comment" : "",
-			                "densityProfile" : { "uomDensity" : "kgm-3",
-			                    "uomDepthTop" : "cm",
-			                    "uomThickness" : "cm"
-			                  },
-			                "dir" : "bottom up",
-			                "hS" : { "Components" : { "snowHeight" : { "content" : "",
-			                            "uom" : "cm"
-			                          } } },
-			                "hardnessProfile" : { "uomDepthTop" : "cm",
-			                    "uomDropHeight" : "cm",
-			                    "uomHardness" : "N",
-			                    "uomThickness" : "cm",
-			                    "uomWeightHammer" : "kg",
-			                    "uomWeightTube" : "kg"
-			                  },
-			                "precipTI" : "",
-			                "profileDepth" : { "content" : "",
-			                    "uom" : "cm"
-			                  },
-			                "skyCond" : "",
-			                "stbTests" : { "ComprTest" : [],
-			                	"ExtColumnTest" : [] ,
-			                    "RBlockTest" : []
-			                  },
-			                "stratProfile" : { "Layer" : [] },
-			                "tempProfile" : { "Obs" : [],
-			                    "uomDepth" : "cm",
-			                    "uomTemp" : "degC"
-			                  },
-			                "windDir" : { "AspectPosition" : { "position" : "" } },
-			                "windSpd" : { "content" : "",
-			                    "uom" : "ms-1"
-			                  }
-			              } },
-			        "validTime" : { "TimeInstant" : { "timePosition" : "" } },
-			        "online" : "",
-			        "xmlns_app" : "http://www.snowprofileapplication.com",
-			        "xmlns_caaml" : "http://www.caaml.org/v5.0/Snowprofile/IACS",
-			        "xmlns_gml" : "http://www.opengis.net/gml",
-			        "xmlns_xsi" : "http://www.w3.org/2001/XMLSchema-instance",
-			        "xsi_schemaLocation" : "http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS  http://caaml.avisualanche.ca/Schemas/V5.0/Profiles/SnowprofileIACS/CAAMLv5_SnowProfileIACS.xsd"
-			      } };
-        		
-        		store.loadRawData(snowProfileTemplateJson);
+	        	Ext.data.StoreManager.lookup('Snowprofile').removeAll();
+	        	Ext.data.StoreManager.lookup('Snowtemperature').removeAll();
+	        	Ext.data.StoreManager.lookup('Schichtprofil').removeAll();
+	        	Ext.data.StoreManager.lookup('Metadata').removeAll();
+	        	Ext.data.StoreManager.lookup('Stabilitytest').removeAll();
         		break;
 	        case "edit":
 	        	var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');

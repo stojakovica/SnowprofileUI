@@ -220,7 +220,6 @@ function getJSON(store, pdfFlag, drawComponent)  {
 			var y_pre = 0;
 			var height_pre = 0;
 			var heightFlag = false;
-//			for(var i = 0; i < schichtprofilData.length; i++) {
 			for(var i = schichtprofilData.length - 1; i >= 0; i--) {
 				var nietenText = "";
 				var vonHoehe = schichtprofilData[i].depthTop_content;

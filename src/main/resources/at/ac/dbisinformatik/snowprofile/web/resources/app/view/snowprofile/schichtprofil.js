@@ -1,30 +1,81 @@
+var renderValue = function(datastore) {
+    return function(value, metaData, record, rowIndex, colIndex, store, view) {
+        var rec = datastore.findRecord('value', value);
+        return rec ? rec.get('display') : value;
+    };
+};
+
+var humidityDatastore = Ext.create('Ext.data.Store', {
+    fields: ['value', 'display'],
+    data: [
+        {value: "D", display: "trocken"},
+        {value: "M", display: "schwach feucht"},
+        {value: "W", display: "feucht"},
+        {value: "V", display: "nass"},
+        {value: "S", display: "sehr nass"}
+    ]
+});
+
+var grainFormStore = Ext.create('Ext.data.Store', {
+    fields: ['value', 'display'],
+    data: [
+        {value: "PP", display: "Neuschnee"},
+        {value: "DF", display: "filziger Schnee"},
+        {value: "RG", display: "rundkörniger Schnee"},
+        {value: "FC", display: "kantigkörniger Schnee"},
+        {value: "DH", display: "Tiefenreif, Schwimmschnee"},
+        {value: "SH", display: "Oberflächenreif"},
+        {value: "MF", display: "Schmelzform"},
+        {value: "IF", display: "Eislamelle"},
+        {value: "FCxr", display: "kantig, abgerundete Kristalle"},
+        {value: "PPgp", display: "Graupel"},
+        {value: "MFcr", display: "Schmelzkruste"}
+    ]
+});
+
+var hardnessStore = Ext.create('Ext.data.Store', {
+    fields: ['value', 'display'],
+    data: [
+        {value: "F", display: "1: <b>Faust</b> [FA] sehr weich"},
+        {value: "F-4F", display: "1–2: FA–4F"},
+        {value: "4F", display: "2: <b>4 Finger</b> [4F] weich"},
+        {value: "4F-1F", display: "2–3: 4F–1F"},
+        {value: "1F", display: "3: <b>1 Finger</b> [1F] mittelhart"},
+        {value: "1F-P", display: "3–4: 1F–B"},
+        {value: "P", display: "4: <b>Bleistift</b> [B] hart"},
+        {value: "P-K", display: "4–5: B–M"},
+        {value: "K", display: "5: <b>Messer</b> [M] sehr hart"},
+        {value: "I", display: "6: <b>Eis</b> [–] kompakt"}
+    ]
+});
+
 Ext.define('LWD.view.snowprofile.schichtprofil' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.schichtprofil',
-	itemId: 'schichtprofilGrid',
+    itemId: 'schichtprofilGrid',
     store: 'Schichtprofil',
-	
-	border: false,
-	
-	selType: 'rowmodel',
+
+    border: false,
+
+    selType: 'rowmodel',
 
     tbar: [{
         text: 'Neue Schicht',
         handler: function(){
-    		var grid = this.up("grid");
-    		var rowEditing = grid.getPlugin("rowplugin");
-    		grid.getStore().insert(0, new LWD.model.LayerProfile());
-    		rowEditing.startEdit(0, 0);
+            var grid = this.up("grid");
+            var rowEditing = grid.getPlugin("rowplugin");
+            grid.getStore().insert(0, new LWD.model.LayerProfile());
+            rowEditing.startEdit(0, 0);
         }
     }, '-', {
         itemId: 'delete',
         text: 'Löschen',
         handler: function(){
-    		var grid = this.up("grid");
+            var grid = this.up("grid");
             var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {
-            	grid.getStore().remove(selection);
-            	grid.getStore().fireEvent("dataupdate", grid.getStore());
+                grid.getStore().remove(selection);
+                grid.getStore().fireEvent("dataupdate", grid.getStore());
             }
         }
     }],
@@ -32,269 +83,127 @@ Ext.define('LWD.view.snowprofile.schichtprofil' ,{
         clicksToEdit: 2,
         pluginId:'rowplugin'
     })],
-    
+
     columns: [
-		{
-			header: 'Von Höhe[cm]',
-			id: 'depthTop_content',
-			dataIndex: 'depthTop_content',
-			flex: 1,
-			editor: {
-			    xtype: 'numberfield',
-	            allowBlank: false,
-	            minValue: 0
-			}
-		},
-		{
-			header: 'Feuchte',
-			dataIndex: 'lwc_content',
-			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-				switch(value) {
-					case "D":
-						return "trocken";
-						break;
-					case "M":
-						return "schwach feucht";
-						break;
-					case "W":
-						return "feucht";
-						break;
-					case "V":
-						return "nass";
-						break;
-					case "S":
-						return "sehr nass";
-						break;
-				}
-			},
-			flex: 1,
-			field: {
+        {
+            header: '<b>[H]</b><br>Oberkante [cm]',
+            id: 'depthTop_content',
+            dataIndex: 'depthTop_content',
+            flex: 1,
+            editor: {
+                xtype: 'numberfield',
+                allowBlank: false,
+                minValue: 0
+            }
+        },
+        {
+            header: '<b>[Θ]</b><br>Feuchte',
+            dataIndex: 'lwc_content',
+            renderer: renderValue(humidityDatastore),
+            flex: 1,
+            field: {
                 xtype: 'combobox',
+                editable: false,
+                matchFieldWidth: false,
                 typeAhead: true,
                 triggerAction: 'all',
                 selectOnTab: true,
-                store: [
-					['D','trocken'],
-					['M','schwach feucht'],
-					['W','feucht'],
-					['V','nass'],
-					['S','sehr nass']
-                ],
+                store: humidityDatastore,
+                valueField: 'value',
+                displayField: 'display',
                 lazyRender: true,
                 listClass: 'x-combo-list-small'
             }
-		},
-		{
-            header: 'Kornform 1',
+        },
+        {
+            header: '<b>[F<sup>1</sup>]</b><br>Kornform 1',
             sortable: false,
             dataIndex: 'grainFormPrimary',
-            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-				switch(value) {
-					case "PP":
-						return "Neuschnee";
-						break;
-					case "DF":
-						return "filziger Schnee";
-						break;
-					case "RG":
-						return "rundkörniger Schnee";
-						break;
-					case "FC":
-						return "kantigförmiger Schnee";
-						break;
-					case "FCxr":
-						return "kantig abgerundet";
-						break;
-					case "DH":
-						return "Schwimmschnee";
-						break;
-					case "MF":
-						return "Schmelzform";
-						break;
-					case "MFcr":
-						return "Schneekruste";
-						break;
-					case "IF":
-						return "Eislamelle";
-						break;
-					case "SH":
-						return "Oberflächenreif";
-						break;
-					case "PPgp":
-						return "Graupel";
-						break;
-				}
-			},
+            renderer: renderValue(grainFormStore),
             flex: 1,
             typeAhead: true,
             field: {
                 xtype: 'combobox',
+                editable: false,
+                matchFieldWidth: false,
                 typeAhead: true,
                 triggerAction: 'all',
                 selectOnTab: true,
-                store: [
-					['PP','Neuschnee'],
-					['DF','filziger Schnee'],
-					['RG','rundkörniger Schnee'],
-					['FC','kantigförmiger Schnee'],
-					['FCxr','kantig abgerundet'],
-					['DH','Schwimmschnee'],
-					['MF','Schmelzform'],
-					['MFcr','Schneekruste'],
-					['IF','Eislamelle'],
-					['SH','Oberflächenreif'],
-					['PPgp','Graupel']
-                ],
+                store: grainFormStore,
+                valueField: 'value',
+                displayField: 'display',
                 lazyRender: true,
                 listClass: 'x-combo-list-small'
             }
-		},
-		{
-			header: 'Kornform 2',
-			dataIndex: 'grainFormSecondary',
-			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-				switch(value) {
-					case "PP":
-						return "Neuschnee";
-						break;
-					case "DF":
-						return "filziger Schnee";
-						break;
-					case "RG":
-						return "rundkörniger Schnee";
-						break;
-					case "FC":
-						return "kantigförmiger Schnee";
-						break;
-					case "FCxr":
-						return "kantig abgerundet";
-						break;
-					case "DH":
-						return "Schwimmschnee";
-						break;
-					case "MF":
-						return "Schmelzform";
-						break;
-					case "MFcr":
-						return "Schneekruste";
-						break;
-					case "IF":
-						return "Eislamelle";
-						break;
-					case "SH":
-						return "Oberflächenreif";
-						break;
-					case "PPgp":
-						return "Graupel";
-						break;
-				}
-			},
-			flex: 1,
-			field: {
+        },
+        {
+            header: '<b>[F<sup>2</sup>]</b><br>Kornform 2',
+            dataIndex: 'grainFormSecondary',
+            renderer: renderValue(grainFormStore),
+            flex: 1,
+            field: {
                 xtype: 'combobox',
+                editable: false,
+                matchFieldWidth: false,
                 typeAhead: true,
                 triggerAction: 'all',
                 selectOnTab: true,
-                store: [
-					['PP','Neuschnee'],
-					['DF','filziger Schnee'],
-					['RG','rundkörniger Schnee'],
-					['FC','kantigförmiger Schnee'],
-					['FCxr','kantig abgerundet'],
-					['DH','Schwimmschnee'],
-					['MF','Schmelzform'],
-					['MFcr','Schneekruste'],
-					['IF','Eislamelle'],
-					['SH','Oberflächenreif'],
-					['PPgp','Graupel']
-                ],
+                store: grainFormStore,
+                valueField: 'value',
+                displayField: 'display',
                 lazyRender: true,
                 listClass: 'x-combo-list-small'
             }
-		},
-		{
-			header: 'Größe[D][mm] avg',
-			dataIndex: 'grainSize_Components_avg',
-			flex: 1,
-			editor: {
-				allowBlank: false
-			}
-		},
-		{
-			header: 'Größe[D][mm] avg max',
-			dataIndex: 'grainSize_Components_avgMax',
-			flex: 1,
-			editor: {
-				allowBlank: false
-			}
-		},
-		{
-			header: 'Härte[K]',
-			dataIndex: 'hardness',
-			renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-				switch(value) {
-					case "F":
-						return "FA - sehr weich";
-						break;
-					case "F-4F":
-						return "F-4F";
-						break;
-					case "4F":
-						return "4F - weich";
-						break;
-					case "4F-1F":
-						return "4F-1F";
-						break;
-					case "1F":
-						return "1F - mittelhart";
-						break;
-					case "1F-P":
-						return "1F-P";
-						break;
-					case "P":
-						return "B - hart";
-						break;
-					case "P-K":
-						return "P-K";
-						break;
-					case "K":
-						return "M - sehr hart";
-						break;
-					case "I":
-						return "Eis - kompakt";
-						break;
-				}
-			},
-			flex: 1,
-			field: {
+        },
+        {
+            header: '<b>[D–]</b><br>min. Größe [mm]',
+            dataIndex: 'grainSize_Components_avg',
+            flex: 1,
+            editor: {
+                xtype: 'numberfield',
+                allowBlank: false,
+                minValue: 0
+            }
+        },
+        {
+            header: '<b>[–D]</b><br>max. Größe [mm]',
+            dataIndex: 'grainSize_Components_avgMax',
+            flex: 1,
+            editor: {
+                xtype: 'numberfield',
+                allowBlank: false,
+                minValue: 0
+            }
+        },
+
+
+        {
+            header: '<b>[K]</b><br>Härte',
+            dataIndex: 'hardness',
+            renderer: renderValue(hardnessStore),
+            flex: 1,
+            field: {
                 xtype: 'combobox',
+                editable: false,
+                matchFieldWidth: false,
                 typeAhead: true,
                 triggerAction: 'all',
                 selectOnTab: true,
-                store: [
-					['F','FA - sehr weich'],
-					['F-4F','F-4F'],
-					['4F','4F - weich'],
-					['4F-1F','4F-1F'],
-					['1F','1F - mittelhart'],
-					['1F-P','1F-P'],
-					['P','B - hart'],
-					['P-K','P-K'],
-					['K','M - sehr hart'],
-					['I','Eis - kompakt']
-                ],
+                store: hardnessStore,
+                valueField: 'value',
+                displayField: 'display',
                 lazyRender: true,
                 listClass: 'x-combo-list-small'
             }
-		}
-	],
-	
+        }
+    ],
+
     initComponent: function() {
-		this.on('edit', this.commit);
+        this.on('edit', this.commit);
         this.callParent(arguments);
     },
-    
+
     commit: function(edit, e) {
-    	this.getStore().fireEvent("dataupdate", this.getStore());
+        this.getStore().fireEvent("dataupdate", this.getStore());
     }
 });

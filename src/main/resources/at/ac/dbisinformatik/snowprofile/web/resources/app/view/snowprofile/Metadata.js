@@ -20,7 +20,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				xtype : 'button',
 				text : 'Speichern',
 				handler : function() {
-					showLoadingMask("Speichern...");
+					showLoadingMask("Speichern…");
 					var panel = this.up('form');
 					var form = panel.getForm();
 					var store = Ext.data.StoreManager.lookup("Metadata");
@@ -55,27 +55,23 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				fieldLabel : 'Zeit',
 				minValue : Ext.Date.parse('04:30:00 AM', 'h:i:s A'),
 				maxValue : Ext.Date.parse('08:00:00 PM', 'h:i:s A'),
-				format : "H:i",
 				anchor : '95%',
 				allowBlank : false
 			}, {
 				xtype : 'combobox',
+				editable : false,
+				matchFieldWidth : false,
 				fieldLabel : 'Region',
 				name : 'region',
-				store : Ext.create('Ext.data.ArrayStore', {
-					fields : [ 'key', 'val' ],
-					data : regionen
-				}),
-				valueField : 'key',
-				displayField : 'val',
+				store : regionen,
 				typeAhead : true,
 				queryMode : 'local',
-				emptyText : 'Bitte wählen Sie...',
+				emptyText : 'Bitte wählen Sie…',
 				anchor : '95%'
 			}, {
-				xtype : 'textfield',
+				xtype : 'numberfield',
 				name : 'hoehe',
-				fieldLabel : 'H&ouml;he [m]',
+				fieldLabel : 'Seeh&ouml;he [m]',
 				anchor : '95%'
 			}, {
 				xtype : 'textfield',
@@ -89,7 +85,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				fieldLabel : 'Koordinaten',
 				anchor : '95%'
 			}, {
-				xtype : 'textfield',
+				xtype : 'numberfield',
 				name : 'hangneigung',
 				fieldLabel : 'Hangneigung [°]',
 				anchor : '95%'
@@ -116,92 +112,69 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 			layout : 'anchor',
 			items : [ {
 				xtype : 'combobox',
+				editable : false,
 				fieldLabel : 'Exposition',
 				name : 'exposition',
-				store : Ext.create('Ext.data.ArrayStore', {
-					fields : [ 'val' ],
-					data : exposition
-				}),
-				valueField : 'val',
-				displayField : 'val',
+				store : exposition,
 				typeAhead : true,
 				queryMode : 'local',
-				emptyText : 'Bitte wählen Sie...',
+				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
 			}, {
 				xtype : 'combobox',
+				editable : false,
+				matchFieldWidth : false,
 				fieldLabel : 'Windgeschwindigkeit',
 				name : 'windgeschwindigkeit',
-				store : Ext.create('Ext.data.ArrayStore', {
-					fields : [ 'key', 'val' ],
-					data : windgeschwindigkeit
-				}),
-				valueField : 'key',
-				displayField : 'val',
+				store : windgeschwindigkeit,
 				typeAhead : true,
 				queryMode : 'local',
-				emptyText : 'Bitte wählen Sie...',
+				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
 			}, {
 				xtype : 'combobox',
+				editable : false,
 				fieldLabel : 'Windrichtung',
 				name : 'windrichtung',
-				store : Ext.create('Ext.data.ArrayStore', {
-					fields : [ 'val' ],
-					data : windrichtung
-				}),
-				valueField : 'val',
-				displayField : 'val',
+				store : windrichtung,
 				typeAhead : true,
 				queryMode : 'local',
-				emptyText : 'Bitte wählen Sie...',
+				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
 			}, {
-				xtype : 'textfield',
+				xtype : 'numberfield',
 				name : 'lufttemperatur',
 				fieldLabel : 'Lufttemperatur [°C]',
 				anchor : '100%'
 			}, {
 				xtype : 'combobox',
+				editable : false,
 				fieldLabel : 'Niederschlag',
 				name : 'niederschlag',
-				store : Ext.create('Ext.data.ArrayStore', {
-					fields : [ 'key', 'val' ],
-					data : niederschlag
-				}),
-				valueField : 'key',
-				displayField : 'val',
+				store : niederschlag,
 				typeAhead : true,
 				queryMode : 'local',
-				emptyText : 'Bitte wählen Sie...',
+				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
 			}, {
 				xtype : 'combobox',
+				editable : false,
 				fieldLabel : 'Intensit&auml;t des Niederschlags',
 				name : 'intensitaetDesNS',
-				store : Ext.create('Ext.data.ArrayStore', {
-					fields : [ 'val' ],
-					data : intensitaetNiederschlag
-				}),
-				valueField : 'val',
-				displayField : 'val',
+				store : intensitaetNiederschlag,
 				typeAhead : true,
 				queryMode : 'local',
-				emptyText : 'Bitte wählen Sie...',
+				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
 			}, {
 				xtype : 'combobox',
+				editable : false,
 				fieldLabel : 'Bew&ouml;lkung',
 				name : 'bewoelkung',
-				store : Ext.create('Ext.data.ArrayStore', {
-					fields : [ 'key', 'val' ],
-					data : bewoelkung
-				}),
-				valueField : 'key',
-				displayField : 'val',
+				store : bewoelkung,
 				typeAhead : true,
 				queryMode : 'local',
-				emptyText : 'Bitte wählen Sie...',
+				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
 			}, {
 				xtype : 'textareafield',

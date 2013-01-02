@@ -12,6 +12,7 @@ Ext.define('LWD.store.Schichtprofil', {
 	},
 	sorters : [ {
 		property : 'depthTop_content',
-		direction : 'DESC'
+		direction : 'DESC',
+		transform: parseFloat
 	} ]
 });

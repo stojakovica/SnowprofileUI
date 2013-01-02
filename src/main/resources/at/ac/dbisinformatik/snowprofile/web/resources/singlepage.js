@@ -22,9 +22,6 @@ Ext.application({
 	},
 
 	historyChange : function(token) {
-		var store = this.getController('Snowprofile').getSnowprofileStore();
-		store.removeAll();
-		
 		var comp = Ext.getCmp("mainview");
 		for(i=comp.items.length - 1; i>=0; i--) {
 			temp = comp.items.get(i);
@@ -39,13 +36,15 @@ Ext.application({
         	}
 	        switch(action) {
 	        case "create":
-	        	Ext.data.StoreManager.lookup('Snowprofile').removeAll();
+	        	Ext.data.StoreManager.lookup('Snowprofile').removeAll(); 
 	        	Ext.data.StoreManager.lookup('Snowtemperature').removeAll();
 	        	Ext.data.StoreManager.lookup('Schichtprofil').removeAll();
 	        	Ext.data.StoreManager.lookup('Metadata').removeAll();
 	        	Ext.data.StoreManager.lookup('Stabilitytest').removeAll();
         		break;
 	        case "edit":
+	        	var store = this.getController('Snowprofile').getSnowprofileStore();
+	    		store.removeAll();
 	        	var storeModel = Ext.ModelManager.getModel('LWD.model.Snowprofile');
 	        	storeModel.load(id, {
 	        		success: function(snowprofile) {
@@ -142,8 +141,6 @@ Ext.application({
     	        }]
         	});
 		} else {
-			var store = this.getController('Snowprofile').getSnowprofilePreviewStore();
-			store.reload();
 			comp.insert(0, {
 				region:'north',
 				items: [{

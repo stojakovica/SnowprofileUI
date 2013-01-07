@@ -25,7 +25,7 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
 	    	var grid = this.up("grid");
 	        var selection = grid.getView().getSelectionModel().getSelection()[0];
 	        if (selection) {
-	        	var newToken = "action=edit#id="+selection.data.rid;
+	        	var newToken = "action=edit#id="+selection.data.rid.substring(1);
 	            Ext.History.add(newToken);
 	        }
         }
@@ -37,7 +37,7 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
     		var grid = this.up("grid");
             var selection = grid.getView().getSelectionModel().getSelection()[0];
             if (selection) {
-            	selection.data.id = selection.data.rid;
+            	selection.data.id = selection.data.rid.substring(1);
             	grid.getStore().remove(selection);
             }
         }

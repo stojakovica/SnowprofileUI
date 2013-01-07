@@ -1,12 +1,12 @@
-var exposition = [
-	['N'],
-	['NE'],
-	['E'],
-	['SE'],
-	['S'],
-	['SW'],
-	['W'],
-	['NW']
+var himmelsrichtungen = [
+    ['N', 'N'],
+  	['NE', 'NE'],
+  	['E', 'E'],
+  	['SE', 'SE'],
+  	['S', 'S'],
+  	['SW', 'SW'],
+  	['W', 'W'],
+  	['NW', 'NW']
 ];
 
 var windgeschwindigkeit = [
@@ -18,17 +18,6 @@ var windgeschwindigkeit = [
 	['100', 'schwerer Wind/Orkan (>100 km/h)']
 ];
 
-var windrichtung = [
-	['N'],
-	['NE'],
-	['E'],
-	['SE'],
-	['S'],
-	['SW'],
-	['W'],
-	['NW']
-];
-
 var niederschlag = [
 	['Nil', 'kein Niederschlag'],
 	['SN', 'Schnee'],
@@ -37,9 +26,9 @@ var niederschlag = [
 ];
 
 var intensitaetNiederschlag = [
-	['schwach'],
-	['mittel'],
-	['stark']
+	['schwach', 'schwach'],
+	['mittel', 'mittel'],
+	['stark', 'stark']
 ];
 
 var bewoelkung = [
@@ -52,16 +41,16 @@ var bewoelkung = [
 ];
 
 var regionen = [
-	['Arlberg - Außerfern', 'Arlberg - Außerfern'],
-	['Westliche Nordalpen', 'Westliche Nordalpen'],
-	['Östliche Nordalpen', 'Östliche Nordalpen'],
-	['Silvretta - Samnaun', 'Silvretta - Samnaun'],
-	['Nördliche Ötztaler und Stubaier Alpen', 'Nördliche Ötztaler und Stubaier Alpen'],
-	['Tuxer Alpen', 'Tuxer Alpen'],
-	['Kitzbüheler Alpen', 'Kitzbüheler Alpen'],
-	['Südliche Ötztaler und Stubaier Alpen', 'Südliche Ötztaler und Stubaier Alpen'],
-	['Zillertaler Alpen', 'Zillertaler Alpen'],
-	['Osttiroler Tauern', 'Osttiroler Tauern'],
-	['Zentral Osttirol', 'Zentral Osttirol'],
-	['Osttiroler Dolomiten', 'Osttiroler Dolomiten']
+	['Arlberg - Außerfern', 'R1 - Arlberg - Außerfern'],
+	['Westliche Nordalpen', 'R2 - Westliche Nordalpen'],
+	['Östliche Nordalpen', 'R3 - Östliche Nordalpen'],
+	['Silvretta - Samnaun', 'R4 - Silvretta - Samnaun'],
+	['Nördliche Ötztaler und Stubaier Alpen', 'R5 - Nördliche Ötztaler und Stubaier Alpen'],
+	['Tuxer Alpen', 'R6 - Tuxer Alpen'],
+	['Kitzbüheler Alpen', 'R7 - Kitzbüheler Alpen'],
+	['Südliche Ötztaler und Stubaier Alpen', 'R8 - Südliche Ötztaler und Stubaier Alpen'],
+	['Zillertaler Alpen', 'R9 - Zillertaler Alpen'],
+	['Osttiroler Tauern', 'R10 - Osttiroler Tauern'],
+	['Zentral Osttirol', 'R11 - Zentral Osttirol'],
+	['Osttiroler Dolomiten', 'R12 - Osttiroler Dolomiten']
 ];

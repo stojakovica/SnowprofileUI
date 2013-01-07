@@ -64,7 +64,7 @@ public class ListSnowProfileResource extends ServerResource {
 	 */
 	@Get()
 	public String getJson() throws JSONException, IOException {
-		return "{SnowprofileList: " + SchichtprofilDAO.getAllSnowprofiles(db).toString() + "}";
+		return "{\"SnowprofileList\": " + SchichtprofilDAO.getAllSnowprofiles(db).toString() + "}";
 	}
 
 	/**

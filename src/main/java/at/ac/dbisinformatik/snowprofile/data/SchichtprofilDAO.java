@@ -171,10 +171,7 @@ public class SchichtprofilDAO {
 		List<ODocument> results = db.querySQL("select * from SnowProfile");
 		for (ODocument oDocument : results) {
 			JSONObject temp = new JSONObject(oDocument.toJSON());
-			Map<String, Object> idMap = (Map<String, Object>) JSONHelpers
-					.jsonToMap("SnowProfile", temp);
-			idMap.put("rid", (String) temp.get("@rid").toString().substring(1));
-			returnList.put(idMap);
+			returnList.put(getSingleSnowProfile(db, temp.get("@rid").toString().substring(1)).get("SnowProfile"));
 		}
 		
 		return returnList;

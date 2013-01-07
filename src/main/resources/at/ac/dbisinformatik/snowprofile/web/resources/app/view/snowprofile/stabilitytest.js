@@ -38,6 +38,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			header: 'Höhe[cm]',
 			dataIndex: 'depth',
 			flex: 1,
+			menuDisabled: true,
 			editor: {
 			    xtype: 'numberfield',
 	            allowBlank: false,
@@ -49,6 +50,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			dataIndex: 'test',
 			id: 'test',
 			flex: 1,
+			menuDisabled: true,
 			field: {
                 xtype: 'combobox',
                 typeAhead: true,
@@ -71,6 +73,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			dataIndex: 'belastungsstufe',
 			id: 'belastungsstufe',
 			flex: 1,
+			menuDisabled: true,
 			field: {
                 xtype: 'combobox',
                 typeAhead: true,
@@ -155,6 +158,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			header: 'Bruchart',
 			dataIndex: 'bruchart',
 			flex: 1,
+			menuDisabled: true,
 			field: {
                 xtype: 'combobox',
                 typeAhead: true,
@@ -173,6 +177,7 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			header: 'Bruchfläche',
 			dataIndex: 'bruchflaeche',
 			flex: 1,
+			menuDisabled: true,
 			field: {
                 xtype: 'combobox',
                 typeAhead: true,

@@ -35,9 +35,10 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
     
     columns: [
 		{
-		        header: '<b>[H]</b><br>Oberkante [cm]',
+		    header: '<b>[H]</b><br>Oberkante [cm]',
 			dataIndex: 'depth',
 			flex: 1,
+			menuDisabled: true,
 			editor: {
 			    xtype: 'numberfield',
 	             allowBlank: false,
@@ -52,6 +53,7 @@ Ext.define('LWD.view.snowprofile.snowtemperature' ,{
 				else return value;
 			},
 			flex: 1,
+			menuDisabled: true,
 			editor: {
 				xtype: 'numberfield',
 				allowBlank: false,

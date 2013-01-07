@@ -55,6 +55,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				fieldLabel : 'Zeit',
 				minValue : Ext.Date.parse('04:30:00 AM', 'h:i:s A'),
 				maxValue : Ext.Date.parse('08:00:00 PM', 'h:i:s A'),
+				format: "H:i",
 				anchor : '95%',
 				allowBlank : false
 			}, {
@@ -64,7 +65,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				fieldLabel : 'Region',
 				name : 'region',
 				store : regionen,
-				typeAhead : true,
+//				typeAhead : true,
 				queryMode : 'local',
 				emptyText : 'Bitte wählen Sie…',
 				anchor : '95%'
@@ -115,8 +116,8 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				editable : false,
 				fieldLabel : 'Exposition',
 				name : 'exposition',
-				store : exposition,
-				typeAhead : true,
+				store : himmelsrichtungen,
+//				typeAhead : true,
 				queryMode : 'local',
 				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
@@ -127,7 +128,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				fieldLabel : 'Windgeschwindigkeit',
 				name : 'windgeschwindigkeit',
 				store : windgeschwindigkeit,
-				typeAhead : true,
+//				typeAhead : true,
 				queryMode : 'local',
 				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
@@ -136,8 +137,8 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				editable : false,
 				fieldLabel : 'Windrichtung',
 				name : 'windrichtung',
-				store : windrichtung,
-				typeAhead : true,
+				store : himmelsrichtungen,
+//				typeAhead : true,
 				queryMode : 'local',
 				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
@@ -152,7 +153,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				fieldLabel : 'Niederschlag',
 				name : 'niederschlag',
 				store : niederschlag,
-				typeAhead : true,
+//				typeAhead : true,
 				queryMode : 'local',
 				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
@@ -162,7 +163,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				fieldLabel : 'Intensit&auml;t des Niederschlags',
 				name : 'intensitaetDesNS',
 				store : intensitaetNiederschlag,
-				typeAhead : true,
+//				typeAhead : true,
 				queryMode : 'local',
 				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'
@@ -172,7 +173,7 @@ Ext.define('LWD.view.snowprofile.Metadata', {
 				fieldLabel : 'Bew&ouml;lkung',
 				name : 'bewoelkung',
 				store : bewoelkung,
-				typeAhead : true,
+//				typeAhead : true,
 				queryMode : 'local',
 				emptyText : 'Bitte wählen Sie…',
 				anchor : '100%'

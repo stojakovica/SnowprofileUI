@@ -232,7 +232,7 @@ Ext.define('LWD.controller.Snowprofile', {
 				      } };
 //	        		snowProfileStore.getProxy().getReader().read(snowProfileTemplateJson);
 //	        		snowProfileStore.load();
-	        		snowProfileStore.loadRawData(snowProfileStore);
+	        		snowProfileStore.loadRawData(snowProfileTemplateJson);
 	        	}
         		break;
         	case "edit": 

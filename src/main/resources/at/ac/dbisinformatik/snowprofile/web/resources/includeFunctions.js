@@ -158,7 +158,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	items.push(drawImage(widthImage, heightImage, (22.4 - pdfMarginX)+"%", yLegendFirstRowImage+"%", "data/img/filziger_schnee.jpg", pdfFlag));
 	items.push(drawText("Filz", (23.9 - pdfMarginX)+"%", yLegendFirstRow+"%", 0, "#000000", fontSize));
 	items.push(drawImage(widthImage, heightImage, (26.6 - pdfMarginX)+"%", yLegendFirstRowImage+"%", "data/img/rundkoerniger_schnee.jpg", pdfFlag));
-	items.push(drawText("kleine Runde", (28 - pdfMarginX)+"%", yLegendFirstRow+"%", 0, "#000000", fontSize));
+	items.push(drawText("Rundkorn", (28 - pdfMarginX)+"%", yLegendFirstRow+"%", 0, "#000000", fontSize));
 	items.push(drawImage(widthImage, heightImage, (34.4 - pdfMarginX)+"%", yLegendFirstRowImage+"%", "data/img/kantigfoermiger_schnee.jpg", pdfFlag));
 	items.push(drawText("kantig", (35.9 - pdfMarginX)+"%", yLegendFirstRow+"%", 0, "#000000", fontSize));
 	items.push(drawImage(widthImage, heightImage, (39.2 - pdfMarginX)+"%", yLegendFirstRowImage+"%", "data/img/schwimmschnee.jpg", pdfFlag));
@@ -185,7 +185,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	items.push(drawText("F", (61 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("D", (65 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("K", (68.7 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
-	items.push(drawText("Niete", (70.5 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
+	items.push(drawText("Nieten", (70.5 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	items.push(drawText("Stabilitätstests", (76 - pdfMarginX)+"%", yDescriptionText+"%", 0, "#000000", fontSize));
 	
 	items.push(drawRectangle("0.5", "0.5%", (24.25 - pdfMarginX)+"%", yGraphMainArea+"%", 1, "#000000", "#ffffff", 1));

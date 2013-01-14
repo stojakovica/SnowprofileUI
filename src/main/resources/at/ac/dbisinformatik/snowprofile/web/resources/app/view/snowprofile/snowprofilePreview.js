@@ -48,6 +48,16 @@ Ext.define('LWD.view.snowprofile.snowprofilePreview' ,{
     		window.location.href="/lwd/static/1.0.0.0/login.html";
     	}
     }],
+    
+    listeners: {
+        itemdblclick: function(view){
+            var selection = view.getSelectionModel().getSelection()[0];
+            if (selection) {
+                var newToken = "action=edit#id="+selection.data.rid.substring(1);
+                Ext.History.add(newToken);
+            }
+        }
+    },
 
     columns: [
 		{

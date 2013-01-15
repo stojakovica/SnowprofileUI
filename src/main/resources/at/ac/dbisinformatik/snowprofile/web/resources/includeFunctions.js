@@ -7,20 +7,25 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var tempMax = 26;
 	var snowTopValue = 250;
 	if(pdfFlag) {
+//		componentHeight = 3508;
+//		componentWidth = 2480;
 		componentHeight = 1500;
 		componentWidth = 1500;
 	}
 	else {
+		componentHeight = drawComponent.getHeight();
 		componentWidth = drawComponent.getWidth();
-		componentHeight = componentWidth / Math.sqrt(2);
-		componentWidth = componentWidth - (componentWidth*0.11);
-		componentHeight = componentHeight - (componentHeight*0.11);
 	}
-	var fontSize = Math.round(componentWidth * 0.01);
+	
+	var paperWidth =  componentHeight / Math.sqrt(2);
+	var paperHeight = componentHeight - (componentHeight*0.01);
+	var paperWidth = paperWidth - (paperWidth*0.01);
+
+	var fontSize = Math.round(paperWidth * 0.01);
 	var pdfMarginY = 0;
 	var pdfMarginX = 0;
 	
-	var widthImage = componentWidth * 0.012;
+	var widthImage = paperWidth * 0.012;
 	var heightImage = widthImage;
 	var yLegendFirstRow = 2.27;
 	var yLegendSecondRow = 4.8;
@@ -32,7 +37,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var yGraphMainArea = 10;
 	var heightMainArea = 90;
 	
-	items.push(drawRectangle(componentHeight, componentWidth, (componentHeight*0.005), (componentWidth*0.005), 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth, paperHeight, (paperWidth*0.005), (paperHeight*0.005), 1, "#000000", "#ffffff", 1));
 	
 	return items;
 }

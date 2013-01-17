@@ -141,8 +141,8 @@ public class SVGCreator {
 		Element svgRoot = doc.getDocumentElement();
 
 		// Set the width and height attributes on the root 'svg' element.
-		svgRoot.setAttributeNS(null, "width", "1500");
-		svgRoot.setAttributeNS(null, "height", "1500");
+		svgRoot.setAttributeNS(null, "width", "842");
+		svgRoot.setAttributeNS(null, "height", "595");
 		JsonArray items = jsonDocument;
 
 		for (int i = 0; i < items.size(); ++i) {

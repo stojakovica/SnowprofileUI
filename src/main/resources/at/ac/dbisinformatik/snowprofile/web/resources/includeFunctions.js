@@ -7,10 +7,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var tempMax = 26;
 	var snowTopValue = 250;
 	if(pdfFlag) {
-//		componentHeight = 3508;
-//		componentWidth = 2480;
-		componentHeight = 1500;
-		componentWidth = 1500;
+		componentHeight = 842;
+		componentWidth = 595;
 	}
 	else {
 		componentHeight = drawComponent.getHeight();

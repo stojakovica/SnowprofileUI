@@ -7,8 +7,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var tempMax = 26;
 	var snowTopValue = 250;
 	if(pdfFlag) {
-		componentHeight = 842;
-		componentWidth = 595;
+		componentHeight = 1485;
+		componentWidth = 1055;
 	}
 	else {
 		componentHeight = drawComponent.getHeight();
@@ -34,8 +34,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var yLegendSecondRowRec = 3.5;
 	var yGraphMainArea = 10;
 	var heightMainArea = 90;
-	
-	items.push(drawRectangle(paperWidth, paperHeight, (paperWidth*0.005), (paperHeight*0.005), 1, "#000000", "#ffffff", 1));
+
+	items.push(drawRectangle(1055*0.98, 1485*0.98, 1055 * 0.01, 1485 * 0.01, 1, "#000000", "#ffffff", 1));
 	
 	return items;
 }

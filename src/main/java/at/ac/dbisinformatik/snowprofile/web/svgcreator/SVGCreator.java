@@ -30,6 +30,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -38,6 +40,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.batik.dom.svg.SVGDOMImplementation;
+import org.apache.batik.transcoder.SVGAbstractTranscoder;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
@@ -53,7 +56,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class SVGCreator {
-	
+
 	/**
 	 * returns a ByteArrayOutputStream which contains the converted SVG-Graph to PNG
 	 * 
@@ -62,14 +65,14 @@ public class SVGCreator {
 	 * @throws TranscoderException
 	 * @throws IOException
 	 */
-	public static ByteArrayOutputStream createPNG(InputStream inputStream) throws TranscoderException, IOException {
-		ByteArrayOutputStream ret = new ByteArrayOutputStream();
-		PNGTranscoder t = new PNGTranscoder();
-		TranscoderInput input = new TranscoderInput(inputStream);
-		TranscoderOutput output = new TranscoderOutput(ret);
-		
+	public static ByteArrayOutputStream createPNG(final InputStream inputStream) throws TranscoderException, IOException {
+		final ByteArrayOutputStream ret = new ByteArrayOutputStream();
+		final PNGTranscoder t = new PNGTranscoder();
+		final TranscoderInput input = new TranscoderInput(inputStream);
+		final TranscoderOutput output = new TranscoderOutput(ret);
+
 		t.transcode(input, output);
-		
+
 		return ret;
 	}
 
@@ -81,12 +84,12 @@ public class SVGCreator {
 	 * @throws TranscoderException
 	 * @throws IOException
 	 */
-	public static ByteArrayOutputStream createJPG(InputStream inputStream) throws TranscoderException, IOException {
-		ByteArrayOutputStream ret = new ByteArrayOutputStream();
-		JPEGTranscoder t = new JPEGTranscoder();
+	public static ByteArrayOutputStream createJPG(final InputStream inputStream) throws TranscoderException, IOException {
+		final ByteArrayOutputStream ret = new ByteArrayOutputStream();
+		final JPEGTranscoder t = new JPEGTranscoder();
 		t.addTranscodingHint(JPEGTranscoder.KEY_QUALITY, new Float(.8));
-		TranscoderInput input = new TranscoderInput(inputStream);
-		TranscoderOutput output = new TranscoderOutput(ret);
+		final TranscoderInput input = new TranscoderInput(inputStream);
+		final TranscoderOutput output = new TranscoderOutput(ret);
 
 		t.transcode(input, output);
 
@@ -100,15 +103,23 @@ public class SVGCreator {
 	 * @return
 	 * @throws IOException
 	 */
-	public static ByteArrayOutputStream createPDF(InputStream inputStream) throws IOException {
-		ByteArrayOutputStream ret = new ByteArrayOutputStream();
-		PDFTranscoder t = new PDFTranscoder();
-		TranscoderInput input = new TranscoderInput(inputStream);
-		TranscoderOutput output = new TranscoderOutput(ret);
-		
+	public static ByteArrayOutputStream createPDF(final InputStream inputStream) throws IOException {
+		final ByteArrayOutputStream ret = new ByteArrayOutputStream();
+		final PDFTranscoder t = new PDFTranscoder();
+
+		final Map<Object, Object> transcodingHints = new HashMap<Object, Object>();
+		transcodingHints.put(SVGAbstractTranscoder.KEY_WIDTH, new Float(1055));
+		transcodingHints.put(SVGAbstractTranscoder.KEY_HEIGHT, new Float(1485));
+		transcodingHints.put(SVGAbstractTranscoder.KEY_PIXEL_UNIT_TO_MILLIMETER, new Float(0.2));
+		transcodingHints.put(SVGAbstractTranscoder.KEY_MEDIA, "print");
 		try {
+			t.setTranscodingHints(transcodingHints);
+			final TranscoderInput input = new TranscoderInput(inputStream);
+			final TranscoderOutput output = new TranscoderOutput(ret);
+
+
 			t.transcode(input, output);
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			throw new IOException(ex.getMessage());
 		} finally {
 		}
@@ -127,26 +138,26 @@ public class SVGCreator {
 	 * @throws TranscoderException
 	 * @throws IOException
 	 */
-	public static ByteArrayOutputStream svgDocument(JsonArray jsonDocument, String exportType, String profileID)
+	public static ByteArrayOutputStream svgDocument(final JsonArray jsonDocument, final String exportType, final String profileID)
 			throws TransformerException, URISyntaxException,
 			TranscoderException, IOException {
-		
+
 		ByteArrayOutputStream ret = null;
-		
-		DOMImplementation impl = SVGDOMImplementation.getDOMImplementation();
-		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
-		Document doc = impl.createDocument(svgNS, "svg", null);
+
+		final DOMImplementation impl = SVGDOMImplementation.getDOMImplementation();
+		final String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
+		final Document doc = impl.createDocument(svgNS, "svg", null);
 
 		// Get the root element (the 'svg' element).
-		Element svgRoot = doc.getDocumentElement();
+		final Element svgRoot = doc.getDocumentElement();
 
 		// Set the width and height attributes on the root 'svg' element.
-		svgRoot.setAttributeNS(null, "width", "842");
-		svgRoot.setAttributeNS(null, "height", "595");
-		JsonArray items = jsonDocument;
+		svgRoot.setAttributeNS(null, "width", "210mm");
+		svgRoot.setAttributeNS(null, "height", "297mm"); //150dpi
+		final JsonArray items = jsonDocument;
 
 		for (int i = 0; i < items.size(); ++i) {
-			String type = items.get(i).getAsJsonObject().get("type")
+			final String type = items.get(i).getAsJsonObject().get("type")
 					.getAsString();
 			Element element = null;
 			org.w3c.dom.Text test = null;
@@ -167,7 +178,7 @@ public class SVGCreator {
 			switch (type) {
 			case "rect":
 				width = items.get(i).getAsJsonObject().get("width")
-						.getAsString();
+				.getAsString();
 				height = items.get(i).getAsJsonObject().get("height")
 						.getAsString();
 				x = items.get(i).getAsJsonObject().get("x").getAsString();
@@ -227,7 +238,7 @@ public class SVGCreator {
 
 				// Transformation
 				if (items.get(i).getAsJsonObject().get("rotate") != null) {
-					JsonObject temp = items.get(i).getAsJsonObject()
+					final JsonObject temp = items.get(i).getAsJsonObject()
 							.get("rotate").getAsJsonObject();
 					degrees = temp.get("degrees").getAsString();
 				}
@@ -259,25 +270,25 @@ public class SVGCreator {
 			svgRoot.appendChild(element);
 		}
 
-		TransformerFactory tFactory = TransformerFactory.newInstance();
-		Transformer transformer = tFactory.newTransformer();
-		
-		DOMSource source = new DOMSource(doc);
-		
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		StreamResult result = new StreamResult(outputStream);
+		final TransformerFactory tFactory = TransformerFactory.newInstance();
+		final Transformer transformer = tFactory.newTransformer();
+
+		final DOMSource source = new DOMSource(doc);
+
+		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		final StreamResult result = new StreamResult(outputStream);
 		transformer.transform(source, result);
-		InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-		
+		final InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+
 		switch (exportType) {
 		case "png":
 			ret = createPNG(inputStream);
 			break;
-			
+
 		case "jpg":
 			ret = createJPG(inputStream);
 			break;
-			
+
 		case "pdf":
 			ret = createPDF(inputStream);
 			break;

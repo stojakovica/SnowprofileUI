@@ -1,10 +1,3 @@
-var renderValue = function(datastore) {
-    return function(value, metaData, record, rowIndex, colIndex, store, view) {
-        var rec = datastore.findRecord('value', value);
-        return rec ? rec.get('display') : value;
-    };
-};
-
 var humidityDatastore = Ext.create('Ext.data.Store', {
     fields: ['value', 'display'],
     data: [

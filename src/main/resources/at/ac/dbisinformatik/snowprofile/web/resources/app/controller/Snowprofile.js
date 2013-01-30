@@ -230,8 +230,6 @@ Ext.define('LWD.controller.Snowprofile', {
 				        "xmlns_xsi" : "http://www.w3.org/2001/XMLSchema-instance",
 				        "xsi_schemaLocation" : "http://caaml.org/Schemas/V5.0/Profiles/SnowProfileIACS  http://caaml.avisualanche.ca/Schemas/V5.0/Profiles/SnowprofileIACS/CAAMLv5_SnowProfileIACS.xsd"
 				      } };
-//	        		snowProfileStore.getProxy().getReader().read(snowProfileTemplateJson);
-//	        		snowProfileStore.load();
 	        		snowProfileStore.loadRawData(snowProfileTemplateJson);
 	        	}
         		break;

@@ -9,33 +9,27 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	if(pdfFlag) {
 		componentHeight = 1485;
 		componentWidth = 1055;
+		paperHeight = componentHeight - (componentHeight*0.01);
+		paperWidth =  componentHeight / Math.sqrt(2);
+		paperWidth = paperWidth - (paperWidth*0.01);
+		xMargin = paperWidth * 0.01;
+		yMargin = paperHeight * 0.01;
 	}
 	else {
 		componentHeight = drawComponent.getHeight();
 		componentWidth = drawComponent.getWidth();
+		paperHeight = componentHeight - (componentHeight*0.01);
+		paperWidth =  componentHeight / Math.sqrt(2);
+		paperWidth = paperWidth - (paperWidth*0.01);
+		xMargin = (componentWidth / 2) - (paperWidth / 2);
+		yMargin = paperHeight * 0.01;
 	}
-	
-	var paperWidth =  componentHeight / Math.sqrt(2);
-	var paperHeight = componentHeight - (componentHeight*0.01);
-	var paperWidth = paperWidth - (paperWidth*0.01);
 
 	var fontSize = Math.round(paperWidth * 0.01);
 	var pdfMarginY = 0;
 	var pdfMarginX = 0;
 	
-	var widthImage = paperWidth * 0.012;
-	var heightImage = widthImage;
-	var yLegendFirstRow = 2.27;
-	var yLegendSecondRow = 4.8;
-	var yLegendFirstRowImage = 1.55;
-	var yHardnessText = 11.5;
-	var yDescriptionText = 9;
-	var yLegendFirstRowRec = 1;
-	var yLegendSecondRowRec = 3.5;
-	var yGraphMainArea = 10;
-	var heightMainArea = 90;
-
-	items.push(drawRectangle(1055*0.98, 1485*0.98, 1055 * 0.01, 1485 * 0.01, 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.99, xMargin, yMargin, 1, "#000000", "#ffffff", 1));
 	
 	return items;
 }

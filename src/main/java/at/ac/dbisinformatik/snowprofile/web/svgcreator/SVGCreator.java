@@ -68,10 +68,22 @@ public class SVGCreator {
 	public static ByteArrayOutputStream createPNG(final InputStream inputStream) throws TranscoderException, IOException {
 		final ByteArrayOutputStream ret = new ByteArrayOutputStream();
 		final PNGTranscoder t = new PNGTranscoder();
-		final TranscoderInput input = new TranscoderInput(inputStream);
-		final TranscoderOutput output = new TranscoderOutput(ret);
+		
+		final Map<Object, Object> transcodingHints = new HashMap<Object, Object>();
+		transcodingHints.put(SVGAbstractTranscoder.KEY_WIDTH, new Float(1055));
+		transcodingHints.put(SVGAbstractTranscoder.KEY_HEIGHT, new Float(1485));
+		transcodingHints.put(SVGAbstractTranscoder.KEY_PIXEL_UNIT_TO_MILLIMETER, new Float(0.2));
+		transcodingHints.put(SVGAbstractTranscoder.KEY_MEDIA, "print");
+		try {
+			t.setTranscodingHints(transcodingHints);
+			final TranscoderInput input = new TranscoderInput(inputStream);
+			final TranscoderOutput output = new TranscoderOutput(ret);
+			
+			t.transcode(input, output);
+		} catch (Exception e) {
+			throw new IOException(e.getMessage());
+		}
 
-		t.transcode(input, output);
 
 		return ret;
 	}
@@ -116,7 +128,6 @@ public class SVGCreator {
 			t.setTranscodingHints(transcodingHints);
 			final TranscoderInput input = new TranscoderInput(inputStream);
 			final TranscoderOutput output = new TranscoderOutput(ret);
-
 
 			t.transcode(input, output);
 		} catch (final Exception ex) {

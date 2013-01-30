@@ -25,7 +25,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 		yMargin = paperHeight * 0.01;
 	}
 
-	var fontSize = Math.round(paperWidth * 0.01);
+	var fontSize = Math.round(paperWidth * 0.02);
 	var pdfMarginY = 0;
 	var pdfMarginX = 0;
 	

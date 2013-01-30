@@ -41,7 +41,8 @@ var ctStore = Ext.create('Ext.data.Store', {
 		{value: "CT 27", display: "CT 27"},
 		{value: "CT 28", display: "CT 28"},
 		{value: "CT 29", display: "CT 29"},
-		{value: "CT 30", display: "CT 30"}
+		{value: "CT 30", display: "CT 30"},
+		{value: "CT 31", display: "CT 31"}
     ]
 });
 
@@ -49,36 +50,67 @@ var ectStore = Ext.create('Ext.data.Store', {
 	fields: ['value', 'display'],
 	data: [
        {value: "ECT 0", display: "ECT 0"},
-       {value: "ECT 1", display: "ECT 1"},
-       {value: "ECT 2", display: "ECT 2"},
-       {value: "ECT 3", display: "ECT 3"},
-       {value: "ECT 4", display: "ECT 4"},
-       {value: "ECT 5", display: "ECT 5"},
-       {value: "ECT 6", display: "ECT 6"},
-       {value: "ECT 7", display: "ECT 7"},
-       {value: "ECT 8", display: "ECT 8"},
-       {value: "ECT 9", display: "ECT 9"},
-       {value: "ECT 10", display: "ECT 10"},
-       {value: "ECT 11", display: "ECT 11"},
-       {value: "ECT 12", display: "ECT 12"},
-       {value: "ECT 13", display: "ECT 13"},
-       {value: "ECT 14", display: "ECT 14"},
-       {value: "ECT 15", display: "ECT 15"},
-       {value: "ECT 16", display: "ECT 16"},
-       {value: "ECT 17", display: "ECT 17"},
-       {value: "ECT 18", display: "ECT 18"},
-       {value: "ECT 19", display: "ECT 19"},
-       {value: "ECT 20", display: "ECT 20"},
-       {value: "ECT 21", display: "ECT 21"},
-       {value: "ECT 22", display: "ECT 22"},
-       {value: "ECT 23", display: "ECT 23"},
-       {value: "ECT 24", display: "ECT 24"},
-       {value: "ECT 25", display: "ECT 25"},
-       {value: "ECT 26", display: "ECT 26"},
-       {value: "ECT 27", display: "ECT 27"},
-       {value: "ECT 28", display: "ECT 28"},
-       {value: "ECT 29", display: "ECT 29"},
-       {value: "ECT 30", display: "ECT 30"}
+       {value: "ECTP 1", display: "ECTP 1"},
+       {value: "ECTP 2", display: "ECTP 2"},
+       {value: "ECTP 3", display: "ECTP 3"},
+       {value: "ECTP 4", display: "ECTP 4"},
+       {value: "ECTP 5", display: "ECTP 5"},
+       {value: "ECTP 6", display: "ECTP 6"},
+       {value: "ECTP 7", display: "ECTP 7"},
+       {value: "ECTP 8", display: "ECTP 8"},
+       {value: "ECTP 9", display: "ECTP 9"},
+       {value: "ECTP 10", display: "ECTP 10"},
+       {value: "ECTP 11", display: "ECTP 11"},
+       {value: "ECTP 12", display: "ECTP 12"},
+       {value: "ECTP 13", display: "ECTP 13"},
+       {value: "ECTP 14", display: "ECTP 14"},
+       {value: "ECTP 15", display: "ECTP 15"},
+       {value: "ECTP 16", display: "ECTP 16"},
+       {value: "ECTP 17", display: "ECTP 17"},
+       {value: "ECTP 18", display: "ECTP 18"},
+       {value: "ECTP 19", display: "ECTP 19"},
+       {value: "ECTP 20", display: "ECTP 20"},
+       {value: "ECTP 21", display: "ECTP 21"},
+       {value: "ECTP 22", display: "ECTP 22"},
+       {value: "ECTP 23", display: "ECTP 23"},
+       {value: "ECTP 24", display: "ECTP 24"},
+       {value: "ECTP 25", display: "ECTP 25"},
+       {value: "ECTP 26", display: "ECTP 26"},
+       {value: "ECTP 27", display: "ECTP 27"},
+       {value: "ECTP 28", display: "ECTP 28"},
+       {value: "ECTP 29", display: "ECTP 29"},
+       {value: "ECTP 30", display: "ECTP 30"},
+       {value: "ECTN 1", display: "ECTN 1"},
+       {value: "ECTN 2", display: "ECTN 2"},
+       {value: "ECTN 3", display: "ECTN 3"},
+       {value: "ECTN 4", display: "ECTN 4"},
+       {value: "ECTN 5", display: "ECTN 5"},
+       {value: "ECTN 6", display: "ECTN 6"},
+       {value: "ECTN 7", display: "ECTN 7"},
+       {value: "ECTN 8", display: "ECTN 8"},
+       {value: "ECTN 9", display: "ECTN 9"},
+       {value: "ECTN 10", display: "ECTN 10"},
+       {value: "ECTN 11", display: "ECTN 11"},
+       {value: "ECTN 12", display: "ECTN 12"},
+       {value: "ECTN 13", display: "ECTN 13"},
+       {value: "ECTN 14", display: "ECTN 14"},
+       {value: "ECTN 15", display: "ECTN 15"},
+       {value: "ECTN 16", display: "ECTN 16"},
+       {value: "ECTN 17", display: "ECTN 17"},
+       {value: "ECTN 18", display: "ECTN 18"},
+       {value: "ECTN 19", display: "ECTN 19"},
+       {value: "ECTN 20", display: "ECTN 20"},
+       {value: "ECTN 21", display: "ECTN 21"},
+       {value: "ECTN 22", display: "ECTN 22"},
+       {value: "ECTN 23", display: "ECTN 23"},
+       {value: "ECTN 24", display: "ECTN 24"},
+       {value: "ECTN 25", display: "ECTN 25"},
+       {value: "ECTN 26", display: "ECTN 26"},
+       {value: "ECTN 27", display: "ECTN 27"},
+       {value: "ECTN 28", display: "ECTN 28"},
+       {value: "ECTN 29", display: "ECTN 29"},
+       {value: "ECTN 30", display: "ECTN 30"},
+       {value: "ECT 31", display: "ECT 31"}
     ]
 });
 
@@ -95,6 +127,24 @@ var rbStore = Ext.create('Ext.data.Store', {
 	]
 });
 
+var bruchartStore = Ext.create('Ext.data.Store', {
+	fields: ['value', 'display'],
+	data: [
+       {value: "WB", display: "ganzer Block"},
+       {value: "MB", display: "Teilbruch"},
+       {value: "EB", display: "nur Eck"}
+    ]
+});
+
+var bruchflaecheStore = Ext.create('Ext.data.Store', {
+	fields: ['value', 'display'],
+	data: [
+       {value: "Clean", display: "glatt"},
+       {value: "Rough", display: "rau"},
+       {value: "Irregular", display: "unregelmäßig"}
+    ]
+});
+
 // aktualisiert die Belastungsstufenauswahl abhängig vom Stabilitätstest, noch nicht fertig
 var handleTest = function(editor, record) {
 	switch(record) {
@@ -106,8 +156,6 @@ var handleTest = function(editor, record) {
 				var me = this.field || this;
 				console.log(me);
 				if (isRecord && me.setValue) {
-					me.valueField = 'value';
-					me.displayField = 'display';
 					me.store = ctStore;
 					me.renderer = renderValue(ctStore);
 				}
@@ -121,8 +169,6 @@ var handleTest = function(editor, record) {
 				var me = this.field || this;
 				console.log(me);
 				if (isRecord && me.setValue) {
-					me.valueField = 'value';
-					me.displayField = 'display';
 					me.store = ectStore;
 					me.renderer = renderValue(ectStore);
 				}
@@ -136,8 +182,6 @@ var handleTest = function(editor, record) {
 				var me = this.field || this;
 				console.log(me);
 				if (isRecord && me.setValue) {
-					me.valueField = 'value';
-					me.displayField = 'display';
 					me.store = rbStore;
 					me.renderer = renderValue(rbStore);
 				}
@@ -235,6 +279,8 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
                 triggerAction: 'all',
                 selectOnTab: true,
                 lazyRender: true,
+                valueField: 'value',
+                displayField: 'display',
                 listClass: 'x-combo-list-small'
             }
 		},
@@ -243,16 +289,15 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			dataIndex: 'bruchart',
 			flex: 1,
 			menuDisabled: true,
+			renderer: renderValue(bruchartStore),
 			field: {
                 xtype: 'combobox',
                 typeAhead: true,
                 triggerAction: 'all',
                 selectOnTab: true,
-                store: [
-					['WB','ganzer Block'],
-					['MB','Teilbruch'],
-					['EB','nur Eck']
-                ],
+                valueField: 'value',
+                displayField: 'display',
+                store: bruchartStore,
                 lazyRender: true,
                 listClass: 'x-combo-list-small'
             }
@@ -262,16 +307,15 @@ Ext.define('LWD.view.snowprofile.stabilitytest' ,{
 			dataIndex: 'bruchflaeche',
 			flex: 1,
 			menuDisabled: true,
+			renderer: renderValue(bruchflaecheStore),
 			field: {
                 xtype: 'combobox',
                 typeAhead: true,
                 triggerAction: 'all',
                 selectOnTab: true,
-                store: [
-					['Clean','glatt'],
-					['Rough','rau'],
-					['Irregular','unregelmäßig']
-                ],
+                valueField: 'value',
+                displayField: 'display',
+                store: bruchflaecheStore,
                 lazyRender: true,
                 listClass: 'x-combo-list-small'
             }

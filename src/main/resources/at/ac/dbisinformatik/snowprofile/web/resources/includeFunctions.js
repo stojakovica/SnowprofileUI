@@ -29,7 +29,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var pdfMarginY = 0;
 	var pdfMarginX = 0;
 	
-	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.99, xMargin, yMargin, 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.05, xMargin, yMargin, 1, "#000000", "#ffffff", 1));
 	
 	return items;
 }

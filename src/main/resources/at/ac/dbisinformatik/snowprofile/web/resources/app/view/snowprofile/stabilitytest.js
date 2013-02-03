@@ -169,6 +169,7 @@ var handleTest = function(editor, record) {
 				var me = this.field || this;
 				console.log(me);
 				if (isRecord && me.setValue) {
+					delete me.store;
 					me.store = ectStore;
 					me.renderer = renderValue(ectStore);
 				}

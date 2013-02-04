@@ -113,7 +113,7 @@ Ext.application({
         	        	        	    ]
             	        	        },
             	        	        {
-            	        	        	title: 'Stabilitätstests',
+            	        	        	title: 'Stabilit&auml;tstests',
             	        	        	border: false,
             	        	        	items: [
         	        	        	        {

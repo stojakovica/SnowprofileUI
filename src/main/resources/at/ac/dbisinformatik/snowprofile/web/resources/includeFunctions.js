@@ -26,10 +26,105 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	}
 
 	var fontSize = Math.round(paperWidth * 0.02);
+	var widthImage = paperWidth * 0.03;
+	var heightImage = widthImage;
 	var pdfMarginY = 0;
 	var pdfMarginX = 0;
+	var heightMainArea = 0.88;
 	
-	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.05, xMargin, yMargin, 1, "#000000", "#ffffff", 1));
+	// Drawing skeletal structure
+	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.04, xMargin, yMargin, 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.04, xMargin, yMargin + (paperHeight * 0.04), 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.99, paperHeight * heightMainArea, xMargin, yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.05, paperHeight * heightMainArea, xMargin + (paperWidth * 0.55), yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.05, paperHeight * heightMainArea, xMargin + (paperWidth * 0.63), yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.03, paperHeight * heightMainArea, xMargin + (paperWidth * 0.78), yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.05, paperHeight * heightMainArea, xMargin + (paperWidth * 0.81), yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
+	
+	// Text for Legend
+	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.01), yMargin + (paperHeight * 0.01), "data/img/neuschnee.jpg", pdfFlag));
+	items.push(drawText("Neuschnee", xMargin + (paperWidth * 0.03), yMargin + (paperHeight * 0.02), 0, "#000000", fontSize));
+	
+	if(store) {
+		var snowprofileData = store;
+		
+		// DRAWING LAYER-PROFILE/SCHICHTPROFIL
+		var schichtprofilData = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.stratProfile.Layer;
+		if(schichtprofilData.length >= 1) {
+			var direction = snowprofileData.snowProfileResultsOf.SnowProfileMeasurements.dir;
+			schichtprofilData.sort(function(a,b) {
+				return parseFloat(b.depthTop_content) - parseFloat(a.depthTop_content); 
+			});
+			
+			// Maximum Snow Height (if higher than 250cm)
+			if(schichtprofilData[0].depthTop_content > snowTopValue)
+				var snowTopValue = roundUp(schichtprofilData[0].depthTop_content);
+			
+			var hoechstWert = schichtprofilData[0].depthTop_content;
+			for(var i = schichtprofilData.length - 1; i >= 0; i--) {
+				var nietenText = "";
+				var vonHoehe = schichtprofilData[i].depthTop_content;
+				if(typeof schichtprofilData[i].thickness_content != 'undefined') {
+					var thickness = schichtprofilData[i].thickness_content;
+					var bisHoehe = vonHoehe - thickness;
+				}
+				else {
+					if(i < (schichtprofilData.length - 1))
+						var bisHoehe = schichtprofilData[i+1].depthTop_content;
+					else 
+						var bisHoehe = 0;
+				}
+				var kornform1 = schichtprofilData[i].grainFormPrimary;
+				var kornform2 = schichtprofilData[i].grainFormSecondary;
+				var haerte = schichtprofilData[i].hardness;
+				var groesse = schichtprofilData[i].grainSize_Components_avg+"-"+schichtprofilData[i].grainSize_Components_avgMax;
+				if(schichtprofilData[i].grainSize_Components_avg > 1)
+					nietenText = nietenText+"*";
+				var feuchte = schichtprofilData[i].lwc_content;
+				
+				if(direction == "top down") {
+					var height = (heightMainArea * (vonHoehe / snowTopValue)) - (heightMainArea * (bisHoehe / snowTopValue));
+					var y = 10 + (heightMainArea * (bisHoehe / snowTopValue));
+				}
+				else {
+					var height = (heightMainArea * (vonHoehe / snowTopValue)) - (heightMainArea * (bisHoehe / snowTopValue));
+					var y = 100 - (heightMainArea * (vonHoehe / snowTopValue));
+				}
+				
+				switch (haerte) {
+					case 'F': width = 1; nietenText = nietenText+"*"; break; 
+					case 'F-4F': width = 2.05; nietenText = nietenText+"*"; break; 
+					case '4F': width = 3; break; 
+					case '4F-1F': width = 6.5; break; 
+					case '1F': width = 10; break; 
+					case '1F-P': width = 15; break; 
+					case 'P': width = 20; break; 
+					case 'P-K': width = 25; break; 
+					case 'K': width = 31.05; break; 
+					case 'I': width = 40; break; 
+				}
+				
+				items.push(drawRectangle(50, paperHeight * height, 100, paperHeight * 0.12, 2, "#1C86EE", "#1C86EE", 0.2));
+				
+				// TEMPERATUR-MASSSTAB
+//				yTemperaturMassstab = 9.5;
+//				yTemperaturMassstabText = 8.8;
+//				items.push(drawText("°C", "15%", yTemperaturMassstabText+"%", 0, "#000000", fontSize));
+//				if(pdfFlag) {
+//					yTemperaturMassstabText = yTemperaturMassstabText + pdfMarginY;
+//					yTemperaturMassstab = yTemperaturMassstab + pdfMarginY;
+//				}
+//				for(var j=2; j < tempMax; j=j+2) {
+//					var x = 55 - (40* j/tempMax);
+//					if(pdfFlag) {
+//						x = x - pdfMarginX;
+//					}
+//					items.push(drawText(j, (x-0.25)+"%", yTemperaturMassstabText+"%", 0, "#000000", fontSize));
+//					items.push(drawRectangle("0.5", "0.5%", x+"%", yTemperaturMassstab+"%", "0.25", "#000000", "#000000", 1));
+//				}
+			}
+		}
+	}
 	
 	return items;
 }

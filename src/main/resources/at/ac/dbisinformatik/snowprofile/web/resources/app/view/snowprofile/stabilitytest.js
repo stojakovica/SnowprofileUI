@@ -154,9 +154,10 @@ var handleTest = function(editor, record) {
 			          editor.down('field[name="belastungsstufe"], [dataIndex="belastungsstufe"]'),
 			          ], function() {
 				var me = this.field || this;
-				console.log(me);
 				if (isRecord && me.setValue) {
+					me.setValue(null);
 					me.store = ctStore;
+					test = me.store;
 					me.renderer = renderValue(ctStore);
 				}
 			});
@@ -167,9 +168,8 @@ var handleTest = function(editor, record) {
 			          editor.down('field[name="belastungsstufe"], [dataIndex="belastungsstufe"]'),
 			          ], function() {
 				var me = this.field || this;
-				console.log(me);
 				if (isRecord && me.setValue) {
-					delete me.store;
+					me.setValue(null);
 					me.store = ectStore;
 					me.renderer = renderValue(ectStore);
 				}
@@ -181,14 +181,15 @@ var handleTest = function(editor, record) {
 			          editor.down('field[name="belastungsstufe"], [dataIndex="belastungsstufe"]'),
 			          ], function() {
 				var me = this.field || this;
-				console.log(me);
 				if (isRecord && me.setValue) {
+					me.setValue(null);
 					me.store = rbStore;
 					me.renderer = renderValue(rbStore);
 				}
 			});
 			break;
 	}
+	console.log(test);
 };
 
 Ext.define('LWD.view.snowprofile.stabilitytest' ,{

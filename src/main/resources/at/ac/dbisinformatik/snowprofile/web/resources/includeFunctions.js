@@ -84,11 +84,11 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				
 				if(direction == "top down") {
 					var height = (heightMainArea * (vonHoehe / snowTopValue)) - (heightMainArea * (bisHoehe / snowTopValue));
-					var y = 10 + (heightMainArea * (bisHoehe / snowTopValue));
+					var y = (yMargin + paperHeight * 0.11) + paperHeight * heightMainArea * (bisHoehe / snowTopValue);
 				}
 				else {
 					var height = (heightMainArea * (vonHoehe / snowTopValue)) - (heightMainArea * (bisHoehe / snowTopValue));
-					var y = 100 - (heightMainArea * (vonHoehe / snowTopValue));
+					var y = paperHeight - (paperHeight * heightMainArea * (vonHoehe / snowTopValue));
 				}
 				
 				switch (haerte) {
@@ -104,7 +104,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 					case 'I': width = 40; break; 
 				}
 				
-				items.push(drawRectangle(50, paperHeight * height, 100, paperHeight * 0.12, 2, "#1C86EE", "#1C86EE", 0.2));
+				items.push(drawRectangle(width, paperHeight * height, xMargin + (paperWidth * 0.55) - width, y, 1, "#1C86EE", "#1C86EE", 0.2));
 				
 				// TEMPERATUR-MASSSTAB
 //				yTemperaturMassstab = 9.5;

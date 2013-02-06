@@ -31,6 +31,7 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var pdfMarginY = 0;
 	var pdfMarginX = 0;
 	var heightMainArea = 0.88;
+	var width = 0;
 	
 	// Drawing skeletal structure
 	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.04, xMargin, yMargin, 1, "#000000", "#ffffff", 1));
@@ -107,21 +108,17 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				items.push(drawRectangle(width, paperHeight * height, xMargin + (paperWidth * 0.55) - width, y, 1, "#1C86EE", "#1C86EE", 0.2));
 				
 				// TEMPERATUR-MASSSTAB
-//				yTemperaturMassstab = 9.5;
-//				yTemperaturMassstabText = 8.8;
-//				items.push(drawText("°C", "15%", yTemperaturMassstabText+"%", 0, "#000000", fontSize));
-//				if(pdfFlag) {
-//					yTemperaturMassstabText = yTemperaturMassstabText + pdfMarginY;
-//					yTemperaturMassstab = yTemperaturMassstab + pdfMarginY;
-//				}
-//				for(var j=2; j < tempMax; j=j+2) {
-//					var x = 55 - (40* j/tempMax);
-//					if(pdfFlag) {
-//						x = x - pdfMarginX;
-//					}
-//					items.push(drawText(j, (x-0.25)+"%", yTemperaturMassstabText+"%", 0, "#000000", fontSize));
-//					items.push(drawRectangle("0.5", "0.5%", x+"%", yTemperaturMassstab+"%", "0.25", "#000000", "#000000", 1));
-//				}
+				yTemperaturMassstab = 9.5;
+				yTemperaturMassstabText = 8.8;
+				items.push(drawText("°C", xMargin, yMargin + paperWidth * 0.145, 0, "#000000", fontSize));
+				for(var j=2; j < tempMax; j=j+2) {
+					var x = 55 - (40* j/tempMax);
+					if(pdfFlag) {
+						x = x - pdfMarginX;
+					}
+					items.push(drawText(j, (x-0.25)+"%", yMargin + paperWidth * 0.14, 0, "#000000", fontSize));
+					items.push(drawRectangle("0.5", "0.5%", x+"%", yMargin + paperWidth * 0.15, "0.25", "#000000", "#000000", 1));
+				}
 			}
 		}
 	}

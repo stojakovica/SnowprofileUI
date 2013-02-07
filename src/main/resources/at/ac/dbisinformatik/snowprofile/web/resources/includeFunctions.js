@@ -26,7 +26,8 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	}
 
 	var fontSize = Math.round(paperWidth * 0.02);
-	var widthImage = paperWidth * 0.03;
+	var fontSizeLegend = Math.round(paperWidth * 0.02);
+	var widthImage = paperWidth * 0.02;
 	var heightImage = widthImage;
 	var pdfMarginY = 0;
 	var pdfMarginX = 0;
@@ -34,17 +35,44 @@ function getJSON(store, pdfFlag, drawComponent)  {
 	var width = 0;
 	
 	// Drawing skeletal structure
-	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.04, xMargin, yMargin, 1, "#000000", "#ffffff", 1));
-	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.04, xMargin, yMargin + (paperHeight * 0.04), 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.03, xMargin, yMargin, 1, "#000000", "#ffffff", 1));
+	items.push(drawRectangle(paperWidth * 0.99, paperHeight * 0.03, xMargin, yMargin + (paperHeight * 0.03), 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle(paperWidth * 0.99, paperHeight * heightMainArea, xMargin, yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle(paperWidth * 0.05, paperHeight * heightMainArea, xMargin + (paperWidth * 0.55), yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle(paperWidth * 0.05, paperHeight * heightMainArea, xMargin + (paperWidth * 0.63), yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle(paperWidth * 0.03, paperHeight * heightMainArea, xMargin + (paperWidth * 0.78), yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
 	items.push(drawRectangle(paperWidth * 0.05, paperHeight * heightMainArea, xMargin + (paperWidth * 0.81), yMargin + (paperHeight * 0.11), 1, "#000000", "#ffffff", 1));
 	
+	items.push(drawText("°C", xMargin, yMargin + paperWidth * 0.1425, 0, "#000000", fontSize));
+	items.push(drawText("H", xMargin + paperWidth * 0.565, yMargin + paperWidth * 0.1425, 0, "#000000", fontSize));
+	items.push(drawText("Θ", xMargin + paperWidth * 0.606, yMargin + paperWidth * 0.1425, 0, "#000000", fontSize));
+	items.push(drawText("F", xMargin + paperWidth * 0.65, yMargin + paperWidth * 0.1425, 0, "#000000", fontSize));
+	items.push(drawText("D", xMargin + paperWidth * 0.723, yMargin + paperWidth * 0.1425, 0, "#000000", fontSize));
+	items.push(drawText("K", xMargin + paperWidth * 0.785, yMargin + paperWidth * 0.1425, 0, "#000000", fontSize));
+	items.push(drawText("N", xMargin + paperWidth * 0.827, yMargin + paperWidth * 0.1425, 0, "#000000", fontSize));
+	items.push(drawText("ST", xMargin + paperWidth * 0.91, yMargin + paperWidth * 0.1425, 0, "#000000", fontSize));
+	
 	// Text for Legend
 	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.01), yMargin + (paperHeight * 0.01), "data/img/neuschnee.jpg", pdfFlag));
-	items.push(drawText("Neuschnee", xMargin + (paperWidth * 0.03), yMargin + (paperHeight * 0.02), 0, "#000000", fontSize));
+	items.push(drawText("Neuschnee", xMargin + (paperWidth * 0.04), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
+	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.155), yMargin + (paperHeight * 0.01), "data/img/filziger_schnee.jpg", pdfFlag));
+	items.push(drawText("Filz", xMargin + (paperWidth * 0.185), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
+	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.225), yMargin + (paperHeight * 0.01), "data/img/rundkoerniger_schnee.jpg", pdfFlag));
+	items.push(drawText("Rundkorn", xMargin + (paperWidth * 0.26), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
+	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.37), yMargin + (paperHeight * 0.01), "data/img/kantigfoermiger_schnee.jpg", pdfFlag));
+	items.push(drawText("kantig", xMargin + (paperWidth * 0.4), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
+	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.47), yMargin + (paperHeight * 0.01), "data/img/schwimmschnee.jpg", pdfFlag));
+	items.push(drawText("Tiefenreif", xMargin + (paperWidth * 0.5), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
+	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.61), yMargin + (paperHeight * 0.01), "data/img/oberflaechenreif.jpg", pdfFlag));
+	items.push(drawText("Oberflächenreif", xMargin + (paperWidth * 0.64), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
+	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.81), yMargin + (paperHeight * 0.01), "data/img/schmelzform.jpg", pdfFlag));
+	items.push(drawText("Schmelzform", xMargin + (paperWidth * 0.845), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
+//	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.01), yMargin + (paperHeight * 0.01), "data/img/eislamelle.jpg", pdfFlag));
+//	items.push(drawText("Eislamelle", xMargin + (paperWidth * 0.04), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
+//	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.01), yMargin + (paperHeight * 0.01), "data/img/kantig_abgerundet.jpg", pdfFlag));
+//	items.push(drawText("kantig, abgerundet", xMargin + (paperWidth * 0.04), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
+//	items.push(drawImage(widthImage, heightImage, xMargin + (paperWidth * 0.01), yMargin + (paperHeight * 0.01), "data/img/graupel.jpg", pdfFlag));
+//	items.push(drawText("Graupel", xMargin + (paperWidth * 0.04), yMargin + (paperHeight * 0.025), 0, "#000000", fontSizeLegend));
 	
 	if(store) {
 		var snowprofileData = store;
@@ -107,17 +135,42 @@ function getJSON(store, pdfFlag, drawComponent)  {
 				
 				items.push(drawRectangle(width, paperHeight * height, xMargin + (paperWidth * 0.55) - width, y, 1, "#1C86EE", "#1C86EE", 0.2));
 				
+				// SCHICHTPROFIL-MASSSTABS
+				var xSchichtprofilMassstabLink = xMargin;
+				var xSchichtprofilMassstabRechts = xMargin + (paperWidth * 0.55);
+				var xSchichtprofilMassstabText = xMargin + (paperWidth * 0.557);
+				for(var j=0; j < snowTopValue; j=j+10) {
+					var vonHoehe = snowTopValue - j;
+					if(direction == "top down") {
+						var text = j;
+					}
+					else {
+						var text = vonHoehe;
+					}
+					if(j == 0) continue;
+					if(j == snowTopValue) continue;
+					
+					var y = paperHeight - (paperHeight * heightMainArea * (vonHoehe / snowTopValue));
+					
+					// links
+					items.push(drawRectangle("0.5%", "0.5", xSchichtprofilMassstabLink, y, "0.25", "#000000", "#000000", 1));
+					
+					// rechts
+					items.push(drawText(text, xSchichtprofilMassstabText, y + paperWidth * 0.005, 0, "#000", fontSize));
+					items.push(drawRectangle(paperWidth * 0.005, "0.5", xSchichtprofilMassstabRechts, y, "0.25", "#000000", "#000000", 1));
+				}
+				
 				// TEMPERATUR-MASSSTAB
 				yTemperaturMassstab = 9.5;
 				yTemperaturMassstabText = 8.8;
-				items.push(drawText("°C", xMargin, yMargin + paperWidth * 0.145, 0, "#000000", fontSize));
 				for(var j=2; j < tempMax; j=j+2) {
-					var x = 55 - (40* j/tempMax);
-					if(pdfFlag) {
-						x = x - pdfMarginX;
-					}
-					items.push(drawText(j, (x-0.25)+"%", yMargin + paperWidth * 0.14, 0, "#000000", fontSize));
-					items.push(drawRectangle("0.5", "0.5%", x+"%", yMargin + paperWidth * 0.15, "0.25", "#000000", "#000000", 1));
+					var x = 55 - (55 * j/tempMax);
+					if(j<10)
+						xText = x - 0.6;
+					else
+						xText = x - 1;
+					items.push(drawText(j, xMargin + paperWidth * (xText/100), yMargin + paperWidth * 0.14, 0, "#000000", fontSize));
+					items.push(drawRectangle("0.5", paperHeight * 0.005, xMargin + paperWidth * x/100, yMargin + paperWidth * 0.1475, "0.25", "#000000", "#000000", 1));
 				}
 			}
 		}
